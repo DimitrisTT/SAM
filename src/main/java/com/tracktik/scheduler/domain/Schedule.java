@@ -1,8 +1,5 @@
 package com.tracktik.scheduler.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
@@ -10,49 +7,54 @@ import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProp
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @PlanningSolution
 public class Schedule {
 
-	private HardSoftLongScore score;
+  private HardSoftLongScore score;
 
-	@ValueRangeProvider(id = "employees")
-	@ProblemFactCollectionProperty
-	private List<Employee> employees = new ArrayList<Employee>();
+  @ValueRangeProvider(id = "employees")
+  @ProblemFactCollectionProperty
+  private List<Employee> employees = new ArrayList<Employee>();
 
-	@PlanningEntityCollectionProperty
-	private List<Shift> shifts = new ArrayList<Shift>();
-	
+  @PlanningEntityCollectionProperty
+  private List<Shift> shifts = new ArrayList<Shift>();
 
-	@PlanningScore
-	public HardSoftLongScore getScore() {
-		return score;
-	}
 
-	public void setScore(HardSoftLongScore score) {
-		this.score = score;
-	}
+  @PlanningScore
+  public HardSoftLongScore getScore() {
+    return score;
+  }
 
-	public List<Employee> getEmployees() {
-		return employees;
-	}
+  public void setScore(HardSoftLongScore score) {
+    this.score = score;
+  }
 
-	public void setEmployees(List<Employee> employees) {
-		this.employees = employees;
-	}
+  public List<Employee> getEmployees() {
+    return employees;
+  }
 
-	public List<Shift> getShifts() {
-		return shifts;
-	}
-	public Schedule addShift(Shift shift) {
-		shifts.add(shift);
-		return this;
-	}
+  public void setEmployees(List<Employee> employees) {
+    this.employees = employees;
+  }
 
-	public void setShifts(List<Shift> shifts) {
-		this.shifts = shifts;
-	}
-	public Schedule addEmployee(Employee employee) {
-		employees.add(employee);
-		return this;
-	}
+  public List<Shift> getShifts() {
+    return shifts;
+  }
+
+  public Schedule addShift(Shift shift) {
+    shifts.add(shift);
+    return this;
+  }
+
+  public void setShifts(List<Shift> shifts) {
+    this.shifts = shifts;
+  }
+
+  public Schedule addEmployee(Employee employee) {
+    employees.add(employee);
+    return this;
+  }
 }
