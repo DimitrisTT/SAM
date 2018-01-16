@@ -1,0 +1,5 @@
+
+import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
+
+
+global HardSoftLongScoreHolder scoreHolder;
