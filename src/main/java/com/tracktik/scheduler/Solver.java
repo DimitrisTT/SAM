@@ -1,14 +1,6 @@
 package com.tracktik.scheduler;
 
-import org.optaplanner.benchmark.api.PlannerBenchmark;
 import org.optaplanner.benchmark.api.PlannerBenchmarkFactory;
-import org.optaplanner.core.api.solver.SolverFactory;
-import org.optaplanner.persistence.common.api.domain.solution.SolutionFileIO;
-
-import com.tracktik.scheduler.benchmark.SchedulerSolutionFileIO;
-import com.tracktik.scheduler.domain.Employee;
-import com.tracktik.scheduler.domain.Schedule;
-import com.tracktik.scheduler.domain.Shift;
 
 public class Solver {
 
@@ -36,6 +28,7 @@ public class Solver {
 
 		
 
-	}
+
+  }
 
 }

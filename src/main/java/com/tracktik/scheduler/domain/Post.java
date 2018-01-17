@@ -85,4 +85,5 @@ public class Post {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 }

@@ -1,14 +1,14 @@
 package com.tracktik.scheduler.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
 import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProperty;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @PlanningSolution
 public class Schedule {
@@ -76,4 +76,5 @@ public class Schedule {
 	public void setSites(List<Site> sites) {
 		this.sites = sites;
 	}
+
 }
