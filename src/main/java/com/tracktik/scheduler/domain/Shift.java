@@ -16,24 +16,27 @@ public class Shift {
     return timeSlot;
   }
 
-  public void setTimeSlot(TimeSlot timeSlot) {
+  public Shift setTimeSlot(TimeSlot timeSlot) {
     this.timeSlot = timeSlot;
+    return this;
   }
 
   public Post getPost() {
     return post;
   }
 
-  public void setPost(Post post) {
+  public Shift setPost(Post post) {
     this.post = post;
+    return this;
   }
 
   public Employee getEmployee() {
     return employee;
   }
 
-  public void setEmployee(Employee employee) {
+  public Shift setEmployee(Employee employee) {
     this.employee = employee;
+    return this;
   }
 
   @Override

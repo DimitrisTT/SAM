@@ -1,6 +1,8 @@
 package com.tracktik.scheduler.domain;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class TimeSlot {
 
@@ -11,16 +13,22 @@ public class TimeSlot {
     return start;
   }
 
-  public void setStart(LocalDateTime start) {
+  public TimeSlot setStart(LocalDateTime start) {
     this.start = start;
+    return this;
   }
 
   public LocalDateTime getEnd() {
     return end;
   }
 
-  public void setEnd(LocalDateTime end) {
+  public TimeSlot setEnd(LocalDateTime end) {
     this.end = end;
+    return this;
+  }
+
+  public Long getDurationHours() {
+    return Duration.between(start, end).toHours();
   }
 
   @Override

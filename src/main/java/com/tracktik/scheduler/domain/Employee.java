@@ -10,7 +10,7 @@ public class Employee {
   private List<Site> siteExperience = new ArrayList<Site>();
   private List<Skill> skills = new ArrayList<Skill>();
   private Long cost;  //times 100
-  private Integer preferredHours = 40;
+  private Long preferredHours = 40L;
 
   public String getId() {
     return id;
@@ -52,11 +52,11 @@ public class Employee {
     this.availabilityPreference = availabilityPreference;
   }
 
-  public Integer getPreferredHours() {
+  public Long getPreferredHours() {
     return preferredHours;
   }
 
-  public void setPreferredHours(Integer preferredHours) {
+  public void setPreferredHours(Long preferredHours) {
     this.preferredHours = preferredHours;
   }
 

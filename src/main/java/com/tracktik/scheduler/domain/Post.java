@@ -10,7 +10,7 @@ public class Post {
   private Long billRate; //times 100
   private Long payRate; //time 100
   private Boolean useEmployeePayRate;
-  private List<Skill> softskills = new ArrayList<Skill>();
+  private List<Skill> softSkills = new ArrayList<Skill>();
   private List<Skill> hardSkills = new ArrayList<Skill>();
 
   public String getId() {
@@ -53,12 +53,12 @@ public class Post {
     this.useEmployeePayRate = useEmployeePayRate;
   }
 
-  public List<Skill> getSoftskills() {
-    return softskills;
+  public List<Skill> getSoftSkills() {
+    return softSkills;
   }
 
-  public void setSoftskills(List<Skill> softskills) {
-    this.softskills = softskills;
+  public void setSoftSkills(List<Skill> softskills) {
+    this.softSkills = softskills;
   }
 
   public List<Skill> getHardSkills() {
