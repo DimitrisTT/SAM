@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Post {
 
+
+	private String name;
   private String id;
   private Site site;
   private Long billRate; //times 100
@@ -13,6 +15,13 @@ public class Post {
   private List<Skill> softSkills = new ArrayList<Skill>();
   private List<Skill> hardSkills = new ArrayList<Skill>();
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
   public String getId() {
     return id;
   }

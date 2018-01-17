@@ -2,7 +2,6 @@ package com.tracktik.scheduler.domain;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 public class TimeSlot {
 
@@ -25,6 +24,11 @@ public class TimeSlot {
   public TimeSlot setEnd(LocalDateTime end) {
     this.end = end;
     return this;
+  }
+
+  public Boolean overlaps(TimeSlot other) {
+    return this.getStart().isBefore(other.getEnd()) && other.getStart().isBefore(this.getEnd());
+
   }
 
   public Long getDurationHours() {

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plannerBenchmark>
+	<benchmarkDirectory>local/benchmark</benchmarkDirectory>
+
+
+	<inheritedSolverBenchmark>
+		<problemBenchmarks>
+			<solutionFileIOClass>com.tracktik.scheduler.benchmark.SchedulerSolutionFileIO</solutionFileIOClass>
+			<inputSolutionFile>src/main/resources/AR-Report-10.txt</inputSolutionFile>
+			<writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
+		</problemBenchmarks>
+		<solver>
+			<scanAnnotatedClasses />
+
+
+
+			<!-- Score configuration -->
+			<scoreDirectorFactory>
+				<scoreDrl>schedulerScoreRules.drl</scoreDrl>
+				<initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+			</scoreDirectorFactory>
+
+			<termination>
+				<secondsSpentLimit>60</secondsSpentLimit>
+			</termination>
+
+		</solver>
+
+	</inheritedSolverBenchmark>
+
+	<solverBenchmark>
+		<name>Basic</name>
+		<solver>
+
+			
+
+			<constructionHeuristic>
+				<constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
+
+			</constructionHeuristic>
+			<localSearch />
+
+		</solver>
+	</solverBenchmark>
+</plannerBenchmark>

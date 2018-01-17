@@ -8,7 +8,7 @@ import java.time.temporal.ChronoUnit;
 global HardSoftLongScoreHolder scoreHolder;
 
 function Long hoursGap(LocalDateTime time1, LocalDateTime time2) {
-    return Duration.between(time1, time2).get(ChronoUnit.HOURS);
+    return Duration.between(time1, time2).toHours();
 }
 
 function Long numberOfMatches(Collection first, Collection other) {
@@ -17,8 +17,8 @@ function Long numberOfMatches(Collection first, Collection other) {
 
 rule "employee can not work two shifts at same time"
     when
-        Shift($employee : employee, $timeSlot : timeSlot, employee != null)
-        Shift(employee == $employee, timeSlot.getEnd() >= $timeSlot.getStart())
+        $shift: Shift($employee : employee, $timeSlot : timeSlot, employee != null)
+        Shift(this != $shift, employee == $employee,  timeSlot.overlaps($timeSlot))
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
@@ -31,15 +31,15 @@ rule "employee must have hard skills"
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
-
+/*
 rule "there must be 8 hour gap between shifts"
-    when
+   when
         Shift($employee: employee, $firstShiftEnd: timeSlot.getEnd())
         Shift($employee == employee, $firstShiftEnd < timeSlot.getStart(), $nextShiftStart: timeSlot.getStart())
     then
         scoreHolder.addHardConstraintMatch(kcontext, hoursGap($firstShiftEnd, $nextShiftStart) < 8L ? -1 : 0);
 end
-
+*/
 rule "has some requested soft skills"
     when
         $employee: Employee($skills: skills)
@@ -51,11 +51,10 @@ end
 
 rule "maximize profit"
     when
-        $employee: Employee($cost: cost)
-        Shift($post: post, $employee == employee, $timeSlot : timeSlot)
-        Post(this == $post, $billRate: billRate)
+        Shift($post: post, $timeSlot : timeSlot)
+        Post(this == $post, $billRate: billRate, $payRate: payRate)
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, ($billRate - $cost) * ($billRate - $cost) * (($billRate - $cost) < 0 ? -1 : 1));
+        scoreHolder.addSoftConstraintMatch(kcontext, ($billRate - $payRate));
 end
 
 rule "minimum availability preference"

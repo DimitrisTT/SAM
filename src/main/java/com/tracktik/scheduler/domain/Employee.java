@@ -5,7 +5,9 @@ import java.util.List;
 
 public class Employee {
 
+
   private String id;
+  private String name;
   private AvailabilityPreference availabilityPreference;
   private List<Site> siteExperience = new ArrayList<Site>();
   private List<Skill> skills = new ArrayList<Skill>();
@@ -84,4 +86,12 @@ public class Employee {
       return false;
     return true;
   }
+
+public String getName() {
+	return name;
+}
+
+public void setName(String name) {
+	this.name = name;
+}
 }

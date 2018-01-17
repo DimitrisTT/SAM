@@ -28,5 +28,9 @@ local/*
 *.settings
 *.classpath
 
+<<<<<<< HEAD
+/target/
+=======
 /.idea/
 /scheduler.iml
+>>>>>>> origin

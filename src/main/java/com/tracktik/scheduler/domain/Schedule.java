@@ -13,48 +13,68 @@ import java.util.List;
 @PlanningSolution
 public class Schedule {
 
-  private HardSoftLongScore score;
+	private HardSoftLongScore score;
 
-  @ValueRangeProvider(id = "employees")
-  @ProblemFactCollectionProperty
-  private List<Employee> employees = new ArrayList<Employee>();
+	@ValueRangeProvider(id = "employees")
+	@ProblemFactCollectionProperty
+	private List<Employee> employees = new ArrayList<Employee>();
 
-  @PlanningEntityCollectionProperty
-  private List<Shift> shifts = new ArrayList<Shift>();
+	@PlanningEntityCollectionProperty
+	private List<Shift> shifts = new ArrayList<Shift>();
+	
+	@ProblemFactCollectionProperty
+	private List<Post> posts = new ArrayList<Post>();
+	@ProblemFactCollectionProperty
+	private List<Site> sites = new ArrayList<Site>();
+	
 
+	@PlanningScore
+	public HardSoftLongScore getScore() {
+		return score;
+	}
 
-  @PlanningScore
-  public HardSoftLongScore getScore() {
-    return score;
-  }
+	public void setScore(HardSoftLongScore score) {
+		this.score = score;
+	}
 
-  public void setScore(HardSoftLongScore score) {
-    this.score = score;
-  }
+	public List<Employee> getEmployees() {
+		return employees;
+	}
 
-  public List<Employee> getEmployees() {
-    return employees;
-  }
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
+	}
 
-  public void setEmployees(List<Employee> employees) {
-    this.employees = employees;
-  }
+	public List<Shift> getShifts() {
+		return shifts;
+	}
+	public Schedule addShift(Shift shift) {
+		shifts.add(shift);
+		return this;
+	}
 
-  public List<Shift> getShifts() {
-    return shifts;
-  }
+	public void setShifts(List<Shift> shifts) {
+		this.shifts = shifts;
+	}
+	public Schedule addEmployee(Employee employee) {
+		employees.add(employee);
+		return this;
+	}
 
-  public Schedule addShift(Shift shift) {
-    shifts.add(shift);
-    return this;
-  }
+	public List<Post> getPosts() {
+		return posts;
+	}
 
-  public void setShifts(List<Shift> shifts) {
-    this.shifts = shifts;
-  }
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
 
-  public Schedule addEmployee(Employee employee) {
-    employees.add(employee);
-    return this;
-  }
+	public List<Site> getSites() {
+		return sites;
+	}
+
+	public void setSites(List<Site> sites) {
+		this.sites = sites;
+	}
+
 }

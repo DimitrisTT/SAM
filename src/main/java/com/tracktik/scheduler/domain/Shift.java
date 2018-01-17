@@ -3,7 +3,7 @@ package com.tracktik.scheduler.domain;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
-@PlanningEntity()
+@PlanningEntity(difficultyComparatorClass = ShiftDifficultyComparator.class)
 public class Shift {
 
   private TimeSlot timeSlot;
