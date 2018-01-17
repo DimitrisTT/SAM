@@ -1,6 +1,8 @@
 package com.tracktik.scheduler.benchmark;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.optaplanner.benchmark.api.PlannerBenchmarkFactory;
 import org.optaplanner.benchmark.config.SolverBenchmarkConfig;
+import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
 import org.optaplanner.core.api.score.constraint.ConstraintMatch;
 import org.optaplanner.core.api.score.constraint.ConstraintMatchTotal;
 import org.optaplanner.core.api.solver.SolverFactory;
@@ -57,6 +60,7 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
 		Map<String, Skill> skills = createSkills(json.getJSONArray("skills"));
 		mapSkillsToPosts(json.getJSONArray("post_skills"), posts, skills);
 		mapSkillsToEmployees(json.getJSONArray("employee_skills"), employees, skills);
+		mapSitesToEmployees(json.getJSONArray("employees_to_sites"), sites, employees);
 		List<Shift> shifts = createShifts(json.getJSONArray("shifts"), posts);
 		
 		Schedule schedule = new Schedule();
@@ -68,7 +72,18 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
 
 	}
 
-	private List<Shift> createShifts(JSONArray shiftsJson, Map<String, Post> posts) {
+  private void mapSitesToEmployees(JSONArray employeeToSites, Map<String, Site> sites, Map<String, Employee> employees) {
+	  for(Object employeeToSiteObject: employeeToSites){
+	    JSONObject employeeToSiteJson = (JSONObject)employeeToSiteObject;
+	    Employee employee = employees.get(employeeToSiteJson.get("user_id"));
+	    Site site = sites.get(employeeToSiteJson.get("site_id"));
+	    if(employee != null && site != null){
+	      employee.getSiteExperience().add(site);
+      }
+    }
+  }
+
+  private List<Shift> createShifts(JSONArray shiftsJson, Map<String, Post> posts) {
 		List<Shift> shifts = new ArrayList<Shift>();
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		
@@ -82,6 +97,7 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
 			timeSlot.setStart(start);
 			timeSlot.setEnd(end);
 			shift.setTimeSlot(timeSlot);
+			shift.setId(shiftJson.getString("shift_id"));
 			shifts.add(shift);
 		}
 		return shifts;
@@ -132,9 +148,13 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
 		for (Object postObject : postsJson) {
 			JSONObject postJson = (JSONObject) postObject;
 			Post post = new Post();
-			post.setBillRate(Double.valueOf((postJson.getDouble("bill_rate") * 100)).longValue());
+			if(postJson.get("bill_rate").equals(JSONObject.NULL)){
+				post.setBillRate(20L);
+			}else {
+				post.setBillRate((Double.valueOf(postJson.getDouble("bill_rate")*100)).longValue());
+			}
 			post.setId(postJson.getString("id"));
-			post.setPayRate(Double.valueOf((postJson.getDouble("pay_rate") * 100)).longValue());
+			post.setPayRate(post.getBillRate() - 5);
 			post.setSoftSkills(new ArrayList<Skill>());
 			post.setHardSkills(new ArrayList<Skill>());
 			post.setSite(sites.get(postJson.get("site_id")));
@@ -172,7 +192,7 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
 
 	}
 
-	public void write(Schedule solution, File arg1) {
+	public void write(Schedule solution, File file) {
 		SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource(
 				"schedulerConfig.xml");
 		ScoreDirector<Schedule> scoreDirector = solverFactory.buildSolver().getScoreDirectorFactory().buildScoreDirector();
@@ -180,6 +200,27 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
 		for(ConstraintMatchTotal cm : scoreDirector.getConstraintMatchTotals()){
 			System.out.println(cm.getConstraintName() + " : " + cm.getScoreTotal());
 		}
+		JSONObject results = new JSONObject();
+		JSONArray shifts = new JSONArray();
+		for(Shift shift: solution.getShifts()){
+			JSONObject shiftJson = new JSONObject();
+			shiftJson.put("shift_id", shift.getId());
+			shiftJson.put("employee_id", shift.getEmployee().getId());
+			shifts.put(shiftJson);
+		}
+		results.put("shifts", shifts);
+		JSONObject meta = new JSONObject();
+		meta.put("hard_constraint_score", ((HardSoftLongScore)scoreDirector.calculateScore()).getHardScore());
+		meta.put("soft_constraint_score", ((HardSoftLongScore)scoreDirector.calculateScore()).getSoftScore());
+		results.put("meta", meta);
+		try (
+				BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+			  writer.write(results.toString());
+			  writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 
 	}
 

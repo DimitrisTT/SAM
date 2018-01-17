@@ -26,8 +26,10 @@ public class TimeSlot {
     return this;
   }
 
-  public Boolean overlaps(TimeSlot other) {
-    return this.getStart().isBefore(other.getEnd()) && other.getStart().isBefore(this.getEnd());
+  public Boolean overlaps(TimeSlot other, int hours) {
+    LocalDateTime thisEnd = this.getEnd().plusHours(hours);
+    LocalDateTime otherEnd = other.getEnd().plusHours(hours);
+    return this.getStart().isBefore(otherEnd) && other.getStart().isBefore(thisEnd);
 
   }
 

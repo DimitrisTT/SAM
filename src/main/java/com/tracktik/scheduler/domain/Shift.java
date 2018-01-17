@@ -3,11 +3,14 @@ package com.tracktik.scheduler.domain;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
+import java.time.Duration;
+
 @PlanningEntity(difficultyComparatorClass = ShiftDifficultyComparator.class)
 public class Shift {
 
   private TimeSlot timeSlot;
   private Post post;
+  private String id;
 
   @PlanningVariable(valueRangeProviderRefs = "employees")
   private Employee employee;
@@ -21,9 +24,14 @@ public class Shift {
     return this;
   }
 
+  public long getHours(){
+    return Duration.between(timeSlot.getStart(), timeSlot.getEnd()).toHours();
+  }
+
   public Post getPost() {
     return post;
   }
+
 
   public Shift setPost(Post post) {
     this.post = post;
@@ -76,4 +84,11 @@ public class Shift {
     return true;
   }
 
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
 }

@@ -7,10 +7,6 @@ import java.time.temporal.ChronoUnit;
 
 global HardSoftLongScoreHolder scoreHolder;
 
-function Long hoursGap(LocalDateTime time1, LocalDateTime time2) {
-    return Duration.between(time1, time2).toHours();
-}
-
 function Long numberOfMatches(Collection first, Collection other) {
     return first.stream().filter(item -> other.contains(item)).count();
 }
@@ -18,7 +14,7 @@ function Long numberOfMatches(Collection first, Collection other) {
 rule "employee can not work two shifts at same time"
     when
         $shift: Shift($employee : employee, $timeSlot : timeSlot, employee != null)
-        Shift(this != $shift, employee == $employee,  timeSlot.overlaps($timeSlot))
+        Shift(this != $shift, employee == $employee,  timeSlot.overlaps($timeSlot, 8))
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
@@ -31,31 +27,60 @@ rule "employee must have hard skills"
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
-/*
-rule "there must be 8 hour gap between shifts"
+
+/*rule "there must be 8 hour gap between shifts"
    when
         Shift($employee: employee, $firstShiftEnd: timeSlot.getEnd())
-        Shift($employee == employee, $firstShiftEnd < timeSlot.getStart(), $nextShiftStart: timeSlot.getStart())
+        Shift($employee == employee, hoursGap($firstShiftEnd, timeSlot.getStart()) < 8L)
     then
-        scoreHolder.addHardConstraintMatch(kcontext, hoursGap($firstShiftEnd, $nextShiftStart) < 8L ? -1 : 0);
-end
-*/
+        scoreHolder.addHardConstraintMatch(kcontext, -1);
+end*/
+
 rule "has some requested soft skills"
     when
         $employee: Employee($skills: skills)
         Shift($post: post, $employee == employee)
-        Post(this == $post, $softSkills: softSkills)
+        Post(this == $post, $softSkills: softSkills , numberOfMatches(softSkills, $skills) > 0 )
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, numberOfMatches($softSkills, $skills) * numberOfMatches($softSkills, $skills));
+        scoreHolder.addSoftConstraintMatch(kcontext, numberOfMatches($softSkills, $skills) * 50 );
 end
 
-rule "maximize profit"
+rule "add overtime cost"
+    when
+        $employee: Employee()
+        accumulate(
+            Shift(employee == $employee, $hours: hours, $post: post) and Post(this == $post, $billRate: billRate, $payRate: payRate);
+            $totalHours: sum($hours),
+            $totalCost: sum($payRate * $hours),
+            $totalBilled: sum($billRate * $hours)
+        )
+     then
+     insertLogical(new CostTotals($employee, $totalHours, $totalBilled.longValue(), $totalCost.longValue() ));
+end
+
+rule "non overtime pay"
+    when
+       CostTotals($margin: totalCost - totalBilled)
+
+    then
+       scoreHolder.addSoftConstraintMatch(kcontext, $margin /100 );
+end
+
+rule "overtime pay"
+    when
+       CostTotals(hours>40, $otHours: hours - 40, $weightedCost: totalCost/hours) //might have to do rounding instead of truncate
+
+    then
+       scoreHolder.addSoftConstraintMatch(kcontext, - ($otHours * $weightedCost / 2)  / 100 );
+end
+
+/*rule "maximize profit"
     when
         Shift($post: post, $timeSlot : timeSlot)
         Post(this == $post, $billRate: billRate, $payRate: payRate)
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, ($billRate - $payRate));
-end
+        scoreHolder.addSoftConstraintMatch(kcontext, ($billRate - $payRate)/100L);
+end*/
 
 rule "minimum availability preference"
     when
@@ -73,7 +98,7 @@ rule "has site experience"
     when
         $employee: Employee($sites: siteExperience)
         Shift($post: post, $employee == employee)
-        Post(this == $post, $site: site)
+        Post(this == $post, site not memberOf  $sites )
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, $sites.contains($site) ? 0 : -100);
+        scoreHolder.addSoftConstraintMatch(kcontext, -100);
 end

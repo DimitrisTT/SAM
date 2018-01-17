@@ -17,11 +17,10 @@
 			<!-- Score configuration -->
 			<scoreDirectorFactory>
 				<scoreDrl>schedulerScoreRules.drl</scoreDrl>
-				<initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
 			</scoreDirectorFactory>
 
 			<termination>
-				<secondsSpentLimit>60</secondsSpentLimit>
+				<secondsSpentLimit>600</secondsSpentLimit>
 			</termination>
 
 		</solver>
