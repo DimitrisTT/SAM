@@ -22,6 +22,11 @@ public class Schedule {
 	@PlanningEntityCollectionProperty
 	private List<Shift> shifts = new ArrayList<Shift>();
 	
+	@ProblemFactCollectionProperty
+	private List<Post> posts = new ArrayList<Post>();
+	@ProblemFactCollectionProperty
+	private List<Site> sites = new ArrayList<Site>();
+	
 
 	@PlanningScore
 	public HardSoftLongScore getScore() {
@@ -54,5 +59,21 @@ public class Schedule {
 	public Schedule addEmployee(Employee employee) {
 		employees.add(employee);
 		return this;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+
+	public List<Site> getSites() {
+		return sites;
+	}
+
+	public void setSites(List<Site> sites) {
+		this.sites = sites;
 	}
 }
