@@ -1,11 +1,17 @@
 package com.tracktik.scheduler.application;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import com.tracktik.scheduler.domain.Schedule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
@@ -16,8 +22,9 @@ import org.springframework.jms.support.converter.MessageType;
 
 import javax.jms.ConnectionFactory;
 
-@SpringBootApplication
 @EnableJms
+@ComponentScan(basePackages = "com.tracktik")
+@SpringBootApplication
 public class Application {
 
   @Bean
@@ -44,10 +51,5 @@ public class Application {
     // Launch the application
     ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
 
-    JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
-
-    // Send a message with a POJO - the template reuse the message converter
-    System.out.println("Sending an email message.");
-    jmsTemplate.convertAndSend("tracktik.scheduler", new Schedule());
   }
 }

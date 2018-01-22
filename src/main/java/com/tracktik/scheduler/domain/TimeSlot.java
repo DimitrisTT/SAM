@@ -1,53 +1,83 @@
 package com.tracktik.scheduler.domain;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.TimeZone;
+
+import static java.time.temporal.ChronoUnit.HOURS;
 
 public class TimeSlot {
 
-  private LocalDateTime start;
-  private LocalDateTime end;
+  private static final Logger logger = LoggerFactory.getLogger(TimeSlot.class);
 
+  private static final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+  private Date start;
+  private Date end;
+
+  public TimeSlot() {}
   public TimeSlot(String sStartDateTime, String sEndDateTime) {
-    start = LocalDateTime.parse(sStartDateTime, DateTimeFormatter.ISO_DATE_TIME);
-    end = LocalDateTime.parse(sEndDateTime, DateTimeFormatter.ISO_DATE_TIME);
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    try {
+      start = sdf.parse(sStartDateTime);
+      end = sdf.parse(sEndDateTime);
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+
+    /*
+    start = LocalDateTime.parse(sStartDateTime, format);
+    end = LocalDateTime.parse(sEndDateTime, format);
+    */
   }
 
   public TimeSlot(Long startTime, Long endTime) {
+    start = new Date(startTime);
+    end = new Date(endTime);
+    /*
     start = LocalDateTime.ofInstant(Instant.ofEpochMilli(startTime), TimeZone.getDefault().toZoneId());
     end = LocalDateTime.ofInstant(Instant.ofEpochMilli(endTime), TimeZone.getDefault().toZoneId());
+    */
   }
 
-  public LocalDateTime getStart() {
+  public Date getStart() {
     return start;
   }
 
-  public TimeSlot setStart(LocalDateTime start) {
+  public TimeSlot setStart(Date start) {
     this.start = start;
     return this;
   }
 
-  public LocalDateTime getEnd() {
+  public Date getEnd() {
     return end;
   }
 
-  public TimeSlot setEnd(LocalDateTime end) {
+  public TimeSlot setEnd(Date end) {
     this.end = end;
     return this;
   }
 
   public Boolean overlaps(TimeSlot other, int hours) {
-    LocalDateTime thisEnd = this.getEnd().plusHours(hours);
-    LocalDateTime otherEnd = other.getEnd().plusHours(hours);
-    return this.getStart().isBefore(otherEnd) && other.getStart().isBefore(thisEnd);
 
+    logger.debug("Overlaps: " + other.toString(), " hours: " + hours);
+    Date thisEnd = new Date(this.getEnd().toInstant().plus(hours, HOURS).toEpochMilli());
+    Date otherEnd = new Date(other.getEnd().toInstant().plus(hours, HOURS).toEpochMilli());
+    Boolean doesOverlap =  this.getStart().before(otherEnd) && other.getStart().before(thisEnd);
+    logger.debug("Overlapping: " + doesOverlap);
+    return doesOverlap;
   }
 
   public Long getDurationHours() {
-    return Duration.between(start, end).toHours();
+    return Duration.between(start.toInstant(), end.toInstant()).toHours();
   }
 
   @Override
@@ -79,5 +109,13 @@ public class TimeSlot {
     } else if (!start.equals(other.start))
       return false;
     return true;
+  }
+
+  @Override
+  public String toString() {
+    return "TimeSlot{" +
+        "start=" + start +
+        ", end=" + end +
+        '}';
   }
 }

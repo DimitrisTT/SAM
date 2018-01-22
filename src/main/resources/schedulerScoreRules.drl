@@ -10,13 +10,15 @@ function Long numberOfMatches(Collection first, Collection other) {
     return first.stream().filter(item -> other.contains(item)).count();
 }
 
+/*
 rule "employee can not work two shifts at same time"
     when
-        $shift: Shift($employee : employee, $timeSlot : timeSlot, employee != null)
-        Shift(this != $shift, employee == $employee,  timeSlot.overlaps($timeSlot, 8))
+        $shift: Shift($employee : employee, $timeSlot : timeSlot, employee != null, timeSlot != null)
+        Shift(this != $shift, employee == $employee, timeSlot != null, timeSlot.overlaps($timeSlot, 8))
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
+*/
 
 rule "employee must have hard skills"
     when
@@ -48,7 +50,7 @@ rule "add cost data"
     when
         $employee: Employee()
         accumulate(
-            Shift(employee == $employee, $hours: hours, $post: post) and Post(this == $post, $billRate: billRate, $payRate: payRate);
+            Shift(employee == $employee, $hours: hours, $post: post) and Post(this == $post, $billRate: billRate, $payRate: payRate, billRate!= null, payRate != null);
             $totalHours: sum($hours),
             $totalCost: sum($payRate * $hours),
             $totalBilled: sum($billRate * $hours)

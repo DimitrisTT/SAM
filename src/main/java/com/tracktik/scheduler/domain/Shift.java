@@ -15,6 +15,7 @@ public class Shift {
   @PlanningVariable(valueRangeProviderRefs = "employees")
   private Employee employee;
 
+  public Shift() {}
   public TimeSlot getTimeSlot() {
     return timeSlot;
   }
@@ -25,7 +26,7 @@ public class Shift {
   }
 
   public long getHours() {
-    return Duration.between(timeSlot.getStart(), timeSlot.getEnd()).toHours();
+    return Duration.between(timeSlot.getStart().toInstant(), timeSlot.getEnd().toInstant()).toHours();
   }
 
   public Post getPost() {
@@ -91,5 +92,15 @@ public class Shift {
   public Shift setId(String id) {
     this.id = id;
     return this;
+  }
+
+  @Override
+  public String toString() {
+    return "Shift{" +
+        "timeSlot=" + timeSlot +
+        ", post id=" + post.getId() +
+        ", id='" + id + '\'' +
+        ", employee id=" + ((employee==null) ? "none" : employee.getId()) +
+        '}';
   }
 }

@@ -15,6 +15,8 @@ import java.util.List;
 @PlanningSolution
 public class Schedule {
 
+  private String id;
+
   @XStreamConverter(HardSoftLongScoreXStreamConverter.class)
   private HardSoftLongScore score;
 
@@ -51,13 +53,13 @@ public class Schedule {
     return shifts;
   }
 
+  public void setShifts(List<Shift> shifts) {
+    this.shifts = shifts;
+  }
+
   public Schedule addShift(Shift shift) {
     shifts.add(shift);
     return this;
-  }
-
-  public void setShifts(List<Shift> shifts) {
-    this.shifts = shifts;
   }
 
   public Schedule addEmployee(Employee employee) {
@@ -81,4 +83,24 @@ public class Schedule {
     this.sites = sites;
   }
 
+  public String getId() {
+    return id;
+  }
+
+  public Schedule setId(String id) {
+    this.id = id;
+    return this;
+  }
+
+  @Override
+  public String toString() {
+    return "Schedule{" +
+        "id='" + id + '\'' +
+        ", score=" + score +
+        ", employees=" + employees +
+        ", shifts=" + shifts +
+        ", posts=" + posts +
+        ", sites=" + sites +
+        '}';
+  }
 }

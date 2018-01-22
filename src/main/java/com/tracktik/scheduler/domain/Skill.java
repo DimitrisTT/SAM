@@ -5,6 +5,7 @@ public class Skill {
   private String id;
   private String description;
 
+  public Skill() {}
   public Skill(String sId, String sDescription) {
     id = sId;
     description = sDescription;

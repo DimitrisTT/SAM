@@ -101,4 +101,14 @@ public class Employee {
     this.name = name;
     return this;
   }
+
+  public Employee setCostFromFloatString(String pay_rate) {
+    if (pay_rate != null) {
+      Float rate = new Float(pay_rate);
+      rate = rate * 100;
+      this.setCost(rate.longValue());
+    }
+
+    return this;
+  }
 }

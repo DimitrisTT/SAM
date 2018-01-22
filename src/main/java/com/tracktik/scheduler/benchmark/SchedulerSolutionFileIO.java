@@ -14,6 +14,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -73,17 +75,22 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
   private List<Shift> createShifts(JSONArray shiftsJson, Map<String, Post> posts) {
     List<Shift> shifts = new ArrayList<Shift>();
     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     for (Object shiftObject : shiftsJson) {
       JSONObject shiftJson = (JSONObject) shiftObject;
       Shift shift = new Shift();
       shift.setPost(posts.get(shiftJson.get("post_id")));
       TimeSlot timeSlot = new TimeSlot();
-      LocalDateTime start = LocalDateTime.parse(shiftJson.getString("start_date_time"), format);
-      LocalDateTime end = LocalDateTime.parse(shiftJson.getString("end_date_time"), format);
-      timeSlot.setStart(start);
-      timeSlot.setEnd(end);
-      shift.setTimeSlot(timeSlot);
+      //LocalDateTime start = LocalDateTime.parse(shiftJson.getString("start_date_time"), format);
+      //LocalDateTime end = LocalDateTime.parse(shiftJson.getString("end_date_time"), format);
+      try {
+        timeSlot.setStart(sdf.parse(shiftJson.getString("start_date_time")));
+        timeSlot.setEnd(sdf.parse(shiftJson.getString("end_date_time")));
+        shift.setTimeSlot(timeSlot);
+      } catch (ParseException e) {
+        e.printStackTrace();
+      }
       shift.setId(shiftJson.getString("shift_id"));
       shifts.add(shift);
     }
