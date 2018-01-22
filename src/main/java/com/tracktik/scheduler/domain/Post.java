@@ -1,81 +1,95 @@
 package com.tracktik.scheduler.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Post {
-
 
 	private String name;
   private String id;
   private Site site;
   private Long billRate; //times 100
   private Long payRate; //time 100
-  private Boolean useEmployeePayRate;
-  private List<Skill> softSkills = new ArrayList<Skill>();
-  private List<Skill> hardSkills = new ArrayList<Skill>();
+
+  public PayType getPayType() {
+    return payType;
+  }
+
+  public Post setPayType(PayType payType) {
+    this.payType = payType;
+    return this;
+  }
+
+  private PayType payType;
+  private Set<Skill> softSkills = new HashSet<Skill>();
+  private Set<Skill> hardSkills = new HashSet<Skill>();
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public Post setName(String name) {
 		this.name = name;
+		return this;
 	}
   public String getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public Post setId(String id) {
     this.id = id;
+    return this;
   }
 
   public Site getSite() {
     return site;
   }
 
-  public void setSite(Site site) {
+  public Post setSite(Site site) {
     this.site = site;
+    return this;
   }
 
   public Long getBillRate() {
     return billRate;
   }
 
-  public void setBillRate(Long billRate) {
+  public Post setBillRate(Long billRate) {
     this.billRate = billRate;
+    return this;
   }
 
   public Long getPayRate() {
     return payRate;
   }
 
-  public void setPayRate(Long payRate) {
+  public Post setPayRate(Long payRate) {
     this.payRate = payRate;
+    return this;
   }
 
-  public Boolean getUseEmployeePayRate() {
-    return useEmployeePayRate;
-  }
-
-  public void setUseEmployeePayRate(Boolean useEmployeePayRate) {
-    this.useEmployeePayRate = useEmployeePayRate;
-  }
-
-  public List<Skill> getSoftSkills() {
+  public Set<Skill> getSoftSkills() {
     return softSkills;
   }
 
-  public void setSoftSkills(List<Skill> softskills) {
+  public Post setSoftSkills(Set<Skill> softskills) {
     this.softSkills = softskills;
+    return this;
   }
 
-  public List<Skill> getHardSkills() {
+  public Set<Skill> getHardSkills() {
     return hardSkills;
   }
 
-  public void setHardSkills(List<Skill> hardSkills) {
+  public Post setHardSkills(Set<Skill> hardSkills) {
     this.hardSkills = hardSkills;
+    return this;
+  }
+
+  public Long getNumberOfMatchingSoftSkills(Collection skills) {
+    return softSkills.stream().filter(skills::contains).count();
+  }
+  public Long getNumberOfMatchingHardSkills(Collection skills) {
+    return hardSkills.stream().filter(skills::contains).count();
   }
 
   @Override

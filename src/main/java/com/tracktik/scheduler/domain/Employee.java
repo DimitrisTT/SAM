@@ -18,48 +18,54 @@ public class Employee {
     return id;
   }
 
-  public void setId(String id) {
+  public Employee setId(String id) {
     this.id = id;
+    return this;
   }
 
   public List<Site> getSiteExperience() {
     return siteExperience;
   }
 
-  public void setSiteExperience(List<Site> siteExperience) {
+  public Employee setSiteExperience(List<Site> siteExperience) {
     this.siteExperience = siteExperience;
+    return this;
   }
 
   public List<Skill> getSkills() {
     return skills;
   }
 
-  public void setSkills(List<Skill> skills) {
+  public Employee setSkills(List<Skill> skills) {
     this.skills = skills;
+    return this;
   }
 
   public Long getCost() {
     return cost;
   }
 
-  public void setCost(Long cost) {
+  public Employee setCost(Long cost) {
     this.cost = cost;
+    return this;
   }
 
   public AvailabilityPreference getAvailabilityPreference() {
     return availabilityPreference;
   }
 
-  public void setAvailabilityPreference(AvailabilityPreference availabilityPreference) {
+  public Employee setAvailabilityPreference(AvailabilityPreference availabilityPreference) {
     this.availabilityPreference = availabilityPreference;
+    return this;
   }
 
   public Long getPreferredHours() {
     return preferredHours;
   }
 
-  public void setPreferredHours(Long preferredHours) {
+  public Employee setPreferredHours(Long preferredHours) {
     this.preferredHours = preferredHours;
+    return this;
   }
 
   @Override
@@ -87,11 +93,12 @@ public class Employee {
     return true;
   }
 
-public String getName() {
-	return name;
-}
+  public String getName() {
+    return name;
+  }
 
-public void setName(String name) {
-	this.name = name;
-}
+  public Employee setName(String name) {
+    this.name = name;
+    return this;
+  }
 }

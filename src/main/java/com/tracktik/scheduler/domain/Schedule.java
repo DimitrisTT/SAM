@@ -1,11 +1,13 @@
 package com.tracktik.scheduler.domain;
 
+import com.thoughtworks.xstream.annotations.XStreamConverter;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
 import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProperty;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
+import org.optaplanner.persistence.xstream.api.score.buildin.hardsoftlong.HardSoftLongScoreXStreamConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,68 +15,70 @@ import java.util.List;
 @PlanningSolution
 public class Schedule {
 
-	private HardSoftLongScore score;
+  @XStreamConverter(HardSoftLongScoreXStreamConverter.class)
+  private HardSoftLongScore score;
 
-	@ValueRangeProvider(id = "employees")
-	@ProblemFactCollectionProperty
-	private List<Employee> employees = new ArrayList<Employee>();
+  @ValueRangeProvider(id = "employees")
+  @ProblemFactCollectionProperty
+  private List<Employee> employees = new ArrayList<Employee>();
 
-	@PlanningEntityCollectionProperty
-	private List<Shift> shifts = new ArrayList<Shift>();
-	
-	@ProblemFactCollectionProperty
-	private List<Post> posts = new ArrayList<Post>();
-	@ProblemFactCollectionProperty
-	private List<Site> sites = new ArrayList<Site>();
-	
+  @PlanningEntityCollectionProperty
+  private List<Shift> shifts = new ArrayList<Shift>();
 
-	@PlanningScore
-	public HardSoftLongScore getScore() {
-		return score;
-	}
+  @ProblemFactCollectionProperty
+  private List<Post> posts = new ArrayList<Post>();
+  @ProblemFactCollectionProperty
+  private List<Site> sites = new ArrayList<Site>();
 
-	public void setScore(HardSoftLongScore score) {
-		this.score = score;
-	}
+  @PlanningScore
+  public HardSoftLongScore getScore() {
+    return score;
+  }
 
-	public List<Employee> getEmployees() {
-		return employees;
-	}
+  public void setScore(HardSoftLongScore score) {
+    this.score = score;
+  }
 
-	public void setEmployees(List<Employee> employees) {
-		this.employees = employees;
-	}
+  public List<Employee> getEmployees() {
+    return employees;
+  }
 
-	public List<Shift> getShifts() {
-		return shifts;
-	}
-	public Schedule addShift(Shift shift) {
-		shifts.add(shift);
-		return this;
-	}
+  public void setEmployees(List<Employee> employees) {
+    this.employees = employees;
+  }
 
-	public void setShifts(List<Shift> shifts) {
-		this.shifts = shifts;
-	}
-	public Schedule addEmployee(Employee employee) {
-		employees.add(employee);
-		return this;
-	}
+  public List<Shift> getShifts() {
+    return shifts;
+  }
 
-	public List<Post> getPosts() {
-		return posts;
-	}
+  public Schedule addShift(Shift shift) {
+    shifts.add(shift);
+    return this;
+  }
 
-	public void setPosts(List<Post> posts) {
-		this.posts = posts;
-	}
+  public void setShifts(List<Shift> shifts) {
+    this.shifts = shifts;
+  }
 
-	public List<Site> getSites() {
-		return sites;
-	}
+  public Schedule addEmployee(Employee employee) {
+    employees.add(employee);
+    return this;
+  }
 
-	public void setSites(List<Site> sites) {
-		this.sites = sites;
-	}
+  public List<Post> getPosts() {
+    return posts;
+  }
+
+  public void setPosts(List<Post> posts) {
+    this.posts = posts;
+  }
+
+  public List<Site> getSites() {
+    return sites;
+  }
+
+  public void setSites(List<Site> sites) {
+    this.sites = sites;
+  }
 
 }

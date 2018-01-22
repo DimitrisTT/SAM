@@ -3,7 +3,6 @@ import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHold
 import com.tracktik.scheduler.domain.*;
 import java.util.*;
 import java.time.*;
-import java.time.temporal.ChronoUnit;
 
 global HardSoftLongScoreHolder scoreHolder;
 
@@ -45,7 +44,7 @@ rule "has some requested soft skills"
         scoreHolder.addSoftConstraintMatch(kcontext, numberOfMatches($softSkills, $skills) * 50 );
 end
 
-rule "add overtime cost"
+rule "add cost data"
     when
         $employee: Employee()
         accumulate(
@@ -58,12 +57,12 @@ rule "add overtime cost"
      insertLogical(new CostTotals($employee, $totalHours, $totalBilled.longValue(), $totalCost.longValue() ));
 end
 
-rule "non overtime pay"
+rule "non overtime margin"
     when
        CostTotals($margin: totalCost - totalBilled)
 
     then
-       scoreHolder.addSoftConstraintMatch(kcontext, $margin /100 );
+       scoreHolder.addSoftConstraintMatch(kcontext, $margin / 100 );
 end
 
 rule "overtime pay"

@@ -1,12 +1,25 @@
 package com.tracktik.scheduler.domain;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.TimeZone;
 
 public class TimeSlot {
 
   private LocalDateTime start;
   private LocalDateTime end;
+
+  public TimeSlot(String sStartDateTime, String sEndDateTime) {
+    start = LocalDateTime.parse(sStartDateTime, DateTimeFormatter.ISO_DATE_TIME);
+    end = LocalDateTime.parse(sEndDateTime, DateTimeFormatter.ISO_DATE_TIME);
+  }
+
+  public TimeSlot(Long startTime, Long endTime) {
+    start = LocalDateTime.ofInstant(Instant.ofEpochMilli(startTime), TimeZone.getDefault().toZoneId());
+    end = LocalDateTime.ofInstant(Instant.ofEpochMilli(endTime), TimeZone.getDefault().toZoneId());
+  }
 
   public LocalDateTime getStart() {
     return start;

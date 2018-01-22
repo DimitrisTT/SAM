@@ -4,30 +4,43 @@ public class Site {
 
   private String id;
   private String name;
-  private Object location;
+  private Double latitude;
+  private Double longitude;
+
+  public Double getLongitude() {
+    return longitude;
+  }
+
+  public Site setLongitude(Double longitude) {
+    this.longitude = longitude;
+    return this;
+  }
+
+  public Double getLatitude() {
+    return latitude;
+  }
+
+  public Site setLatitude(Double latitude) {
+    this.latitude = latitude;
+    return this;
+  }
 
   public String getName() {
     return name;
   }
 
-  public void setName(String name) {
+  public Site setName(String name) {
     this.name = name;
-  }
-
-  public Object getLocation() {
-    return location;
-  }
-
-  public void setLocation(Object location) {
-    this.location = location;
+    return this;
   }
 
   public String getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public Site setId(String id) {
     this.id = id;
+    return this;
   }
 
   @Override

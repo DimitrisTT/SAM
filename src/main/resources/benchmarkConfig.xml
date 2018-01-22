@@ -12,15 +12,13 @@
 		<solver>
 			<scanAnnotatedClasses />
 
-
-
 			<!-- Score configuration -->
 			<scoreDirectorFactory>
 				<scoreDrl>schedulerScoreRules.drl</scoreDrl>
 			</scoreDirectorFactory>
 
 			<termination>
-				<secondsSpentLimit>600</secondsSpentLimit>
+				<secondsSpentLimit>10</secondsSpentLimit>
 			</termination>
 
 		</solver>

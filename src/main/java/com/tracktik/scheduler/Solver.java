@@ -5,7 +5,7 @@ import org.optaplanner.benchmark.api.PlannerBenchmarkFactory;
 
 public class Solver {
 
-	public static void main(String[] args) throws ClassNotFoundException {
+  public static void main(String[] args) throws ClassNotFoundException {
 
 		/*SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource(
 				"schedulerConfig.xml");
@@ -14,21 +14,14 @@ public class Solver {
 		unsolvedSchedule
 			.addEmployee(new Employee())
 			.addShift(new Shift());*/
-		//Schedule solvedSchedule = solver.solve(unsolvedSchedule);
-		
-		PlannerBenchmarkFactory benchmarkFactory = PlannerBenchmarkFactory.createFromXmlResource("benchmarkConfig.xml");
-		PlannerBenchmark benchmark = benchmarkFactory.buildPlannerBenchmark();
-		benchmark.benchmark();
+    //Schedule solvedSchedule = solver.solve(unsolvedSchedule);
 
-		
-	
-		
-		//benchmarkFactory.getPlannerBenchmarkConfig().getInheritedSolverBenchmarkConfig().getProblemBenchmarksConfig().setSolutionFileIOClass((Class<SolutionFileIO>) Class.forName("com.tracktik.scheduler.benchmark.SchedulerSolutionFileIO"));
-		//benchmarkFactory.getPlannerBenchmarkConfig().getInheritedSolverBenchmarkConfig().getProblemBenchmarksConfig().setInputSolutionFileList(inputSolutionFileList);
-		
+    PlannerBenchmarkFactory benchmarkFactory = PlannerBenchmarkFactory.createFromXmlResource("benchmarkConfig.xml");
+    PlannerBenchmark benchmark = benchmarkFactory.buildPlannerBenchmark();
+    benchmark.benchmark();
 
-		
-
+    //benchmarkFactory.getPlannerBenchmarkConfig().getInheritedSolverBenchmarkConfig().getProblemBenchmarksConfig().setSolutionFileIOClass((Class<SolutionFileIO>) Class.forName("com.tracktik.scheduler.benchmark.SchedulerSolutionFileIO"));
+    //benchmarkFactory.getPlannerBenchmarkConfig().getInheritedSolverBenchmarkConfig().getProblemBenchmarksConfig().setInputSolutionFileList(inputSolutionFileList);
 
   }
 

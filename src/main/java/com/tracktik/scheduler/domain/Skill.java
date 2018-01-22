@@ -1,8 +1,14 @@
 package com.tracktik.scheduler.domain;
 
 public class Skill {
+
   private String id;
   private String description;
+
+  public Skill(String sId, String sDescription) {
+    id = sId;
+    description = sDescription;
+  }
 
   public String getId() {
     return id;

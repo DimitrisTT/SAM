@@ -24,7 +24,7 @@ public class Shift {
     return this;
   }
 
-  public long getHours(){
+  public long getHours() {
     return Duration.between(timeSlot.getStart(), timeSlot.getEnd()).toHours();
   }
 
@@ -88,7 +88,8 @@ public class Shift {
     return id;
   }
 
-  public void setId(String id) {
+  public Shift setId(String id) {
     this.id = id;
+    return this;
   }
 }
