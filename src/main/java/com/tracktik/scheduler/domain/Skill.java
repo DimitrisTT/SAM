@@ -17,16 +17,18 @@ public class Skill {
     return id;
   }
 
-  public void setId(String id) {
+  public Skill setId(String id) {
     this.id = id;
+    return this;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public Skill setDescription(String description) {
     this.description = description;
+    return this;
   }
 
   @Override

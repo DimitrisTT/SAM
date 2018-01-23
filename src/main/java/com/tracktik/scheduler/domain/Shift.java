@@ -8,9 +8,10 @@ import java.time.Duration;
 @PlanningEntity(difficultyComparatorClass = ShiftDifficultyComparator.class)
 public class Shift {
 
+  private String id;
+  private Boolean locked;
   private TimeSlot timeSlot;
   private Post post;
-  private String id;
 
   @PlanningVariable(valueRangeProviderRefs = "employees")
   private Employee employee;
@@ -50,41 +51,28 @@ public class Shift {
     return this;
   }
 
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((employee == null) ? 0 : employee.hashCode());
-    result = prime * result + ((post == null) ? 0 : post.hashCode());
-    result = prime * result + ((timeSlot == null) ? 0 : timeSlot.hashCode());
-    return result;
+  public Boolean getLocked() {
+    return locked;
+  }
+
+  public Shift setLocked(Boolean locked) {
+    this.locked = locked;
+    return this;
   }
 
   @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    Shift other = (Shift) obj;
-    if (employee == null) {
-      if (other.employee != null)
-        return false;
-    } else if (!employee.equals(other.employee))
-      return false;
-    if (post == null) {
-      if (other.post != null)
-        return false;
-    } else if (!post.equals(other.post))
-      return false;
-    if (timeSlot == null) {
-      if (other.timeSlot != null)
-        return false;
-    } else if (!timeSlot.equals(other.timeSlot))
-      return false;
-    return true;
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Shift shift = (Shift) o;
+
+    return id.equals(shift.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return id.hashCode();
   }
 
   public String getId() {

@@ -67,16 +67,12 @@ public class TimeSlot {
 
   public Boolean overlaps(TimeSlot other, int hours) {
 
-    if (other == null) logger.error("OTHER TIMESLOT WAS NULL");
-    return false;
-    /*
-    logger.debug("Overlaps: " + other.toString(), " hours: " + hours);
     Date thisEnd = new Date(this.getEnd().toInstant().plus(hours, HOURS).toEpochMilli());
     Date otherEnd = new Date(other.getEnd().toInstant().plus(hours, HOURS).toEpochMilli());
+
     Boolean doesOverlap = this.getStart().before(otherEnd) && other.getStart().before(thisEnd);
-    logger.debug("Overlapping: " + doesOverlap);
+
     return doesOverlap;
-    */
   }
 
   public Long getDurationHours() {

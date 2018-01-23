@@ -13,17 +13,14 @@ function Long numberOfMatches(Collection first, Collection other) {
 rule "employee can not work two shifts at same time"
     when
         $shift: Shift($employee : employee, $timeSlot : timeSlot, employee != null)
-        Shift(this != $shift, employee == $employee, ($timeSlot.startTime <= timeSlot.endTime) && (timeSlot.endTime >= $timeSlot.startTime) )
+        Shift(this != $shift, employee == $employee, (timeSlot.startTime <= $timeSlot.endTime) && ($timeSlot.startTime < timeSlot.endTime))
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
 
-
 rule "employee must have hard skills"
     when
-        $employee: Employee($skills: skills)
-        Shift($post: post, $employee == employee)
-        Post(this == $post,  !$skills.containsAll(hardSkills))
+        Shift(post != null, employee != null, !employee.skills.containsAll(post.hardSkills))
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
@@ -36,11 +33,11 @@ end
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end*/
 
+// SOFT CONSTRAINTS
+
 rule "has some requested soft skills"
     when
-        $employee: Employee($skills: skills)
-        Shift($post: post, $employee == employee)
-        Post(this == $post, $softSkills: softSkills , numberOfMatches(softSkills, $skills) > 0 )
+        Shift(post != null, employee != null, $softSkills: post.softSkills, $skills:employee.skills, numberOfMatches($softSkills, $skills) > 0)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, numberOfMatches($softSkills, $skills) * 50 );
 end

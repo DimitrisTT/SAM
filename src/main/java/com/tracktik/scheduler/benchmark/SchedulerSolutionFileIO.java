@@ -50,12 +50,12 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
     mapSkillsToPosts(json.getJSONArray("post_skills"), posts, skills);
     mapSkillsToEmployees(json.getJSONArray("employee_skills"), employees, skills);
     mapSitesToEmployees(json.getJSONArray("employees_to_sites"), sites, employees);
-    List<Shift> shifts = createShifts(json.getJSONArray("shifts"), posts);
+    Set<Shift> shifts = createShifts(json.getJSONArray("shifts"), posts);
 
     Schedule schedule = new Schedule();
-    schedule.setEmployees(new ArrayList<Employee>(employees.values()));
-    schedule.setPosts(new ArrayList<Post>(posts.values()));
-    schedule.setSites(new ArrayList<Site>(sites.values()));
+    schedule.setEmployees(new HashSet<>(employees.values()));
+    schedule.setPosts(new HashSet<Post>(posts.values()));
+    schedule.setSites(new HashSet<Site>(sites.values()));
     schedule.setShifts(shifts);
     return schedule;
 
@@ -72,8 +72,8 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
     }
   }
 
-  private List<Shift> createShifts(JSONArray shiftsJson, Map<String, Post> posts) {
-    List<Shift> shifts = new ArrayList<Shift>();
+  private Set<Shift> createShifts(JSONArray shiftsJson, Map<String, Post> posts) {
+    Set<Shift> shifts = new HashSet<>();
     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

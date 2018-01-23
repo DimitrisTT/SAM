@@ -37,7 +37,7 @@ public class RequestForScheduling {
           }
 
           return site;
-        }).collect(Collectors.toList())
+        }).collect(Collectors.toSet())
     );
 
     //Map<String, Skill> skillsMap = skills.stream().collect(Collectors.toMap(skill -> skill.id, skill -> new Skill(skill.id, skill.description)));
@@ -68,7 +68,7 @@ public class RequestForScheduling {
               skillSet.stream().parallel().filter(skill -> softSkillIds.contains(skill.getId())).collect(Collectors.toSet())
           );
           return post;
-        }).collect(Collectors.toList())
+        }).collect(Collectors.toSet())
     );
 
     schedule.setShifts(
@@ -80,7 +80,7 @@ public class RequestForScheduling {
                   schedule.getPosts().stream().filter(post -> post.getId().equals(old.post_id)).findAny().get()
               );
           return shift;
-        }).collect(Collectors.toList())
+        }).collect(Collectors.toSet())
     );
 
     employees.stream().forEach(employee -> {

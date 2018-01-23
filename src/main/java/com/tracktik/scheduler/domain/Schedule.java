@@ -10,7 +10,9 @@ import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
 import org.optaplanner.persistence.xstream.api.score.buildin.hardsoftlong.HardSoftLongScoreXStreamConverter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @PlanningSolution
 public class Schedule {
@@ -22,39 +24,43 @@ public class Schedule {
 
   @ValueRangeProvider(id = "employees")
   @ProblemFactCollectionProperty
-  private List<Employee> employees = new ArrayList<Employee>();
+  private Set<Employee> employees = new HashSet<>();
 
   @PlanningEntityCollectionProperty
-  private List<Shift> shifts = new ArrayList<Shift>();
+  private Set<Shift> shifts = new HashSet<Shift>();
 
   @ProblemFactCollectionProperty
-  private List<Post> posts = new ArrayList<Post>();
+  private Set<Post> posts = new HashSet<Post>();
+
   @ProblemFactCollectionProperty
-  private List<Site> sites = new ArrayList<Site>();
+  private Set<Site> sites = new HashSet<Site>();
 
   @PlanningScore
   public HardSoftLongScore getScore() {
     return score;
   }
 
-  public void setScore(HardSoftLongScore score) {
+  public Schedule setScore(HardSoftLongScore score) {
     this.score = score;
+    return this;
   }
 
-  public List<Employee> getEmployees() {
+  public Set<Employee> getEmployees() {
     return employees;
   }
 
-  public void setEmployees(List<Employee> employees) {
+  public Schedule setEmployees(Set<Employee> employees) {
     this.employees = employees;
+    return this;
   }
 
-  public List<Shift> getShifts() {
+  public Set<Shift> getShifts() {
     return shifts;
   }
 
-  public void setShifts(List<Shift> shifts) {
+  public Schedule setShifts(Set<Shift> shifts) {
     this.shifts = shifts;
+    return this;
   }
 
   public Schedule addShift(Shift shift) {
@@ -67,20 +73,22 @@ public class Schedule {
     return this;
   }
 
-  public List<Post> getPosts() {
+  public Set<Post> getPosts() {
     return posts;
   }
 
-  public void setPosts(List<Post> posts) {
+  public Schedule setPosts(Set<Post> posts) {
     this.posts = posts;
+    return this;
   }
 
-  public List<Site> getSites() {
+  public Set<Site> getSites() {
     return sites;
   }
 
-  public void setSites(List<Site> sites) {
+  public Schedule setSites(Set<Site> sites) {
     this.sites = sites;
+    return this;
   }
 
   public String getId() {

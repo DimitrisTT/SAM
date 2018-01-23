@@ -39,7 +39,7 @@ public class Receiver {
       }
     });
     logger.info("Optimizing schedule");
-    Session.solutions.put(schedule.getId(), new SchedulingResponse(schedule, Long.MIN_VALUE, Long.MIN_VALUE, SolverStatus.SOLVING));
+    Session.solutions.put(schedule.getId(), new SchedulingResponse(schedule, null, null, SolverStatus.SOLVING));
     Schedule solvedSchedule = solver.solve(schedule);
 
     HardSoftLongScore score = (HardSoftLongScore) solver.getBestScore();

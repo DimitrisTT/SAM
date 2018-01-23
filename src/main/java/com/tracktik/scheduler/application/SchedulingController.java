@@ -32,7 +32,7 @@ public class SchedulingController {
 
     logger.info("Placing request on queue " + id);
 
-    Session.solutions.put(schedule.getId(), new SchedulingResponse(schedule, Long.MIN_VALUE, Long.MIN_VALUE, SolverStatus.QUEUED));
+    Session.solutions.put(schedule.getId(), new SchedulingResponse(schedule, null, null, SolverStatus.QUEUED));
 
     jmsTemplate.convertAndSend("tracktik.scheduler", schedule);
     logger.info("Sending response to caller");
