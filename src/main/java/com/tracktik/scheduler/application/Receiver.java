@@ -20,8 +20,6 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class Receiver {
 
-  public static final Cache<String, SchedulingResponse> solutions = CacheBuilder.newBuilder().expireAfterWrite(1L, TimeUnit.HOURS).build();
-
   Logger logger = LoggerFactory.getLogger(Receiver.class);
 
   @JmsListener(destination = "tracktik.scheduler", containerFactory = "schedulerFactory")
@@ -37,15 +35,15 @@ public class Receiver {
       logger.info("Updating new solution " + event.getNewBestScore().toShortString());
       if (event.getNewBestSolution().getScore().isFeasible()) {
         HardSoftLongScore score = (HardSoftLongScore) event.getNewBestScore();
-        solutions.put(schedule.getId(), new SchedulingResponse(event.getNewBestSolution(), score.getHardScore(), score.getSoftScore()));
+        Session.solutions.put(schedule.getId(), new SchedulingResponse(event.getNewBestSolution(), score.getHardScore(), score.getSoftScore(), SolverStatus.SOLVING));
       }
     });
     logger.info("Optimizing schedule");
-    solutions.put(schedule.getId(), new SchedulingResponse(schedule, Long.MIN_VALUE, Long.MIN_VALUE));
+    Session.solutions.put(schedule.getId(), new SchedulingResponse(schedule, Long.MIN_VALUE, Long.MIN_VALUE, SolverStatus.SOLVING));
     Schedule solvedSchedule = solver.solve(schedule);
 
     HardSoftLongScore score = (HardSoftLongScore) solver.getBestScore();
-    solutions.put(schedule.getId(), new SchedulingResponse(solvedSchedule, score.getHardScore(), score.getSoftScore()));
+    Session.solutions.put(schedule.getId(), new SchedulingResponse(solvedSchedule, score.getHardScore(), score.getSoftScore(), SolverStatus.COMPLETED));
 
     logger.info("Schedule solved");
 

@@ -27,11 +27,12 @@ public class SchedulingController {
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<?> schedule(@RequestBody RequestForScheduling request) {
 
-    logger.info("Got a request " + request);
     String id = UUID.randomUUID().toString();
-    logger.info("About to marshall request");
     Schedule schedule = request.toSchedule(id);
-    logger.info("Placing request on queue " + schedule);
+
+    logger.info("Placing request on queue " + id);
+
+    Session.solutions.put(schedule.getId(), new SchedulingResponse(schedule, Long.MIN_VALUE, Long.MIN_VALUE, SolverStatus.QUEUED));
 
     jmsTemplate.convertAndSend("tracktik.scheduler", schedule);
     logger.info("Sending response to caller");
@@ -47,7 +48,7 @@ public class SchedulingController {
   @RequestMapping(method = RequestMethod.GET, value = "/{id}")
   public SchedulingResponse getSchedule(@PathVariable String id) {
 
-    return Receiver.solutions.getIfPresent(id);
+    return Session.solutions.getIfPresent(id);
   }
 
   @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")

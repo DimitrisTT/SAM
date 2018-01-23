@@ -5,7 +5,9 @@ public class Skill {
   private String id;
   private String description;
 
-  public Skill() {}
+  public Skill() {
+  }
+
   public Skill(String sId, String sDescription) {
     id = sId;
     description = sDescription;
@@ -50,5 +52,13 @@ public class Skill {
     } else if (!id.equals(other.id))
       return false;
     return true;
+  }
+
+  @Override
+  public String toString() {
+    return "Skill{" +
+        "id='" + id + '\'' +
+        ", description='" + description + '\'' +
+        '}';
   }
 }

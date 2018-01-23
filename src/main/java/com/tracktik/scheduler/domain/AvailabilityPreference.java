@@ -36,4 +36,11 @@ public class AvailabilityPreference {
       return false;
     return true;
   }
+
+  @Override
+  public String toString() {
+    return "AvailabilityPreference{" +
+        "requestedHoursPerWeek=" + requestedHoursPerWeek +
+        '}';
+  }
 }

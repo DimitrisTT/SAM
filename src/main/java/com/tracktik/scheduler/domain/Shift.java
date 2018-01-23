@@ -15,7 +15,9 @@ public class Shift {
   @PlanningVariable(valueRangeProviderRefs = "employees")
   private Employee employee;
 
-  public Shift() {}
+  public Shift() {
+  }
+
   public TimeSlot getTimeSlot() {
     return timeSlot;
   }
@@ -100,7 +102,7 @@ public class Shift {
         "timeSlot=" + timeSlot +
         ", post id=" + post.getId() +
         ", id='" + id + '\'' +
-        ", employee id=" + ((employee==null) ? "none" : employee.getId()) +
+        ", employee id=" + ((employee == null) ? " none" : employee.getId()) +
         '}';
   }
 }

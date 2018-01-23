@@ -1,14 +1,19 @@
 package com.tracktik.scheduler.domain;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Post {
 
-	private String name;
+  private String name;
   private String id;
   private Site site;
   private Long billRate; //times 100
   private Long payRate; //time 100
+  private PayType payType;
+  private Set<Skill> softSkills = new HashSet<Skill>();
+  private Set<Skill> hardSkills = new HashSet<Skill>();
 
   public PayType getPayType() {
     return payType;
@@ -19,18 +24,15 @@ public class Post {
     return this;
   }
 
-  private PayType payType;
-  private Set<Skill> softSkills = new HashSet<Skill>();
-  private Set<Skill> hardSkills = new HashSet<Skill>();
+  public String getName() {
+    return name;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public Post setName(String name) {
+    this.name = name;
+    return this;
+  }
 
-	public Post setName(String name) {
-		this.name = name;
-		return this;
-	}
   public String getId() {
     return id;
   }
@@ -88,6 +90,7 @@ public class Post {
   public Long getNumberOfMatchingSoftSkills(Collection skills) {
     return softSkills.stream().filter(skills::contains).count();
   }
+
   public Long getNumberOfMatchingHardSkills(Collection skills) {
     return hardSkills.stream().filter(skills::contains).count();
   }
@@ -115,5 +118,19 @@ public class Post {
     } else if (!id.equals(other.id))
       return false;
     return true;
+  }
+
+  @Override
+  public String toString() {
+    return "Post{" +
+        "name='" + name + '\'' +
+        ", id='" + id + '\'' +
+        ", site=" + site +
+        ", billRate=" + billRate +
+        ", payRate=" + payRate +
+        ", payType=" + payType +
+        ", softSkills=" + softSkills +
+        ", hardSkills=" + hardSkills +
+        '}';
   }
 }

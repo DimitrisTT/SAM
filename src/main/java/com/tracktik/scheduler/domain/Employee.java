@@ -13,6 +13,8 @@ public class Employee {
   private List<Skill> skills = new ArrayList<Skill>();
   private Long cost;  //times 100
   private Long preferredHours = 40L;
+  private Double latitude;
+  private Double longitude;
 
   public String getId() {
     return id;
@@ -110,5 +112,36 @@ public class Employee {
     }
 
     return this;
+  }
+
+  public Double getLatitude() {
+    return latitude;
+  }
+
+  public Employee setLatitude(Double latitude) {
+    this.latitude = latitude;
+    return this;
+  }
+
+  public Double getLongitude() {
+    return longitude;
+  }
+
+  public Employee setLongitude(Double longitude) {
+    this.longitude = longitude;
+    return this;
+  }
+
+  @Override
+  public String toString() {
+    return "Employee{" +
+        "id='" + id + '\'' +
+        ", name='" + name + '\'' +
+        ", availabilityPreference=" + availabilityPreference +
+        ", siteExperience=" + siteExperience +
+        ", skills=" + skills +
+        ", cost=" + cost +
+        ", preferredHours=" + preferredHours +
+        '}';
   }
 }

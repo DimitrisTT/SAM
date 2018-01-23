@@ -68,4 +68,13 @@ public class Site {
     return true;
   }
 
+  @Override
+  public String toString() {
+    return "Site{" +
+        "id='" + id + '\'' +
+        ", name='" + name + '\'' +
+        ", latitude=" + latitude +
+        ", longitude=" + longitude +
+        '}';
+  }
 }

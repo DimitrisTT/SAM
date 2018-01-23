@@ -6,11 +6,8 @@ import org.slf4j.LoggerFactory;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.TimeZone;
 
 import static java.time.temporal.ChronoUnit.HOURS;
 
@@ -23,7 +20,9 @@ public class TimeSlot {
   private Date start;
   private Date end;
 
-  public TimeSlot() {}
+  public TimeSlot() {
+  }
+
   public TimeSlot(String sStartDateTime, String sEndDateTime) {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     try {
@@ -68,17 +67,24 @@ public class TimeSlot {
 
   public Boolean overlaps(TimeSlot other, int hours) {
 
+    if (other == null) logger.error("OTHER TIMESLOT WAS NULL");
+    return false;
+    /*
     logger.debug("Overlaps: " + other.toString(), " hours: " + hours);
     Date thisEnd = new Date(this.getEnd().toInstant().plus(hours, HOURS).toEpochMilli());
     Date otherEnd = new Date(other.getEnd().toInstant().plus(hours, HOURS).toEpochMilli());
-    Boolean doesOverlap =  this.getStart().before(otherEnd) && other.getStart().before(thisEnd);
+    Boolean doesOverlap = this.getStart().before(otherEnd) && other.getStart().before(thisEnd);
     logger.debug("Overlapping: " + doesOverlap);
     return doesOverlap;
+    */
   }
 
   public Long getDurationHours() {
     return Duration.between(start.toInstant(), end.toInstant()).toHours();
   }
+
+  public Long getStartTime() { return start.getTime(); }
+  public Long getEndTime() { return end.getTime(); }
 
   @Override
   public int hashCode() {

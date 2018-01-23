@@ -28,7 +28,7 @@ public class RequestForScheduling {
 
     schedule.setSites(
         sites.stream().map(old -> {
-          logger.info("mapping: " + old);
+          logger.debug("mapping: " + old);
           Site site = new Site()
               .setId(old.id)
               .setName(old.name);
@@ -43,7 +43,7 @@ public class RequestForScheduling {
     //Map<String, Skill> skillsMap = skills.stream().collect(Collectors.toMap(skill -> skill.id, skill -> new Skill(skill.id, skill.description)));
 
     schedule.setPosts(posts.stream().map(old -> {
-          logger.info("mapping post: " + old);
+          logger.debug("mapping post: " + old);
           Post post = new Post();
           if (old.bill_rate != null) {
             Float billRate = new Float(old.bill_rate);
@@ -83,10 +83,6 @@ public class RequestForScheduling {
         }).collect(Collectors.toList())
     );
 
-    schedule.getShifts().forEach(shift -> {
-      if (shift.getTimeSlot() == null) logger.info("Shift with null timeslot: " + shift);
-    });
-
     employees.stream().forEach(employee -> {
       schedule.addEmployee(
           new Employee()
@@ -95,6 +91,8 @@ public class RequestForScheduling {
               .setCostFromFloatString(employee.pay_rate)
               .setName(employee.name)
               .setPreferredHours(0L)  //TODO account for this in the request payload
+              .setLatitude(employee.geo_lat == null ? null : new Double(employee.geo_lat))
+              .setLongitude(employee.geo_lon == null ? null : new Double(employee.geo_lon))
               .setSiteExperience(
                   employees_to_sites.stream().parallel()
                       .filter(employee_to_site -> employee_to_site.user_id.equals(employee.id))
