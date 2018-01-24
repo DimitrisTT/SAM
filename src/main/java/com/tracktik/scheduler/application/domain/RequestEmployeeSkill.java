@@ -1,6 +1,7 @@
 package com.tracktik.scheduler.application.domain;
 
 public class RequestEmployeeSkill {
+
   public String skill_id;
   public String employee_id;
 

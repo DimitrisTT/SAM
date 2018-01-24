@@ -4,7 +4,8 @@ import com.tracktik.scheduler.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class RequestForScheduling {
@@ -75,6 +76,7 @@ public class RequestForScheduling {
         shifts.stream().map(old -> {
           Shift shift = new Shift()
               .setId(old.shift_id)
+              .setPlan(old.plan.equals("1"))
               .setTimeSlot(new TimeSlot(old.start_date_time, old.end_date_time))
               .setPost(
                   schedule.getPosts().stream().filter(post -> post.getId().equals(old.post_id)).findAny().get()

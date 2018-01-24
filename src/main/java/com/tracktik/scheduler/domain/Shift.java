@@ -5,11 +5,11 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
 import java.time.Duration;
 
-@PlanningEntity(difficultyComparatorClass = ShiftDifficultyComparator.class)
+@PlanningEntity(difficultyComparatorClass = ShiftDifficultyComparator.class, movableEntitySelectionFilter = LockedShiftSelectionFilter.class)
 public class Shift {
 
   private String id;
-  private Boolean locked;
+  private Boolean plan = false;
   private TimeSlot timeSlot;
   private Post post;
 
@@ -51,12 +51,12 @@ public class Shift {
     return this;
   }
 
-  public Boolean getLocked() {
-    return locked;
+  public Boolean getPlan() {
+    return plan;
   }
 
-  public Shift setLocked(Boolean locked) {
-    this.locked = locked;
+  public Shift setPlan(Boolean plan) {
+    this.plan = plan;
     return this;
   }
 
@@ -87,10 +87,11 @@ public class Shift {
   @Override
   public String toString() {
     return "Shift{" +
-        "timeSlot=" + timeSlot +
-        ", post id=" + post.getId() +
-        ", id='" + id + '\'' +
-        ", employee id=" + ((employee == null) ? " none" : employee.getId()) +
+        "id='" + id + '\'' +
+        ", plan=" + plan +
+        ", timeSlot=" + timeSlot +
+        ", post=" + post +
+        ", employee=" + employee +
         '}';
   }
 }

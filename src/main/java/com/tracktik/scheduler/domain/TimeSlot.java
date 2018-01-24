@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.UUID;
 
 import static java.time.temporal.ChronoUnit.HOURS;
 
@@ -17,6 +18,7 @@ public class TimeSlot {
 
   private static final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+  private String id = UUID.randomUUID().toString();
   private Date start;
   private Date end;
 
@@ -31,20 +33,11 @@ public class TimeSlot {
     } catch (ParseException e) {
       e.printStackTrace();
     }
-
-    /*
-    start = LocalDateTime.parse(sStartDateTime, format);
-    end = LocalDateTime.parse(sEndDateTime, format);
-    */
   }
 
   public TimeSlot(Long startTime, Long endTime) {
     start = new Date(startTime);
     end = new Date(endTime);
-    /*
-    start = LocalDateTime.ofInstant(Instant.ofEpochMilli(startTime), TimeZone.getDefault().toZoneId());
-    end = LocalDateTime.ofInstant(Instant.ofEpochMilli(endTime), TimeZone.getDefault().toZoneId());
-    */
   }
 
   public Date getStart() {
@@ -70,17 +63,20 @@ public class TimeSlot {
     Date thisEnd = new Date(this.getEnd().toInstant().plus(hours, HOURS).toEpochMilli());
     Date otherEnd = new Date(other.getEnd().toInstant().plus(hours, HOURS).toEpochMilli());
 
-    Boolean doesOverlap = this.getStart().before(otherEnd) && other.getStart().before(thisEnd);
-
-    return doesOverlap;
+    return this.getStart().before(otherEnd) && other.getStart().before(thisEnd);
   }
 
   public Long getDurationHours() {
     return Duration.between(start.toInstant(), end.toInstant()).toHours();
   }
 
-  public Long getStartTime() { return start.getTime(); }
-  public Long getEndTime() { return end.getTime(); }
+  public Long getStartTime() {
+    return start.getTime();
+  }
+
+  public Long getEndTime() {
+    return end.getTime();
+  }
 
   @Override
   public int hashCode() {

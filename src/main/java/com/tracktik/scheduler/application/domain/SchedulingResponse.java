@@ -4,9 +4,7 @@ import com.tracktik.scheduler.application.SolverStatus;
 import com.tracktik.scheduler.domain.Schedule;
 import com.tracktik.scheduler.domain.Shift;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class SchedulingResponse {

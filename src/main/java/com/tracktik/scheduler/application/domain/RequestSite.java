@@ -1,6 +1,7 @@
 package com.tracktik.scheduler.application.domain;
 
 public class RequestSite {
+
   public String id;
   public String geo_lat;
   public String geo_lon;

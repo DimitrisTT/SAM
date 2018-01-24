@@ -199,11 +199,6 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
     for (Shift shift : solution.getShifts()) {
       JSONObject shiftJson = new JSONObject();
       shiftJson.put("shift_id", shift.getId());
-      if (shift.getEmployee() == null) System.out.println("Employee was null for this shift " + shift.getId());
-      else {
-        System.out.println("Employee was not null for this shift " + shift.getId());
-        shiftJson.put("employee_id", shift.getEmployee().getId());
-      }
       shifts.put(shiftJson);
     }
     results.put("shifts", shifts);

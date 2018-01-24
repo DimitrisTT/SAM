@@ -10,6 +10,15 @@ function Long numberOfMatches(Collection first, Collection other) {
     return first.stream().filter(item -> other.contains(item)).count();
 }
 
+function Double distance(Double geo1_latitude, Double geo1_longitude, Double geo2_latitude, Double geo2_longitude ) {
+    Double distance = ((Math.acos(Math.sin(geo1_latitude * Math.PI / 180D) * Math.sin(geo2_latitude * Math.PI / 180D) + Math.cos(geo1_latitude * Math.PI / 180D) * Math.cos(geo2_latitude * Math.PI / 180D) * Math.cos((geo1_longitude - geo2_longitude) * Math.PI / 180D)) * 180 / Math.PI) * 60 * 1.1515D);
+    //System.out.println("Distance: " + distance);
+    return distance;
+}
+
+
+// HARD CONSTRAINTS
+
 rule "employee can not work two shifts at same time"
     when
         $shift: Shift($employee : employee, $timeSlot : timeSlot, employee != null)
@@ -55,18 +64,18 @@ rule "add cost data"
      insertLogical(new CostTotals($employee, $totalHours, $totalBilled.longValue(), $totalCost.longValue() ));
 end
 
+/*
 rule "non overtime margin"
     when
        CostTotals($margin: totalCost - totalBilled)
-
     then
        scoreHolder.addSoftConstraintMatch(kcontext, $margin / 100 );
 end
+*/
 
 rule "overtime pay"
     when
        CostTotals(hours>40, $otHours: hours - 40, $weightedCost: totalCost/hours) //might have to do rounding instead of truncate
-
     then
        scoreHolder.addSoftConstraintMatch(kcontext, - ($otHours * $weightedCost / 2)  / 100 );
 end
@@ -79,6 +88,7 @@ end
         scoreHolder.addSoftConstraintMatch(kcontext, ($billRate - $payRate)/100L);
 end*/
 
+/*
 rule "minimum availability preference"
     when
 
@@ -90,12 +100,38 @@ rule "minimum availability preference"
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -(($totalHours - $preferredHours) * ($totalHours - $preferredHours)));
 end
+*/
 
 rule "has site experience"
     when
-        $employee: Employee($sites: siteExperience)
-        Shift($post: post, $employee == employee)
-        Post(this == $post, site not memberOf  $sites )
+        Shift(employee != null, post != null, post.site not memberOf employee.siteExperience)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -100);
+end
+
+rule "workplace far"
+    when
+        Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
+        Site($siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
+        Employee($employeeId == id, distance($siteLatitude, $siteLongitute, latitude, longitude) > 50.0D)
+    then
+        scoreHolder.addSoftConstraintMatch(kcontext, -5);
+end
+
+rule "workplace medium"
+    when
+        Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
+        Site($siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
+        Employee($employeeId == id, distance($siteLatitude, $siteLongitute, latitude, longitude) > 25.0D)
+    then
+        scoreHolder.addSoftConstraintMatch(kcontext, -5);
+end
+
+rule "workplace close"
+    when
+        Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
+        Site($siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
+        Employee($employeeId == id, distance($siteLatitude, $siteLongitute, latitude, longitude) > 5.0D)
+    then
+        scoreHolder.addSoftConstraintMatch(kcontext, -5);
 end

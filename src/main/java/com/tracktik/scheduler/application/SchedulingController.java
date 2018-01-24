@@ -21,6 +21,9 @@ public class SchedulingController {
 
   private static final Logger logger = LoggerFactory.getLogger(SchedulingController.class);
 
+  //@Autowired
+  //ScheduleRepository scheduleRepositoryRepository;
+
   @Autowired
   private JmsTemplate jmsTemplate;
 

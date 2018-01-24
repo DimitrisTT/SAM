@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Employee {
 
-
   private String id;
   private String name;
   private AvailabilityPreference availabilityPreference;
-  private List<Site> siteExperience = new ArrayList<Site>();
-  private List<Skill> skills = new ArrayList<Skill>();
+  private List<Site> siteExperience = new ArrayList<>();
+  private List<Post> postExperience = new ArrayList<>();
+  private List<Skill> skills = new ArrayList<>();
   private Long cost;  //times 100
   private Long preferredHours = 40L;
   private Double latitude;

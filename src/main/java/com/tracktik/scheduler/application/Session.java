@@ -8,6 +8,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Session {
 
-  public static final Cache<String, SchedulingResponse> solutions = CacheBuilder.newBuilder().expireAfterWrite(1L, TimeUnit.HOURS).build();
+  public static final Cache<String, SchedulingResponse> solutions = CacheBuilder.newBuilder().expireAfterWrite(10L, TimeUnit.MINUTES).build();
 
 }
