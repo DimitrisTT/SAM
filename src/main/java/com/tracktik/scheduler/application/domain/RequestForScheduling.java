@@ -22,6 +22,7 @@ public class RequestForScheduling {
   public Set<RequestEmployeeSiteAssignment> employees_to_sites = new HashSet<>();
 
   public Schedule toSchedule(String id) {
+    logger.info("request: " + this);
     Schedule schedule = new Schedule();
     schedule.setId(id);
 

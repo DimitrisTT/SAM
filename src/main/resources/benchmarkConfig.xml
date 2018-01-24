@@ -6,7 +6,7 @@
 	<inheritedSolverBenchmark>
 		<problemBenchmarks>
 			<solutionFileIOClass>com.tracktik.scheduler.benchmark.SchedulerSolutionFileIO</solutionFileIOClass>
-			<inputSolutionFile>src/main/resources/AR-Report-10.txt</inputSolutionFile>
+			<inputSolutionFile>src/main/resources/examples.txt</inputSolutionFile>
 			<writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
 		</problemBenchmarks>
 		<solver>
