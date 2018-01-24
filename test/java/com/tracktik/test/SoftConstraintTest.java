@@ -199,7 +199,6 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
 
   }
 
-
   @Test
   public void testCloseDistance() {
 
@@ -226,7 +225,57 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
 
   }
 
+  @Test
+  public void testEmployeeCoordinatesMissing() {
+
+    Site site = new Site().setId("1").setLatitude(45.518193).setLongitude(-73.582305);
+
+    Employee employee = new Employee().setId("2")
+        .setCost(500L);
+
+    Post post = new Post()
+        .setSite(site).setId("3").setPayRate(5000L).setBillRate(7500L).setPayType(PayType.POST_RATE);
+    Shift shift = new Shift().setId("4")
+        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setEmployee(employee).setPost(post);
+
+    ksession.insert(site);
+    ksession.insert(employee);
+    ksession.insert(post);
+    ksession.insert(shift);
+
+    ksession.fireAllRules(new RuleNameStartsWithAgendaFilter("workplace "));
+
+    assertEquals(0L, getScoreHolder().getSoftScore());
+
+  }
+
+  @Test
+  public void testSiteCoordinatesMissing() {
+
+    Site site = new Site().setId("1");
+
+    Employee employee = new Employee().setId("2")
+        .setLatitude(45.518209).setLongitude(-73.577456)
+        .setCost(500L);
+
+    Post post = new Post()
+        .setSite(site).setId("3").setPayRate(5000L).setBillRate(7500L).setPayType(PayType.POST_RATE);
+    Shift shift = new Shift().setId("4")
+        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setEmployee(employee).setPost(post);
+
+    ksession.insert(site);
+    ksession.insert(employee);
+    ksession.insert(post);
+    ksession.insert(shift);
+
+    ksession.fireAllRules(new RuleNameStartsWithAgendaFilter("workplace "));
+
+    assertEquals(0L, getScoreHolder().getSoftScore());
+
+  }
+
 }
 
 //here 45.518193, -73.582305
-//there 45.471168, -73.851290

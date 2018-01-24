@@ -112,8 +112,8 @@ end
 rule "workplace is far from employee"
     when
         Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
-        Site($siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
-        Employee($employeeId == id, distance($siteLatitude, $siteLongitute, latitude, longitude) > 50.0D)
+        Site(latitude != null, longitude != null, $siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
+        Employee(latitude != null, longitude != null, $employeeId == id, distance($siteLatitude, $siteLongitute, latitude, longitude) > 50.0D)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -5);
 end
@@ -121,8 +121,8 @@ end
 rule "workplace is a medium distance from employee"
     when
         Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
-        Site($siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
-        Employee($employeeId == id, distance($siteLatitude, $siteLongitute, latitude, longitude) > 25.0D)
+        Site(latitude != null, longitude != null, $siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
+        Employee(latitude != null, longitude != null, $employeeId == id, distance($siteLatitude, $siteLongitute, latitude, longitude) > 25.0D)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -5);
 end
@@ -130,8 +130,8 @@ end
 rule "workplace is fairly close to employee"
     when
         Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
-        Site($siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
-        Employee($employeeId == id, distance($siteLatitude, $siteLongitute, latitude, longitude) > 5.0D)
+        Site(latitude != null, longitude != null, $siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
+        Employee(latitude != null, longitude != null, $employeeId == id, distance($siteLatitude, $siteLongitute, latitude, longitude) > 5.0D)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -5);
 end
@@ -139,8 +139,8 @@ end
 rule "workplace is close to employee"
     when
         Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
-        Site($siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
-        Employee($employeeId == id, distance($siteLatitude, $siteLongitute, latitude, longitude) <= 5.0D)
+        Site(latitude != null, longitude != null, $siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
+        Employee(latitude != null, longitude != null, $employeeId == id, distance($siteLatitude, $siteLongitute, latitude, longitude) <= 5.0D)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, 5);
 end
