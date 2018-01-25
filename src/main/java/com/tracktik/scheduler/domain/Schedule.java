@@ -25,13 +25,19 @@ public class Schedule {
   private Set<Employee> employees = new HashSet<>();
 
   @PlanningEntityCollectionProperty
-  private Set<Shift> shifts = new HashSet<Shift>();
+  private Set<Shift> shifts = new HashSet<>();
 
   @ProblemFactCollectionProperty
-  private Set<Post> posts = new HashSet<Post>();
+  private Set<Post> posts = new HashSet<>();
 
   @ProblemFactCollectionProperty
-  private Set<Site> sites = new HashSet<Site>();
+  private Set<Site> sites = new HashSet<>();
+
+  @ProblemFactCollectionProperty
+  private Set<TimeOff> timesOff = new HashSet<>();
+
+  @ProblemFactCollectionProperty
+  private Set<EmployeeAvailability> employeeAvailabilities = new HashSet<>();
 
   @PlanningScore
   public HardSoftLongScore getScore() {
@@ -98,6 +104,24 @@ public class Schedule {
     return this;
   }
 
+  public Set<TimeOff> getTimesOff() {
+    return timesOff;
+  }
+
+  public Schedule setTimesOff(Set<TimeOff> timesOff) {
+    this.timesOff = timesOff;
+    return this;
+  }
+
+  public Set<EmployeeAvailability> getEmployeeAvailabilities() {
+    return employeeAvailabilities;
+  }
+
+  public Schedule setEmployeeAvailabilities(Set<EmployeeAvailability> employeeAvailabilities) {
+    this.employeeAvailabilities = employeeAvailabilities;
+    return this;
+  }
+
   @Override
   public String toString() {
     return "Schedule{" +
@@ -107,6 +131,8 @@ public class Schedule {
         ", shifts=" + shifts +
         ", posts=" + posts +
         ", sites=" + sites +
+        ", timesOff=" + timesOff +
+        ", employeeAvailabilities=" + employeeAvailabilities +
         '}';
   }
 }

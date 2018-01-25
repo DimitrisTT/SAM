@@ -4,6 +4,10 @@ import com.tracktik.scheduler.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalTime;
+import java.time.chrono.ChronoPeriod;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -20,6 +24,8 @@ public class RequestForScheduling {
   public Set<RequestEmployee> employees = new HashSet<>();
   public Set<RequestEmployeeSkill> employee_skills = new HashSet<>();
   public Set<RequestEmployeeSiteAssignment> employees_to_sites = new HashSet<>();
+  public Set<RequestTimeOff> time_off = new HashSet<>();
+  public Set<RequestEmployeeAvailability> availabilities = new HashSet<>();
 
   public Schedule toSchedule(String id) {
     logger.info("request: " + this);
@@ -75,18 +81,17 @@ public class RequestForScheduling {
 
     schedule.setShifts(
         shifts.stream().map(old -> {
-          Shift shift = new Shift()
+          return new Shift()
               .setId(old.shift_id)
               .setPlan(old.plan.equals("1"))
               .setTimeSlot(new TimeSlot(old.start_date_time, old.end_date_time))
               .setPost(
                   schedule.getPosts().stream().filter(post -> post.getId().equals(old.post_id)).findAny().get()
               );
-          return shift;
         }).collect(Collectors.toSet())
     );
 
-    employees.stream().forEach(employee -> {
+    employees.forEach(employee -> {
       schedule.addEmployee(
           new Employee()
               .setId(employee.id)
@@ -113,6 +118,20 @@ public class RequestForScheduling {
               )
       );
     });
+
+    schedule.setTimesOff(time_off.stream().map(requestTimeOff -> {
+      return new TimeOff(requestTimeOff.employee_id, new Date(new Long(requestTimeOff.start_time)), new Date(new Long(requestTimeOff.end_time)));
+    }).collect(Collectors.toSet()));
+
+    schedule.setEmployeeAvailabilities(
+      availabilities.stream().map(requestEmployeeAvailability -> {
+        return new EmployeeAvailability()
+          .setEmployeeId(requestEmployeeAvailability.employee_id)
+          .setType(AvailabilityType.valueOf(requestEmployeeAvailability.type))
+          .setStartTime(LocalTime.MIDNIGHT.plus(new Long(requestEmployeeAvailability.seconds_start), ChronoUnit.SECONDS))
+          .setEndTime(LocalTime.MIDNIGHT.plus(new Long(requestEmployeeAvailability.seconds_end), ChronoUnit.SECONDS));
+      }).collect(Collectors.toSet())
+    );
 
     return schedule;
   }
