@@ -39,6 +39,9 @@ public class Schedule {
   @ProblemFactCollectionProperty
   private Set<EmployeeAvailability> employeeAvailabilities = new HashSet<>();
 
+  @ProblemFactCollectionProperty
+  private Set<ConstraintPreference> constraintPreferences = new HashSet<>();
+
   @PlanningScore
   public HardSoftLongScore getScore() {
     return score;
@@ -119,6 +122,15 @@ public class Schedule {
 
   public Schedule setEmployeeAvailabilities(Set<EmployeeAvailability> employeeAvailabilities) {
     this.employeeAvailabilities = employeeAvailabilities;
+    return this;
+  }
+
+  public Set<ConstraintPreference> getConstraintPreferences() {
+    return constraintPreferences;
+  }
+
+  public Schedule setConstraintPreferences(Set<ConstraintPreference> constraintPreferences) {
+    this.constraintPreferences = constraintPreferences;
     return this;
   }
 

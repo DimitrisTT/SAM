@@ -18,9 +18,12 @@ import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHold
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ConstraintRuleTestBase {
+
+  public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
   public static KieContainer kieContainer;
   KieSession ksession;

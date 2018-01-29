@@ -34,6 +34,14 @@ rule "employee must have hard skills"
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
 
+rule "employee has time off scheduled during shift"
+    when
+        Shift(employee != null, $employeeId: employee.id, $shiftStart: timeSlot.start, $shiftEnd: timeSlot.end)
+        TimeOff($employeeId == employeeId, (startTime <= $shiftEnd) && ($shiftStart < endTime))
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, -1);
+end
+
 /*rule "there must be 8 hour gap between shifts"
    when
         Shift($employee: employee, $firstShiftEnd: timeSlot.getEnd())
@@ -109,6 +117,13 @@ rule "has site experience"
         scoreHolder.addSoftConstraintMatch(kcontext, -100);
 end
 
+rule "has post experience"
+    when
+        Shift(employee != null, post != null, post not memberOf employee.postExperience)
+    then
+        scoreHolder.addSoftConstraintMatch(kcontext, -100);
+end
+
 rule "workplace is far from employee"
     when
         Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
@@ -144,3 +159,22 @@ rule "workplace is close to employee"
     then
         scoreHolder.addSoftConstraintMatch(kcontext, 5);
 end
+
+rule "employee prefers not to work shift"
+    when
+        Employee($employeeId: id)
+        $availability : EmployeeAvailability($employeeId == employeeId, type == AvailabilityType.NO, $startTime: startTime, $endTime: endTime, $day: dayOfWeek)
+        Shift(employee != null, $employeeId == employee.id, this.overlaps($availability))
+    then
+        scoreHolder.addSoftConstraintMatch(kcontext, -10);
+end
+
+rule "employee may be available to work shift"
+    when
+        Employee($employeeId: id)
+        $availability : EmployeeAvailability($employeeId == employeeId, type == AvailabilityType.MAYBE, $startTime: startTime, $endTime: endTime, $day: dayOfWeek)
+        Shift(employee != null, $employeeId == employee.id, this.overlaps($availability))
+    then
+        scoreHolder.addSoftConstraintMatch(kcontext, -5);
+end
+

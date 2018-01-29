@@ -25,12 +25,39 @@ public class Employee {
     return this;
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public Employee setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public AvailabilityPreference getAvailabilityPreference() {
+    return availabilityPreference;
+  }
+
+  public Employee setAvailabilityPreference(AvailabilityPreference availabilityPreference) {
+    this.availabilityPreference = availabilityPreference;
+    return this;
+  }
+
   public List<Site> getSiteExperience() {
     return siteExperience;
   }
 
   public Employee setSiteExperience(List<Site> siteExperience) {
     this.siteExperience = siteExperience;
+    return this;
+  }
+
+  public List<Post> getPostExperience() {
+    return postExperience;
+  }
+
+  public Employee setPostExperience(List<Post> postExperience) {
+    this.postExperience = postExperience;
     return this;
   }
 
@@ -52,21 +79,30 @@ public class Employee {
     return this;
   }
 
-  public AvailabilityPreference getAvailabilityPreference() {
-    return availabilityPreference;
-  }
-
-  public Employee setAvailabilityPreference(AvailabilityPreference availabilityPreference) {
-    this.availabilityPreference = availabilityPreference;
-    return this;
-  }
-
   public Long getPreferredHours() {
     return preferredHours;
   }
 
   public Employee setPreferredHours(Long preferredHours) {
     this.preferredHours = preferredHours;
+    return this;
+  }
+
+  public Double getLatitude() {
+    return latitude;
+  }
+
+  public Employee setLatitude(Double latitude) {
+    this.latitude = latitude;
+    return this;
+  }
+
+  public Double getLongitude() {
+    return longitude;
+  }
+
+  public Employee setLongitude(Double longitude) {
+    this.longitude = longitude;
     return this;
   }
 
@@ -95,14 +131,6 @@ public class Employee {
     return true;
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public Employee setName(String name) {
-    this.name = name;
-    return this;
-  }
 
   public Employee setCostFromFloatString(String pay_rate) {
     if (pay_rate != null) {
@@ -114,23 +142,6 @@ public class Employee {
     return this;
   }
 
-  public Double getLatitude() {
-    return latitude;
-  }
-
-  public Employee setLatitude(Double latitude) {
-    this.latitude = latitude;
-    return this;
-  }
-
-  public Double getLongitude() {
-    return longitude;
-  }
-
-  public Employee setLongitude(Double longitude) {
-    this.longitude = longitude;
-    return this;
-  }
 
   @Override
   public String toString() {

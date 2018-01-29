@@ -1,18 +1,19 @@
 package com.tracktik.test;
 
 import com.tracktik.scheduler.domain.*;
-import org.drools.core.ObjectFilter;
 import org.drools.core.base.RuleNameEqualsAgendaFilter;
 import org.drools.core.base.RuleNameStartsWithAgendaFilter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.text.ParseException;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SoftConstraintTest extends ConstraintRuleTestBase {
@@ -116,6 +117,59 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(shift);
 
     ksession.fireAllRules(new RuleNameEqualsAgendaFilter("has site experience"));
+
+    assertEquals(-100L, getScoreHolder().getSoftScore());
+  }
+
+  @Test
+  public void testEmployeeHasPostExperience() {
+
+    Site site1 = new Site().setId("1");
+
+    Post post1 = new Post();
+    Post post2 = new Post();
+
+    List<Post> posts = new ArrayList<>();
+    posts.add(post1);
+    posts.add(post2);
+
+    List<Site> sites = new ArrayList<>();
+    sites.add(site1);
+
+    Employee employee = new Employee()
+        .setId("1").setSiteExperience(sites).setPostExperience(posts);
+
+    Shift shift = new Shift().setId("1").setEmployee(employee).setPost(post1);
+
+    ksession.insert(shift);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("has post experience"));
+
+    assertEquals(0L, getScoreHolder().getSoftScore());
+  }
+
+  @Test
+  public void testEmployeeHasNoPostExperience() {
+
+
+    Site site1 = new Site().setId("1");
+    List<Site> sites = new ArrayList<>();
+    sites.add(site1);
+
+    Post post1 = new Post().setId("1").setSite(site1);
+    Post post2 = new Post().setId("2").setSite(new Site().setId("2"));
+
+    List<Post> posts = new ArrayList<>();
+    posts.add(post2);
+
+    Employee employee = new Employee()
+        .setId("1").setSiteExperience(sites).setPostExperience(posts);
+
+    Shift shift = new Shift().setId("1").setEmployee(employee).setPost(post1);
+
+    ksession.insert(shift);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("has post experience"));
 
     assertEquals(-100L, getScoreHolder().getSoftScore());
   }
@@ -276,6 +330,127 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
 
   }
 
+  @Test
+  public void employeeHasNoWorkPreference() throws ParseException {
+
+    Employee employee = new Employee().setId("1");
+
+    Shift shift = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+
+    ksession.insert(employee);
+    ksession.insert(shift);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee prefers not to work shift"));
+
+    assertEquals(0L, getScoreHolder().getSoftScore());
+  }
+
+  @Test
+  public void employeePrefersNotWorkShiftNoOverlap() throws ParseException {
+
+    Employee employee = new Employee().setId("1");
+
+    //Shift is on Wednesday
+    Shift shift = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+
+    EmployeeAvailability availability = new EmployeeAvailability()
+        .setEmployeeId("1").setType(AvailabilityType.NO)
+        .setDayOfWeek(DayOfWeek.FRIDAY)
+        .setStartTime(LocalTime.MIDNIGHT.plus(10L, ChronoUnit.HOURS))
+        .setEndTime(LocalTime.MIDNIGHT.plus(12L, ChronoUnit.HOURS));
+
+    ksession.insert(employee);
+    ksession.insert(shift);
+    ksession.insert(availability);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee prefers not to work shift"));
+
+    assertEquals(0L, getScoreHolder().getSoftScore());
+  }
+
+  @Test
+  public void employeePrefersNotWorkShiftOverlap() throws ParseException {
+
+    Employee employee = new Employee().setId("1");
+
+    //Shift is on Wednesday
+    Shift shift = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+
+    EmployeeAvailability availability = new EmployeeAvailability()
+        .setEmployeeId("1").setType(AvailabilityType.NO)
+        .setDayOfWeek(DayOfWeek.WEDNESDAY)
+        .setStartTime(LocalTime.MIDNIGHT.plus(0L, ChronoUnit.HOURS))
+        .setEndTime(LocalTime.MIDNIGHT.plus(12L, ChronoUnit.HOURS));
+
+    ksession.insert(employee);
+    ksession.insert(shift);
+    ksession.insert(availability);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee prefers not to work shift"));
+
+    assertEquals(-10L, getScoreHolder().getSoftScore());
+  }
+
+  @Test
+  public void employeeMayBeAvailableWorkShiftNoOverlap() throws ParseException {
+
+    Employee employee = new Employee().setId("1");
+
+    //Shift is on Wednesday
+    Shift shift = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+
+    EmployeeAvailability availability = new EmployeeAvailability()
+        .setEmployeeId("1").setType(AvailabilityType.MAYBE)
+        .setDayOfWeek(DayOfWeek.FRIDAY)
+        .setStartTime(LocalTime.MIDNIGHT.plus(10L, ChronoUnit.HOURS))
+        .setEndTime(LocalTime.MIDNIGHT.plus(12L, ChronoUnit.HOURS));
+
+    ksession.insert(employee);
+    ksession.insert(shift);
+    ksession.insert(availability);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee may be available to work shift"));
+
+    assertEquals(0L, getScoreHolder().getSoftScore());
+  }
+
+  @Test
+  public void employeeMayBeAvailableWorkShiftOverlap() throws ParseException {
+
+    Employee employee = new Employee().setId("1");
+
+    //Shift is on Wednesday
+    Shift shift = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+
+    EmployeeAvailability availability = new EmployeeAvailability()
+        .setEmployeeId("1").setType(AvailabilityType.MAYBE)
+        .setDayOfWeek(DayOfWeek.WEDNESDAY)
+        .setStartTime(LocalTime.MIDNIGHT.plus(0L, ChronoUnit.HOURS))
+        .setEndTime(LocalTime.MIDNIGHT.plus(12L, ChronoUnit.HOURS));
+
+    ksession.insert(employee);
+    ksession.insert(shift);
+    ksession.insert(availability);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee may be available to work shift"));
+
+    assertEquals(-5L, getScoreHolder().getSoftScore());
+  }
+
 }
 
-//here 45.518193, -73.582305

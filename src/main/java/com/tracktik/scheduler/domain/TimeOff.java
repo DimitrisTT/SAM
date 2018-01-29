@@ -1,5 +1,8 @@
 package com.tracktik.scheduler.domain;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 public class TimeOff {
@@ -42,6 +45,14 @@ public class TimeOff {
   public TimeOff setEndTime(Date endTime) {
     this.endTime = endTime;
     return this;
+  }
+
+  public LocalTime getStartLocalTime() {
+    return LocalDateTime.ofInstant(startTime.toInstant(), ZoneId.systemDefault()).toLocalTime();
+  }
+
+  public LocalTime getEndLocalTime() {
+    return LocalDateTime.ofInstant(endTime.toInstant(), ZoneId.systemDefault()).toLocalTime();
   }
 
   @Override

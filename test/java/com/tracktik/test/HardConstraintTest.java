@@ -7,10 +7,9 @@ import org.junit.runner.RunWith;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -130,6 +129,123 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
 
 
     assertTrue(getScoreHolder().getHardScore() < 0);
+  }
+
+  @Test
+  public void employeeHasTimeoffDuringShift() throws ParseException {
+
+    Employee employee = new Employee().setId("1");
+
+    Shift shift = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+
+    Date startTime = sdf.parse("2018-01-01 00:00:00");
+    Date endTime = sdf.parse("2018-01-20 00:00:00");
+
+    TimeOff timeOff = new TimeOff().setEmployeeId("1").setStartTime(startTime).setEndTime(endTime);
+
+    ksession.insert(employee);
+    ksession.insert(shift);
+    ksession.insert(timeOff);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee has time off scheduled during shift"));
+
+    assertTrue(getScoreHolder().getHardScore() < 0);
+  }
+
+  @Test
+  public void employeeTimeoffOverlapsStartOfShift() throws ParseException {
+
+    Employee employee = new Employee().setId("1");
+
+    Shift shift = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+
+    Date startTime = sdf.parse("2018-01-01 00:00:00");
+    Date endTime = sdf.parse("2018-01-17 11:00:01");
+
+    TimeOff timeOff = new TimeOff().setEmployeeId("1").setStartTime(startTime).setEndTime(endTime);
+
+    ksession.insert(employee);
+    ksession.insert(shift);
+    ksession.insert(timeOff);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee has time off scheduled during shift"));
+
+    assertTrue(getScoreHolder().getHardScore() < 0);
+  }
+
+  @Test
+  public void employeeTimeoffOverlapsEndOfShift() throws ParseException {
+
+    Employee employee = new Employee().setId("1");
+
+    Shift shift = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+
+    Date startTime = sdf.parse("2018-01-17 11:29:00");
+    Date endTime = sdf.parse("2018-01-20 00:00:00");
+
+    TimeOff timeOff = new TimeOff().setEmployeeId("1").setStartTime(startTime).setEndTime(endTime);
+
+    ksession.insert(employee);
+    ksession.insert(shift);
+    ksession.insert(timeOff);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee has time off scheduled during shift"));
+
+    assertTrue(getScoreHolder().getHardScore() < 0);
+  }
+
+  @Test
+  public void employeeHasNoTimeoffDuringShift() throws ParseException {
+
+    Employee employee = new Employee().setId("1");
+
+    Shift shift = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+
+    Date startTime = sdf.parse("2018-01-19 00:00:00");
+    Date endTime = sdf.parse("2018-01-20 00:00:00");
+
+    TimeOff timeOff = new TimeOff().setEmployeeId("1").setStartTime(startTime).setEndTime(endTime);
+
+    ksession.insert(employee);
+    ksession.insert(shift);
+    ksession.insert(timeOff);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee has time off scheduled during shift"));
+
+    assertTrue(getScoreHolder().getHardScore() == 0);
+  }
+
+  @Test
+  public void employeeHasNoTimeoffAtAll() throws ParseException {
+
+    Employee employee = new Employee().setId("1");
+
+    Shift shift = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+
+    Date startTime = sdf.parse("2018-01-19 00:00:00");
+    Date endTime = sdf.parse("2018-01-20 00:00:00");
+
+    ksession.insert(employee);
+    ksession.insert(shift);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee has time off scheduled during shift"));
+
+    assertTrue(getScoreHolder().getHardScore() == 0);
   }
 
 }

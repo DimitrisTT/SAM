@@ -4,6 +4,7 @@ import com.tracktik.scheduler.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.chrono.ChronoPeriod;
 import java.time.temporal.ChronoUnit;
@@ -23,9 +24,12 @@ public class RequestForScheduling {
   public Set<RequestSite> sites = new HashSet<>();
   public Set<RequestEmployee> employees = new HashSet<>();
   public Set<RequestEmployeeSkill> employee_skills = new HashSet<>();
+  public Set<RequestEmployeePostAssignment> employees_to_posts = new HashSet<>();
   public Set<RequestEmployeeSiteAssignment> employees_to_sites = new HashSet<>();
   public Set<RequestTimeOff> time_off = new HashSet<>();
   public Set<RequestEmployeeAvailability> availabilities = new HashSet<>();
+
+  public Set<RequestConstraintPreference> constraint_preferences = new HashSet<>();
 
   public Schedule toSchedule(String id) {
     logger.info("request: " + this);
@@ -85,6 +89,8 @@ public class RequestForScheduling {
               .setId(old.shift_id)
               .setPlan(old.plan.equals("1"))
               .setTimeSlot(new TimeSlot(old.start_date_time, old.end_date_time))
+              .setStartTimeStamp(old.start_timestamp)
+              .setEndTimeStamp(old.end_timestamp)
               .setPost(
                   schedule.getPosts().stream().filter(post -> post.getId().equals(old.post_id)).findAny().get()
               );
@@ -109,6 +115,14 @@ public class RequestForScheduling {
                           schedule.getSites().stream().filter(site -> site.getId().equals(site_id)).findAny().get()
                       ).collect(Collectors.toList())
               )
+              .setPostExperience(
+                  employees_to_posts.stream().parallel()
+                      .filter(employee_to_post -> employee_to_post.user_id.equals(employee.id))
+                      .map(employee_to_post -> employee_to_post.post_id)
+                      .map(post_id ->
+                          schedule.getPosts().stream().filter(site -> site.getId().equals(post_id)).findAny().get()
+                      ).collect(Collectors.toList())
+              )
               .setSkills(
                   employee_skills.stream().parallel()
                       .filter(employee_skill -> employee_skill.employee_id.equals(employee.id))
@@ -124,13 +138,14 @@ public class RequestForScheduling {
     }).collect(Collectors.toSet()));
 
     schedule.setEmployeeAvailabilities(
-      availabilities.stream().map(requestEmployeeAvailability -> {
-        return new EmployeeAvailability()
-          .setEmployeeId(requestEmployeeAvailability.employee_id)
-          .setType(AvailabilityType.valueOf(requestEmployeeAvailability.type))
-          .setStartTime(LocalTime.MIDNIGHT.plus(new Long(requestEmployeeAvailability.seconds_start), ChronoUnit.SECONDS))
-          .setEndTime(LocalTime.MIDNIGHT.plus(new Long(requestEmployeeAvailability.seconds_end), ChronoUnit.SECONDS));
-      }).collect(Collectors.toSet())
+        availabilities.stream().map(requestEmployeeAvailability -> {
+          return new EmployeeAvailability()
+              .setEmployeeId(requestEmployeeAvailability.employee_id)
+              .setType(AvailabilityType.valueOf(requestEmployeeAvailability.type))
+              .setDayOfWeek(DayOfWeek.of(new Integer(requestEmployeeAvailability.day_of_week)))
+              .setStartTime(LocalTime.MIDNIGHT.plus(new Long(requestEmployeeAvailability.seconds_start), ChronoUnit.SECONDS))
+              .setEndTime(LocalTime.MIDNIGHT.plus(new Long(requestEmployeeAvailability.seconds_end), ChronoUnit.SECONDS));
+        }).collect(Collectors.toSet())
     );
 
     return schedule;
