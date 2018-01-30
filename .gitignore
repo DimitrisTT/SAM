@@ -31,3 +31,6 @@ local/*
 /.idea/
 /scheduler.iml
 .DS_Store
+/schedulerapi/target/
+/schedulermodel/target/
+/schedulerservice/target/
