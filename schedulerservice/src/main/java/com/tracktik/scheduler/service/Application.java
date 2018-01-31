@@ -1,4 +1,4 @@
-package com.tracktik.scheduler.api;
+package com.tracktik.scheduler.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

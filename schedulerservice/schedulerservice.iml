@@ -41,6 +41,9 @@
     <orderEntry type="library" name="Maven: org.fusesource.hawtbuf:hawtbuf:1.11" level="project" />
     <orderEntry type="library" name="Maven: org.apache.geronimo.specs:geronimo-j2ee-management_1.1_spec:1.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.activemq:activemq-openwire-legacy:5.14.5" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.8.10" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.10" level="project" />
     <orderEntry type="library" name="Maven: org.optaplanner:optaplanner-core:7.4.0.Final-redhat-2" level="project" />
     <orderEntry type="library" name="Maven: org.kie:kie-api:7.4.0.Final-redhat-2" level="project" />
     <orderEntry type="library" name="Maven: org.uberfire:uberfire-maven-support:1.4.0.Final-redhat-1" level="project" />

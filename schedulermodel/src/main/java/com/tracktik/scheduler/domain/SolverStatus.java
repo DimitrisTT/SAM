@@ -1,4 +1,4 @@
-package com.tracktik.scheduler.api;
+package com.tracktik.scheduler.domain;
 
 public enum SolverStatus {
   QUEUED,

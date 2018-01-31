@@ -2,7 +2,7 @@ package com.tracktik.scheduler.api;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.tracktik.scheduler.api.domain.SchedulingResponse;
+import com.tracktik.scheduler.domain.SchedulingResponse;
 
 import java.util.concurrent.TimeUnit;
 
