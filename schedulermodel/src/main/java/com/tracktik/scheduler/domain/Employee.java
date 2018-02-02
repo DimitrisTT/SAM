@@ -15,6 +15,7 @@ public class Employee {
   private Long preferredHours = 40L;
   private Double latitude;
   private Double longitude;
+  private Integer seniority;
 
   public String getId() {
     return id;
@@ -106,6 +107,15 @@ public class Employee {
     return this;
   }
 
+  public Integer getSeniority() {
+    return seniority;
+  }
+
+  public Employee setSeniority(Integer seniority) {
+    this.seniority = seniority;
+    return this;
+  }
+
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -142,7 +152,6 @@ public class Employee {
     return this;
   }
 
-
   @Override
   public String toString() {
     return "Employee{" +
@@ -150,9 +159,13 @@ public class Employee {
         ", name='" + name + '\'' +
         ", availabilityPreference=" + availabilityPreference +
         ", siteExperience=" + siteExperience +
+        ", postExperience=" + postExperience +
         ", skills=" + skills +
         ", cost=" + cost +
         ", preferredHours=" + preferredHours +
+        ", latitude=" + latitude +
+        ", longitude=" + longitude +
+        ", seniority=" + seniority +
         '}';
   }
 }

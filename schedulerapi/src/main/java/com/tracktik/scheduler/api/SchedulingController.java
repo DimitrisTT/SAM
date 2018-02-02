@@ -7,6 +7,7 @@ import com.tracktik.scheduler.api.domain.RequestForScheduling;
 import com.tracktik.scheduler.domain.Schedule;
 import com.tracktik.scheduler.domain.SchedulingResponse;
 import com.tracktik.scheduler.domain.SolverStatus;
+import com.tracktik.scheduler.util.RequestResponseMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,8 @@ public class SchedulingController {
   public ResponseEntity<?> schedule(@RequestBody RequestForScheduling request) {
 
     String id = UUID.randomUUID().toString();
-    Schedule schedule = request.toSchedule(id);
+
+    Schedule schedule = RequestResponseMapper.requestToSchedule(id, request);
 
     logger.info("Placing request " + id + " on queue ");
 

@@ -45,6 +45,12 @@ public class Schedule {
   @ProblemFactCollectionProperty
   private Set<EmployeeSiteDistance> employeeSiteDistance = new HashSet<>();
 
+  @ProblemFactCollectionProperty
+  private Set<KeyValueFact> keyValueFacts = new HashSet<>();
+
+  @ProblemFactCollectionProperty
+  private Set<SiteBan> siteBans = new HashSet<>();
+
   @PlanningScore
   public HardSoftLongScore getScore() {
     return score;
@@ -146,6 +152,39 @@ public class Schedule {
     return this;
   }
 
+  public Set<KeyValueFact> getKeyValueFacts() {
+    return keyValueFacts;
+  }
+
+  public Schedule setKeyValueFacts(Set<KeyValueFact> keyValueFacts) {
+    this.keyValueFacts = keyValueFacts;
+    return this;
+  }
+
+  public Set<SiteBan> getSiteBans() {
+    return siteBans;
+  }
+
+  public Schedule setSiteBans(Set<SiteBan> siteBans) {
+    this.siteBans = siteBans;
+    return this;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Schedule schedule = (Schedule) o;
+
+    return id != null ? id.equals(schedule.id) : schedule.id == null;
+  }
+
+  @Override
+  public int hashCode() {
+    return id != null ? id.hashCode() : 0;
+  }
+
   @Override
   public String toString() {
     return "Schedule{" +
@@ -159,6 +198,7 @@ public class Schedule {
         ", employeeAvailabilities=" + employeeAvailabilities +
         ", constraintPreferences=" + constraintPreferences +
         ", employeeSiteDistance=" + employeeSiteDistance +
+        ", keyValueFacts=" + keyValueFacts +
         '}';
   }
 }

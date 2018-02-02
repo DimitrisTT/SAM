@@ -343,6 +343,58 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
   }
 
   @Test
+  public void testEmployeeIsBannedFromSite() {
+
+    Site site = new Site().setId("1");
+
+    Employee employee = new Employee().setId("2");
+
+    Post post = new Post()
+        .setSite(site).setId("3");
+    Shift shift = new Shift().setId("4")
+        .setEmployee(employee).setPost(post);
+
+    SiteBan ban = new SiteBan().setEmployeeId("2").setSiteId("1");
+
+    ksession.insert(site);
+    ksession.insert(employee);
+    ksession.insert(post);
+    ksession.insert(shift);
+    ksession.insert(ban);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee is banned from a site"));
+
+    assertEquals(-1L, getScoreHolder().getHardScore());
+
+  }
+
+  @Test
+  public void testEmployeeIsNotBannedFromSite() {
+
+    Site site = new Site().setId("1");
+
+    Employee employee = new Employee().setId("2");
+
+    Post post = new Post()
+        .setSite(site).setId("3");
+    Shift shift = new Shift().setId("4")
+        .setEmployee(employee).setPost(post);
+
+    SiteBan ban = new SiteBan().setEmployeeId("200").setSiteId("1");
+
+    ksession.insert(site);
+    ksession.insert(employee);
+    ksession.insert(post);
+    ksession.insert(shift);
+    ksession.insert(ban);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee is banned from a site"));
+
+    assertEquals(0L, getScoreHolder().getHardScore());
+
+  }
+
+  @Test
   public void employeeHasNoWorkPreference() throws ParseException {
 
     Employee employee = new Employee().setId("1");

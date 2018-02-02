@@ -58,6 +58,14 @@ rule "employee has time off scheduled during shift"
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
 
+rule "employee is banned from a site"
+    when
+        Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
+        SiteBan($employeeId == employeeId, $siteId == siteId)
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, -1);
+end
+
 
 /*rule "there must be 8 hour gap between shifts"
    when

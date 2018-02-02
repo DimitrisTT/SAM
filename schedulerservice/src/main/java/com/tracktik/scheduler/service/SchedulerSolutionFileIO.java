@@ -3,6 +3,7 @@ package com.tracktik.scheduler.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tracktik.scheduler.api.domain.RequestForScheduling;
 import com.tracktik.scheduler.domain.*;
+import com.tracktik.scheduler.util.RequestResponseMapper;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
 import org.optaplanner.core.api.score.constraint.ConstraintMatchTotal;
 import org.optaplanner.core.api.solver.SolverFactory;
@@ -32,7 +33,7 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
       e.printStackTrace();
     }
 
-    Schedule schedule = request.toSchedule(UUID.randomUUID().toString());
+    Schedule schedule = RequestResponseMapper.requestToSchedule(UUID.randomUUID().toString(), request);
     int totalShifts = schedule.getShifts().size();
     long totalSiftsToSchedule = schedule.getShifts().stream().filter(Shift::getPlan).count();
     long totalLockedUnasigned = schedule.getShifts().stream().filter(shift -> !shift.getPlan()).filter(shift -> shift.getEmployee() == null).count();

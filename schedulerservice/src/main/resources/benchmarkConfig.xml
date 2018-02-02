@@ -6,7 +6,8 @@
 	<inheritedSolverBenchmark>
 		<problemBenchmarks>
 			<solutionFileIOClass>com.tracktik.scheduler.service.SchedulerSolutionFileIO</solutionFileIOClass>
-			<inputSolutionFile>schedulerapi/src/main/resources/examples.txt</inputSolutionFile>
+			<inputSolutionFile>schedulerapi/src/main/resources/parameterized.json</inputSolutionFile>
+			<!-- <inputSolutionFile>schedulerapi/src/main/resources/examples.txt</inputSolutionFile> -->
 			<!-- <inputSolutionFile>schedulerservice/src/main/resources/AR-Report-10.txt</inputSolutionFile> -->
 			<writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
 		</problemBenchmarks>

@@ -8,7 +8,7 @@
     <parent>
         <artifactId>scheduler</artifactId>
         <groupId>com.tracktik</groupId>
-        <version>0.6</version>
+        <version>0.7</version>
     </parent>
 
     <artifactId>scheduler-service</artifactId>
@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.tracktik</groupId>
             <artifactId>scheduler-model</artifactId>
-            <version>0.6</version>
+            <version>0.7</version>
         </dependency>
 
         <dependency>

@@ -1,45 +1,35 @@
-package com.tracktik.scheduler.api.domain;
+package com.tracktik.scheduler.util;
 
+import com.tracktik.scheduler.api.domain.RequestForScheduling;
 import com.tracktik.scheduler.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Date;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-public class RequestForScheduling {
+public class RequestResponseMapper {
 
-  Logger logger = LoggerFactory.getLogger(RequestForScheduling.class);
+  private static final Logger logger = LoggerFactory.getLogger(RequestResponseMapper.class);
 
-  public Set<RequestShift> shifts = new HashSet<>();
-  public Set<RequestPost> posts = new HashSet<>();
-  public Set<RequestSkill> skills = new HashSet<>();
-  public Set<RequestPostSkill> post_skills = new HashSet<>();
-  public Set<RequestSite> sites = new HashSet<>();
-  public Set<RequestEmployee> employees = new HashSet<>();
-  public Set<RequestEmployeeSkill> employee_skills = new HashSet<>();
-  public Set<RequestEmployeePostAssignment> employees_to_posts = new HashSet<>();
-  public Set<RequestEmployeeSiteAssignment> employees_to_sites = new HashSet<>();
-  public Set<RequestTimeOff> time_off = new HashSet<>();
-  public Set<RequestEmployeeAvailability> employee_availabilities = new HashSet<>();
-  public Map<String, Object> facts = new HashMap<>();
-  public Set<RequestSiteBan> site_bans = new HashSet<>();
+  private static Long distance(Double geo1_latitude, Double geo1_longitude, Double geo2_latitude, Double geo2_longitude ) {
+    Double distance = (Math.acos(Math.sin(geo1_latitude * Math.PI / 180D) * Math.sin(geo2_latitude * Math.PI / 180D) + Math.cos(geo1_latitude * Math.PI / 180D) * Math.cos(geo2_latitude * Math.PI / 180D) * Math.cos((geo1_longitude - geo2_longitude) * Math.PI / 180D)) * 180 / Math.PI) * 60 * 1.1515D;
+    return distance.longValue();
+  }
 
-  /*
-  public Schedule toSchedule(String id) {
+  public static Schedule requestToSchedule(String id, RequestForScheduling request) {
 
     Schedule schedule = new Schedule();
     schedule.setId(id);
 
-    Set<Skill> skillSet = skills.stream().parallel().map(requestSkill -> new Skill(requestSkill.id, requestSkill.description)).collect(Collectors.toSet());
+    Set<Skill> skillSet = request.skills.stream().parallel().map(requestSkill -> new Skill(requestSkill.id, requestSkill.description)).collect(Collectors.toSet());
 
     schedule.setSites(
-        sites.stream().map(old -> {
+        request.sites.stream().map(old -> {
           logger.debug("mapping: " + old);
           Site site = new Site()
               .setId(old.id)
@@ -54,7 +44,7 @@ public class RequestForScheduling {
 
     //Map<String, Skill> skillsMap = skills.stream().collect(Collectors.toMap(skill -> skill.id, skill -> new Skill(skill.id, skill.description)));
 
-    schedule.setPosts(posts.stream().map(old -> {
+    schedule.setPosts(request.posts.stream().map(old -> {
           logger.debug("mapping post: " + old);
           Post post = new Post();
           if (old.bill_rate != null) {
@@ -75,8 +65,8 @@ public class RequestForScheduling {
               schedule.getSites().stream().parallel().filter(site -> site.getId().equals(old.site_id)).findAny().get()
           );
 
-          Set<String> hardSkillIds = post_skills.stream().parallel().filter(skill -> skill.post_id.equals(old.id) && skill.type.equals(SkillType.HARD.name())).map(skill -> skill.skill_id).collect(Collectors.toSet());
-          Set<String> softSkillIds = post_skills.stream().parallel().filter(skill -> skill.post_id.equals(old.id) && skill.type.equals(SkillType.SOFT.name())).map(skill -> skill.skill_id).collect(Collectors.toSet());
+          Set<String> hardSkillIds = request.post_skills.stream().parallel().filter(skill -> skill.post_id.equals(old.id) && skill.type.equals(SkillType.HARD.name())).map(skill -> skill.skill_id).collect(Collectors.toSet());
+          Set<String> softSkillIds = request.post_skills.stream().parallel().filter(skill -> skill.post_id.equals(old.id) && skill.type.equals(SkillType.SOFT.name())).map(skill -> skill.skill_id).collect(Collectors.toSet());
 
           post.setHardSkills(
               skillSet.stream().parallel().filter(skill -> hardSkillIds.contains(skill.getId())).collect(Collectors.toSet())
@@ -88,7 +78,7 @@ public class RequestForScheduling {
         }).collect(Collectors.toSet())
     );
 
-    employees.forEach(employee -> {
+    request.employees.forEach(employee -> {
       schedule.addEmployee(
           new Employee()
               .setId(employee.id)
@@ -99,7 +89,7 @@ public class RequestForScheduling {
               .setLatitude(employee.geo_lat == null ? null : new Double(employee.geo_lat))
               .setLongitude(employee.geo_lon == null ? null : new Double(employee.geo_lon))
               .setSiteExperience(
-                  employees_to_sites.stream().parallel()
+                  request.employees_to_sites.stream().parallel()
                       .filter(employee_to_site -> employee_to_site.user_id.equals(employee.id))
                       .map(employee_to_site -> employee_to_site.site_id)
                       .map(site_id ->
@@ -107,7 +97,7 @@ public class RequestForScheduling {
                       ).collect(Collectors.toList())
               )
               .setPostExperience(
-                  employees_to_posts.stream().parallel()
+                  request.employees_to_posts.stream().parallel()
                       .filter(employee_to_post -> employee_to_post.user_id.equals(employee.id))
                       .map(employee_to_post -> employee_to_post.post_id)
                       .map(post_id ->
@@ -115,17 +105,18 @@ public class RequestForScheduling {
                       ).collect(Collectors.toList())
               )
               .setSkills(
-                  employee_skills.stream().parallel()
+                  request.employee_skills.stream().parallel()
                       .filter(employee_skill -> employee_skill.employee_id.equals(employee.id))
                       .map(employee_skill -> employee_skill.skill_id)
                       .map(skill_id -> skillSet.stream().filter(skill -> skill.getId().equals(skill_id)).findAny().get())
                       .collect(Collectors.toList())
               )
+              .setSeniority(employee.seniority == null ? null : new Integer(employee.seniority))
       );
     });
 
     schedule.setShifts(
-        shifts.stream().map(old -> {
+        request.shifts.stream().map(old -> {
           Shift shift = new Shift()
               .setId(old.shift_id)
               //.setStartDate(LocalDate.parse(old.start_date, DateTimeFormatter.ISO_LOCAL_DATE))
@@ -138,19 +129,19 @@ public class RequestForScheduling {
               .setPost(
                   schedule.getPosts().stream().filter(post -> post.getId().equals(old.post_id)).findAny().get()
               );
-            if (old.employee_id != null && !shift.getPlan()) {
-              schedule.getEmployees().stream().filter(employee -> employee.getId().equals(old.employee_id)).findAny().ifPresent(shift::setEmployee);
-            }
-            return shift;
+          if (old.employee_id != null && !shift.getPlan()) {
+            schedule.getEmployees().stream().filter(employee -> employee.getId().equals(old.employee_id)).findAny().ifPresent(shift::setEmployee);
+          }
+          return shift;
         }).collect(Collectors.toSet())
     );
 
-    schedule.setTimesOff(time_off.stream().map(requestTimeOff -> {
+    schedule.setTimesOff(request.time_off.stream().map(requestTimeOff -> {
       return new TimeOff(requestTimeOff.employee_id, new Date(new Long(requestTimeOff.start_time)), new Date(new Long(requestTimeOff.end_time)));
     }).collect(Collectors.toSet()));
 
     schedule.setEmployeeAvailabilities(
-        employee_availabilities.stream().map(requestEmployeeAvailability -> {
+        request.employee_availabilities.stream().map(requestEmployeeAvailability -> {
           return new EmployeeAvailability()
               .setEmployeeId(requestEmployeeAvailability.employee_id)
               .setType(AvailabilityType.valueOf(requestEmployeeAvailability.type))
@@ -168,24 +159,17 @@ public class RequestForScheduling {
     });
 
     //logger.info("distances: " + schedule.getEmployeeSiteDistance());
+
+    schedule.setKeyValueFacts(
+        request.facts.entrySet().stream().map(entry -> {
+          return new KeyValueFact().setKey(entry.getKey()).setValue(entry.getValue());
+        }).collect(Collectors.toSet())
+    );
+
+    schedule.setSiteBans(
+        request.site_bans.stream().map(ban -> new SiteBan().setEmployeeId(ban.employee_id).setSiteId(ban.site_id)).collect(Collectors.toSet())
+    );
+
     return schedule;
-  }
-  private Long distance(Double geo1_latitude, Double geo1_longitude, Double geo2_latitude, Double geo2_longitude ) {
-    Double distance = (Math.acos(Math.sin(geo1_latitude * Math.PI / 180D) * Math.sin(geo2_latitude * Math.PI / 180D) + Math.cos(geo1_latitude * Math.PI / 180D) * Math.cos(geo2_latitude * Math.PI / 180D) * Math.cos((geo1_longitude - geo2_longitude) * Math.PI / 180D)) * 180 / Math.PI) * 60 * 1.1515D;
-    return distance.longValue();
-  }
-*/
-  @Override
-  public String toString() {
-    return "RequestForScheduling{" +
-        "shifts=" + shifts +
-        ", posts=" + posts +
-        ", skills=" + skills +
-        ", post_skills=" + post_skills +
-        ", sites=" + sites +
-        ", employees=" + employees +
-        ", employee_skills=" + employee_skills +
-        ", employees_to_sites=" + employees_to_sites +
-        '}';
   }
 }
