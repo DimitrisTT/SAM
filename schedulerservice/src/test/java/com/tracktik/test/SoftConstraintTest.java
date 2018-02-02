@@ -46,7 +46,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
 
     ksession.insert(shift);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("has some requested soft skills"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("HAS_SOME_SOFT_SKILLS"));
 
     assertEquals(100L, getScoreHolder().getSoftScore());
   }
@@ -82,7 +82,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(shift);
     ksession.insert(keyValueFact);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("has some requested soft skills"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("HAS_SOME_SOFT_SKILLS"));
 
     assertEquals(100L, getScoreHolder().getSoftScore());
   }
@@ -120,9 +120,49 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(keyValueFactSoftSkill);
     ksession.insert(keyValueFactMultiplier);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("has some requested soft skills -- with multiplier"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("HAS_SOME_SOFT_SKILLS_MULTIPLIER"));
 
     assertEquals(40L, getScoreHolder().getSoftScore());
+  }
+
+  @Test
+  public void testHardSkillsAsSoftEnabledWithMultiplier() {
+
+    Skill skill1 = new Skill().setId("skill1");
+    Skill skill2 = new Skill().setId("skill2");
+    Skill skill3 = new Skill().setId("skill3");
+
+    List<Skill> employeeSkills = new ArrayList<>();
+    employeeSkills.add(skill1);
+    employeeSkills.add(skill2);
+
+    Employee employee = new Employee().setId("1");
+    employee.setSkills(employeeSkills);
+
+    Set<Skill> postSkills = new HashSet<>();
+    postSkills.add(skill1);
+    postSkills.add(skill2);
+    postSkills.add(skill3);
+
+    Post post = new Post().setHardSkills(postSkills);
+
+    Shift shift = new Shift()
+        .setId("1")
+        .setEmployee(employee)
+        .setPost(post);
+
+    KeyValueFact keyValueFactHardSkill = new KeyValueFact().setKey("HARD_SKILL_ENABLED").setValue(true);
+    KeyValueFact keyValueFactHardSkillAsSoft = new KeyValueFact().setKey("HARD_SKILL_IS_HARD").setValue(false);
+    KeyValueFact keyValueFactMultiplier = new KeyValueFact().setKey("HARD_SKILL_TYPE_SOFT_MUTLIPLIER").setValue(100);
+
+    ksession.insert(shift);
+    ksession.insert(keyValueFactHardSkill);
+    ksession.insert(keyValueFactMultiplier);
+    ksession.insert(keyValueFactHardSkillAsSoft);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("EMPLOYEE_MUST_HAVE_HARD_SKILLS_AS_SOFT"));
+
+    assertEquals(200L, getScoreHolder().getSoftScore());
   }
 
   @Test
@@ -156,7 +196,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(shift);
     ksession.insert(keyValueFact);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("has some requested soft skills"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("HAS_SOME_SOFT_SKILLS"));
 
     assertEquals(0L, getScoreHolder().getSoftScore());
   }
@@ -187,7 +227,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
 
     ksession.insert(shift);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("has some requested soft skills"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("HAS_SOME_SOFT_SKILLS"));
 
     assertEquals(0L, getScoreHolder().getSoftScore());
   }
@@ -206,7 +246,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
 
     ksession.insert(shift);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("has site experience"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("HAS_SITE_EXPERIENCE"));
 
     assertEquals(0L, getScoreHolder().getSoftScore());
   }
@@ -226,7 +266,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
 
     ksession.insert(shift);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("has site experience"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("HAS_SITE_EXPERIENCE"));
 
     assertEquals(-100L, getScoreHolder().getSoftScore());
   }
@@ -253,7 +293,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
 
     ksession.insert(shift);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("has post experience"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("HAS_POST_EXPERIENCE"));
 
     assertEquals(0L, getScoreHolder().getSoftScore());
   }
@@ -279,72 +319,13 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
 
     ksession.insert(shift);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("has post experience"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("HAS_POST_EXPERIENCE"));
 
     assertEquals(-100L, getScoreHolder().getSoftScore());
   }
 
   @Test
-  public void testFarDistance() {
-
-    Site site = new Site().setId("1").setLatitude(45.521849).setLongitude(-73.553196);
-
-    Employee employee = new Employee().setId("2")
-        .setLatitude(43.231556).setLongitude(-80.399524)
-        .setCost(500L);
-
-    Post post = new Post()
-        .setSite(site).setId("3").setPayRate(5000L).setBillRate(7500L).setPayType(PayType.POST_RATE);
-    Shift shift = new Shift().setId("4")
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
-        .setEmployee(employee).setPost(post);
-
-    EmployeeSiteDistance esd = new EmployeeSiteDistance().setDistance(60L).setEmployeeId(employee.getId()).setSiteId(site.getId());
-
-    ksession.insert(site);
-    ksession.insert(employee);
-    ksession.insert(post);
-    ksession.insert(shift);
-    ksession.insert(esd);
-
-    ksession.fireAllRules(new RuleNameStartsWithAgendaFilter("workplace "));
-
-    assertEquals(-15L, getScoreHolder().getSoftScore());
-
-  }
-
-  @Test
-  public void testMediumDistance() {
-
-    Site site = new Site().setId("1").setLatitude(45.521849).setLongitude(-73.553196);
-
-    Employee employee = new Employee().setId("2")
-        .setLatitude(45.404661).setLongitude(-74.080657)
-        .setCost(500L);
-
-    Post post = new Post()
-        .setSite(site).setId("3").setPayRate(5000L).setBillRate(7500L).setPayType(PayType.POST_RATE);
-    Shift shift = new Shift().setId("4")
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
-        .setEmployee(employee).setPost(post);
-
-    EmployeeSiteDistance esd = new EmployeeSiteDistance().setDistance(30L).setEmployeeId(employee.getId()).setSiteId(site.getId());
-
-    ksession.insert(site);
-    ksession.insert(employee);
-    ksession.insert(post);
-    ksession.insert(shift);
-    ksession.insert(esd);
-
-    ksession.fireAllRules(new RuleNameStartsWithAgendaFilter("workplace "));
-
-    assertEquals(-10L, getScoreHolder().getSoftScore());
-
-  }
-
-
-  @Test
-  public void testFairlyCloseDistance() {
+  public void testEmployeeCloseToSiteDistance() {
 
     Site site = new Site().setId("1").setLatitude(45.518193).setLongitude(-73.582305);
 
@@ -358,7 +339,19 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
         .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
         .setEmployee(employee).setPost(post);
 
-    EmployeeSiteDistance esd = new EmployeeSiteDistance().setDistance(6L).setEmployeeId(employee.getId()).setSiteId(site.getId());
+    EmployeeSiteDistance esd = new EmployeeSiteDistance().setDistance(1L).setEmployeeId(employee.getId()).setSiteId(site.getId());
+
+    ksession.insert(new KeyValueFact().setKey("CLOSE_FROM_SITE_ENABLED").setValue(true));
+    ksession.insert(new KeyValueFact().setKey("CLOSE_FROM_SITE_DEFINITION").setValue(10L));
+    ksession.insert(new KeyValueFact().setKey("CLOSE_FROM_SITE_IMPACT").setValue(5L));
+
+    ksession.insert(new KeyValueFact().setKey("FAIRLY_FAR_FROM_SITE_ENABLED").setValue(true));
+    ksession.insert(new KeyValueFact().setKey("FAIRLY_FAR_FROM_SITE_DEFINITION").setValue(25L));
+    ksession.insert(new KeyValueFact().setKey("FAIRLY_FROM_FROM_SITE_IMPACT").setValue(-10L));
+
+    ksession.insert(new KeyValueFact().setKey("FAR_FROM_SITE_ENABLED").setValue(true));
+    ksession.insert(new KeyValueFact().setKey("FAR_FROM_SITE_DEFINITION").setValue(50L));
+    ksession.insert(new KeyValueFact().setKey("FAR_FROM_SITE_IMPACT").setValue(-20L));
 
     ksession.insert(site);
     ksession.insert(employee);
@@ -366,19 +359,19 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(shift);
     ksession.insert(esd);
 
-    ksession.fireAllRules(new RuleNameStartsWithAgendaFilter("workplace "));
+    ksession.fireAllRules(new RuleNameStartsWithAgendaFilter("WORKPLACE_"));
 
-    assertEquals(-5L, getScoreHolder().getSoftScore());
+    assertEquals(5L, getScoreHolder().getSoftScore());
 
   }
 
   @Test
-  public void testCloseDistance() {
+  public void testEmployeeMediumDistanctToSiteDistance() {
 
     Site site = new Site().setId("1").setLatitude(45.518193).setLongitude(-73.582305);
 
     Employee employee = new Employee().setId("2")
-        .setLatitude(45.518209).setLongitude(-73.577456)
+        .setLatitude(45.482001).setLongitude(-73.710184)
         .setCost(500L);
 
     Post post = new Post()
@@ -387,7 +380,19 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
         .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
         .setEmployee(employee).setPost(post);
 
-    EmployeeSiteDistance esd = new EmployeeSiteDistance().setDistance(1L).setEmployeeId(employee.getId()).setSiteId(site.getId());
+    EmployeeSiteDistance esd = new EmployeeSiteDistance().setDistance(20L).setEmployeeId(employee.getId()).setSiteId(site.getId());
+
+    ksession.insert(new KeyValueFact().setKey("CLOSE_FROM_SITE_ENABLED").setValue(true));
+    ksession.insert(new KeyValueFact().setKey("CLOSE_FROM_SITE_DEFINITION").setValue(10L));
+    ksession.insert(new KeyValueFact().setKey("CLOSE_FROM_SITE_IMPACT").setValue(5L));
+
+    ksession.insert(new KeyValueFact().setKey("FAIRLY_FAR_FROM_SITE_ENABLED").setValue(true));
+    ksession.insert(new KeyValueFact().setKey("FAIRLY_FAR_FROM_SITE_DEFINITION").setValue(25L));
+    ksession.insert(new KeyValueFact().setKey("FAIRLY_FROM_FROM_SITE_IMPACT").setValue(-10L));
+
+    ksession.insert(new KeyValueFact().setKey("FAR_FROM_SITE_ENABLED").setValue(true));
+    ksession.insert(new KeyValueFact().setKey("FAR_FROM_SITE_DEFINITION").setValue(50L));
+    ksession.insert(new KeyValueFact().setKey("FAR_FROM_SITE_IMPACT").setValue(-20L));
 
     ksession.insert(site);
     ksession.insert(employee);
@@ -395,9 +400,91 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(shift);
     ksession.insert(esd);
 
-    ksession.fireAllRules(new RuleNameStartsWithAgendaFilter("workplace "));
+    ksession.fireAllRules(new RuleNameStartsWithAgendaFilter("WORKPLACE_"));
 
-    assertEquals(5L, getScoreHolder().getSoftScore());
+    assertEquals(0L, getScoreHolder().getSoftScore());
+
+  }
+
+  @Test
+  public void testEmployeeFairlyFarToSiteDistance() {
+
+    Site site = new Site().setId("1").setLatitude(45.518193).setLongitude(-73.582305);
+
+    Employee employee = new Employee().setId("2")
+        .setLatitude(45.482001).setLongitude(-73.710184)
+        .setCost(500L);
+
+    Post post = new Post()
+        .setSite(site).setId("3").setPayRate(5000L).setBillRate(7500L).setPayType(PayType.POST_RATE);
+    Shift shift = new Shift().setId("4")
+        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setEmployee(employee).setPost(post);
+
+    EmployeeSiteDistance esd = new EmployeeSiteDistance().setDistance(30L).setEmployeeId(employee.getId()).setSiteId(site.getId());
+
+    ksession.insert(new KeyValueFact().setKey("CLOSE_FROM_SITE_ENABLED").setValue(true));
+    ksession.insert(new KeyValueFact().setKey("CLOSE_FROM_SITE_DEFINITION").setValue(10L));
+    ksession.insert(new KeyValueFact().setKey("CLOSE_FROM_SITE_IMPACT").setValue(5L));
+
+    ksession.insert(new KeyValueFact().setKey("FAIRLY_FAR_FROM_SITE_ENABLED").setValue(true));
+    ksession.insert(new KeyValueFact().setKey("FAIRLY_FAR_FROM_SITE_DEFINITION").setValue(25L));
+    ksession.insert(new KeyValueFact().setKey("FAIRLY_FROM_FROM_SITE_IMPACT").setValue(-10L));
+
+    ksession.insert(new KeyValueFact().setKey("FAR_FROM_SITE_ENABLED").setValue(true));
+    ksession.insert(new KeyValueFact().setKey("FAR_FROM_SITE_DEFINITION").setValue(50L));
+    ksession.insert(new KeyValueFact().setKey("FAR_FROM_SITE_IMPACT").setValue(-20L));
+
+    ksession.insert(site);
+    ksession.insert(employee);
+    ksession.insert(post);
+    ksession.insert(shift);
+    ksession.insert(esd);
+
+    ksession.fireAllRules(new RuleNameStartsWithAgendaFilter("WORKPLACE_"));
+
+    assertEquals(-10L, getScoreHolder().getSoftScore());
+
+  }
+
+  @Test
+  public void testEmployeeFarToSiteDistance() {
+
+    Site site = new Site().setId("1").setLatitude(45.518193).setLongitude(-73.582305);
+
+    Employee employee = new Employee().setId("2")
+        .setLatitude(45.482001).setLongitude(-73.710184)
+        .setCost(500L);
+
+    Post post = new Post()
+        .setSite(site).setId("3").setPayRate(5000L).setBillRate(7500L).setPayType(PayType.POST_RATE);
+    Shift shift = new Shift().setId("4")
+        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setEmployee(employee).setPost(post);
+
+    EmployeeSiteDistance esd = new EmployeeSiteDistance().setDistance(60L).setEmployeeId(employee.getId()).setSiteId(site.getId());
+
+    ksession.insert(new KeyValueFact().setKey("CLOSE_FROM_SITE_ENABLED").setValue(true));
+    ksession.insert(new KeyValueFact().setKey("CLOSE_FROM_SITE_DEFINITION").setValue(10L));
+    ksession.insert(new KeyValueFact().setKey("CLOSE_FROM_SITE_IMPACT").setValue(5L));
+
+    ksession.insert(new KeyValueFact().setKey("FAIRLY_FAR_FROM_SITE_ENABLED").setValue(true));
+    ksession.insert(new KeyValueFact().setKey("FAIRLY_FAR_FROM_SITE_DEFINITION").setValue(25L));
+    ksession.insert(new KeyValueFact().setKey("FAIRLY_FROM_FROM_SITE_IMPACT").setValue(-10L));
+
+    ksession.insert(new KeyValueFact().setKey("FAR_FROM_SITE_ENABLED").setValue(true));
+    ksession.insert(new KeyValueFact().setKey("FAR_FROM_SITE_DEFINITION").setValue(50L));
+    ksession.insert(new KeyValueFact().setKey("FAR_FROM_SITE_IMPACT").setValue(-20L));
+
+    ksession.insert(site);
+    ksession.insert(employee);
+    ksession.insert(post);
+    ksession.insert(shift);
+    ksession.insert(esd);
+
+    ksession.fireAllRules(new RuleNameStartsWithAgendaFilter("WORKPLACE_"));
+
+    assertEquals(-30L, getScoreHolder().getSoftScore());
 
   }
 
@@ -420,7 +507,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(post);
     ksession.insert(shift);
 
-    ksession.fireAllRules(new RuleNameStartsWithAgendaFilter("workplace "));
+    ksession.fireAllRules(new RuleNameStartsWithAgendaFilter("WORKPLACE_"));
 
     assertEquals(0L, getScoreHolder().getSoftScore());
 
@@ -446,35 +533,9 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(post);
     ksession.insert(shift);
 
-    ksession.fireAllRules(new RuleNameStartsWithAgendaFilter("workplace "));
+    ksession.fireAllRules(new RuleNameStartsWithAgendaFilter("WORKPLACE_"));
 
     assertEquals(0L, getScoreHolder().getSoftScore());
-
-  }
-
-  @Test
-  public void testEmployeeIsBannedFromSite() {
-
-    Site site = new Site().setId("1");
-
-    Employee employee = new Employee().setId("2");
-
-    Post post = new Post()
-        .setSite(site).setId("3");
-    Shift shift = new Shift().setId("4")
-        .setEmployee(employee).setPost(post);
-
-    SiteBan ban = new SiteBan().setEmployeeId("2").setSiteId("1");
-
-    ksession.insert(site);
-    ksession.insert(employee);
-    ksession.insert(post);
-    ksession.insert(shift);
-    ksession.insert(ban);
-
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee is banned from a site"));
-
-    assertEquals(-1L, getScoreHolder().getHardScore());
 
   }
 

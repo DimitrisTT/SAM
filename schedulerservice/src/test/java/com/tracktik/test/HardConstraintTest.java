@@ -35,7 +35,7 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(shift1);
     ksession.insert(shift2);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee can not work two shifts at same time"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("CAN_NOT_WORK_SIMULTANEOUS_SHIFTS"));
 
     assertTrue(getScoreHolder().getHardScore() < 0);
   }
@@ -58,7 +58,7 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(shift1);
     ksession.insert(shift2);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee can not work two shifts at same time"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("CAN_NOT_WORK_SIMULTANEOUS_SHIFTS"));
 
     assertEquals(0L, getScoreHolder().getHardScore());
   }
@@ -92,7 +92,7 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
 
     ksession.insert(shift);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee must have hard skills"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("MUST_HAVE_HARD_SKILLS"));
 
     assertEquals(0L, getScoreHolder().getHardScore());
   }
@@ -129,7 +129,7 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(shift);
     ksession.insert(hardSkillsEnabled);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee must have hard skills"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("MUST_HAVE_HARD_SKILLS"));
 
     assertEquals(0L, getScoreHolder().getHardScore());
   }
@@ -162,7 +162,7 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
 
     ksession.insert(shift);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee must have hard skills"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("MUST_HAVE_HARD_SKILLS"));
 
 
     assertTrue(getScoreHolder().getHardScore() < 0);
@@ -199,9 +199,35 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(shift);
     ksession.insert(hardSkillsDisabled);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee must have hard skills"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("MUST_HAVE_HARD_SKILLS"));
 
     assertEquals(0L, getScoreHolder().getHardScore());
+  }
+
+  @Test
+  public void testEmployeeIsBannedFromSite() {
+
+    Site site = new Site().setId("1");
+
+    Employee employee = new Employee().setId("2");
+
+    Post post = new Post()
+        .setSite(site).setId("3");
+    Shift shift = new Shift().setId("4")
+        .setEmployee(employee).setPost(post);
+
+    SiteBan ban = new SiteBan().setEmployeeId("2").setSiteId("1");
+
+    ksession.insert(site);
+    ksession.insert(employee);
+    ksession.insert(post);
+    ksession.insert(shift);
+    ksession.insert(ban);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("BANNED_FROM_SITE"));
+
+    assertEquals(-1L, getScoreHolder().getHardScore());
+
   }
 
   @Test
@@ -223,7 +249,7 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(shift);
     ksession.insert(timeOff);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee has time off scheduled during shift"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("TIME_OFF_DURING_SHIFT"));
 
     assertTrue(getScoreHolder().getHardScore() < 0);
   }
@@ -247,7 +273,7 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(shift);
     ksession.insert(timeOff);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee has time off scheduled during shift"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("TIME_OFF_DURING_SHIFT"));
 
     assertTrue(getScoreHolder().getHardScore() < 0);
   }
@@ -271,7 +297,7 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(shift);
     ksession.insert(timeOff);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee has time off scheduled during shift"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("TIME_OFF_DURING_SHIFT"));
 
     assertTrue(getScoreHolder().getHardScore() < 0);
   }
@@ -295,7 +321,7 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(shift);
     ksession.insert(timeOff);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee has time off scheduled during shift"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("TIME_OFF_DURING_SHIFT"));
 
     assertTrue(getScoreHolder().getHardScore() == 0);
   }
@@ -316,7 +342,7 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(employee);
     ksession.insert(shift);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee has time off scheduled during shift"));
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("TIME_OFF_DURING_SHIFT"));
 
     assertTrue(getScoreHolder().getHardScore() == 0);
   }

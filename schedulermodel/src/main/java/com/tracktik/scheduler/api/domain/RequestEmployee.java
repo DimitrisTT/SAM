@@ -8,6 +8,7 @@ public class RequestEmployee {
   public String geo_lon;
   public String pay_rate;
   public String seniority;
+  public String preferred_hours;
 
   @Override
   public String toString() {
@@ -18,6 +19,7 @@ public class RequestEmployee {
         ", geo_lon='" + geo_lon + '\'' +
         ", pay_rate='" + pay_rate + '\'' +
         ", seniority='" + seniority + '\'' +
+        ", preferred_hours='" + preferred_hours + '\'' +
         '}';
   }
 }

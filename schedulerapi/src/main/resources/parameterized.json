@@ -1227,6 +1227,7 @@
       "id": "1159",
       "name": "Oliver Poirier",
       "geo_lat": null,
+      "preferred_hours": "25",
       "geo_lon": null,
       "pay_rate": null,
       "seniority": null
@@ -1236,8 +1237,10 @@
       "name": "Jim Hopper",
       "geo_lat": null,
       "geo_lon": null,
+      "preferred_hours": "40",
       "pay_rate": "13.00",
-      "seniority": "120"
+      "seniority": "120",
+      "preferred_hours": "40"
     },
     {
       "id": "1202",
@@ -1250,6 +1253,7 @@
     {
       "id": "1203",
       "name": "Oscar Bentley",
+      "preferred_hours": "40",
       "geo_lat": null,
       "geo_lon": null,
       "pay_rate": null,

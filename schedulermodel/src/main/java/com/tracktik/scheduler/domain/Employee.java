@@ -12,7 +12,7 @@ public class Employee {
   private List<Post> postExperience = new ArrayList<>();
   private List<Skill> skills = new ArrayList<>();
   private Long cost;  //times 100
-  private Long preferredHours = 40L;
+  private Long preferredHours;
   private Double latitude;
   private Double longitude;
   private Integer seniority;

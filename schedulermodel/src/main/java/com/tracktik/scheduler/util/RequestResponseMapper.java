@@ -85,7 +85,7 @@ public class RequestResponseMapper {
               .setAvailabilityPreference(null)  //TODO account
               .setCostFromFloatString(employee.pay_rate)
               .setName(employee.name)
-              .setPreferredHours(0L)  //TODO account for this in the request payload
+              .setPreferredHours(employee.preferred_hours == null ? null : new Long(employee.preferred_hours))  //TODO account for this in the request payload
               .setLatitude(employee.geo_lat == null ? null : new Double(employee.geo_lat))
               .setLongitude(employee.geo_lon == null ? null : new Double(employee.geo_lon))
               .setSiteExperience(

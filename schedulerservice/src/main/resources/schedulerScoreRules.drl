@@ -34,7 +34,7 @@ function Boolean overlaps(Date shiftStartDate, Date shiftEndDate, DayOfWeek dayO
 
 // HARD CONSTRAINTS
 
-rule "employee can not work two shifts at same time"
+rule "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS"
     when
         $shift: Shift($employee : employee, $timeSlot : timeSlot, employee != null)
         Shift(this != $shift, employee == $employee, (timeSlot.startTime <= $timeSlot.endTime) && ($timeSlot.startTime < timeSlot.endTime))
@@ -42,7 +42,7 @@ rule "employee can not work two shifts at same time"
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
 
-rule "employee must have hard skills"
+rule "MUST_HAVE_HARD_SKILLS"
     when
         Shift(post != null, employee != null, !employee.skills.containsAll(post.hardSkills))
         not KeyValueFact(key == "HARD_SKILL_ENABLED", value == false)
@@ -52,7 +52,7 @@ rule "employee must have hard skills"
 end
 
 
-rule "employee has time off scheduled during shift"
+rule "TIME_OFF_DURING_SHIFT"
     when
         Shift(employee != null, $employeeId: employee.id, $shiftStart: timeSlot.start, $shiftEnd: timeSlot.end)
         TimeOff($employeeId == employeeId, (startTime <= $shiftEnd) && ($shiftStart < endTime))
@@ -60,7 +60,7 @@ rule "employee has time off scheduled during shift"
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
 
-rule "employee is banned from a site"
+rule "BANNED_FROM_SITE"
     when
         Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
         SiteBan($employeeId == employeeId, $siteId == siteId)
@@ -69,7 +69,7 @@ rule "employee is banned from a site"
 end
 
 
-/*rule "there must be 8 hour gap between shifts"
+/*rule "EIGHT_HOUR_SHIFT_GAP"
    when
         Shift($employee: employee, $firstShiftEnd: timeSlot.getEnd())
         Shift($employee == employee, hoursGap($firstShiftEnd, timeSlot.getStart()) < 8L)
@@ -79,7 +79,7 @@ end*/
 
 // SOFT CONSTRAINTS
 
-rule "has some requested soft skills"
+rule "HAS_SOME_SOFT_SKILLS"
     when
         Shift(post != null, employee != null, $softSkills: post.softSkills, $skills:employee.skills, numberOfMatches($softSkills, $skills) > 0)
         not KeyValueFact(key == "SOFT_SKILL_ENABLED", value == false)
@@ -88,7 +88,7 @@ rule "has some requested soft skills"
         scoreHolder.addSoftConstraintMatch(kcontext, numberOfMatches($softSkills, $skills) * 50 );
 end
 
-rule "has some requested soft skills -- with multiplier"
+rule "HAS_SOME_SOFT_SKILLS_MULTIPLIER"
     when
         Shift(post != null, employee != null, $softSkills: post.softSkills, $skills:employee.skills, numberOfMatches($softSkills, $skills) > 0)
         not KeyValueFact(key == "SOFT_SKILL_ENABLED", value == false)
@@ -98,6 +98,16 @@ rule "has some requested soft skills -- with multiplier"
         scoreHolder.addSoftConstraintMatch(kcontext, numberOfMatches($softSkills, $skills) * numberOfMatches($softSkills, $skills) * $multiplier);
 end
 
+
+rule "EMPLOYEE_MUST_HAVE_HARD_SKILLS_AS_SOFT"
+    when
+        Shift(post != null, employee != null, $hardSkills: post.hardSkills, $skills:employee.skills, numberOfMatches($hardSkills, $skills) > 0)
+        not KeyValueFact(key == "HARD_SKILL_ENABLED", value == false)
+        KeyValueFact(key == "HARD_SKILL_IS_HARD", value == false)
+        KeyValueFact(key == "HARD_SKILL_TYPE_SOFT_MUTLIPLIER", $multiplier: ((Long)value))
+    then
+        scoreHolder.addSoftConstraintMatch(kcontext, numberOfMatches($hardSkills, $skills) * $multiplier);
+end
 
 rule "add cost data"
     when
@@ -113,21 +123,21 @@ rule "add cost data"
 end
 
 
-rule "non overtime margin"
+rule "NON_OVERTIME_MARGIN"
     when
        CostTotals($margin: totalCost - totalBilled)
     then
        scoreHolder.addSoftConstraintMatch(kcontext, $margin / 100 );
 end
 
-rule "overtime pay"
+rule "OVERTIME_PAY"
     when
        CostTotals(hours>40, $otHours: hours - 40, $weightedCost: totalCost/hours) //might have to do rounding instead of truncate
     then
        scoreHolder.addSoftConstraintMatch(kcontext, - ($otHours * $weightedCost / 2)  / 100 );
 end
 
-/*rule "maximize profit"
+/*rule "MAXIMIZE_PROFIT"
     when
         Shift($post: post, $timeSlot : timeSlot)
         Post(this == $post, $billRate: billRate, $payRate: payRate)
@@ -135,30 +145,28 @@ end
         scoreHolder.addSoftConstraintMatch(kcontext, ($billRate - $payRate)/100L);
 end*/
 
-/*
-We don't have preferred hours on the employee at this time
-rule "minimum availability preference"
+rule "MINIMUM_AVAILABILITY_PREFERENCE"
     when
 
-        $employee : Employee($preferredHours: preferredHours)
+        $employee : Employee(preferredHours != null, $preferredHours: preferredHours)
         $totalHours: Long() from accumulate (
-           Shift($employee == employee, $shiftHours: timeSlot.getDurationHours()),
+           Shift(employee != null, $employee == employee, $shiftHours: timeSlot.getDurationHours()),
            sum($shiftHours)
         )
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -(($totalHours - $preferredHours) * ($totalHours - $preferredHours)));
 end
-*/
 
 
-rule "has site experience"
+
+rule "HAS_SITE_EXPERIENCE"
     when
         Shift(employee != null, post != null, post.site not memberOf employee.siteExperience)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -100);
 end
 
-rule "has post experience"
+rule "HAS_POST_EXPERIENCE"
     when
         Shift(employee != null, post != null, post not memberOf employee.postExperience)
     then
@@ -185,45 +193,49 @@ rule "calculate distance from employee to site"
 end
 */
 
-rule "workplace is far from employee"
+rule "WORKPLACE_FAR"
     when
-        EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance > 50L)
+        not KeyValueFact(key == "FAR_FROM_SITE_ENABLED", value == false)
+        KeyValueFact(key == "FAR_FROM_SITE_DEFINITION", $definition: ((Long)value))
+        KeyValueFact(key == "FAR_FROM_SITE_IMPACT", $impact: ((Long)value))
+        EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance > $definition)
         Shift(employee != null, employee.id == $employeeId, post.site.id ==$siteId )
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, -5);
+        scoreHolder.addSoftConstraintMatch(kcontext, $impact);
 end
 
-rule "workplace is a medium distance from employee"
+rule "WORKPLACE_FAIRLY_CLOSE"
     when
-        EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance > 25L)
+        not KeyValueFact(key == "FAIRLY_FAR_FROM_SITE_ENABLED", value == false)
+        KeyValueFact(key == "FAIRLY_FAR_FROM_SITE_DEFINITION", $definition: ((Long)value))
+        KeyValueFact(key == "FAIRLY_FROM_FROM_SITE_IMPACT", $impact: ((Long)value))
+        EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance > $definition)
         Shift(employee != null, employee.id == $employeeId, post.site.id == $siteId )
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, -5);
+        scoreHolder.addSoftConstraintMatch(kcontext, $impact);
 end
 
-rule "workplace is fairly close to employee"
+rule "WORKPLACE_CLOSE"
     when
-        EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance > 5L)
+        not KeyValueFact(key == "CLOSE_FROM_SITE_ENABLED", value == false)
+        KeyValueFact(key == "CLOSE_FROM_SITE_DEFINITION", $definition: ((Long)value))
+        KeyValueFact(key == "CLOSE_FROM_SITE_IMPACT", $impact: ((Long)value))
+        EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance <= $definition)
         Shift(employee != null, employee.id == $employeeId, post.site.id == $siteId )
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, -5);
-end
-
-rule "workplace is close to employee"
-    when
-        EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance <= 5L)
-        Shift(employee != null, employee.id == $employeeId, post.site.id == $siteId )
-    then
-        scoreHolder.addSoftConstraintMatch(kcontext, 5);
+        scoreHolder.addSoftConstraintMatch(kcontext, $impact);
 end
 
 /*
+
 rule "employee prefers not to work shift"
     when
         $availability : EmployeeAvailability($employeeId: employeeId, type == AvailabilityType.NO, $day: dayOfWeek, $employeeStart: startTime, $employeeEnd: endTime)
         Shift(employee != null, $employeeId == employee.id, this.overlaps($availability))
+        not KeyValueFact(key == "AVAILABLE_PREF_NO_ENABLED", value == false)
+        KeyValueFact(key == "AVAILABLE_PREF_NO_IMPACT", $impact: ((Long)value))
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, -10);
+        scoreHolder.addSoftConstraintMatch(kcontext, $impact);
 end
 
 rule "employee may be available to work shift"
@@ -231,8 +243,10 @@ rule "employee may be available to work shift"
         Employee($employeeId: id)
         $availability : EmployeeAvailability($employeeId == employeeId, type == AvailabilityType.MAYBE, $startTime: startTime, $endTime: endTime, $day: dayOfWeek)
         Shift(employee != null, $employeeId == employee.id, this.overlaps($availability))
+        not KeyValueFact(key == "AVAILABLE_PREF_MAYBE_ENABLED", value == false)
+        KeyValueFact(key == "AVAILABLE_PREF_MAYBE_IMPACT", $impact: ((Long)value))
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, -5);
+        scoreHolder.addSoftConstraintMatch(kcontext, $impact);
 end
 */
 
