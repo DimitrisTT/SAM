@@ -1,5 +1,7 @@
 package com.tracktik.scheduler.api;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
@@ -20,6 +22,8 @@ import javax.jms.ConnectionFactory;
 @SpringBootApplication
 public class Application {
 
+  private static final Logger logger = LoggerFactory.getLogger(Application.class);
+
   public static void main(String[] args) {
     // Launch the application
     ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
@@ -32,6 +36,9 @@ public class Application {
     DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
     // This provides all boot's default to this factory, including the message converter
     factory.setMaxMessagesPerTask(3);
+    factory.setErrorHandler(throwable -> {
+      logger.error("Unable to process message", throwable);
+    });
 
     configurer.configure(factory, connectionFactory);
     // You could still override some of Boot's default if necessary.

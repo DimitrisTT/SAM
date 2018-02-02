@@ -29,6 +29,7 @@ public class Receiver {
   @JmsListener(destination = QueueNames.request, containerFactory = "schedulerFactory")
   public void receiveMessage(Schedule schedule) {
 
+    //solveSchedule(schedule);
     new Thread(() -> this.solveSchedule(schedule)).start();
 
   }
@@ -77,7 +78,6 @@ public class Receiver {
     response.setShifts(solvedSchedule.getShifts()).setStatus(SolverStatus.COMPLETED);
     response.getMeta().setConstraint_scores(scores).setHard_constraint_score(score.getHardScore()).setSoft_constraint_score(score.getSoftScore());
 
-    logger.info("Sending response for " + response.getId() + " " + response.toString());
     jmsTemplate.convertAndSend(QueueNames.response, response);
 
     logger.info("Schedule solved for " + response.getId());

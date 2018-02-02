@@ -129,7 +129,7 @@ public class RequestForScheduling {
         shifts.stream().map(old -> {
           Shift shift = new Shift()
               .setId(old.shift_id)
-              .setStartDate(LocalDate.parse(old.start_date, DateTimeFormatter.ISO_LOCAL_DATE))
+              //.setStartDate(LocalDate.parse(old.start_date, DateTimeFormatter.ISO_LOCAL_DATE))
               .setPlan(old.plan == null || old.plan.equals("1"))
               //.setPlan(true)
               .setTimeSlot(new TimeSlot(old.start_date_time, old.end_date_time))
@@ -167,8 +167,8 @@ public class RequestForScheduling {
         schedule.getEmployeeSiteDistance().add(new EmployeeSiteDistance(employee.getId(), site.getId(), distance));
       });
     });
-    logger.info("distances: " + schedule.getEmployeeSiteDistance());
 
+    //logger.info("distances: " + schedule.getEmployeeSiteDistance());
     return schedule;
   }
   private Long distance(Double geo1_latitude, Double geo1_longitude, Double geo2_latitude, Double geo2_longitude ) {

@@ -4,19 +4,33 @@ import com.tracktik.scheduler.domain.*;
 import com.tracktik.scheduler.service.*;
 import java.util.*;
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 
 global HardSoftLongScoreHolder scoreHolder;
 
 function Long numberOfMatches(Collection first, Collection other) {
     return first.stream().filter(item -> other.contains(item)).count();
 }
-/*
-function Double distance(Double geo1_latitude, Double geo1_longitude, Double geo2_latitude, Double geo2_longitude ) {
+
+function Long calculateDistance(Double geo1_latitude, Double geo1_longitude, Double geo2_latitude, Double geo2_longitude ) {
     Double distance = ((Math.acos(Math.sin(geo1_latitude * Math.PI / 180D) * Math.sin(geo2_latitude * Math.PI / 180D) + Math.cos(geo1_latitude * Math.PI / 180D) * Math.cos(geo2_latitude * Math.PI / 180D) * Math.cos((geo1_longitude - geo2_longitude) * Math.PI / 180D)) * 180 / Math.PI) * 60 * 1.1515D);
-    //System.out.println("Distance: " + distance);
-    return distance;
+    return distance.longValue();
 }
-*/
+
+function Boolean overlaps(Date shiftStartDate, Date shiftEndDate, DayOfWeek dayOfWeek, LocalTime availableStartTime, LocalTime availableEndTime) {
+
+    LocalDateTime shiftStart = shiftStartDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().plus(1L, ChronoUnit.SECONDS);
+    LocalDateTime shiftEnd = shiftEndDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().minus(1L, ChronoUnit.SECONDS);
+
+    LocalDateTime availableStartDateTime = shiftStart.with(dayOfWeek).withHour(availableStartTime.getHour()).withMinute(availableStartTime.getMinute()).withSecond(availableStartTime.getSecond());
+    LocalDateTime availableEndDateTime = shiftEnd.with(dayOfWeek).withHour(availableEndTime.getHour()).withMinute(availableEndTime.getMinute()).withSecond(availableEndTime.getSecond());
+
+    Boolean overlaps = shiftEnd.isAfter(availableStartDateTime) && shiftStart.isBefore(availableEndDateTime);
+
+    //System.out.println("Overlaps: " + overlaps + " shiftStart " + shiftStart + " shiftEnd " + shiftEnd + " availableStartDateTime " + availableStartDateTime + " availableEndDateTime " + availableEndDateTime);
+
+    return overlaps;
+}
 
 // HARD CONSTRAINTS
 
@@ -122,78 +136,65 @@ rule "has site experience"
         scoreHolder.addSoftConstraintMatch(kcontext, -100);
 end
 
-/*
-We don't have post experience at this time
 rule "has post experience"
     when
         Shift(employee != null, post != null, post not memberOf employee.postExperience)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -100);
 end
-*/
 
 /*
-Doing this in Java now as a pre-step
 rule "calculate distance from employee to site"
     when
-        Employee(latitude != null, longitude != null, $employeeId: id, $employeeLatitude: latitude, $employeeLongitude: longitude)
-        Shift(employee != null, $employeeId == employee.id, $postId: post.id, plan)
-        Post($postId == id, $siteId: site.id)
-        Site(latitude != null, longitude != null, $siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
+        Shift(plan, employee != null, $employeeId: employee.id, $postId: post.id, $siteId: post.site.id)
         not EmployeeSiteDistance($employeeId == employeeId, $siteId == siteId)
+        Employee($employeeId == id, latitude != null, longitude != null, $employeeLatitude: latitude, $employeeLongitude: longitude)
+        Site(latitude != null, longitude != null, $siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
     then
-        insert(new EmployeeSiteDistance($employeeId, $siteId, distance($siteLatitude, $siteLongitute, $employeeLatitude, $employeeLongitude)));
+        insert(new EmployeeSiteDistance($employeeId, $siteId, calculateDistance($siteLatitude, $siteLongitute, $employeeLatitude, $employeeLongitude)));
 end
 */
 
 rule "workplace is far from employee"
     when
-        Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
-        EmployeeSiteDistance($employeeId == employeeId, $siteId == siteId, distance > 50L)
+        EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance > 50L)
+        Shift(employee != null, employee.id == $employeeId, post.site.id ==$siteId )
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -5);
 end
 
-/*
 rule "workplace is a medium distance from employee"
     when
-        Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
-        Site(latitude != null, longitude != null, $siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
-        Employee(latitude != null, longitude != null, $employeeId == id, distance($siteLatitude, $siteLongitute, latitude, longitude) > 25.0D)
+        EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance > 25L)
+        Shift(employee != null, employee.id == $employeeId, post.site.id == $siteId )
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -5);
 end
-*/
-/*
+
 rule "workplace is fairly close to employee"
     when
-        Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
-        Site(latitude != null, longitude != null, $siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
-        Employee(latitude != null, longitude != null, $employeeId == id, distance($siteLatitude, $siteLongitute, latitude, longitude) > 5.0D)
+        EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance > 5L)
+        Shift(employee != null, employee.id == $employeeId, post.site.id == $siteId )
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -5);
 end
-*/
-/*
+
 rule "workplace is close to employee"
     when
-        Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
-        Site(latitude != null, longitude != null, $siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
-        Employee(latitude != null, longitude != null, $employeeId == id, distance($siteLatitude, $siteLongitute, latitude, longitude) <= 5.0D)
+        EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance <= 5L)
+        Shift(employee != null, employee.id == $employeeId, post.site.id == $siteId )
     then
         scoreHolder.addSoftConstraintMatch(kcontext, 5);
 end
-*/
 
+/*
 rule "employee prefers not to work shift"
     when
-        Employee($employeeId: id)
-        $availability : EmployeeAvailability($employeeId == employeeId, type == AvailabilityType.NO, $startTime: startTime, $endTime: endTime, $day: dayOfWeek)
+        $availability : EmployeeAvailability($employeeId: employeeId, type == AvailabilityType.NO, $day: dayOfWeek, $employeeStart: startTime, $employeeEnd: endTime)
         Shift(employee != null, $employeeId == employee.id, this.overlaps($availability))
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -10);
 end
-
 
 rule "employee may be available to work shift"
     when
@@ -203,4 +204,5 @@ rule "employee may be available to work shift"
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -5);
 end
+*/
 

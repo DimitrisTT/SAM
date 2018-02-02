@@ -1,5 +1,11 @@
 package com.tracktik.scheduler.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.tracktik.scheduler.util.LocalTimeDeserializer;
+import com.tracktik.scheduler.util.LocalTimeSerializer;
+
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
@@ -8,7 +14,11 @@ public class EmployeeAvailability {
   private String employeeId;
   private AvailabilityType type;
   private DayOfWeek dayOfWeek;
+  @JsonSerialize(using = LocalTimeSerializer.class)
+  @JsonDeserialize(using = LocalTimeDeserializer.class)
   private LocalTime startTime;
+  @JsonSerialize(using = LocalTimeSerializer.class)
+  @JsonDeserialize(using = LocalTimeDeserializer.class)
   private LocalTime endTime;
 
   public String getEmployeeId() {

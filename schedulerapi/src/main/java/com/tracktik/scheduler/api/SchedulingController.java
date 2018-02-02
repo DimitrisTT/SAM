@@ -1,5 +1,7 @@
 package com.tracktik.scheduler.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tracktik.scheduler.api.domain.QueueNames;
 import com.tracktik.scheduler.api.domain.RequestForScheduling;
 import com.tracktik.scheduler.domain.Schedule;
@@ -11,9 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.jms.JMSException;
+import javax.jms.Message;
 import java.net.URI;
 import java.util.UUID;
 

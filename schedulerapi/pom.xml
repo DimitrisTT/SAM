@@ -46,10 +46,11 @@
             <scope>compile</scope>
         </dependency>
 
+        <!--
         <dependency>
             <groupId>org.optaplanner</groupId>
             <artifactId>optaplanner-core</artifactId>
-        </dependency>
+        </dependency> -->
 
         <dependency>
             <groupId>com.google.guava</groupId>

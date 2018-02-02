@@ -3,9 +3,6 @@ package com.tracktik.scheduler.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tracktik.scheduler.api.domain.RequestForScheduling;
 import com.tracktik.scheduler.domain.*;
-import org.apache.commons.io.FileUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
 import org.optaplanner.core.api.score.constraint.ConstraintMatchTotal;
 import org.optaplanner.core.api.solver.SolverFactory;
@@ -16,10 +13,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
 
@@ -46,21 +42,9 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
     System.out.println("Got request to schedule " + totalSiftsToSchedule + " shifts out of " + totalShifts + " for " + totalEmployees + " employees. id: " + schedule.getId());
     System.out.println("Number of locked that are still unassigned " + totalLockedUnasigned);
     return schedule;
-    /*
-    try {
-      String jsonString = FileUtils.readFileToString(inputFile, "UTF-8");
-      JSONObject json = new JSONObject(jsonString);
-
-      return marshall(json);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-    return null;
-    */
 
   }
-
+/*
   private Schedule marshall(JSONObject json) {
 
     Map<String, Employee> employees = createEmployees(json.getJSONArray("employees"));
@@ -205,7 +189,7 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
     return employees;
 
   }
-
+*/
   public void write(Schedule solution, File file) {
     SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource(
         "schedulerConfig.xml");
@@ -214,21 +198,29 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
     for (ConstraintMatchTotal cm : scoreDirector.getConstraintMatchTotals()) {
       System.out.println(cm.getConstraintName() + " : " + cm.getScoreTotal());
     }
-    JSONObject results = new JSONObject();
-    JSONArray shifts = new JSONArray();
-    for (Shift shift : solution.getShifts()) {
-      JSONObject shiftJson = new JSONObject();
-      shiftJson.put("shift_id", shift.getId());
-      shifts.put(shiftJson);
-    }
-    results.put("shifts", shifts);
-    JSONObject meta = new JSONObject();
-    meta.put("hard_constraint_score", ((HardSoftLongScore) scoreDirector.calculateScore()).getHardScore());
-    meta.put("soft_constraint_score", ((HardSoftLongScore) scoreDirector.calculateScore()).getSoftScore());
-    results.put("meta", meta);
+
+    SchedulingResponse response = new SchedulingResponse();
+    response
+        .setId(solution.getId())
+        .setShifts(solution.getShifts())
+        .setStatus(SolverStatus.COMPLETED);
+
+    Set<ConstrainScore> scores = scoreDirector.getConstraintMatchTotals().stream().map(constraintMatchTotal -> {
+      String constrainName = constraintMatchTotal.getConstraintName();
+      HardSoftLongScore constrainScore = (HardSoftLongScore) constraintMatchTotal.getScoreTotal();
+      return new ConstrainScore(constrainName, constrainScore.getSoftScore(), constrainScore.getHardScore());
+    }).collect(Collectors.toSet());
+
+    HardSoftLongScore score = (HardSoftLongScore) scoreDirector.calculateScore();
+
+    response.setShifts(solution.getShifts()).setStatus(SolverStatus.COMPLETED);
+    response.getMeta().setConstraint_scores(scores).setHard_constraint_score(score.getHardScore()).setSoft_constraint_score(score.getSoftScore());
+
+    ObjectMapper mapper = new ObjectMapper();
+
     try (
         BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-      writer.write(results.toString());
+      writer.write(mapper.writeValueAsString(response));
       writer.close();
     } catch (IOException e) {
       e.printStackTrace();

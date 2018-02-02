@@ -6,6 +6,9 @@ public class EmployeeSiteDistance {
   private String siteId;
   private Long distance;
 
+  public EmployeeSiteDistance() {
+  }
+
   public EmployeeSiteDistance(String employeeId, String siteId, Long distance) {
     this.employeeId = employeeId;
     this.siteId = siteId;

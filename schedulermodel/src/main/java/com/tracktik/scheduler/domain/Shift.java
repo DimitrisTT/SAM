@@ -5,6 +5,7 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 
@@ -17,7 +18,7 @@ public class Shift {
   private Boolean plan = false;
   private TimeSlot timeSlot;
   private Float duration;
-  private LocalDate startDate;
+  //private LocalDate startDate;
   private Post post;
   private Long startTimeStamp;
   private Long endTimeStamp;
@@ -59,14 +60,20 @@ public class Shift {
 
     Boolean overlaps = shiftEnd.isAfter(availableStart) && shiftStart.isBefore(availableEnd);
 
-    logger.debug("Overlaps: " + overlaps + " shiftStart " + shiftStart + " shiftEnd " + shiftEnd + " availableStart " + availableStart + " availableEnd " + availableEnd);
+    //logger.info("Overlaps: " + overlaps + " shiftStart " + shiftStart + " shiftEnd " + shiftEnd + " availableStart " + availableStart + " availableEnd " + availableEnd);
 
     return overlaps;
 
   }
 
   public Boolean overlaps(EmployeeAvailability availability) {
-    return this.overlaps(availability.getDayOfWeek(), availability.getStartTime(), availability.getEndTime());
+    //logger.info("checking overlap for shift: " + this.getId() + " employee id: " + this.getEmployee().getId() + " time slot: " + this.getTimeSlot().toString() + " availability " + availability);
+    try {
+      return this.overlaps(availability.getDayOfWeek(), availability.getStartTime(), availability.getEndTime());
+    } catch (Exception e) {
+      e.printStackTrace();
+      return false;
+    }
   }
 
   public Post getPost() {
@@ -124,15 +131,6 @@ public class Shift {
     return id.equals(shift.id);
   }
 
-  public LocalDate getStartDate() {
-    return startDate;
-  }
-
-  public Shift setStartDate(LocalDate startDate) {
-    this.startDate = startDate;
-    return this;
-  }
-
   @Override
   public int hashCode() {
     return id.hashCode();
@@ -163,7 +161,6 @@ public class Shift {
         ", plan=" + plan +
         ", timeSlot=" + timeSlot +
         ", duration=" + duration +
-        ", startDate=" + startDate +
         ", post=" + post +
         ", startTimeStamp=" + startTimeStamp +
         ", endTimeStamp=" + endTimeStamp +
