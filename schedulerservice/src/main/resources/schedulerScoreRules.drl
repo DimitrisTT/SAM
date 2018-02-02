@@ -80,8 +80,20 @@ end*/
 rule "has some requested soft skills"
     when
         Shift(post != null, employee != null, $softSkills: post.softSkills, $skills:employee.skills, numberOfMatches($softSkills, $skills) > 0)
+        not KeyValueFact(key == "SOFT_SKILL_ENABLED", value == false)
+        not KeyValueFact(key == "SOFT_SKILL_MUTLIPLIER")
     then
         scoreHolder.addSoftConstraintMatch(kcontext, numberOfMatches($softSkills, $skills) * 50 );
+end
+
+rule "has some requested soft skills -- with multiplier"
+    when
+        Shift(post != null, employee != null, $softSkills: post.softSkills, $skills:employee.skills, numberOfMatches($softSkills, $skills) > 0)
+        not KeyValueFact(key == "SOFT_SKILL_ENABLED", value == false)
+        KeyValueFact(key == "SOFT_SKILL_MUTLIPLIER", $multiplier: ((Long)value))
+    then
+        System.out.println("found multiplier");
+        scoreHolder.addSoftConstraintMatch(kcontext, numberOfMatches($softSkills, $skills) * numberOfMatches($softSkills, $skills) * $multiplier);
 end
 
 

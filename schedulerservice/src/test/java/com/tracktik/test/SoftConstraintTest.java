@@ -52,6 +52,116 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
   }
 
   @Test
+  public void testSoftSkillsEnabled() {
+
+    Skill skill1 = new Skill().setId("skill1");
+    Skill skill2 = new Skill().setId("skill2");
+    Skill skill3 = new Skill().setId("skill3");
+
+    List<Skill> employeeSkills = new ArrayList<>();
+    employeeSkills.add(skill1);
+    employeeSkills.add(skill2);
+
+    Employee employee = new Employee().setId("1");
+    employee.setSkills(employeeSkills);
+
+    Set<Skill> postSkills = new HashSet<>();
+    postSkills.add(skill1);
+    postSkills.add(skill2);
+    postSkills.add(skill3);
+
+    Post post = new Post().setSoftSkills(postSkills);
+
+    Shift shift = new Shift()
+        .setId("1")
+        .setEmployee(employee)
+        .setPost(post);
+
+    KeyValueFact keyValueFact = new KeyValueFact().setKey("SOFT_SKILL_ENABLED").setValue(true);
+
+    ksession.insert(shift);
+    ksession.insert(keyValueFact);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("has some requested soft skills"));
+
+    assertEquals(100L, getScoreHolder().getSoftScore());
+  }
+
+  @Test
+  public void testSoftSkillsEnabledWithMultiplier() {
+
+    Skill skill1 = new Skill().setId("skill1");
+    Skill skill2 = new Skill().setId("skill2");
+    Skill skill3 = new Skill().setId("skill3");
+
+    List<Skill> employeeSkills = new ArrayList<>();
+    employeeSkills.add(skill1);
+    employeeSkills.add(skill2);
+
+    Employee employee = new Employee().setId("1");
+    employee.setSkills(employeeSkills);
+
+    Set<Skill> postSkills = new HashSet<>();
+    postSkills.add(skill1);
+    postSkills.add(skill2);
+    postSkills.add(skill3);
+
+    Post post = new Post().setSoftSkills(postSkills);
+
+    Shift shift = new Shift()
+        .setId("1")
+        .setEmployee(employee)
+        .setPost(post);
+
+    KeyValueFact keyValueFactSoftSkill = new KeyValueFact().setKey("SOFT_SKILL_ENABLED").setValue(true);
+    KeyValueFact keyValueFactMultiplier = new KeyValueFact().setKey("SOFT_SKILL_MUTLIPLIER").setValue(10);
+
+    ksession.insert(shift);
+    ksession.insert(keyValueFactSoftSkill);
+    ksession.insert(keyValueFactMultiplier);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("has some requested soft skills -- with multiplier"));
+
+    assertEquals(40L, getScoreHolder().getSoftScore());
+  }
+
+  @Test
+  public void testSoftSkillsNotEnabled() {
+
+    Skill skill1 = new Skill().setId("skill1");
+    Skill skill2 = new Skill().setId("skill2");
+    Skill skill3 = new Skill().setId("skill3");
+
+    List<Skill> employeeSkills = new ArrayList<>();
+    employeeSkills.add(skill1);
+    employeeSkills.add(skill2);
+
+    Employee employee = new Employee().setId("1");
+    employee.setSkills(employeeSkills);
+
+    Set<Skill> postSkills = new HashSet<>();
+    postSkills.add(skill1);
+    postSkills.add(skill2);
+    postSkills.add(skill3);
+
+    Post post = new Post().setSoftSkills(postSkills);
+
+    Shift shift = new Shift()
+        .setId("1")
+        .setEmployee(employee)
+        .setPost(post);
+
+    KeyValueFact keyValueFact = new KeyValueFact().setKey("SOFT_SKILL_ENABLED").setValue(false);
+
+    ksession.insert(shift);
+    ksession.insert(keyValueFact);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("has some requested soft skills"));
+
+    assertEquals(0L, getScoreHolder().getSoftScore());
+  }
+
+  @Test
   public void testEmployeeHasNoSoftSkills() {
 
     Skill skill1 = new Skill().setId("skill1");
