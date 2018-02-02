@@ -151,6 +151,14 @@ rule "has post experience"
         scoreHolder.addSoftConstraintMatch(kcontext, -100);
 end
 
+rule "EMPLOYEE_HAS_SENIORITY"
+    when
+        Shift(employee != null, $employeeId: employee.id)
+        Employee($employeeId == id, seniority != null, $seniority: seniority)
+    then
+        scoreHolder.addSoftConstraintMatch(kcontext, $seniority);
+end
+
 /*
 rule "calculate distance from employee to site"
     when

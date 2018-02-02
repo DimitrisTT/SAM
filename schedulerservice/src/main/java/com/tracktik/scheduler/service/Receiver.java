@@ -36,6 +36,7 @@ public class Receiver {
 
   private void solveSchedule(Schedule schedule) {
 
+    long startTime = System.currentTimeMillis();
     int totalShifts = schedule.getShifts().size();
     long totalSiftsToSchedule = schedule.getShifts().stream().filter(Shift::getPlan).count();
     int totalEmployees = schedule.getEmployees().size();
@@ -77,6 +78,8 @@ public class Receiver {
     HardSoftLongScore score = (HardSoftLongScore) solver.getBestScore();
     response.setShifts(solvedSchedule.getShifts()).setStatus(SolverStatus.COMPLETED);
     response.getMeta().setConstraint_scores(scores).setHard_constraint_score(score.getHardScore()).setSoft_constraint_score(score.getSoftScore());
+
+    response.getMeta().setTime_to_solve(System.currentTimeMillis() - startTime);
 
     jmsTemplate.convertAndSend(QueueNames.response, response);
 

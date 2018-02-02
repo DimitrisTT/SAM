@@ -395,6 +395,48 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
   }
 
   @Test
+  public void testEmployeeHasSeniority() {
+
+    Site site = new Site().setId("1");
+
+    Employee employee = new Employee().setId("2").setSeniority(57);
+
+    Post post = new Post().setSite(site).setId("3");
+    Shift shift = new Shift().setId("4").setEmployee(employee).setPost(post);
+
+    ksession.insert(site);
+    ksession.insert(employee);
+    ksession.insert(post);
+    ksession.insert(shift);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("EMPLOYEE_HAS_SENIORITY"));
+
+    assertEquals(57L, getScoreHolder().getSoftScore());
+
+  }
+
+  @Test
+  public void testEmployeeHasNoSeniority() {
+
+    Site site = new Site().setId("1");
+
+    Employee employee = new Employee().setId("2");
+
+    Post post = new Post().setSite(site).setId("3");
+    Shift shift = new Shift().setId("4").setEmployee(employee).setPost(post);
+
+    ksession.insert(site);
+    ksession.insert(employee);
+    ksession.insert(post);
+    ksession.insert(shift);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("EMPLOYEE_HAS_SENIORITY"));
+
+    assertEquals(0L, getScoreHolder().getSoftScore());
+
+  }
+
+  @Test
   public void employeeHasNoWorkPreference() throws ParseException {
 
     Employee employee = new Employee().setId("1");

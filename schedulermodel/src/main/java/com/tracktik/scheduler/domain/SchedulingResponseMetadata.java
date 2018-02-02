@@ -7,6 +7,7 @@ public class SchedulingResponseMetadata {
 
   private Long hard_constraint_score;
   private Long soft_constraint_score;
+  private Long time_to_solve;
   private Set<ConstrainScore> constraint_scores = new HashSet<>();
 
   public SchedulingResponseMetadata() {
@@ -45,13 +46,22 @@ public class SchedulingResponseMetadata {
     return this;
   }
 
+  public Long getTime_to_solve() {
+    return time_to_solve;
+  }
+
+  public SchedulingResponseMetadata setTime_to_solve(Long time_to_solve) {
+    this.time_to_solve = time_to_solve;
+    return this;
+  }
+
   @Override
   public String toString() {
     return "SchedulingResponseMetadata{" +
         "hard_constraint_score=" + hard_constraint_score +
         ", soft_constraint_score=" + soft_constraint_score +
+        ", time_to_solve=" + time_to_solve +
         ", constraint_scores=" + constraint_scores +
         '}';
   }
-
 }
