@@ -45,6 +45,8 @@ end
 rule "employee must have hard skills"
     when
         Shift(post != null, employee != null, !employee.skills.containsAll(post.hardSkills))
+        not KeyValueFact(key == "HARD_SKILL_ENABLED", value == false)
+        not KeyValueFact(key == "HARD_SKILL_IS_HARD", value == false)
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end

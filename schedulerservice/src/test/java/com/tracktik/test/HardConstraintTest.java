@@ -98,6 +98,43 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
   }
 
   @Test
+  public void testHardSkillsEnabled() {
+
+    Skill skill1 = new Skill().setId("skill1");
+    Skill skill2 = new Skill().setId("skill2");
+    Skill skill3 = new Skill().setId("skill3");
+
+    List<Skill> employeeSkills = new ArrayList<>();
+    employeeSkills.add(skill1);
+    employeeSkills.add(skill2);
+    employeeSkills.add(skill3);
+
+    Employee employee = new Employee().setId("1");
+    employee.setSkills(employeeSkills);
+
+    Set<Skill> postSkills = new HashSet<>();
+    postSkills.add(skill1);
+    postSkills.add(skill2);
+    postSkills.add(skill3);
+
+    Post post = new Post().setHardSkills(postSkills);
+
+    Shift shift = new Shift()
+        .setId("1")
+        .setEmployee(employee)
+        .setPost(post);
+
+    KeyValueFact hardSkillsEnabled = new KeyValueFact().setKey("HARD_SKILL_ENABLED").setValue(true);
+
+    ksession.insert(shift);
+    ksession.insert(hardSkillsEnabled);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee must have hard skills"));
+
+    assertEquals(0L, getScoreHolder().getHardScore());
+  }
+
+  @Test
   public void testEmployeeMissingHardSkills() {
 
     Skill skill1 = new Skill().setId("skill1");
@@ -129,6 +166,42 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
 
 
     assertTrue(getScoreHolder().getHardScore() < 0);
+  }
+
+  @Test
+  public void testHardSkillsDisabled() {
+
+    Skill skill1 = new Skill().setId("skill1");
+    Skill skill2 = new Skill().setId("skill2");
+    Skill skill3 = new Skill().setId("skill3");
+
+    List<Skill> employeeSkills = new ArrayList<>();
+    employeeSkills.add(skill1);
+    employeeSkills.add(skill2);
+
+    Employee employee = new Employee().setId("1");
+    employee.setSkills(employeeSkills);
+
+    Set<Skill> postSkills = new HashSet<>();
+    postSkills.add(skill1);
+    postSkills.add(skill2);
+    postSkills.add(skill3);
+
+    Post post = new Post().setHardSkills(postSkills);
+
+    Shift shift = new Shift()
+        .setId("1")
+        .setEmployee(employee)
+        .setPost(post);
+
+    KeyValueFact hardSkillsDisabled = new KeyValueFact().setKey("HARD_SKILL_ENABLED").setValue(false);
+
+    ksession.insert(shift);
+    ksession.insert(hardSkillsDisabled);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("employee must have hard skills"));
+
+    assertEquals(0L, getScoreHolder().getHardScore());
   }
 
   @Test
