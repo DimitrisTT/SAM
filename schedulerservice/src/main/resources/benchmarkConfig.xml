@@ -5,8 +5,9 @@
 
 	<inheritedSolverBenchmark>
 		<problemBenchmarks>
-			<solutionFileIOClass>com.tracktik.scheduler.benchmark.SchedulerSolutionFileIO</solutionFileIOClass>
-			<inputSolutionFile>src/main/resources/examples.txt</inputSolutionFile>
+			<solutionFileIOClass>com.tracktik.scheduler.service.SchedulerSolutionFileIO</solutionFileIOClass>
+			<inputSolutionFile>schedulerapi/src/main/resources/examples.txt</inputSolutionFile>
+			<!-- <inputSolutionFile>schedulerservice/src/main/resources/AR-Report-10.txt</inputSolutionFile> -->
 			<writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
 		</problemBenchmarks>
 		<solver>
@@ -18,7 +19,7 @@
 			</scoreDirectorFactory>
 
 			<termination>
-				<secondsSpentLimit>10</secondsSpentLimit>
+				<secondsSpentLimit>15</secondsSpentLimit>
 			</termination>
 
 		</solver>
@@ -32,7 +33,7 @@
 			
 
 			<constructionHeuristic>
-				<constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
+				<!-- <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType> -->
 
 			</constructionHeuristic>
 			<localSearch />

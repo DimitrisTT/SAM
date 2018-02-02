@@ -5,19 +5,64 @@ import java.util.Set;
 
 public class SchedulingResponse {
 
-  public String id;
-  public SolverStatus status;
-  public Set<Shift> shifts = new HashSet<>();
-  public SchedulingResponseMetadata meta;
+  private String id;
+  private SolverStatus status;
+  private Set<Shift> shifts = new HashSet<>();
+  private SchedulingResponseMetadata meta = new SchedulingResponseMetadata();
 
   public SchedulingResponse() {
   }
-
+/*
   public SchedulingResponse(Schedule schedule, Long hardScore, Long softScore, SolverStatus _status) {
     id = schedule.getId();
     status = _status;
     shifts = schedule.getShifts();
     meta = new SchedulingResponseMetadata(hardScore, softScore);
+  }*/
+
+  public String getId() {
+    return id;
   }
 
+  public SchedulingResponse setId(String id) {
+    this.id = id;
+    return this;
+  }
+
+  public SolverStatus getStatus() {
+    return status;
+  }
+
+  public SchedulingResponse setStatus(SolverStatus status) {
+    this.status = status;
+    return this;
+  }
+
+  public Set<Shift> getShifts() {
+    return shifts;
+  }
+
+  public SchedulingResponse setShifts(Set<Shift> shifts) {
+    this.shifts = shifts;
+    return this;
+  }
+
+  public SchedulingResponseMetadata getMeta() {
+    return meta;
+  }
+
+  public SchedulingResponse setMeta(SchedulingResponseMetadata meta) {
+    this.meta = meta;
+    return this;
+  }
+
+  @Override
+  public String toString() {
+    return "SchedulingResponse{" +
+        "id='" + id + '\'' +
+        ", status=" + status +
+        ", shifts=" + shifts +
+        ", meta=" + meta +
+        '}';
+  }
 }

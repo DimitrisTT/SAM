@@ -7,8 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import java.time.*;
 import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 @PlanningEntity(difficultyComparatorClass = ShiftDifficultyComparator.class, movableEntitySelectionFilter = LockedShiftSelectionFilter.class)
 public class Shift {
@@ -18,6 +16,8 @@ public class Shift {
   private String id;
   private Boolean plan = false;
   private TimeSlot timeSlot;
+  private Float duration;
+  private LocalDate startDate;
   private Post post;
   private Long startTimeStamp;
   private Long endTimeStamp;
@@ -124,6 +124,15 @@ public class Shift {
     return id.equals(shift.id);
   }
 
+  public LocalDate getStartDate() {
+    return startDate;
+  }
+
+  public Shift setStartDate(LocalDate startDate) {
+    this.startDate = startDate;
+    return this;
+  }
+
   @Override
   public int hashCode() {
     return id.hashCode();
@@ -138,13 +147,26 @@ public class Shift {
     return this;
   }
 
+  public Float getDuration() {
+    return duration;
+  }
+
+  public Shift setDuration(Float duration) {
+    this.duration = duration;
+    return this;
+  }
+
   @Override
   public String toString() {
     return "Shift{" +
         "id='" + id + '\'' +
         ", plan=" + plan +
         ", timeSlot=" + timeSlot +
+        ", duration=" + duration +
+        ", startDate=" + startDate +
         ", post=" + post +
+        ", startTimeStamp=" + startTimeStamp +
+        ", endTimeStamp=" + endTimeStamp +
         ", employee=" + employee +
         '}';
   }

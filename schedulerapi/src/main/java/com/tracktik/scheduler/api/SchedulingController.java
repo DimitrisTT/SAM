@@ -1,5 +1,6 @@
 package com.tracktik.scheduler.api;
 
+import com.tracktik.scheduler.api.domain.QueueNames;
 import com.tracktik.scheduler.api.domain.RequestForScheduling;
 import com.tracktik.scheduler.domain.Schedule;
 import com.tracktik.scheduler.domain.SchedulingResponse;
@@ -33,9 +34,12 @@ public class SchedulingController {
 
     logger.info("Placing request " + id + " on queue ");
 
-    Session.solutions.put(schedule.getId(), new SchedulingResponse(schedule, null, null, SolverStatus.QUEUED));
+    SchedulingResponse response = new SchedulingResponse();
+    response.setId(schedule.getId()).setStatus(SolverStatus.QUEUED);
 
-    jmsTemplate.convertAndSend("schedule.request", schedule);
+    Session.solutions.put(schedule.getId(), response);
+
+    jmsTemplate.convertAndSend(QueueNames.request, schedule);
     logger.info("Sending response to caller for " + schedule.getId());
 
     URI location = ServletUriComponentsBuilder
@@ -53,7 +57,7 @@ public class SchedulingController {
 
     if (response == null) return null;
 
-    if (response.status == SolverStatus.COMPLETED) {
+    if (response.getStatus() == SolverStatus.COMPLETED) {
       Session.solutions.invalidate(id);
     }
 

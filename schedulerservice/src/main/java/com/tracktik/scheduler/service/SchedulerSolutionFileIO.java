@@ -1,5 +1,7 @@
 package com.tracktik.scheduler.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tracktik.scheduler.api.domain.RequestForScheduling;
 import com.tracktik.scheduler.domain.*;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
@@ -17,19 +19,34 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
 
   public String getInputFileExtension() {
     return "txt";
   }
-
   public Schedule read(File inputFile) {
 
+    ObjectMapper mapper = new ObjectMapper();
+    RequestForScheduling request = null;
+    try {
+      request = mapper.readValue(inputFile, RequestForScheduling.class);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    Schedule schedule = request.toSchedule(UUID.randomUUID().toString());
+    int totalShifts = schedule.getShifts().size();
+    long totalSiftsToSchedule = schedule.getShifts().stream().filter(Shift::getPlan).count();
+    long totalLockedUnasigned = schedule.getShifts().stream().filter(shift -> !shift.getPlan()).filter(shift -> shift.getEmployee() == null).count();
+
+    int totalEmployees = schedule.getEmployees().size();
+
+    System.out.println("Got request to schedule " + totalSiftsToSchedule + " shifts out of " + totalShifts + " for " + totalEmployees + " employees. id: " + schedule.getId());
+    System.out.println("Number of locked that are still unassigned " + totalLockedUnasigned);
+    return schedule;
+    /*
     try {
       String jsonString = FileUtils.readFileToString(inputFile, "UTF-8");
       JSONObject json = new JSONObject(jsonString);
@@ -40,6 +57,7 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
     }
 
     return null;
+    */
 
   }
 

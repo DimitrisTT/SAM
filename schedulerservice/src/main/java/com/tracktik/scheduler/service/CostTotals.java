@@ -1,4 +1,6 @@
-package com.tracktik.scheduler.domain;
+package com.tracktik.scheduler.service;
+
+import com.tracktik.scheduler.domain.Employee;
 
 public class CostTotals {
 

@@ -1,11 +1,13 @@
 package com.tracktik.scheduler.service;
 
-import com.tracktik.scheduler.domain.Schedule;
-import com.tracktik.scheduler.domain.SchedulingResponse;
-import com.tracktik.scheduler.domain.SolverStatus;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tracktik.scheduler.api.domain.QueueNames;
+import com.tracktik.scheduler.domain.*;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
+import org.optaplanner.core.api.score.constraint.ConstraintMatchTotal;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
+import org.optaplanner.core.impl.score.director.ScoreDirector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,36 +15,72 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Component
 public class Receiver {
 
-  private static final SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource("schedulerConfig.xml");
   Logger logger = LoggerFactory.getLogger(Receiver.class);
   @Autowired
   private JmsTemplate jmsTemplate;
 
-  @JmsListener(destination = "schedule.request", containerFactory = "schedulerFactory")
+  @JmsListener(destination = QueueNames.request, containerFactory = "schedulerFactory")
   public void receiveMessage(Schedule schedule) {
 
-    logger.info("Got request to schedule");
-    jmsTemplate.convertAndSend("schedule.reponse", new SchedulingResponse(schedule, null, null, SolverStatus.SOLVING));
+    new Thread(() -> this.solveSchedule(schedule)).start();
+
+  }
+
+  private void solveSchedule(Schedule schedule) {
+
+    int totalShifts = schedule.getShifts().size();
+    long totalSiftsToSchedule = schedule.getShifts().stream().filter(Shift::getPlan).count();
+    int totalEmployees = schedule.getEmployees().size();
+
+    logger.info("Got request to schedule " + totalSiftsToSchedule + " shifts out of " + totalShifts + " for " + totalEmployees + " employees. id: " + schedule.getId());
+
+    SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource("schedulerConfig.xml");
+    SchedulingResponse response = new SchedulingResponse().setId(schedule.getId()).setStatus(SolverStatus.SOLVING);
+    jmsTemplate.convertAndSend(QueueNames.response, response);
 
     Solver<Schedule> solver = solverFactory.buildSolver();
 
     solver.addEventListener(event -> {
-      logger.info("Updating new solution " + event.getNewBestScore().toShortString());
+      logger.info("Updating new solution " + schedule.getId() + " " + event.getNewBestScore().toShortString());
       if (event.getNewBestSolution().getScore().isFeasible()) {
         HardSoftLongScore score = (HardSoftLongScore) event.getNewBestScore();
-        jmsTemplate.convertAndSend("schedule.reponse", new SchedulingResponse(event.getNewBestSolution(), score.getHardScore(), score.getSoftScore(), SolverStatus.SOLVING));
+        SchedulingResponse interimResponse = new SchedulingResponse()
+            .setId(schedule.getId())
+            .setStatus(SolverStatus.SOLVING)
+            .setShifts(event.getNewBestSolution().getShifts());
+        interimResponse.getMeta()
+            .setHard_constraint_score(score.getHardScore())
+            .setSoft_constraint_score(score.getSoftScore());
+
+        jmsTemplate.convertAndSend(QueueNames.response, interimResponse);
       }
     });
-    logger.info("Optimizing schedule");
+    logger.info("Optimizing schedule " + schedule.getId());
     Schedule solvedSchedule = solver.solve(schedule);
 
-    HardSoftLongScore score = (HardSoftLongScore) solver.getBestScore();
-    jmsTemplate.convertAndSend("schedule.response", new SchedulingResponse(solvedSchedule, score.getHardScore(), score.getSoftScore(), SolverStatus.COMPLETED));
+    ScoreDirector<Schedule> scoreDirector = solver.getScoreDirectorFactory().buildScoreDirector();
+    scoreDirector.setWorkingSolution(solvedSchedule);
+    Set<ConstrainScore> scores = scoreDirector.getConstraintMatchTotals().stream().map(constraintMatchTotal -> {
+      String constrainName = constraintMatchTotal.getConstraintName();
+      HardSoftLongScore constrainScore = (HardSoftLongScore) constraintMatchTotal.getScoreTotal();
+      return new ConstrainScore(constrainName, constrainScore.getSoftScore(), constrainScore.getHardScore());
+    }).collect(Collectors.toSet());
 
-    logger.info("Schedule solved");
+    HardSoftLongScore score = (HardSoftLongScore) solver.getBestScore();
+    response.setShifts(solvedSchedule.getShifts()).setStatus(SolverStatus.COMPLETED);
+    response.getMeta().setConstraint_scores(scores).setHard_constraint_score(score.getHardScore()).setSoft_constraint_score(score.getSoftScore());
+
+    logger.info("Sending response for " + response.getId() + " " + response.toString());
+    jmsTemplate.convertAndSend(QueueNames.response, response);
+
+    logger.info("Schedule solved for " + response.getId());
 
   }
 

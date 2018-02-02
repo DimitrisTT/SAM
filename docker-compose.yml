@@ -11,14 +11,14 @@ services:
       - ACTIVEMQ_ADMIN_LOGIN=admin
       - ACTIVEMQ_ADMIN_PASSWORD=ezmoney
       - ACTIVEMQ_USERS_tracktik=ezmoney
-      - ACTIVEMQ_GROUPS_writes=ezmoney
-      - ACTIVEMQ_GROUPS_reads=ezmoney
+      - ACTIVEMQ_GROUPS_writes=tracktik
+      - ACTIVEMQ_GROUPS_reads=tracktik
       - ACTIVEMQ_JMX_jmx1_role=readwrite
       - ACTIVEMQ_JMX_jmx1_password=ezmoney
       - ACTIVEMQ_JMX_jmx2_role=read
       - ACTIVEMQ_JMX_jmx2_password=ezmoney
       - ACTIVEMQ_CONFIG_QUEUES_queue1=schedule.request
-      - ACTIVEMQ_CONFIG_QUEUES_queue2=schedule.response
+      - ACTIVEMQ_CONFIG_QUEUES_queue2=schedule.solution
       - ACTIVEMQ_CONFIG_MINMEMORY=1024
       - ACTIVEMQ_CONFIG_MAXMEMORY=4096
       - ACTIVEMQ_CONFIG_SCHEDULERENABLED=true

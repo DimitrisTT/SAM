@@ -1,6 +1,7 @@
 
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
 import com.tracktik.scheduler.domain.*;
+import com.tracktik.scheduler.service.*;
 import java.util.*;
 import java.time.*;
 
@@ -9,13 +10,13 @@ global HardSoftLongScoreHolder scoreHolder;
 function Long numberOfMatches(Collection first, Collection other) {
     return first.stream().filter(item -> other.contains(item)).count();
 }
-
+/*
 function Double distance(Double geo1_latitude, Double geo1_longitude, Double geo2_latitude, Double geo2_longitude ) {
     Double distance = ((Math.acos(Math.sin(geo1_latitude * Math.PI / 180D) * Math.sin(geo2_latitude * Math.PI / 180D) + Math.cos(geo1_latitude * Math.PI / 180D) * Math.cos(geo2_latitude * Math.PI / 180D) * Math.cos((geo1_longitude - geo2_longitude) * Math.PI / 180D)) * 180 / Math.PI) * 60 * 1.1515D);
     //System.out.println("Distance: " + distance);
     return distance;
 }
-
+*/
 
 // HARD CONSTRAINTS
 
@@ -34,6 +35,7 @@ rule "employee must have hard skills"
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
 
+
 rule "employee has time off scheduled during shift"
     when
         Shift(employee != null, $employeeId: employee.id, $shiftStart: timeSlot.start, $shiftEnd: timeSlot.end)
@@ -41,6 +43,7 @@ rule "employee has time off scheduled during shift"
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
+
 
 /*rule "there must be 8 hour gap between shifts"
    when
@@ -59,6 +62,7 @@ rule "has some requested soft skills"
         scoreHolder.addSoftConstraintMatch(kcontext, numberOfMatches($softSkills, $skills) * 50 );
 end
 
+
 rule "add cost data"
     when
         $employee: Employee()
@@ -72,14 +76,13 @@ rule "add cost data"
      insertLogical(new CostTotals($employee, $totalHours, $totalBilled.longValue(), $totalCost.longValue() ));
 end
 
-/*
+
 rule "non overtime margin"
     when
        CostTotals($margin: totalCost - totalBilled)
     then
        scoreHolder.addSoftConstraintMatch(kcontext, $margin / 100 );
 end
-*/
 
 rule "overtime pay"
     when
@@ -97,6 +100,7 @@ end
 end*/
 
 /*
+We don't have preferred hours on the employee at this time
 rule "minimum availability preference"
     when
 
@@ -110,6 +114,7 @@ rule "minimum availability preference"
 end
 */
 
+
 rule "has site experience"
     when
         Shift(employee != null, post != null, post.site not memberOf employee.siteExperience)
@@ -117,22 +122,39 @@ rule "has site experience"
         scoreHolder.addSoftConstraintMatch(kcontext, -100);
 end
 
+/*
+We don't have post experience at this time
 rule "has post experience"
     when
         Shift(employee != null, post != null, post not memberOf employee.postExperience)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -100);
 end
+*/
+
+/*
+Doing this in Java now as a pre-step
+rule "calculate distance from employee to site"
+    when
+        Employee(latitude != null, longitude != null, $employeeId: id, $employeeLatitude: latitude, $employeeLongitude: longitude)
+        Shift(employee != null, $employeeId == employee.id, $postId: post.id, plan)
+        Post($postId == id, $siteId: site.id)
+        Site(latitude != null, longitude != null, $siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
+        not EmployeeSiteDistance($employeeId == employeeId, $siteId == siteId)
+    then
+        insert(new EmployeeSiteDistance($employeeId, $siteId, distance($siteLatitude, $siteLongitute, $employeeLatitude, $employeeLongitude)));
+end
+*/
 
 rule "workplace is far from employee"
     when
         Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
-        Site(latitude != null, longitude != null, $siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
-        Employee(latitude != null, longitude != null, $employeeId == id, distance($siteLatitude, $siteLongitute, latitude, longitude) > 50.0D)
+        EmployeeSiteDistance($employeeId == employeeId, $siteId == siteId, distance > 50L)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -5);
 end
 
+/*
 rule "workplace is a medium distance from employee"
     when
         Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
@@ -141,7 +163,8 @@ rule "workplace is a medium distance from employee"
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -5);
 end
-
+*/
+/*
 rule "workplace is fairly close to employee"
     when
         Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
@@ -150,7 +173,8 @@ rule "workplace is fairly close to employee"
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -5);
 end
-
+*/
+/*
 rule "workplace is close to employee"
     when
         Shift(employee != null, $employeeId: employee.id, $siteId: post.site.id)
@@ -159,6 +183,7 @@ rule "workplace is close to employee"
     then
         scoreHolder.addSoftConstraintMatch(kcontext, 5);
 end
+*/
 
 rule "employee prefers not to work shift"
     when
@@ -168,6 +193,7 @@ rule "employee prefers not to work shift"
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -10);
 end
+
 
 rule "employee may be available to work shift"
     when

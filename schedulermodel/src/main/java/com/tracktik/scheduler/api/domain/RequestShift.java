@@ -12,6 +12,10 @@ public class RequestShift {
   public String start_date;
   public String plan;
 
+  //After benchmarking
+  public String site_id;
+  public String employee_id;
+
   @Override
   public String toString() {
     return "RequestShift{" +
@@ -23,7 +27,9 @@ public class RequestShift {
         ", end_timestamp=" + end_timestamp +
         ", post_id='" + post_id + '\'' +
         ", start_date='" + start_date + '\'' +
-        ", plan=" + plan +
+        ", plan='" + plan + '\'' +
+        ", site_id='" + site_id + '\'' +
+        ", employee_id='" + employee_id + '\'' +
         '}';
   }
 }

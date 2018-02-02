@@ -42,6 +42,9 @@ public class Schedule {
   @ProblemFactCollectionProperty
   private Set<ConstraintPreference> constraintPreferences = new HashSet<>();
 
+  @ProblemFactCollectionProperty
+  private Set<EmployeeSiteDistance> employeeSiteDistance = new HashSet<>();
+
   @PlanningScore
   public HardSoftLongScore getScore() {
     return score;
@@ -134,6 +137,15 @@ public class Schedule {
     return this;
   }
 
+  public Set<EmployeeSiteDistance> getEmployeeSiteDistance() {
+    return employeeSiteDistance;
+  }
+
+  public Schedule setEmployeeSiteDistance(Set<EmployeeSiteDistance> employeeSiteDistance) {
+    this.employeeSiteDistance = employeeSiteDistance;
+    return this;
+  }
+
   @Override
   public String toString() {
     return "Schedule{" +
@@ -145,6 +157,8 @@ public class Schedule {
         ", sites=" + sites +
         ", timesOff=" + timesOff +
         ", employeeAvailabilities=" + employeeAvailabilities +
+        ", constraintPreferences=" + constraintPreferences +
+        ", employeeSiteDistance=" + employeeSiteDistance +
         '}';
   }
 }
