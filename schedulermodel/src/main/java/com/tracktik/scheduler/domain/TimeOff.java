@@ -1,5 +1,7 @@
 package com.tracktik.scheduler.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -47,10 +49,12 @@ public class TimeOff {
     return this;
   }
 
+  @JsonIgnore
   public LocalTime getStartLocalTime() {
     return LocalDateTime.ofInstant(startTime.toInstant(), ZoneId.systemDefault()).toLocalTime();
   }
 
+  @JsonIgnore
   public LocalTime getEndLocalTime() {
     return LocalDateTime.ofInstant(endTime.toInstant(), ZoneId.systemDefault()).toLocalTime();
   }

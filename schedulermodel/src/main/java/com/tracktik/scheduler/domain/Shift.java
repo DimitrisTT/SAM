@@ -1,5 +1,6 @@
 package com.tracktik.scheduler.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 import org.slf4j.Logger;
@@ -38,14 +39,17 @@ public class Shift {
     return this;
   }
 
+  @JsonIgnore
   public LocalTime getStartTime() {
     return LocalDateTime.ofInstant(timeSlot.getStart().toInstant(), ZoneId.systemDefault()).toLocalTime();
   }
 
+  @JsonIgnore
   public LocalTime getEndTime() {
     return LocalDateTime.ofInstant(timeSlot.getEnd().toInstant(), ZoneId.systemDefault()).toLocalTime();
   }
 
+  @JsonIgnore
   public long getHours() {
     return Duration.between(timeSlot.getStart().toInstant(), timeSlot.getEnd().toInstant()).toHours();
   }

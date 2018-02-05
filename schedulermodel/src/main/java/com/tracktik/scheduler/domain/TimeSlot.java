@@ -1,5 +1,6 @@
 package com.tracktik.scheduler.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,14 +67,17 @@ public class TimeSlot {
     return this.getStart().before(otherEnd) && other.getStart().before(thisEnd);
   }
 
+  @JsonIgnore
   public Long getDurationHours() {
     return Duration.between(start.toInstant(), end.toInstant()).toHours();
   }
 
+  @JsonIgnore
   public Long getStartTime() {
     return start.getTime();
   }
 
+  @JsonIgnore
   public Long getEndTime() {
     return end.getTime();
   }

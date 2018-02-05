@@ -226,8 +226,6 @@ rule "WORKPLACE_CLOSE"
         scoreHolder.addSoftConstraintMatch(kcontext, $impact);
 end
 
-/*
-
 rule "employee prefers not to work shift"
     when
         $availability : EmployeeAvailability($employeeId: employeeId, type == AvailabilityType.NO, $day: dayOfWeek, $employeeStart: startTime, $employeeEnd: endTime)
@@ -248,5 +246,5 @@ rule "employee may be available to work shift"
     then
         scoreHolder.addSoftConstraintMatch(kcontext, $impact);
 end
-*/
+
 
