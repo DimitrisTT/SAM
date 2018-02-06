@@ -1,10 +1,9 @@
 package com.tracktik.scheduler.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.tracktik.scheduler.util.LocalTimeDeserializer;
-import com.tracktik.scheduler.util.LocalTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;

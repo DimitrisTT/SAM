@@ -48,26 +48,36 @@ public class Receiver {
     jmsTemplate.convertAndSend(QueueNames.response, response);
 
     Solver<Schedule> solver = solverFactory.buildSolver();
+    ScoreDirector<Schedule> scoreDirector = solver.getScoreDirectorFactory().buildScoreDirector();
 
     solver.addEventListener(event -> {
       logger.info("Updating new solution " + schedule.getId() + " " + event.getNewBestScore().toShortString());
-      if (event.getNewBestSolution().getScore().isFeasible()) {
+      //if (event.getNewBestSolution().getScore().isFeasible()) {
+
+        scoreDirector.setWorkingSolution(event.getNewBestSolution());
+        Set<ConstrainScore> scores = scoreDirector.getConstraintMatchTotals().stream().map(constraintMatchTotal -> {
+          String constrainName = constraintMatchTotal.getConstraintName();
+          HardSoftLongScore constrainScore = (HardSoftLongScore) constraintMatchTotal.getScoreTotal();
+          return new ConstrainScore(constrainName, constrainScore.getSoftScore(), constrainScore.getHardScore());
+        }).collect(Collectors.toSet());
+
         HardSoftLongScore score = (HardSoftLongScore) event.getNewBestScore();
         SchedulingResponse interimResponse = new SchedulingResponse()
             .setId(schedule.getId())
             .setStatus(SolverStatus.SOLVING)
             .setShifts(event.getNewBestSolution().getShifts());
         interimResponse.getMeta()
+            .setConstraint_scores(scores)
             .setHard_constraint_score(score.getHardScore())
             .setSoft_constraint_score(score.getSoftScore());
 
+        logger.info("Sending interim solution " + interimResponse.getId());
         jmsTemplate.convertAndSend(QueueNames.response, interimResponse);
-      }
+      //}
     });
     logger.info("Optimizing schedule " + schedule.getId());
     Schedule solvedSchedule = solver.solve(schedule);
 
-    ScoreDirector<Schedule> scoreDirector = solver.getScoreDirectorFactory().buildScoreDirector();
     scoreDirector.setWorkingSolution(solvedSchedule);
     Set<ConstrainScore> scores = scoreDirector.getConstraintMatchTotals().stream().map(constraintMatchTotal -> {
       String constrainName = constraintMatchTotal.getConstraintName();
