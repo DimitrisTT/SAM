@@ -5,6 +5,8 @@ import java.util.Set;
 
 public class SchedulingResponseMetadata {
 
+  private Boolean solution_is_feasible;
+  private Long number_of_shifts_unfilled;
   private Long hard_constraint_score;
   private Long soft_constraint_score;
   private Long time_to_solve;
@@ -12,12 +14,6 @@ public class SchedulingResponseMetadata {
 
   public SchedulingResponseMetadata() {
   }
-/*
-  public SchedulingResponseMetadata(Long hardScore, Long softScore, Set constraintScores) {
-    hard_constraint_score = hardScore;
-    soft_constraint_score = softScore;
-    constraint_scores = constraintScores;
-  }*/
 
   public Long getHard_constraint_score() {
     return hard_constraint_score;
@@ -55,10 +51,30 @@ public class SchedulingResponseMetadata {
     return this;
   }
 
+  public Boolean getSolution_is_feasible() {
+    return solution_is_feasible;
+  }
+
+  public SchedulingResponseMetadata setSolution_is_feasible(Boolean solution_is_feasible) {
+    this.solution_is_feasible = solution_is_feasible;
+    return this;
+  }
+
+  public Long getNumber_of_shifts_unfilled() {
+    return number_of_shifts_unfilled;
+  }
+
+  public SchedulingResponseMetadata setNumber_of_shifts_unfilled(Long number_of_shifts_unfilled) {
+    this.number_of_shifts_unfilled = number_of_shifts_unfilled;
+    return this;
+  }
+
   @Override
   public String toString() {
     return "SchedulingResponseMetadata{" +
-        "hard_constraint_score=" + hard_constraint_score +
+        "solution_is_feasible=" + solution_is_feasible +
+        ", number_of_shifts_unfilled=" + number_of_shifts_unfilled +
+        ", hard_constraint_score=" + hard_constraint_score +
         ", soft_constraint_score=" + soft_constraint_score +
         ", time_to_solve=" + time_to_solve +
         ", constraint_scores=" + constraint_scores +

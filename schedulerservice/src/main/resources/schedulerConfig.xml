@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <solver>
 
-    <scanAnnotatedClasses/>
+    <scanAnnotatedClasses>
+        <packageInclude>com.tracktik.scheduler.domain</packageInclude>
+    </scanAnnotatedClasses>
     <!-- Score configuration -->
     <scoreDirectorFactory>
         <scoreDrl>schedulerScoreRules.drl</scoreDrl>

@@ -1,10 +1,8 @@
 package com.tracktik.scheduler.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tracktik.scheduler.api.domain.QueueNames;
 import com.tracktik.scheduler.domain.*;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
-import org.optaplanner.core.api.score.constraint.ConstraintMatchTotal;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.core.impl.score.director.ScoreDirector;
@@ -15,7 +13,6 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -52,31 +49,35 @@ public class Receiver {
 
     solver.addEventListener(event -> {
       logger.info("Updating new solution " + schedule.getId() + " " + event.getNewBestScore().toShortString());
-      //if (event.getNewBestSolution().getScore().isFeasible()) {
 
-        scoreDirector.setWorkingSolution(event.getNewBestSolution());
-        Set<ConstrainScore> scores = scoreDirector.getConstraintMatchTotals().stream().map(constraintMatchTotal -> {
-          String constrainName = constraintMatchTotal.getConstraintName();
-          HardSoftLongScore constrainScore = (HardSoftLongScore) constraintMatchTotal.getScoreTotal();
-          return new ConstrainScore(constrainName, constrainScore.getSoftScore(), constrainScore.getHardScore());
-        }).collect(Collectors.toSet());
+      Long shiftsUnfilled = event.getNewBestSolution().getShifts().stream().filter(Shift::getPlan).filter(shift -> shift.getEmployee() == null).count();
 
-        HardSoftLongScore score = (HardSoftLongScore) event.getNewBestScore();
-        SchedulingResponse interimResponse = new SchedulingResponse()
-            .setId(schedule.getId())
-            .setStatus(SolverStatus.SOLVING)
-            .setShifts(event.getNewBestSolution().getShifts());
-        interimResponse.getMeta()
-            .setConstraint_scores(scores)
-            .setHard_constraint_score(score.getHardScore())
-            .setSoft_constraint_score(score.getSoftScore());
+      scoreDirector.setWorkingSolution(event.getNewBestSolution());
+      Set<ConstrainScore> scores = scoreDirector.getConstraintMatchTotals().stream().map(constraintMatchTotal -> {
+        String constrainName = constraintMatchTotal.getConstraintName();
+        HardSoftLongScore constrainScore = (HardSoftLongScore) constraintMatchTotal.getScoreTotal();
+        return new ConstrainScore(constrainName, constrainScore.getSoftScore(), constrainScore.getHardScore());
+      }).collect(Collectors.toSet());
 
-        logger.info("Sending interim solution " + interimResponse.getId());
-        jmsTemplate.convertAndSend(QueueNames.response, interimResponse);
-      //}
+      HardSoftLongScore score = (HardSoftLongScore) event.getNewBestScore();
+      SchedulingResponse interimResponse = new SchedulingResponse()
+          .setId(schedule.getId())
+          .setStatus(SolverStatus.SOLVING)
+          .setShifts(event.getNewBestSolution().getShifts());
+      interimResponse.getMeta()
+          .setConstraint_scores(scores)
+          .setHard_constraint_score(score.getHardScore())
+          .setSoft_constraint_score(score.getSoftScore())
+          .setSolution_is_feasible(score.isFeasible())
+          .setNumber_of_shifts_unfilled(shiftsUnfilled);
+
+      logger.info("Sending interim solution " + interimResponse.getId());
+      jmsTemplate.convertAndSend(QueueNames.response, interimResponse);
     });
     logger.info("Optimizing schedule " + schedule.getId());
     Schedule solvedSchedule = solver.solve(schedule);
+
+    Long shiftsUnfilled = solvedSchedule.getShifts().stream().filter(Shift::getPlan).filter(shift -> shift.getEmployee() == null).count();
 
     scoreDirector.setWorkingSolution(solvedSchedule);
     Set<ConstrainScore> scores = scoreDirector.getConstraintMatchTotals().stream().map(constraintMatchTotal -> {
@@ -87,7 +88,12 @@ public class Receiver {
 
     HardSoftLongScore score = (HardSoftLongScore) solver.getBestScore();
     response.setShifts(solvedSchedule.getShifts()).setStatus(SolverStatus.COMPLETED);
-    response.getMeta().setConstraint_scores(scores).setHard_constraint_score(score.getHardScore()).setSoft_constraint_score(score.getSoftScore());
+    response.getMeta()
+        .setConstraint_scores(scores)
+        .setHard_constraint_score(score.getHardScore())
+        .setSoft_constraint_score(score.getSoftScore())
+        .setSolution_is_feasible(score.isFeasible())
+        .setNumber_of_shifts_unfilled(shiftsUnfilled);
 
     response.getMeta().setTime_to_solve(System.currentTimeMillis() - startTime);
 
