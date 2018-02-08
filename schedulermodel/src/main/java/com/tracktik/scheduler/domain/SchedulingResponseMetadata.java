@@ -11,6 +11,7 @@ public class SchedulingResponseMetadata {
   private Long soft_constraint_score;
   private Long time_to_solve;
   private Set<ConstrainScore> constraint_scores = new HashSet<>();
+  private Set<ShiftAssignmentConstraintScores> shift_assignment_scores = new HashSet<>();
 
   public SchedulingResponseMetadata() {
   }
@@ -69,6 +70,15 @@ public class SchedulingResponseMetadata {
     return this;
   }
 
+  public Set<ShiftAssignmentConstraintScores> getShift_assignment_scores() {
+    return shift_assignment_scores;
+  }
+
+  public SchedulingResponseMetadata setShift_assignment_scores(Set<ShiftAssignmentConstraintScores> shift_assignment_scores) {
+    this.shift_assignment_scores = shift_assignment_scores;
+    return this;
+  }
+
   @Override
   public String toString() {
     return "SchedulingResponseMetadata{" +
@@ -78,6 +88,7 @@ public class SchedulingResponseMetadata {
         ", soft_constraint_score=" + soft_constraint_score +
         ", time_to_solve=" + time_to_solve +
         ", constraint_scores=" + constraint_scores +
+        ", shift_assignment_scores=" + shift_assignment_scores +
         '}';
   }
 }

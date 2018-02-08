@@ -11,14 +11,15 @@
 
     <termination>
         <minutesSpentLimit>1</minutesSpentLimit>
+        <unimprovedSecondsSpentLimit>10</unimprovedSecondsSpentLimit>
     </termination>
 
-    <constructionHeuristic/>
+    <constructionHeuristic>
+        <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+    </constructionHeuristic>
 
     <localSearch>
-        <termination>
-            <unimprovedSecondsSpentLimit>15</unimprovedSecondsSpentLimit>
-        </termination>
+        <localSearchType>HILL_CLIMBING</localSearchType>
     </localSearch>
 
 </solver>

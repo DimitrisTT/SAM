@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import static java.time.temporal.ChronoUnit.HOURS;
+import static java.time.temporal.ChronoUnit.SECONDS;
 
 public class TimeSlot {
 
@@ -34,11 +35,8 @@ public class TimeSlot {
     } catch (ParseException e) {
       e.printStackTrace();
     }
-  }
-
-  public TimeSlot(Long startTime, Long endTime) {
-    start = new Date(startTime);
-    end = new Date(endTime);
+    //Make sure the end is not inclusive
+    end = new Date(end.toInstant().minus(1, SECONDS).toEpochMilli());
   }
 
   public Date getStart() {

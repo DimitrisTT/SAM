@@ -1,5 +1,6 @@
 package com.tracktik.test;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tracktik.scheduler.api.domain.*;
 import com.tracktik.scheduler.domain.Schedule;
 import com.tracktik.scheduler.domain.SchedulingResponse;
@@ -19,6 +20,8 @@ import org.optaplanner.core.config.solver.SolverConfig;
 import org.optaplanner.core.config.solver.termination.TerminationConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -106,6 +109,12 @@ public class SolverTest {
   @Test
   public void firstScheduleTest() {
     RequestForScheduling request = createRequestForScheduling();
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+      mapper.writeValue(new File("../data/test.json"), request);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     Schedule schedule = RequestResponseMapper.requestToSchedule(UUID.randomUUID().toString(), request);
     Schedule solvedSchedule = solver.solve(schedule);
 
@@ -114,10 +123,10 @@ public class SolverTest {
 
   protected RequestForScheduling createRequestForScheduling() {
     RequestForScheduling request = new RequestForScheduling();
-    request.skills = generateRequestSkills(50);
-    request.sites = generateSites(15);
+    request.skills = generateRequestSkills(5);
+    request.sites = generateSites(5);
     request.posts = generatePostsForSites(request.sites, 3);
-    request.employees = generateEmployees(40);
+    request.employees = generateEmployees(35);
     request.shifts = generateShiftsForPosts(request.posts, LocalDate.now());
     request.site_bans = generateSiteBans(request.sites, request.employees);
     request.employee_availabilities = generateEmployeeAvailabilities(request.employees, 5);
@@ -154,17 +163,19 @@ public class SolverTest {
     }).collect(Collectors.toSet());
   }
 
-  //Might want to make this add multiple skills
   protected Set<RequestEmployeeSkill> generateEmployeeSkills(Set<RequestEmployee> employees, Set<RequestSkill> skills) {
 
-    List<RequestSkill> skillList =new ArrayList<RequestSkill>(skills);
+    List<RequestSkill> skillList = new ArrayList<RequestSkill>(skills);
 
     return employees.stream().map(employee -> {
-      RequestEmployeeSkill skill = new RequestEmployeeSkill();
-      skill.employee_id = employee.id;
-      skill.skill_id = skillList.get(getRandomNumberInRange(0, skills.size() - 1)).id;
-      return skill;
-    }).collect(Collectors.toSet());
+      //give each employee 3 skills
+      return IntStream.range(0, 3).mapToObj(number -> {
+        RequestEmployeeSkill skill = new RequestEmployeeSkill();
+        skill.employee_id = employee.id;
+        skill.skill_id = skillList.get(getRandomNumberInRange(0, skills.size() - 1)).id;
+        return skill;
+      }).collect(Collectors.toSet());
+    }).flatMap(Collection::stream).collect(Collectors.toSet());
   }
 
   protected Set<RequestEmployeeAvailability> generateEmployeeAvailabilities(Set<RequestEmployee> employees, int numberToSkip) {

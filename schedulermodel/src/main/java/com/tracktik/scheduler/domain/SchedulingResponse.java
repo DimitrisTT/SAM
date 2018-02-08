@@ -12,13 +12,6 @@ public class SchedulingResponse {
 
   public SchedulingResponse() {
   }
-/*
-  public SchedulingResponse(Schedule schedule, Long hardScore, Long softScore, SolverStatus _status) {
-    id = schedule.getId();
-    status = _status;
-    shifts = schedule.getShifts();
-    meta = new SchedulingResponseMetadata(hardScore, softScore);
-  }*/
 
   public String getId() {
     return id;

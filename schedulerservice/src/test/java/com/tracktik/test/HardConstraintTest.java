@@ -4,11 +4,9 @@ import com.tracktik.scheduler.domain.*;
 import org.drools.core.base.RuleNameEqualsAgendaFilter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -64,6 +62,144 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
   }
 
   @Test
+  public void testShiftHasMoreThan8HourGap() {
+
+    Employee employee = new Employee().setId("1");
+
+    Shift shift1 = new Shift()
+        .setId("1")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 01:00:00", "2018-01-17 02:00:00"));
+    Shift shift2 = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 15:00:00", "2018-01-17 16:00:00"));
+
+    ksession.insert(employee);
+    ksession.insert(shift1);
+    ksession.insert(shift2);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("EIGHT_HOUR_SHIFT_GAP"));
+
+    assertEquals(0L, getScoreHolder().getHardScore());
+  }
+
+  @Test
+  public void testShiftHasMoreThan8HourGapReversed() {
+
+    Employee employee = new Employee().setId("1");
+
+    Shift shift1 = new Shift()
+        .setId("1")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 01:00:00", "2018-01-17 02:00:00"));
+    Shift shift2 = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 15:00:00", "2018-01-17 16:00:00"));
+
+    ksession.insert(employee);
+    ksession.insert(shift2);
+    ksession.insert(shift1);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("EIGHT_HOUR_SHIFT_GAP"));
+
+    assertEquals(0L, getScoreHolder().getHardScore());
+  }
+
+  @Test
+  public void testShiftHasExact8HourGap() {
+
+    Employee employee = new Employee().setId("1");
+
+    Shift shift1 = new Shift()
+        .setId("1")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 01:00:00", "2018-01-17 02:00:00"));
+    Shift shift2 = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 10:00:00", "2018-01-17 12:00:00"));
+
+    ksession.insert(employee);
+    ksession.insert(shift1);
+    ksession.insert(shift2);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("EIGHT_HOUR_SHIFT_GAP"));
+
+    assertEquals(0L, getScoreHolder().getHardScore());
+  }
+
+  @Test
+  public void testShiftHasExact8HourGapReversed() {
+
+    Employee employee = new Employee().setId("1");
+
+    Shift shift1 = new Shift()
+        .setId("1")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 01:00:00", "2018-01-17 02:00:00"));
+    Shift shift2 = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 10:00:00", "2018-01-17 12:00:00"));
+
+    ksession.insert(employee);
+    ksession.insert(shift2);
+    ksession.insert(shift1);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("EIGHT_HOUR_SHIFT_GAP"));
+
+    assertEquals(0L, getScoreHolder().getHardScore());
+  }
+
+  @Test
+  public void testShiftHasBackToBackShifts() {
+
+    Employee employee = new Employee().setId("1");
+
+    Shift shift1 = new Shift()
+        .setId("1")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2017-01-17 01:00:00", "2017-01-17 02:00:00"));
+    Shift shift2 = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2017-01-17 02:00:00", "2017-01-17 03:00:00"));
+
+    ksession.insert(employee);
+    ksession.insert(shift1);
+    ksession.insert(shift2);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("EIGHT_HOUR_SHIFT_GAP"));
+
+    assertEquals(-1L, getScoreHolder().getHardScore());
+  }
+
+  @Test
+  public void testShiftHasLessThan8HourGap() {
+
+    Employee employee = new Employee().setId("1");
+
+    Shift shift1 = new Shift()
+        .setId("1")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 01:00:00", "2018-01-17 02:00:00"));
+    Shift shift2 = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-01-17 04:00:00", "2018-01-17 05:00:00"));
+
+    ksession.insert(employee);
+    ksession.insert(shift1);
+    ksession.insert(shift2);
+
+    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("EIGHT_HOUR_SHIFT_GAP"));
+
+    assertEquals(-1L, getScoreHolder().getHardScore());
+  }
+
+  @Test
   public void testEmployeeHasHardSkills() {
 
     Skill skill1 = new Skill().setId("skill1");
@@ -88,7 +224,8 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setPost(post);
+        .setPost(post)
+        .setTimeSlot(new TimeSlot("2018-01-17 04:00:00", "2018-01-17 05:00:00"));
 
     ksession.insert(shift);
 
@@ -122,7 +259,8 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setPost(post);
+        .setPost(post)
+        .setTimeSlot(new TimeSlot("2018-01-17 04:00:00", "2018-01-17 05:00:00"));
 
     KeyValueFact hardSkillsEnabled = new KeyValueFact().setKey("HARD_SKILL_ENABLED").setValue(true);
 
@@ -158,7 +296,8 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setPost(post);
+        .setPost(post)
+        .setTimeSlot(new TimeSlot("2018-01-17 04:00:00", "2018-01-17 05:00:00"));
 
     ksession.insert(shift);
 
@@ -192,7 +331,8 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setPost(post);
+        .setPost(post)
+        .setTimeSlot(new TimeSlot("2018-01-17 04:00:00", "2018-01-17 05:00:00"));
 
     KeyValueFact hardSkillsDisabled = new KeyValueFact().setKey("HARD_SKILL_ENABLED").setValue(false);
 
@@ -214,7 +354,8 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     Post post = new Post()
         .setSite(site).setId("3");
     Shift shift = new Shift().setId("4")
-        .setEmployee(employee).setPost(post);
+        .setEmployee(employee).setPost(post)
+        .setTimeSlot(new TimeSlot("2018-01-17 04:00:00", "2018-01-17 05:00:00"));
 
     SiteBan ban = new SiteBan().setEmployeeId("2").setSiteId("1");
 

@@ -186,6 +186,7 @@ public class EmployeeShiftOverlapTest {
 
     assert(!overlaps);
   }
+
   @Test
   public void employeeNotAvailableDayAfterShift() throws ParseException {
 
@@ -202,6 +203,72 @@ public class EmployeeShiftOverlapTest {
         .setDayOfWeek(DayOfWeek.FRIDAY) //Shift is on Wednesday
         .setStartTime(LocalTime.MIDNIGHT.plus(3L, ChronoUnit.HOURS))
         .setEndTime(LocalTime.MIDNIGHT.plus(11L, ChronoUnit.HOURS));
+
+    Boolean overlaps = shift.overlaps(availability);
+
+    assert(!overlaps);
+  }
+
+  @Test
+  public void employeeNotAvailableMondayShiftOnMonday() throws ParseException {
+
+    Employee employee = new Employee().setId("1");
+
+    //Monday
+    Shift shift = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-02-05 00:00:00", "2018-02-05 08:00:00"));
+
+    EmployeeAvailability availability = new EmployeeAvailability()
+        .setEmployeeId("1").setType(AvailabilityType.NO)
+        .setDayOfWeek(DayOfWeek.MONDAY)
+        .setStartTime(LocalTime.MIDNIGHT)
+        .setEndTime(LocalTime.MAX);
+
+    Boolean overlaps = shift.overlaps(availability);
+
+    assert(overlaps);
+  }
+
+  @Test
+  public void employeeNotAvailableMondayShiftEndsOnSunday() throws ParseException {
+
+    Employee employee = new Employee().setId("1");
+
+    //Monday
+    Shift shift = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-02-04 16:00:00", "2018-02-05 00:00:00"));
+
+    EmployeeAvailability availability = new EmployeeAvailability()
+        .setEmployeeId("1").setType(AvailabilityType.NO)
+        .setDayOfWeek(DayOfWeek.MONDAY)
+        .setStartTime(LocalTime.MIDNIGHT)
+        .setEndTime(LocalTime.MAX);
+
+    Boolean overlaps = shift.overlaps(availability);
+
+    assert(!overlaps);
+  }
+
+  @Test
+  public void employeeNotAvailableMondayShiftOnTuesday() throws ParseException {
+
+    Employee employee = new Employee().setId("1");
+
+    //Monday
+    Shift shift = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-02-06 00:00:00", "2018-02-06 08:00:00"));
+
+    EmployeeAvailability availability = new EmployeeAvailability()
+        .setEmployeeId("1").setType(AvailabilityType.NO)
+        .setDayOfWeek(DayOfWeek.MONDAY)
+        .setStartTime(LocalTime.MIDNIGHT)
+        .setEndTime(LocalTime.MAX);
 
     Boolean overlaps = shift.overlaps(availability);
 

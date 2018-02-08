@@ -5,15 +5,21 @@ import com.tracktik.scheduler.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.time.temporal.ChronoUnit.SECONDS;
+
 public class RequestResponseMapper {
 
+  private static final SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
   private static final Logger logger = LoggerFactory.getLogger(RequestResponseMapper.class);
 
   private static Long distance(Double geo1_latitude, Double geo1_longitude, Double geo2_latitude, Double geo2_longitude ) {
@@ -117,12 +123,15 @@ public class RequestResponseMapper {
 
     schedule.setShifts(
         request.shifts.stream().map(old -> {
+          Date startDate = parseDate(old.start_date_time);
+          Date endDate = parseDate(old.end_date_time);
+          //Make sure the end is exclusive
+          endDate = new Date(endDate.toInstant().minus(1, SECONDS).toEpochMilli());
           Shift shift = new Shift()
               .setId(old.shift_id)
-              //.setStartDate(LocalDate.parse(old.start_date, DateTimeFormatter.ISO_LOCAL_DATE))
               .setPlan(old.plan == null || old.plan.equals("1"))
-              //.setPlan(true)
-              .setTimeSlot(new TimeSlot(old.start_date_time, old.end_date_time))
+              //The end of the timeslot will be exclusive
+              .setTimeSlot(new TimeSlot().setStart(startDate).setEnd(endDate))
               .setStartTimeStamp(old.start_timestamp)
               .setEndTimeStamp(old.end_timestamp)
               .setDuration(new Float(old.duration))
@@ -147,7 +156,8 @@ public class RequestResponseMapper {
               .setType(AvailabilityType.valueOf(requestEmployeeAvailability.type))
               .setDayOfWeek(DayOfWeek.of(new Integer(requestEmployeeAvailability.day_of_week)))
               .setStartTime(LocalTime.MIDNIGHT.plus(new Long(requestEmployeeAvailability.seconds_start), ChronoUnit.SECONDS))
-              .setEndTime(LocalTime.MIDNIGHT.plus(new Long(requestEmployeeAvailability.seconds_end), ChronoUnit.SECONDS));
+              //The end time will be exclusive
+              .setEndTime(LocalTime.MIDNIGHT.plus(new Long(requestEmployeeAvailability.seconds_end) - 1, ChronoUnit.SECONDS));
         }).collect(Collectors.toSet())
     );
 
@@ -171,5 +181,13 @@ public class RequestResponseMapper {
     );
 
     return schedule;
+  }
+
+  private static Date parseDate(String sDateTime) {
+    try {
+      return dateTimeFormatter.parse(sDateTime);
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

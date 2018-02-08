@@ -1,0 +1,10 @@
+OpenWire
+ssl://b-31c2f279-8f82-4e3e-8227-1405f0c0112c-1.mq.us-east-1.amazonaws.com:61617
+AMQP
+amqp+ssl://b-31c2f279-8f82-4e3e-8227-1405f0c0112c-1.mq.us-east-1.amazonaws.com:5671
+STOMP
+stomp+ssl://b-31c2f279-8f82-4e3e-8227-1405f0c0112c-1.mq.us-east-1.amazonaws.com:61614
+MQTT
+mqtt+ssl://b-31c2f279-8f82-4e3e-8227-1405f0c0112c-1.mq.us-east-1.amazonaws.com:8883
+WSS
+wss://b-31c2f279-8f82-4e3e-8227-1405f0c0112c-1.mq.us-east-1.amazonaws.com:61619

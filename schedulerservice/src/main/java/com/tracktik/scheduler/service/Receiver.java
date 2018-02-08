@@ -95,8 +95,29 @@ public class Receiver {
         .setSolution_is_feasible(score.isFeasible())
         .setNumber_of_shifts_unfilled(shiftsUnfilled);
 
+    Set<ShiftAssignmentConstraintScores> shiftAssignmentScores = scoreDirector.getIndictmentMap().entrySet().stream().filter(objectIndictmentEntry -> objectIndictmentEntry.getKey().getClass() == Shift.class)
+        .map(objectIndictmentEntry -> {
+          Shift shift = (Shift) objectIndictmentEntry.getKey();
+          String shiftId = shift.getId();
+          String employeeId = shift.getEmployee().getId();
+          return new ShiftAssignmentConstraintScores()
+              .setShift_id(shiftId)
+              .setEmployee_id(employeeId)
+              .setScores(
+                  objectIndictmentEntry.getValue().getConstraintMatchSet().stream().map(constraintMatch -> {
+                    HardSoftLongScore constraintMatchScore = (HardSoftLongScore) constraintMatch.getScore();
+                    ConstrainScore constrainScore = new ConstrainScore();
+                    constrainScore.setConstraint_name(constraintMatch.getConstraintName());
+                    constrainScore.setHard_score(constraintMatchScore.getHardScore());
+                    constrainScore.setSoft_score(constraintMatchScore.getSoftScore());
+                    return constrainScore;
+                  }).collect(Collectors.toSet())
+              );
+        }).collect(Collectors.toSet());
+    response.getMeta().setShift_assignment_scores(shiftAssignmentScores);
     response.getMeta().setTime_to_solve(System.currentTimeMillis() - startTime);
 
+    logger.info("response: " + response);
     jmsTemplate.convertAndSend(QueueNames.response, response);
 
     logger.info("Schedule solved for " + response.getId());

@@ -1,44 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plannerBenchmark>
-	<benchmarkDirectory>local/benchmark</benchmarkDirectory>
+    <benchmarkDirectory>local/benchmark</benchmarkDirectory>
 
 
-	<inheritedSolverBenchmark>
-		<problemBenchmarks>
-			<solutionFileIOClass>com.tracktik.scheduler.service.SchedulerSolutionFileIO</solutionFileIOClass>
-			<inputSolutionFile>data/parameterized.json</inputSolutionFile>
-			<!-- <inputSolutionFile>schedulerapi/src/main/resources/examples.txt</inputSolutionFile> -->
-			<!-- <inputSolutionFile>schedulerservice/src/main/resources/AR-Report-10.txt</inputSolutionFile> -->
-			<writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
-		</problemBenchmarks>
-		<solver>
-			<scanAnnotatedClasses />
+    <inheritedSolverBenchmark>
+        <problemBenchmarks>
+            <solutionFileIOClass>com.tracktik.scheduler.service.SchedulerSolutionFileIO</solutionFileIOClass>
+            <inputSolutionFile>data/test.json</inputSolutionFile>
+            <!-- <inputSolutionFile>schedulerapi/src/main/resources/examples.txt</inputSolutionFile> -->
+            <!-- <inputSolutionFile>schedulerservice/src/main/resources/AR-Report-10.txt</inputSolutionFile> -->
+            <writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
+        </problemBenchmarks>
+        <solver>
+            <scanAnnotatedClasses/>
 
-			<!-- Score configuration -->
-			<scoreDirectorFactory>
-				<scoreDrl>schedulerScoreRules.drl</scoreDrl>
-			</scoreDirectorFactory>
+            <!-- Score configuration -->
+            <scoreDirectorFactory>
+                <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+            </scoreDirectorFactory>
 
-			<termination>
-				<secondsSpentLimit>120</secondsSpentLimit>
-			</termination>
+            <termination>
+                <minutesSpentLimit>5</minutesSpentLimit>
+                <unimprovedSecondsSpentLimit>10</unimprovedSecondsSpentLimit>
+            </termination>
 
-		</solver>
+        </solver>
 
-	</inheritedSolverBenchmark>
+    </inheritedSolverBenchmark>
 
-	<solverBenchmark>
-		<name>Basic</name>
-		<solver>
+    <solverBenchmark>
+        <name>Basic</name>
+        <solver>
 
-			
+            <constructionHeuristic>
 
-			<constructionHeuristic>
-				<!-- <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType> -->
+            </constructionHeuristic>
+            <localSearch />
 
-			</constructionHeuristic>
-			<localSearch />
+        </solver>
+    </solverBenchmark>
 
-		</solver>
-	</solverBenchmark>
+    <!--
+    <solverBenchmarkBluePrint>
+        <solverBenchmarkBluePrintType>ALL_CONSTRUCTION_HEURISTIC_TYPES</solverBenchmarkBluePrintType>
+    </solverBenchmarkBluePrint> -->
+
 </plannerBenchmark>

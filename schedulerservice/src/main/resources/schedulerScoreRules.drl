@@ -5,8 +5,20 @@ import com.tracktik.scheduler.service.*;
 import java.util.*;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.util.concurrent.TimeUnit
 
 global HardSoftLongScoreHolder scoreHolder;
+
+declare DayHour
+    employeeId : String
+    dayOfWeek : DayOfWeek
+    hourOfDay : Integer
+end
+
+function Long hoursGap(Date startDate, Date endDate) {
+    Long gap = TimeUnit.HOURS.convert(endDate.getTime() - startDate.getTime(), TimeUnit.MILLISECONDS);
+    return gap;
+}
 
 function Long numberOfMatches(Collection first, Collection other) {
     return first.stream().filter(item -> other.contains(item)).count();
@@ -17,13 +29,17 @@ function Long calculateDistance(Double geo1_latitude, Double geo1_longitude, Dou
     return distance.longValue();
 }
 
-function Boolean overlaps(Date shiftStartDate, Date shiftEndDate, DayOfWeek dayOfWeek, LocalTime availableStartTime, LocalTime availableEndTime) {
+function Boolean NOT_USED_overlaps(Date shiftStartDate, Date shiftEndDate, DayOfWeek dayOfWeek, LocalTime availableStartTime, LocalTime availableEndTime) {
 
     LocalDateTime shiftStart = shiftStartDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().plus(1L, ChronoUnit.SECONDS);
     LocalDateTime shiftEnd = shiftEndDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().minus(1L, ChronoUnit.SECONDS);
 
     LocalDateTime availableStartDateTime = shiftStart.with(dayOfWeek).withHour(availableStartTime.getHour()).withMinute(availableStartTime.getMinute()).withSecond(availableStartTime.getSecond());
     LocalDateTime availableEndDateTime = shiftEnd.with(dayOfWeek).withHour(availableEndTime.getHour()).withMinute(availableEndTime.getMinute()).withSecond(availableEndTime.getSecond());
+
+    if (dayOfWeek == DayOfWeek.MONDAY) {
+        availableEndDateTime = availableEndDateTime.withHour(0);
+    }
 
     Boolean overlaps = shiftEnd.isAfter(availableStartDateTime) && shiftStart.isBefore(availableEndDateTime);
 
@@ -68,14 +84,13 @@ rule "BANNED_FROM_SITE"
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
 
-
-/*rule "EIGHT_HOUR_SHIFT_GAP"
+rule "EIGHT_HOUR_SHIFT_GAP"
    when
         Shift($employee: employee, $firstShiftEnd: timeSlot.getEnd())
-        Shift($employee == employee, hoursGap($firstShiftEnd, timeSlot.getStart()) < 8L)
+        Shift($employee == employee, $firstShiftEnd.before(timeSlot.getStart()), hoursGap($firstShiftEnd, timeSlot.getStart()) < 8L)
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
-end*/
+end
 
 // SOFT CONSTRAINTS
 
@@ -94,7 +109,6 @@ rule "HAS_SOME_SOFT_SKILLS_MULTIPLIER"
         not KeyValueFact(key == "SOFT_SKILL_ENABLED", value == false)
         KeyValueFact(key == "SOFT_SKILL_MUTLIPLIER", $multiplier: ((Long)value))
     then
-        System.out.println("found multiplier");
         scoreHolder.addSoftConstraintMatch(kcontext, numberOfMatches($softSkills, $skills) * numberOfMatches($softSkills, $skills) * $multiplier);
 end
 
@@ -154,10 +168,9 @@ rule "MINIMUM_AVAILABILITY_PREFERENCE"
            sum($shiftHours)
         )
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, -(($totalHours - $preferredHours) * ($totalHours - $preferredHours)));
+        scoreHolder.addSoftConstraintMatch(kcontext, -(($totalHours - $preferredHours) * (2)));
+        //scoreHolder.addSoftConstraintMatch(kcontext, -(($totalHours - $preferredHours) * ($totalHours - $preferredHours)));
 end
-
-
 
 rule "HAS_SITE_EXPERIENCE"
     when
@@ -166,12 +179,14 @@ rule "HAS_SITE_EXPERIENCE"
         scoreHolder.addSoftConstraintMatch(kcontext, -100);
 end
 
+/*
 rule "HAS_POST_EXPERIENCE"
     when
         Shift(employee != null, post != null, post not memberOf employee.postExperience)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -100);
 end
+*/
 
 rule "EMPLOYEE_HAS_SENIORITY"
     when
@@ -226,7 +241,7 @@ rule "WORKPLACE_CLOSE"
         scoreHolder.addSoftConstraintMatch(kcontext, $impact);
 end
 
-rule "employee prefers not to work shift"
+rule "AVAILABILITY_NO"
     when
         $availability : EmployeeAvailability($employeeId: employeeId, type == AvailabilityType.NO, $day: dayOfWeek, $employeeStart: startTime, $employeeEnd: endTime)
         Shift(employee != null, $employeeId == employee.id, this.overlaps($availability))
@@ -236,7 +251,7 @@ rule "employee prefers not to work shift"
         scoreHolder.addSoftConstraintMatch(kcontext, $impact);
 end
 
-rule "employee may be available to work shift"
+rule "AVAILABILITY_MAYBE"
     when
         Employee($employeeId: id)
         $availability : EmployeeAvailability($employeeId == employeeId, type == AvailabilityType.MAYBE, $startTime: startTime, $endTime: endTime, $day: dayOfWeek)
