@@ -275,5 +275,27 @@ public class EmployeeShiftOverlapTest {
     assert(!overlaps);
   }
 
+  @Test
+  public void employeeTEst() throws ParseException {
+
+    Employee employee = new Employee().setId("1");
+
+    //Monday
+    Shift shift = new Shift()
+        .setId("2")
+        .setEmployee(employee)
+        .setTimeSlot(new TimeSlot("2018-02-04 23:00:00", "2018-02-05 02:00:00"));
+
+    EmployeeAvailability availability = new EmployeeAvailability()
+        .setEmployeeId("1").setType(AvailabilityType.NO)
+        .setDayOfWeek(DayOfWeek.MONDAY)
+        .setStartTime(LocalTime.MIDNIGHT)
+        .setEndTime(LocalTime.MAX);
+
+    Boolean overlaps = shift.overlaps(availability);
+
+    assert(overlaps);
+  }
+
 }
 

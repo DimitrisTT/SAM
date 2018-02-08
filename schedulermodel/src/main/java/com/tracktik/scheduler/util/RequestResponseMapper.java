@@ -155,6 +155,8 @@ public class RequestResponseMapper {
               .setEmployeeId(requestEmployeeAvailability.employee_id)
               .setType(AvailabilityType.valueOf(requestEmployeeAvailability.type))
               .setDayOfWeek(DayOfWeek.of(new Integer(requestEmployeeAvailability.day_of_week)))
+              .setStartSeconds(new Long(requestEmployeeAvailability.seconds_start))
+              .setEndSeconds(new Long(requestEmployeeAvailability.seconds_end))
               .setStartTime(LocalTime.MIDNIGHT.plus(new Long(requestEmployeeAvailability.seconds_start), ChronoUnit.SECONDS))
               //The end time will be exclusive
               .setEndTime(LocalTime.MIDNIGHT.plus(new Long(requestEmployeeAvailability.seconds_end) - 1, ChronoUnit.SECONDS));

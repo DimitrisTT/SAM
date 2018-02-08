@@ -56,8 +56,8 @@ public class Shift {
 
   public Boolean overlaps(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
 
-    LocalDateTime shiftStart = timeSlot.getStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().plus(1L, ChronoUnit.SECONDS);
-    LocalDateTime shiftEnd = timeSlot.getEnd().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().minus(1L, ChronoUnit.SECONDS);
+    LocalDateTime shiftStart = timeSlot.getStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+    LocalDateTime shiftEnd = timeSlot.getEnd().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 
     LocalDateTime availableStart = shiftStart.with(dayOfWeek).withHour(startTime.getHour()).withMinute(startTime.getMinute()).withSecond(startTime.getSecond());
     LocalDateTime availableEnd = shiftEnd.with(dayOfWeek).withHour(endTime.getHour()).withMinute(endTime.getMinute()).withSecond(endTime.getSecond());

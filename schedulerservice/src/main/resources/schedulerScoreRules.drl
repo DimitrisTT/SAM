@@ -84,6 +84,7 @@ rule "BANNED_FROM_SITE"
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
 
+
 rule "EIGHT_HOUR_SHIFT_GAP"
    when
         Shift($employee: employee, $firstShiftEnd: timeSlot.getEnd())
@@ -91,6 +92,7 @@ rule "EIGHT_HOUR_SHIFT_GAP"
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
+
 
 // SOFT CONSTRAINTS
 
@@ -168,8 +170,8 @@ rule "MINIMUM_AVAILABILITY_PREFERENCE"
            sum($shiftHours)
         )
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, -(($totalHours - $preferredHours) * (2)));
-        //scoreHolder.addSoftConstraintMatch(kcontext, -(($totalHours - $preferredHours) * ($totalHours - $preferredHours)));
+        //scoreHolder.addSoftConstraintMatch(kcontext, -(($totalHours - $preferredHours) * (2)));
+        scoreHolder.addSoftConstraintMatch(kcontext, -(($totalHours - $preferredHours) * ($totalHours - $preferredHours)));
 end
 
 rule "HAS_SITE_EXPERIENCE"

@@ -21,6 +21,9 @@ public class EmployeeAvailability {
   @JsonDeserialize(using = LocalTimeDeserializer.class)
   private LocalTime endTime;
 
+  private Long startSeconds;
+  private Long endSeconds;
+
   public String getEmployeeId() {
     return employeeId;
   }
@@ -63,6 +66,24 @@ public class EmployeeAvailability {
 
   public EmployeeAvailability setEndTime(LocalTime endTime) {
     this.endTime = endTime;
+    return this;
+  }
+
+  public Long getStartSeconds() {
+    return startSeconds;
+  }
+
+  public EmployeeAvailability setStartSeconds(Long startSeconds) {
+    this.startSeconds = startSeconds;
+    return this;
+  }
+
+  public Long getEndSeconds() {
+    return endSeconds;
+  }
+
+  public EmployeeAvailability setEndSeconds(Long endSeconds) {
+    this.endSeconds = endSeconds;
     return this;
   }
 

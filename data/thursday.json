@@ -1,0 +1,1803 @@
+{
+  "facts": {
+    "SOFT_SKILL_ENABLED": false,
+    "SOFT_SKILL_MUTLIPLIER": 10,
+    "HARD_SKILL_ENABLED": true,
+    "HARD_SKILL_IS_HARD": true,
+    "HARD_SKILL_TYPE_SOFT_MUTLIPLIER": 100,
+    "AVAILABLE_PREF_MAYBE_ENABLED": true,
+    "AVAILABLE_PREF_MAYBE_IMPACT": -10,
+    "AVAILABLE_PREF_NO_ENABLED": true,
+    "AVAILABLE_PREF_NO_IMPACT": -70,
+    "CLOSE_FROM_SITE_ENABLED": false,
+    "CLOSE_FROM_SITE_DEFINITION": 10,
+    "CLOSE_FROM_SITE_IMPACT": 5,
+    "FAR_FROM_SITE_ENABLED": false,
+    "FAR_FROM_SITE_DEFINITION": 50,
+    "FAR_FROM_SITE_IMPACT": -20,
+    "FAIRLY_FAR_FROM_SITE_ENABLED": false,
+    "FAIRLY_FAR_FROM_SITE_DEFINITION": 25,
+    "FAIRLY_FROM_FROM_SITE_IMPACT": -10
+  },
+  "shifts": [
+    {
+      "start_date": "2018-02-20",
+      "shift_id": "256",
+      "employee_id": "2",
+      "post_id": "1",
+      "site_id": "3",
+      "start_date_time": "2018-02-20 09:00:00",
+      "end_date_time": "2018-02-20 21:00:00",
+      "duration": "12.00",
+      "start_timestamp": "1519131600",
+      "end_timestamp": "1519174800",
+      "plan": "1"
+    },
+    {
+      "start_date": "2018-02-21",
+      "shift_id": "257",
+      "employee_id": "2",
+      "post_id": "1",
+      "site_id": "3",
+      "start_date_time": "2018-02-21 09:00:00",
+      "end_date_time": "2018-02-21 21:00:00",
+      "duration": "12.00",
+      "start_timestamp": "1519218000",
+      "end_timestamp": "1519261200",
+      "plan": "1"
+    },
+    {
+      "start_date": "2018-02-22",
+      "shift_id": "258",
+      "employee_id": "2",
+      "post_id": "1",
+      "site_id": "3",
+      "start_date_time": "2018-02-22 21:00:00",
+      "end_date_time": "2018-02-23 09:00:00",
+      "duration": "12.00",
+      "start_timestamp": "1519347600",
+      "end_timestamp": "1519390800",
+      "plan": "1"
+    }
+  ],
+  "posts": [
+    {
+      "id": "1",
+      "name": "Hard Only",
+      "pay_type": "EMPLOYEE_RATE",
+      "pay_rate": null,
+      "site_id": "3",
+      "bill_rate": null
+    }
+  ],
+  "skills": [
+    {
+      "id": "1",
+      "description": "Hard"
+    },
+    {
+      "id": "2",
+      "description": "Soft 1"
+    },
+    {
+      "id": "3",
+      "description": "Soft 2"
+    }
+  ],
+  "post_skills": [
+    {
+      "skill_id": "1",
+      "post_id": "1",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "1",
+      "post_id": "2",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "1",
+      "post_id": "3",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "1",
+      "post_id": "7",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "1",
+      "post_id": "7",
+      "type": "SOFT"
+    },
+    {
+      "skill_id": "2",
+      "post_id": "2",
+      "type": "SOFT"
+    },
+    {
+      "skill_id": "2",
+      "post_id": "3",
+      "type": "SOFT"
+    },
+    {
+      "skill_id": "2",
+      "post_id": "4",
+      "type": "SOFT"
+    },
+    {
+      "skill_id": "2",
+      "post_id": "5",
+      "type": "SOFT"
+    },
+    {
+      "skill_id": "3",
+      "post_id": "2",
+      "type": "SOFT"
+    },
+    {
+      "skill_id": "3",
+      "post_id": "5",
+      "type": "SOFT"
+    }
+  ],
+  "time_off": [],
+  "sites": [
+    {
+      "id": "3",
+      "geo_lat": null,
+      "geo_lon": null,
+      "name": "Problem 1 / No Address"
+    }
+  ],
+  "employees": [
+    {
+      "id": "1000",
+      "name": "Simon Ferragne ",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1001",
+      "name": "TrackTik Software Support",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1002",
+      "name": "1) Night - Hard",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1003",
+      "name": "1) Night - Hard 2Soft",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1004",
+      "name": "1) Night - Hard 1Soft",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1005",
+      "name": "1) Night - 1Soft",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1006",
+      "name": "1) Night - 2Soft",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1007",
+      "name": "1) Weekend Night - Hard",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1008",
+      "name": "1) Weekend Night - Hard 2Soft",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1009",
+      "name": "1) Weekend Night - Hard 1Soft",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1010",
+      "name": "1) Weekend Night - 1Soft",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1011",
+      "name": "1) Weekend Night - 2Soft",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1012",
+      "name": "1) Weekend Day - Hard",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1013",
+      "name": "1) Weekend Day - Hard 2Soft",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1014",
+      "name": "1) Weekend Day - Hard 1Soft",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1015",
+      "name": "1) Weekend Day - 1Soft",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1016",
+      "name": "1) Weekend Day - 2Soft",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1017",
+      "name": "1) Day - Hard",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1018",
+      "name": "1) Day - Hard 2Soft",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1019",
+      "name": "1) Day - Hard 1Soft",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1020",
+      "name": "1) Day - 1Soft",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1021",
+      "name": "1) Day - 2Soft",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1025",
+      "name": "1) SHOULD NOT All but banned from 1",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1026",
+      "name": "Super Man - Not Assigned",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    },
+    {
+      "id": "1027",
+      "name": "SuperMan Assigned to P1",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "preferred_hours": "40",
+      "seniority": null
+    }
+  ],
+  "employee_skills": [
+    {
+      "skill_id": "1",
+      "employee_id": "1002"
+    },
+    {
+      "skill_id": "1",
+      "employee_id": "1003"
+    },
+    {
+      "skill_id": "1",
+      "employee_id": "1004"
+    },
+    {
+      "skill_id": "1",
+      "employee_id": "1007"
+    },
+    {
+      "skill_id": "1",
+      "employee_id": "1008"
+    },
+    {
+      "skill_id": "1",
+      "employee_id": "1009"
+    },
+    {
+      "skill_id": "1",
+      "employee_id": "1012"
+    },
+    {
+      "skill_id": "1",
+      "employee_id": "1013"
+    },
+    {
+      "skill_id": "1",
+      "employee_id": "1014"
+    },
+    {
+      "skill_id": "1",
+      "employee_id": "1017"
+    },
+    {
+      "skill_id": "1",
+      "employee_id": "1018"
+    },
+    {
+      "skill_id": "1",
+      "employee_id": "1019"
+    },
+    {
+      "skill_id": "1",
+      "employee_id": "1025"
+    },
+    {
+      "skill_id": "1",
+      "employee_id": "1026"
+    },
+    {
+      "skill_id": "1",
+      "employee_id": "1027"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1003"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1004"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1005"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1006"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1008"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1009"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1010"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1013"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1014"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1015"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1016"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1018"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1019"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1020"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1021"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1025"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1026"
+    },
+    {
+      "skill_id": "2",
+      "employee_id": "1027"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1003"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1006"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1008"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1013"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1016"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1018"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1021"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1025"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1026"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1027"
+    }
+  ],
+  "employee_availabilities": [
+    {
+      "employee_id": "1002",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1002",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1002",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1002",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1002",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1002",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1002",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1003",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1003",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1003",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1003",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1003",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1003",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1003",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1004",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1004",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1004",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1004",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1004",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1004",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1004",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1006",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1006",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1006",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1006",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1006",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1006",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1006",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1005",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1005",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1005",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1005",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1005",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1005",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1005",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1017",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1017",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1017",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1017",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1017",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1017",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1017",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1017",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1017",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1017",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1017",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1017",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1017",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1017",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1018",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1018",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1018",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1018",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1018",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1018",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1018",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1018",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1018",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1018",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1018",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1018",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1018",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1018",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1019",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1019",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1019",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1019",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1019",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1019",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1019",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1019",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1019",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1019",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1019",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1019",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1019",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1019",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1021",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1021",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1021",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1021",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1021",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1021",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1021",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1021",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1021",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1021",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1021",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1021",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1021",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1021",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1007",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "32400",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1007",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1007",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1007",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1007",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "0",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1007",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1007",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1008",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "32400",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1008",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1008",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1008",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1008",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "0",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1008",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1008",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1010",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "32400",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1010",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1010",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1010",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1010",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "0",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1010",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1010",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1013",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1013",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1011",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1011",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "32400",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1011",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1011",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1011",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1011",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "0",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1011",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1011",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1014",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1014",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1014",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1014",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1014",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1014",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1014",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1014",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1014",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1012",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1012",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1012",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1012",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1012",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1012",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1012",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1012",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1012",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1015",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1015",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1015",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1015",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1015",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1015",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1015",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1015",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1015",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1009",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "32400",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1009",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1009",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1009",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1009",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "0",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1009",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1009",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "32400",
+      "seconds_end": "75600"
+    },
+    {
+      "employee_id": "1016",
+      "type": "NO",
+      "day_of_week": "1",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1016",
+      "type": "NO",
+      "day_of_week": "2",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1016",
+      "type": "NO",
+      "day_of_week": "3",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1016",
+      "type": "NO",
+      "day_of_week": "4",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1016",
+      "type": "NO",
+      "day_of_week": "5",
+      "seconds_start": "0",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1016",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1016",
+      "type": "NO",
+      "day_of_week": "6",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    },
+    {
+      "employee_id": "1016",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "0",
+      "seconds_end": "32400"
+    },
+    {
+      "employee_id": "1016",
+      "type": "NO",
+      "day_of_week": "7",
+      "seconds_start": "75600",
+      "seconds_end": "86400"
+    }
+  ],
+  "employees_to_sites": [
+    {
+      "user_id": "1002",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1003",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1004",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1005",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1006",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1007",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1008",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1009",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1010",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1011",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1012",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1013",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1014",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1015",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1016",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1017",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1018",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1019",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1020",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1021",
+      "site_id": "3"
+    },
+    {
+      "user_id": "1027",
+      "site_id": "3"
+    }
+  ],
+  "site_bans": [
+    {
+      "employee_id": "1025",
+      "site_id": "3"
+    }
+  ]
+}
