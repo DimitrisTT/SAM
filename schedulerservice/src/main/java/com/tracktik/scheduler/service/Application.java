@@ -14,7 +14,6 @@ import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
-import org.springframework.util.ErrorHandler;
 
 import javax.jms.ConnectionFactory;
 
@@ -24,6 +23,7 @@ import javax.jms.ConnectionFactory;
 public class Application {
 
   private static final Logger logger = LoggerFactory.getLogger(Application.class);
+
   public static void main(String[] args) {
     // Launch the application
     ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);

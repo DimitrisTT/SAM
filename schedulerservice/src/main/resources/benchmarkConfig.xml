@@ -6,9 +6,7 @@
     <inheritedSolverBenchmark>
         <problemBenchmarks>
             <solutionFileIOClass>com.tracktik.scheduler.service.SchedulerSolutionFileIO</solutionFileIOClass>
-            <inputSolutionFile>data/thursday.json</inputSolutionFile>
-            <!-- <inputSolutionFile>schedulerapi/src/main/resources/examples.txt</inputSolutionFile> -->
-            <!-- <inputSolutionFile>schedulerservice/src/main/resources/AR-Report-10.txt</inputSolutionFile> -->
+            <inputSolutionFile>data/parameterized.json</inputSolutionFile>
             <writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
         </problemBenchmarks>
         <solver>
@@ -32,17 +30,10 @@
         <name>Basic</name>
         <solver>
 
-            <constructionHeuristic>
-
-            </constructionHeuristic>
+            <constructionHeuristic />
             <localSearch/>
 
         </solver>
     </solverBenchmark>
-
-    <!--
-    <solverBenchmarkBluePrint>
-    <solverBenchmarkBluePrintType>ALL_CONSTRUCTION_HEURISTIC_TYPES</solverBenchmarkBluePrintType>
-    </solverBenchmarkBluePrint> -->
 
 </plannerBenchmark>

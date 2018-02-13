@@ -9,7 +9,6 @@ public class CostTotals {
   private long totalBilled;
   private long totalCost;
 
-
   public CostTotals(Employee employee, long hours, long totalBilled, long totalCost) {
     this.employee = employee;
     this.hours = hours;

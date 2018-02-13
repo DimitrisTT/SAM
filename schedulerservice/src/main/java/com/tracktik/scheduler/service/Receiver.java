@@ -3,15 +3,10 @@ package com.tracktik.scheduler.service;
 import com.google.common.collect.EvictingQueue;
 import com.tracktik.scheduler.api.domain.QueueNames;
 import com.tracktik.scheduler.domain.*;
-import org.optaplanner.core.api.domain.solution.Solution;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
-import org.optaplanner.core.api.solver.event.BestSolutionChangedEvent;
-import org.optaplanner.core.api.solver.event.SolverEventListener;
 import org.optaplanner.core.impl.score.director.ScoreDirector;
-import org.optaplanner.core.impl.solver.DefaultSolver;
-import org.optaplanner.core.impl.solver.recaller.BestSolutionRecaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +14,15 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
+import java.util.ArrayDeque;
 import java.util.Set;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.stream.Collectors;
 
 @Component
 public class Receiver {
 
   Logger logger = LoggerFactory.getLogger(Receiver.class);
+
   @Autowired
   private JmsTemplate jmsTemplate;
 
@@ -53,7 +48,6 @@ public class Receiver {
     SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource("schedulerConfig.xml");
     SchedulingResponse response = new SchedulingResponse().setId(schedule.getId()).setStatus(SolverStatus.SOLVING);
     jmsTemplate.convertAndSend(QueueNames.response, response);
-
 
     Solver<Schedule> solver = solverFactory.buildSolver();
     ScoreDirector<Schedule> scoreDirector = solver.getScoreDirectorFactory().buildScoreDirector();
@@ -86,6 +80,7 @@ public class Receiver {
       logger.info("Sending interim solution " + interimResponse.getId());
       jmsTemplate.convertAndSend(QueueNames.response, interimResponse);
     });
+
     logger.info("Optimizing schedule " + schedule.getId());
     Schedule solvedSchedule = solver.solve(schedule);
 
@@ -130,11 +125,13 @@ public class Receiver {
     response.getMeta().setTime_to_solve(System.currentTimeMillis() - startTime);
 
     bestSolutions.remove(); //Remove the top since it is also the best solution over all.
-    response.setNext_best_solutions(
-        bestSolutions.stream().map(schedulingResponse -> schedulingResponse.setStatus(SolverStatus.COMPLETED)).collect(Collectors.toSet())
-    );
 
-    logger.debug("response: " + response);
+    //Reverse the order so the best solutions are first
+    bestSolutions.stream().map(schedulingResponse -> schedulingResponse.setStatus(SolverStatus.COMPLETED))
+        .collect(Collectors.toCollection(ArrayDeque::new))
+        .descendingIterator()
+        .forEachRemaining(solution -> response.getNext_best_solutions().add(solution));
+
     jmsTemplate.convertAndSend(QueueNames.response, response);
 
     logger.info("Schedule solved for " + response.getId());
