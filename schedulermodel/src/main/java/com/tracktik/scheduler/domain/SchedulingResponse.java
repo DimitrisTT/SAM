@@ -9,6 +9,7 @@ public class SchedulingResponse {
   private SolverStatus status;
   private Set<Shift> shifts = new HashSet<>();
   private SchedulingResponseMetadata meta = new SchedulingResponseMetadata();
+  private Set<SchedulingResponse> next_best_solutions = new HashSet<>();
 
   public SchedulingResponse() {
   }
@@ -49,6 +50,15 @@ public class SchedulingResponse {
     return this;
   }
 
+  public Set<SchedulingResponse> getNext_best_solutions() {
+    return next_best_solutions;
+  }
+
+  public SchedulingResponse setNext_best_solutions(Set<SchedulingResponse> next_best_solutions) {
+    this.next_best_solutions = next_best_solutions;
+    return this;
+  }
+
   @Override
   public String toString() {
     return "SchedulingResponse{" +
@@ -56,6 +66,7 @@ public class SchedulingResponse {
         ", status=" + status +
         ", shifts=" + shifts +
         ", meta=" + meta +
+        ", next_best_solutions=" + next_best_solutions +
         '}';
   }
 }

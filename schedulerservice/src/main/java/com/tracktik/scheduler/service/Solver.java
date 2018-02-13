@@ -22,12 +22,14 @@ public class Solver {
     //Schedule solvedSchedule = solver.solve(unsolvedSchedule);
 
     PlannerBenchmarkFactory benchmarkFactory = PlannerBenchmarkFactory.createFromXmlResource("benchmarkConfig.xml");
+
     List<SolverBenchmarkBluePrintConfig> blueprintConfigs = benchmarkFactory.getPlannerBenchmarkConfig().getSolverBenchmarkBluePrintConfigList();
     if (blueprintConfigs == null) blueprintConfigs = new ArrayList<>();
     SolverBenchmarkBluePrintConfig solverBenchmarkBluePrintConfig = new SolverBenchmarkBluePrintConfig();
     solverBenchmarkBluePrintConfig.setSolverBenchmarkBluePrintType(SolverBenchmarkBluePrintType.EVERY_CONSTRUCTION_HEURISTIC_TYPE_WITH_EVERY_LOCAL_SEARCH_TYPE);
     blueprintConfigs.add(solverBenchmarkBluePrintConfig);
     benchmarkFactory.getPlannerBenchmarkConfig().setSolverBenchmarkBluePrintConfigList(blueprintConfigs);
+
 
     PlannerBenchmark benchmark = benchmarkFactory.buildPlannerBenchmark();
     benchmark.benchmark();

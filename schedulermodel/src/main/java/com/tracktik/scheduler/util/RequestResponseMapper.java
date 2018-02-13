@@ -118,6 +118,7 @@ public class RequestResponseMapper {
                       .collect(Collectors.toList())
               )
               .setSeniority(employee.seniority == null ? null : new Integer(employee.seniority))
+              .setMinimumRestPeriod(employee.minimum_rest_period == null ? new Long(8) : new Long(employee.minimum_rest_period))
       );
     });
 
@@ -180,6 +181,18 @@ public class RequestResponseMapper {
 
     schedule.setSiteBans(
         request.site_bans.stream().map(ban -> new SiteBan().setEmployeeId(ban.employee_id).setSiteId(ban.site_id)).collect(Collectors.toSet())
+    );
+
+    schedule.setEmployeeConstraintMultipliers(
+        request.employee_multipliers.entrySet().stream().flatMap(stringMapEntry -> {
+          String employeeId = stringMapEntry.getKey();
+          return stringMapEntry.getValue().entrySet().stream().map(stringStringEntry -> {
+            return new EmployeeConstraintMultiplier()
+                .setEmployeeId(employeeId)
+                .setName(stringStringEntry.getKey())
+                .setMultiplier(new Double(stringStringEntry.getValue()));
+          });
+        }).collect(Collectors.toSet())
     );
 
     return schedule;

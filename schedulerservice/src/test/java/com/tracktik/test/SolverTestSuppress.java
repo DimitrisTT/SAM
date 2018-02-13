@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class SolverTest {
+public class SolverTestSuppress {
 
   protected static SolverFactory<Schedule> solverFactory;
   protected Solver<Schedule> solver;

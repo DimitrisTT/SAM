@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.UUID;
 
@@ -67,7 +68,10 @@ public class TimeSlot {
 
   @JsonIgnore
   public Long getDurationHours() {
-    return Duration.between(start.toInstant(), end.toInstant()).toHours();
+
+    //need to add a second to get hours since time slots are not full hours.
+    Long hours = Duration.between(start.toInstant(), end.toInstant().plus(1, ChronoUnit.SECONDS)).toHours();
+    return hours;
   }
 
   @JsonIgnore

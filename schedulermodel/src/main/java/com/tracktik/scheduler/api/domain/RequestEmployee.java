@@ -9,6 +9,8 @@ public class RequestEmployee {
   public String pay_rate;
   public String seniority;
   public String preferred_hours;
+  public String minimum_rest_period;
+  public String previous_last_end_date_time;
 
   @Override
   public String toString() {
@@ -20,6 +22,8 @@ public class RequestEmployee {
         ", pay_rate='" + pay_rate + '\'' +
         ", seniority='" + seniority + '\'' +
         ", preferred_hours='" + preferred_hours + '\'' +
+        ", minimum_rest_period='" + minimum_rest_period + '\'' +
+        ", previous_last_end_date_time='" + previous_last_end_date_time + '\'' +
         '}';
   }
 }

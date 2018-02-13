@@ -1,11 +1,17 @@
 package com.tracktik.scheduler.service;
 
+import com.google.common.collect.EvictingQueue;
 import com.tracktik.scheduler.api.domain.QueueNames;
 import com.tracktik.scheduler.domain.*;
+import org.optaplanner.core.api.domain.solution.Solution;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
+import org.optaplanner.core.api.solver.event.BestSolutionChangedEvent;
+import org.optaplanner.core.api.solver.event.SolverEventListener;
 import org.optaplanner.core.impl.score.director.ScoreDirector;
+import org.optaplanner.core.impl.solver.DefaultSolver;
+import org.optaplanner.core.impl.solver.recaller.BestSolutionRecaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +19,9 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.stream.Collectors;
 
 @Component
@@ -35,14 +43,17 @@ public class Receiver {
 
     long startTime = System.currentTimeMillis();
     int totalShifts = schedule.getShifts().size();
-    long totalSiftsToSchedule = schedule.getShifts().stream().filter(Shift::getPlan).count();
+    long totalShiftsToSchedule = schedule.getShifts().stream().filter(Shift::getPlan).count();
     int totalEmployees = schedule.getEmployees().size();
 
-    logger.info("Got request to schedule " + totalSiftsToSchedule + " shifts out of " + totalShifts + " for " + totalEmployees + " employees. id: " + schedule.getId());
+    logger.info("Got request to schedule " + totalShiftsToSchedule + " shifts out of " + totalShifts + " for " + totalEmployees + " employees. id: " + schedule.getId());
+
+    EvictingQueue<SchedulingResponse> bestSolutions = EvictingQueue.create(11);
 
     SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource("schedulerConfig.xml");
     SchedulingResponse response = new SchedulingResponse().setId(schedule.getId()).setStatus(SolverStatus.SOLVING);
     jmsTemplate.convertAndSend(QueueNames.response, response);
+
 
     Solver<Schedule> solver = solverFactory.buildSolver();
     ScoreDirector<Schedule> scoreDirector = solver.getScoreDirectorFactory().buildScoreDirector();
@@ -71,6 +82,7 @@ public class Receiver {
           .setSolution_is_feasible(score.isFeasible())
           .setNumber_of_shifts_unfilled(shiftsUnfilled);
 
+      bestSolutions.add(interimResponse);
       logger.info("Sending interim solution " + interimResponse.getId());
       jmsTemplate.convertAndSend(QueueNames.response, interimResponse);
     });
@@ -117,7 +129,12 @@ public class Receiver {
     response.getMeta().setShift_assignment_scores(shiftAssignmentScores);
     response.getMeta().setTime_to_solve(System.currentTimeMillis() - startTime);
 
-    logger.info("response: " + response);
+    bestSolutions.remove(); //Remove the top since it is also the best solution over all.
+    response.setNext_best_solutions(
+        bestSolutions.stream().map(schedulingResponse -> schedulingResponse.setStatus(SolverStatus.COMPLETED)).collect(Collectors.toSet())
+    );
+
+    logger.debug("response: " + response);
     jmsTemplate.convertAndSend(QueueNames.response, response);
 
     logger.info("Schedule solved for " + response.getId());

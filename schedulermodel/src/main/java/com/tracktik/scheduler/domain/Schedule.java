@@ -51,6 +51,9 @@ public class Schedule {
   @ProblemFactCollectionProperty
   private Set<SiteBan> siteBans = new HashSet<>();
 
+  @ProblemFactCollectionProperty
+  private Set<EmployeeConstraintMultiplier> employeeConstraintMultipliers = new HashSet<>();
+
   @PlanningScore
   public HardSoftLongScore getScore() {
     return score;
@@ -170,6 +173,15 @@ public class Schedule {
     return this;
   }
 
+  public Set<EmployeeConstraintMultiplier> getEmployeeConstraintMultipliers() {
+    return employeeConstraintMultipliers;
+  }
+
+  public Schedule setEmployeeConstraintMultipliers(Set<EmployeeConstraintMultiplier> employeeConstraintMultipliers) {
+    this.employeeConstraintMultipliers = employeeConstraintMultipliers;
+    return this;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -199,6 +211,8 @@ public class Schedule {
         ", constraintPreferences=" + constraintPreferences +
         ", employeeSiteDistance=" + employeeSiteDistance +
         ", keyValueFacts=" + keyValueFacts +
+        ", siteBans=" + siteBans +
+        ", employeeConstraintMultipliers=" + employeeConstraintMultipliers +
         '}';
   }
 }

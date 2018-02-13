@@ -67,7 +67,6 @@ rule "MUST_HAVE_HARD_SKILLS"
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
 
-
 rule "TIME_OFF_DURING_SHIFT"
     when
         Shift(employee != null, $employeeId: employee.id, $shiftStart: timeSlot.start, $shiftEnd: timeSlot.end)
@@ -84,36 +83,44 @@ rule "BANNED_FROM_SITE"
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
 
-
-rule "EIGHT_HOUR_SHIFT_GAP"
-   when
-        Shift($employee: employee, $firstShiftEnd: timeSlot.getEnd())
-        Shift($employee == employee, $firstShiftEnd.before(timeSlot.getStart()), hoursGap($firstShiftEnd, timeSlot.getStart()) < 8L)
-    then
-        scoreHolder.addHardConstraintMatch(kcontext, -1);
-end
-
-
 // SOFT CONSTRAINTS
+
+
+rule "MINIMUM_REST_PERIOD"
+   when
+        Shift(employee != null, $employee: employee, $firstShiftEnd: timeSlot.getEnd())
+        Shift($employee == employee, $firstShiftEnd.before(timeSlot.getStart()),$secondShiftStart: timeSlot.getStart(), hoursGap($firstShiftEnd, timeSlot.getStart()) < employee.minimumRestPeriod)
+        EmployeeConstraintMultiplier($employee.id == employeeId, name == "MINIMUM_REST_PERIOD", $employeeMultiplier: multiplier)
+    then
+        Long hours = hoursGap($firstShiftEnd, $secondShiftStart);
+        Double dValue = hours * hours * $employeeMultiplier * -1;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+end
 
 rule "HAS_SOME_SOFT_SKILLS"
     when
-        Shift(post != null, employee != null, $softSkills: post.softSkills, $skills:employee.skills, numberOfMatches($softSkills, $skills) > 0)
+        Shift(post != null, employee != null, $employeeId: employee.id, $softSkills: post.softSkills, $skills:employee.skills, numberOfMatches($softSkills, $skills) > 0)
         not KeyValueFact(key == "SOFT_SKILL_ENABLED", value == false)
         not KeyValueFact(key == "SOFT_SKILL_MUTLIPLIER")
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SOME_SOFT_SKILLS", $employeeMultiplier: multiplier)
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, numberOfMatches($softSkills, $skills) * 50 );
+        Long matches = numberOfMatches($softSkills, $skills);
+        Double dValue = matches * 50 * $employeeMultiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
 end
 
-rule "HAS_SOME_SOFT_SKILLS_MULTIPLIER"
+rule "MULTIPLIER_HAS_SOME_SOFT_SKILLS"
     when
-        Shift(post != null, employee != null, $softSkills: post.softSkills, $skills:employee.skills, numberOfMatches($softSkills, $skills) > 0)
+        Shift(post != null, employee != null, $employeeId: employee.id, $softSkills: post.softSkills, $skills:employee.skills, numberOfMatches($softSkills, $skills) > 0)
         not KeyValueFact(key == "SOFT_SKILL_ENABLED", value == false)
         KeyValueFact(key == "SOFT_SKILL_MUTLIPLIER", $multiplier: ((Long)value))
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SOME_SOFT_SKILLS", $employeeMultiplier: multiplier)
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, numberOfMatches($softSkills, $skills) * numberOfMatches($softSkills, $skills) * $multiplier);
+        Long matches = numberOfMatches($softSkills, $skills);
+        Long matchesSquared = matches * matches;
+        Double dValue = matchesSquared * $multiplier * $employeeMultiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
 end
-
 
 rule "EMPLOYEE_MUST_HAVE_HARD_SKILLS_AS_SOFT"
     when
@@ -127,7 +134,7 @@ end
 
 rule "add cost data"
     when
-        $employee: Employee()
+        $employee: Employee($employeeId: id)
         accumulate(
             Shift(employee == $employee, $hours: hours, $post: post) and Post(this == $post, $billRate: billRate, $payRate: payRate, billRate!= null, payRate != null);
             $totalHours: sum($hours),
@@ -138,7 +145,6 @@ rule "add cost data"
      insertLogical(new CostTotals($employee, $totalHours, $totalBilled.longValue(), $totalCost.longValue() ));
 end
 
-
 rule "NON_OVERTIME_MARGIN"
     when
        CostTotals($margin: totalCost - totalBilled)
@@ -148,9 +154,13 @@ end
 
 rule "OVERTIME_PAY"
     when
-       CostTotals(hours>40, $otHours: hours - 40, $weightedCost: totalCost/hours) //might have to do rounding instead of truncate
+        CostTotals(hours>40, $employeeId: employee.id, $otHours: hours - 40, $weightedCost: totalCost/hours) //might have to do rounding instead of truncate
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "OVERTIME_PAY", $multiplier: multiplier)
     then
-       scoreHolder.addSoftConstraintMatch(kcontext, - ($otHours * $weightedCost / 2)  / 100 );
+        Long overtimeCost = ($otHours * $weightedCost / 2) * -1;
+        Long costAsDecimal = overtimeCost / 100;
+        Double dValue = costAsDecimal * $multiplier;
+       scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue() );
 end
 
 /*rule "MAXIMIZE_PROFIT"
@@ -161,32 +171,60 @@ end
         scoreHolder.addSoftConstraintMatch(kcontext, ($billRate - $payRate)/100L);
 end*/
 
-rule "MINIMUM_AVAILABILITY_PREFERENCE"
+rule "LESS_THAN_EXPECTED_HOURS"
     when
-
-        $employee : Employee(preferredHours != null, $preferredHours: preferredHours)
-        $totalHours: Long() from accumulate (
+        $employee : Employee(preferredHours != null, $employeeId: id, $preferredHours: preferredHours)
+        not KeyValueFact(key == "LESS_THAN_EXPECTED_ENABLED", value == false)
+        KeyValueFact(key == "LESS_THAN_EXPECTED_HOURS_IMPACT", $impact: ((Long)value))
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "LESS_THAN_EXPECTED_HOURS", $multiplier: multiplier)
+        $totalHours: Long( longValue < $preferredHours) from accumulate (
            Shift(employee != null, $employee == employee, $shiftHours: timeSlot.getDurationHours()),
            sum($shiftHours)
         )
     then
-        //scoreHolder.addSoftConstraintMatch(kcontext, -(($totalHours - $preferredHours) * (2)));
-        scoreHolder.addSoftConstraintMatch(kcontext, -(($totalHours - $preferredHours) * ($totalHours - $preferredHours)));
+        Long hoursDifference = $preferredHours - $totalHours;
+        Double percentage = hoursDifference.doubleValue() / $preferredHours.doubleValue() * 100D;
+        Double dValue =  percentage * $impact * $multiplier * -1;
+        //System.out.println("less than expected hours: " + hoursDifference + " expected: " + $preferredHours + " percentage: " + percentage + " dValue: " + dValue);
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+end
+
+rule "MORE_THAN_EXPECTED_HOURS"
+    when
+
+        $employee : Employee(preferredHours != null, $employeeId: id, $preferredHours: preferredHours)
+        not KeyValueFact(key == "MORE_THAN_EXPECTED_ENABLED", value == false)
+        KeyValueFact(key == "MORE_THAN_EXPECTED_HOURS_IMPACT", $impact: ((Long)value))
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "MORE_THAN_EXPECTED_HOURS", $multiplier: multiplier)
+        $totalHours: Long( longValue > $preferredHours) from accumulate (
+           Shift(employee != null, $employee == employee, $shiftHours: timeSlot.getDurationHours()),
+           sum($shiftHours)
+        )
+    then
+        Long hoursDifference = $totalHours - $preferredHours;
+        Double percentage = hoursDifference.doubleValue() / $preferredHours.doubleValue() * 100D;
+        Double dValue =  percentage * $impact * $multiplier * -1;
+        //System.out.println("more than expected hours: " + hoursDifference + " expected: " + $preferredHours + " percentage: " + percentage + " dValue: " + dValue);
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
 end
 
 rule "HAS_SITE_EXPERIENCE"
     when
-        Shift(employee != null, post != null, post.site not memberOf employee.siteExperience)
+        Shift(employee != null, post != null, $employeeId: employee.id, post.site not memberOf employee.siteExperience)
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SITE_EXPERIENCE", $multiplier: multiplier)
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, -100);
+        Long impact = -100L;
+        Double dValue = impact * $multiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
 end
 
 /*
 rule "HAS_POST_EXPERIENCE"
     when
         Shift(employee != null, post != null, post not memberOf employee.postExperience)
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_POST_EXPERIENCE", $multiplier: multiplier)
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, -100);
+        scoreHolder.addSoftConstraintMatch(kcontext, -100 * $multiplier);
 end
 */
 
@@ -194,21 +232,11 @@ rule "EMPLOYEE_HAS_SENIORITY"
     when
         Shift(employee != null, $employeeId: employee.id)
         Employee($employeeId == id, seniority != null, $seniority: seniority)
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "EMPLOYEE_HAS_SENIORITY", $multiplier: multiplier)
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, $seniority);
+        Double dValue = $seniority * $multiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
 end
-
-/*
-rule "calculate distance from employee to site"
-    when
-        Shift(plan, employee != null, $employeeId: employee.id, $postId: post.id, $siteId: post.site.id)
-        not EmployeeSiteDistance($employeeId == employeeId, $siteId == siteId)
-        Employee($employeeId == id, latitude != null, longitude != null, $employeeLatitude: latitude, $employeeLongitude: longitude)
-        Site(latitude != null, longitude != null, $siteId == id, $siteLatitude: latitude, $siteLongitute: longitude)
-    then
-        insert(new EmployeeSiteDistance($employeeId, $siteId, calculateDistance($siteLatitude, $siteLongitute, $employeeLatitude, $employeeLongitude)));
-end
-*/
 
 rule "WORKPLACE_FAR"
     when
@@ -217,8 +245,10 @@ rule "WORKPLACE_FAR"
         KeyValueFact(key == "FAR_FROM_SITE_IMPACT", $impact: ((Long)value))
         EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance > $definition)
         Shift(employee != null, employee.id == $employeeId, post.site.id ==$siteId )
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_FAR", $multiplier: multiplier)
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, $impact);
+        Double dValue = $impact * $multiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
 end
 
 rule "WORKPLACE_FAIRLY_CLOSE"
@@ -228,8 +258,10 @@ rule "WORKPLACE_FAIRLY_CLOSE"
         KeyValueFact(key == "FAIRLY_FROM_FROM_SITE_IMPACT", $impact: ((Long)value))
         EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance > $definition)
         Shift(employee != null, employee.id == $employeeId, post.site.id == $siteId )
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_FAIRLY_CLOSE", $multiplier: multiplier)
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, $impact);
+        Double dValue = $impact * $multiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
 end
 
 rule "WORKPLACE_CLOSE"
@@ -239,8 +271,10 @@ rule "WORKPLACE_CLOSE"
         KeyValueFact(key == "CLOSE_FROM_SITE_IMPACT", $impact: ((Long)value))
         EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance <= $definition)
         Shift(employee != null, employee.id == $employeeId, post.site.id == $siteId )
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_CLOSE", $multiplier: multiplier)
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, $impact);
+        Double dValue = $impact * $multiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
 end
 
 rule "AVAILABILITY_NO"
@@ -249,8 +283,10 @@ rule "AVAILABILITY_NO"
         Shift(employee != null, $employeeId == employee.id, this.overlaps($availability))
         not KeyValueFact(key == "AVAILABLE_PREF_NO_ENABLED", value == false)
         KeyValueFact(key == "AVAILABLE_PREF_NO_IMPACT", $impact: ((Long)value))
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "AVAILABILITY_NO", $multiplier: multiplier)
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, $impact);
+        Double dValue = $impact * $multiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
 end
 
 rule "AVAILABILITY_MAYBE"
@@ -260,8 +296,118 @@ rule "AVAILABILITY_MAYBE"
         Shift(employee != null, $employeeId == employee.id, this.overlaps($availability))
         not KeyValueFact(key == "AVAILABLE_PREF_MAYBE_ENABLED", value == false)
         KeyValueFact(key == "AVAILABLE_PREF_MAYBE_IMPACT", $impact: ((Long)value))
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "AVAILABILITY_MAYBE", $multiplier: multiplier)
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, $impact);
+        Double dValue = $impact * $multiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
 end
 
+rule "CONSECUTIVE_WORK_DAYS"
+    when
+        Employee($employeeId: id)
+        Shift(employee != null, $employeeId == employee.id, $startDate: startDate)
+        Shift(employee != null, $employeeId == employee.id, startDate == $startDate.minusDays(1L))
+    then
+        scoreHolder.addSoftConstraintMatch(kcontext, 100);
+end
+
+// DEFAULTS -- We set these if they don't exist so that we won't have to have two sets of rules for each constraint.
+// One with the multiplier and one without.
+
+rule "default AVAILABILITY_MAYBE"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "AVAILABILITY_MAYBE")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("AVAILABILITY_MAYBE"));
+end
+
+rule "default AVAILABILITY_NO"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "AVAILABILITY_NO")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("AVAILABILITY_NO"));
+end
+
+rule "default EMPLOYEE_HAS_SENIORITY"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "EMPLOYEE_HAS_SENIORITY")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("EMPLOYEE_HAS_SENIORITY"));
+end
+
+rule "default HAS_SITE_EXPERIENCE"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SITE_EXPERIENCE")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("HAS_SITE_EXPERIENCE"));
+end
+
+rule "default HAS_SOME_SOFT_SKILLS"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SOME_SOFT_SKILLS")
+    then
+        //System.out.println("adding default soft skills multiplier");
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("HAS_SOME_SOFT_SKILLS"));
+end
+
+rule "default LESS_THAN_EXPECTED_HOURS"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "LESS_THAN_EXPECTED_HOURS")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("LESS_THAN_EXPECTED_HOURS"));
+end
+
+rule "default MINIMUM_REST_PERIOD"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "MINIMUM_REST_PERIOD")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("MINIMUM_REST_PERIOD"));
+end
+
+rule "default MORE_THAN_EXPECTED_HOURS"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "MORE_THAN_EXPECTED_HOURS")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("MORE_THAN_EXPECTED_HOURS"));
+end
+
+rule "default OVERTIME_PAY"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "OVERTIME_PAY")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("OVERTIME_PAY"));
+end
+
+rule "default WORKPLACE_CLOSE"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_CLOSE")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("WORKPLACE_CLOSE"));
+end
+
+rule "default WORKPLACE_FAIRLY_CLOSE"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_FAIRLY_CLOSE")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("WORKPLACE_FAIRLY_CLOSE"));
+end
+
+rule "default WORKPLACE_FAR"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_FAR")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("WORKPLACE_FAR"));
+end
 

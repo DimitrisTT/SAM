@@ -50,6 +50,11 @@ public class Shift {
   }
 
   @JsonIgnore
+  public LocalDate getStartDate() {
+    return timeSlot.getStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+  }
+
+  @JsonIgnore
   public long getHours() {
     return Duration.between(timeSlot.getStart().toInstant(), timeSlot.getEnd().toInstant()).toHours();
   }

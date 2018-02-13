@@ -16,6 +16,7 @@ public class Employee {
   private Double latitude;
   private Double longitude;
   private Integer seniority;
+  private Long minimumRestPeriod;
 
   public String getId() {
     return id;
@@ -116,6 +117,15 @@ public class Employee {
     return this;
   }
 
+  public Long getMinimumRestPeriod() {
+    return minimumRestPeriod;
+  }
+
+  public Employee setMinimumRestPeriod(Long minimumRestPeriod) {
+    this.minimumRestPeriod = minimumRestPeriod;
+    return this;
+  }
+
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -166,6 +176,7 @@ public class Employee {
         ", latitude=" + latitude +
         ", longitude=" + longitude +
         ", seniority=" + seniority +
+        ", minimumRestPeriod=" + minimumRestPeriod +
         '}';
   }
 }
