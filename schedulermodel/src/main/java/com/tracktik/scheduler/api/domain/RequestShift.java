@@ -11,8 +11,6 @@ public class RequestShift {
   public String post_id;
   public String start_date;
   public String plan;
-
-  //After benchmarking
   public String site_id;
   public String employee_id;
 

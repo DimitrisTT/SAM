@@ -9,7 +9,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Set;
@@ -22,7 +21,7 @@ public class RequestResponseMapper {
   private static final SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
   private static final Logger logger = LoggerFactory.getLogger(RequestResponseMapper.class);
 
-  private static Long distance(Double geo1_latitude, Double geo1_longitude, Double geo2_latitude, Double geo2_longitude ) {
+  private static Long distance(Double geo1_latitude, Double geo1_longitude, Double geo2_latitude, Double geo2_longitude) {
     Double distance = (Math.acos(Math.sin(geo1_latitude * Math.PI / 180D) * Math.sin(geo2_latitude * Math.PI / 180D) + Math.cos(geo1_latitude * Math.PI / 180D) * Math.cos(geo2_latitude * Math.PI / 180D) * Math.cos((geo1_longitude - geo2_longitude) * Math.PI / 180D)) * 180 / Math.PI) * 60 * 1.1515D;
     return distance.longValue();
   }

@@ -1,6 +1,7 @@
 package com.tracktik.scheduler.api.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.EvictingQueue;
 import com.tracktik.scheduler.api.domain.RequestForScheduling;
 import com.tracktik.scheduler.domain.EmployeeConstraintMultiplier;
 import com.tracktik.scheduler.domain.Schedule;
@@ -10,8 +11,11 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayDeque;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
 public class RequestMarshallingTest {

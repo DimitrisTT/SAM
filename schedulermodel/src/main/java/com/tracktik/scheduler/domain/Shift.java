@@ -6,9 +6,7 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.Serializable;
 import java.time.*;
-import java.time.temporal.ChronoUnit;
 
 @PlanningEntity(difficultyComparatorClass = ShiftDifficultyComparator.class, movableEntitySelectionFilter = LockedShiftSelectionFilter.class)
 public class Shift {
@@ -19,7 +17,6 @@ public class Shift {
   private Boolean plan = false;
   private TimeSlot timeSlot;
   private Float duration;
-  //private LocalDate startDate;
   private Post post;
   private Long startTimeStamp;
   private Long endTimeStamp;

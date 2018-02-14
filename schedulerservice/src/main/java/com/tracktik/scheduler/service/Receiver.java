@@ -21,7 +21,8 @@ import java.util.stream.Collectors;
 @Component
 public class Receiver {
 
-  Logger logger = LoggerFactory.getLogger(Receiver.class);
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
+  private final SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource("schedulerConfig.xml");
 
   @Autowired
   private JmsTemplate jmsTemplate;
@@ -41,11 +42,10 @@ public class Receiver {
     long totalShiftsToSchedule = schedule.getShifts().stream().filter(Shift::getPlan).count();
     int totalEmployees = schedule.getEmployees().size();
 
-    logger.info("Got request to schedule " + totalShiftsToSchedule + " shifts out of " + totalShifts + " for " + totalEmployees + " employees. id: " + schedule.getId());
+    logger.info("Got request to schedule {} shifts out of {} for {} employees. Schedule ID: {}", totalShiftsToSchedule, totalShifts, totalEmployees, schedule.getId());
 
     EvictingQueue<SchedulingResponse> bestSolutions = EvictingQueue.create(11);
 
-    SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource("schedulerConfig.xml");
     SchedulingResponse response = new SchedulingResponse().setId(schedule.getId()).setStatus(SolverStatus.SOLVING);
     jmsTemplate.convertAndSend(QueueNames.response, response);
 
@@ -53,7 +53,8 @@ public class Receiver {
     ScoreDirector<Schedule> scoreDirector = solver.getScoreDirectorFactory().buildScoreDirector();
 
     solver.addEventListener(event -> {
-      logger.info("Updating new solution " + schedule.getId() + " " + event.getNewBestScore().toShortString());
+
+      logger.info("Updating new solution {} with score {}", schedule.getId(), event.getNewBestScore().toShortString());
 
       Long shiftsUnfilled = event.getNewBestSolution().getShifts().stream().filter(Shift::getPlan).filter(shift -> shift.getEmployee() == null).count();
 
@@ -77,11 +78,11 @@ public class Receiver {
           .setNumber_of_shifts_unfilled(shiftsUnfilled);
 
       bestSolutions.add(interimResponse);
-      logger.info("Sending interim solution " + interimResponse.getId());
+      logger.info("Sending interim solution for {}", interimResponse.getId());
       jmsTemplate.convertAndSend(QueueNames.response, interimResponse);
     });
 
-    logger.info("Optimizing schedule " + schedule.getId());
+    logger.info("Optimizing schedule {}", schedule.getId());
     Schedule solvedSchedule = solver.solve(schedule);
 
     Long shiftsUnfilled = solvedSchedule.getShifts().stream().filter(Shift::getPlan).filter(shift -> shift.getEmployee() == null).count();
@@ -102,7 +103,8 @@ public class Receiver {
         .setSolution_is_feasible(score.isFeasible())
         .setNumber_of_shifts_unfilled(shiftsUnfilled);
 
-    Set<ShiftAssignmentConstraintScores> shiftAssignmentScores = scoreDirector.getIndictmentMap().entrySet().stream().filter(objectIndictmentEntry -> objectIndictmentEntry.getKey().getClass() == Shift.class)
+    Set<ShiftAssignmentConstraintScores> shiftAssignmentScores = scoreDirector.getIndictmentMap().entrySet().stream()
+        .filter(objectIndictmentEntry -> objectIndictmentEntry.getKey().getClass() == Shift.class)
         .map(objectIndictmentEntry -> {
           Shift shift = (Shift) objectIndictmentEntry.getKey();
           String shiftId = shift.getId();
@@ -134,7 +136,7 @@ public class Receiver {
 
     jmsTemplate.convertAndSend(QueueNames.response, response);
 
-    logger.info("Schedule solved for " + response.getId());
+    logger.info("Schedule solved for {}", response.getId());
 
   }
 

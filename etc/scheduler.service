@@ -1,0 +1,6 @@
+[Unit]
+Description=Track Tik Scheduler Service
+
+[Service]
+WorkingDirectory=/usr/local/scheduler
+ExecStart=/usr/bin/java -d64 -Xmx4G -jar /usr/local/scheduler/scheduler-service.jar --spring.config.location=/usr/local/scheduler/application.properties

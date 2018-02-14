@@ -14,6 +14,7 @@ public class Benchmark {
 
     PlannerBenchmarkFactory benchmarkFactory = PlannerBenchmarkFactory.createFromXmlResource("benchmarkConfig.xml");
 
+    //Sets the benchmark blueprint in desired
     List<SolverBenchmarkBluePrintConfig> blueprintConfigs = benchmarkFactory.getPlannerBenchmarkConfig().getSolverBenchmarkBluePrintConfigList();
     if (blueprintConfigs == null) blueprintConfigs = new ArrayList<>();
     SolverBenchmarkBluePrintConfig solverBenchmarkBluePrintConfig = new SolverBenchmarkBluePrintConfig();
