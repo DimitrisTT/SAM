@@ -22,7 +22,9 @@ import java.util.stream.Collectors;
 public class Receiver {
 
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
-  private final SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource("schedulerConfig.xml");
+
+  private final SolverFactory<Schedule> standardSolverFactory = SolverFactory.createFromXmlResource("standardSchedulerConfig.xml");
+  private final SolverFactory<Schedule> exhaustiveSolverFactory = SolverFactory.createFromXmlResource("exhaustiveSchedulerConfig.xml");
 
   @Autowired
   private JmsTemplate jmsTemplate;
@@ -49,10 +51,18 @@ public class Receiver {
     SchedulingResponse response = new SchedulingResponse().setId(schedule.getId()).setStatus(SolverStatus.SOLVING);
     jmsTemplate.convertAndSend(QueueNames.response, response);
 
-    Solver<Schedule> solver = solverFactory.buildSolver();
+    Solver<Schedule> solver;
+    if (totalShifts > 2) {
+      solver = standardSolverFactory.buildSolver();
+    } else {
+      solver = exhaustiveSolverFactory.buildSolver();
+    }
+
     ScoreDirector<Schedule> scoreDirector = solver.getScoreDirectorFactory().buildScoreDirector();
 
     solver.addEventListener(event -> {
+
+      if (!event.getNewBestScore().isSolutionInitialized()) return;
 
       logger.info("Updating new solution {} with score {}", schedule.getId(), event.getNewBestScore().toShortString());
 
@@ -77,9 +87,10 @@ public class Receiver {
           .setSolution_is_feasible(score.isFeasible())
           .setNumber_of_shifts_unfilled(shiftsUnfilled);
 
-      bestSolutions.add(interimResponse);
       logger.info("Sending interim solution for {}", interimResponse.getId());
       jmsTemplate.convertAndSend(QueueNames.response, interimResponse);
+
+      bestSolutions.add(interimResponse);
     });
 
     logger.info("Optimizing schedule {}", schedule.getId());
@@ -136,6 +147,7 @@ public class Receiver {
 
     jmsTemplate.convertAndSend(QueueNames.response, response);
 
+    scoreDirector.close();
     logger.info("Schedule solved for {}", response.getId());
 
   }

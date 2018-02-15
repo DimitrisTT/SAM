@@ -3,17 +3,13 @@ package com.tracktik.test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tracktik.scheduler.api.domain.*;
 import com.tracktik.scheduler.domain.Schedule;
-import com.tracktik.scheduler.domain.SchedulingResponse;
-import com.tracktik.scheduler.domain.SolverStatus;
 import com.tracktik.scheduler.util.RequestResponseMapper;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.drools.core.rule.Collect;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.core.config.solver.SolverConfig;
@@ -88,7 +84,7 @@ public class SolverTestSuppress {
 
   @BeforeClass
   public static void testingSetup() {
-    solverFactory = SolverFactory.createFromXmlResource("schedulerConfig.xml");
+    solverFactory = SolverFactory.createFromXmlResource("standardSchedulerConfig.xml");
   }
 
   @Before

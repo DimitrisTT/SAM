@@ -50,7 +50,7 @@ public class RequestResponseMapper {
     //Map<String, Skill> skillsMap = skills.stream().collect(Collectors.toMap(skill -> skill.id, skill -> new Skill(skill.id, skill.description)));
 
     schedule.setPosts(request.posts.stream().map(old -> {
-          logger.debug("mapping post: " + old);
+          logger.debug("mapping post: {}", old);
           Post post = new Post();
           if (old.bill_rate != null) {
             Float billRate = new Float(old.bill_rate);
@@ -123,6 +123,7 @@ public class RequestResponseMapper {
 
     schedule.setShifts(
         request.shifts.stream().map(old -> {
+          logger.debug("Request shift being parsed: {}", old);
           Date startDate = parseDate(old.start_date_time);
           Date endDate = parseDate(old.end_date_time);
           //Make sure the end is exclusive
@@ -201,7 +202,7 @@ public class RequestResponseMapper {
     try {
       return dateTimeFormatter.parse(sDateTime);
     } catch (ParseException e) {
-      throw new RuntimeException(e);
+      throw new RuntimeException("Unable to parse: " + sDateTime, e);
     }
   }
 }

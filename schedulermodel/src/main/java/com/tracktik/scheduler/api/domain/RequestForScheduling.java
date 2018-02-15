@@ -23,7 +23,7 @@ public class RequestForScheduling {
   public Set<RequestEmployeeAvailability> employee_availabilities = new HashSet<>();
   public Map<String, Object> facts = new HashMap<>();
   public Set<RequestSiteBan> site_bans = new HashSet<>();
-  public Map<String, Map<String, String>> employee_multipliers;
+  public Map<String, Map<String, String>> employee_multipliers = new HashMap<>();
   Logger logger = LoggerFactory.getLogger(RequestForScheduling.class);
 
   @Override

@@ -195,7 +195,7 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
   */
   public void write(Schedule solution, File file) {
     SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource(
-        "schedulerConfig.xml");
+        "standardSchedulerConfig.xml");
     ScoreDirector<Schedule> scoreDirector = solverFactory.buildSolver().getScoreDirectorFactory().buildScoreDirector();
     scoreDirector.setWorkingSolution(solution);
     for (ConstraintMatchTotal cm : scoreDirector.getConstraintMatchTotals()) {

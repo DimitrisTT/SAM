@@ -2,12 +2,14 @@
 <plannerBenchmark>
     <benchmarkDirectory>local/benchmark</benchmarkDirectory>
 
-
     <inheritedSolverBenchmark>
         <problemBenchmarks>
             <solutionFileIOClass>com.tracktik.scheduler.service.SchedulerSolutionFileIO</solutionFileIOClass>
             <inputSolutionFile>data/parameterized.json</inputSolutionFile>
             <writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
+            <problemStatisticType>SCORE_CALCULATION_SPEED</problemStatisticType>
+            <problemStatisticType>MOVE_COUNT_PER_STEP</problemStatisticType>
+            <problemStatisticType>MEMORY_USE</problemStatisticType>
         </problemBenchmarks>
         <solver>
             <scanAnnotatedClasses/>

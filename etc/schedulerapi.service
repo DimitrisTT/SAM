@@ -3,4 +3,4 @@ Description=Track Tik Scheduler API Service
 
 [Service]
 WorkingDirectory=/usr/local/scheduler
-ExecStart=/usr/bin/java -d64 -Xmx4G -jar /usr/local/scheduler/scheduler-api.jar --spring.config.location=/usr/local/scheduler/application.properties
+ExecStart=/usr/bin/java -server -d64 -Xmx4G -jar /usr/local/scheduler/scheduler-api.jar --spring.config.location=/usr/local/scheduler/application.properties

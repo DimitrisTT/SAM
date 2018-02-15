@@ -9,12 +9,6 @@ import java.util.concurrent.TimeUnit
 
 global HardSoftLongScoreHolder scoreHolder;
 
-declare DayHour
-    employeeId : String
-    dayOfWeek : DayOfWeek
-    hourOfDay : Integer
-end
-
 function Long hoursGap(Date startDate, Date endDate) {
     Long gap = TimeUnit.HOURS.convert(endDate.getTime() - startDate.getTime(), TimeUnit.MILLISECONDS);
     return gap;
@@ -29,30 +23,11 @@ function Long calculateDistance(Double geo1_latitude, Double geo1_longitude, Dou
     return distance.longValue();
 }
 
-function Boolean NOT_USED_overlaps(Date shiftStartDate, Date shiftEndDate, DayOfWeek dayOfWeek, LocalTime availableStartTime, LocalTime availableEndTime) {
-
-    LocalDateTime shiftStart = shiftStartDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().plus(1L, ChronoUnit.SECONDS);
-    LocalDateTime shiftEnd = shiftEndDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().minus(1L, ChronoUnit.SECONDS);
-
-    LocalDateTime availableStartDateTime = shiftStart.with(dayOfWeek).withHour(availableStartTime.getHour()).withMinute(availableStartTime.getMinute()).withSecond(availableStartTime.getSecond());
-    LocalDateTime availableEndDateTime = shiftEnd.with(dayOfWeek).withHour(availableEndTime.getHour()).withMinute(availableEndTime.getMinute()).withSecond(availableEndTime.getSecond());
-
-    if (dayOfWeek == DayOfWeek.MONDAY) {
-        availableEndDateTime = availableEndDateTime.withHour(0);
-    }
-
-    Boolean overlaps = shiftEnd.isAfter(availableStartDateTime) && shiftStart.isBefore(availableEndDateTime);
-
-    //System.out.println("Overlaps: " + overlaps + " shiftStart " + shiftStart + " shiftEnd " + shiftEnd + " availableStartDateTime " + availableStartDateTime + " availableEndDateTime " + availableEndDateTime);
-
-    return overlaps;
-}
-
 // HARD CONSTRAINTS
 
 rule "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS"
     when
-        $shift: Shift($employee : employee, $timeSlot : timeSlot, employee != null)
+        $shift: Shift(employee != null, $employee : employee, $timeSlot : timeSlot)
         Shift(this != $shift, employee == $employee, (timeSlot.startTime <= $timeSlot.endTime) && ($timeSlot.startTime < timeSlot.endTime))
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
@@ -60,9 +35,9 @@ end
 
 rule "MUST_HAVE_HARD_SKILLS"
     when
-        Shift(post != null, employee != null, !employee.skills.containsAll(post.hardSkills))
         not KeyValueFact(key == "HARD_SKILL_ENABLED", value == false)
         not KeyValueFact(key == "HARD_SKILL_IS_HARD", value == false)
+        Shift(post != null, employee != null, !employee.skills.containsAll(post.hardSkills))
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
@@ -89,8 +64,8 @@ end
 rule "MINIMUM_REST_PERIOD"
    when
         Shift(employee != null, $employee: employee, $firstShiftEnd: timeSlot.getEnd())
-        Shift($employee == employee, $firstShiftEnd.before(timeSlot.getStart()),$secondShiftStart: timeSlot.getStart(), hoursGap($firstShiftEnd, timeSlot.getStart()) < employee.minimumRestPeriod)
         EmployeeConstraintMultiplier($employee.id == employeeId, name == "MINIMUM_REST_PERIOD", $employeeMultiplier: multiplier)
+        Shift($employee == employee, $firstShiftEnd.before(timeSlot.getStart()),$secondShiftStart: timeSlot.getStart(), hoursGap($firstShiftEnd, timeSlot.getStart()) < employee.minimumRestPeriod)
     then
         Long hours = hoursGap($firstShiftEnd, $secondShiftStart);
         Double dValue = hours * hours * $employeeMultiplier * -1;
@@ -99,9 +74,9 @@ end
 
 rule "HAS_SOME_SOFT_SKILLS"
     when
-        Shift(post != null, employee != null, $employeeId: employee.id, $softSkills: post.softSkills, $skills:employee.skills, numberOfMatches($softSkills, $skills) > 0)
         not KeyValueFact(key == "SOFT_SKILL_ENABLED", value == false)
         not KeyValueFact(key == "SOFT_SKILL_MUTLIPLIER")
+        Shift(post != null, employee != null, $employeeId: employee.id, $softSkills: post.softSkills, $skills:employee.skills, numberOfMatches($softSkills, $skills) > 0)
         EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SOME_SOFT_SKILLS", $employeeMultiplier: multiplier)
     then
         Long matches = numberOfMatches($softSkills, $skills);

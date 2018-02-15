@@ -1,0 +1,2061 @@
+{
+  "facts": {
+    "SOFT_SKILL_ENABLED": false,
+    "SOFT_SKILL_MUTLIPLIER": 10,
+    "HARD_SKILL_ENABLED": false,
+    "HARD_SKILL_IS_HARD": true,
+    "HARD_SKILL_TYPE_SOFT_MUTLIPLIER": 100,
+    "AVAILABLE_PREF_MAYBE_ENABLED": true,
+    "AVAILABLE_PREF_MAYBE_IMPACT": -10,
+    "AVAILABLE_PREF_NO_ENABLED": true,
+    "AVAILABLE_PREF_NO_IMPACT": -30,
+    "CLOSE_FROM_SITE_ENABLED": true,
+    "CLOSE_FROM_SITE_DEFINITION": 10,
+    "CLOSE_FROM_SITE_IMPACT": 5,
+    "FAR_FROM_SITE_ENABLED": true,
+    "FAR_FROM_SITE_DEFINITION": 50,
+    "FAR_FROM_SITE_IMPACT": -20,
+    "FAIRLY_FAR_FROM_SITE_ENABLED": true,
+    "FAIRLY_FAR_FROM_SITE_DEFINITION": 25,
+    "FAIRLY_FROM_FROM_SITE_IMPACT": -10,
+    "LESS_THAN_EXPECTED_ENABLED": true,
+    "LESS_THAN_EXPECTED_HOURS_IMPACT": 200,
+    "MORE_THAN_EXPECTED_ENABLED": true,
+    "MORE_THAN_EXPECTED_HOURS_IMPACT": 200
+  },
+  "shifts": [
+    {
+      "start_date": "2018-01-12",
+      "shift_id": "48764",
+      "post_id": "274",
+      "site_id": "195",
+      "start_date_time": "2018-01-12 04:00:00",
+      "end_date_time": "2018-01-12 10:00:00",
+      "duration": "6.00",
+      "start_timestamp": "1515747600",
+      "end_timestamp": "1515769200",
+      "plan": "1"
+    },
+    {
+      "start_date": "2018-01-12",
+      "shift_id": "48730",
+      "employee_id": "1131",
+      "post_id": "146",
+      "site_id": "204",
+      "start_date_time": "2018-01-12 09:00:00",
+      "end_date_time": "2018-01-12 15:00:00",
+      "duration": "6.00",
+      "start_timestamp": "1515765600",
+      "end_timestamp": "1515787200",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-12",
+      "shift_id": "48734",
+      "employee_id": "1202",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-12 09:00:00",
+      "end_date_time": "2018-01-12 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515765600",
+      "end_timestamp": "1515794400",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-12",
+      "shift_id": "48744",
+      "employee_id": "2",
+      "post_id": "270",
+      "site_id": "255",
+      "start_date_time": "2018-01-12 09:00:00",
+      "end_date_time": "2018-01-12 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515765600",
+      "end_timestamp": "1515794400",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-12",
+      "shift_id": "48750",
+      "employee_id": "2",
+      "post_id": "157",
+      "site_id": "224",
+      "start_date_time": "2018-01-12 09:00:00",
+      "end_date_time": "2018-01-12 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515765600",
+      "end_timestamp": "1515794400",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-12",
+      "shift_id": "48754",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-12 09:00:00",
+      "end_date_time": "2018-01-12 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515765600",
+      "end_timestamp": "1515794400",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-12",
+      "shift_id": "48765",
+      "employee_id": "2",
+      "post_id": "263",
+      "site_id": "279",
+      "start_date_time": "2018-01-12 09:00:00",
+      "end_date_time": "2018-01-12 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515765600",
+      "end_timestamp": "1515794400",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-12",
+      "shift_id": "48772",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-12 09:00:00",
+      "end_date_time": "2018-01-12 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515765600",
+      "end_timestamp": "1515794400",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-13",
+      "shift_id": "48774",
+      "employee_id": "2",
+      "post_id": "274",
+      "site_id": "195",
+      "start_date_time": "2018-01-13 04:00:00",
+      "end_date_time": "2018-01-13 10:00:00",
+      "duration": "6.00",
+      "start_timestamp": "1515834000",
+      "end_timestamp": "1515855600",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-13",
+      "shift_id": "48776",
+      "employee_id": "2",
+      "post_id": "263",
+      "site_id": "279",
+      "start_date_time": "2018-01-13 09:00:00",
+      "end_date_time": "2018-01-13 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515852000",
+      "end_timestamp": "1515880800",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-13",
+      "shift_id": "48781",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-13 09:00:00",
+      "end_date_time": "2018-01-13 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515852000",
+      "end_timestamp": "1515880800",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-13",
+      "shift_id": "48788",
+      "employee_id": "2",
+      "post_id": "146",
+      "site_id": "204",
+      "start_date_time": "2018-01-13 09:00:00",
+      "end_date_time": "2018-01-13 15:00:00",
+      "duration": "6.00",
+      "start_timestamp": "1515852000",
+      "end_timestamp": "1515873600",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-13",
+      "shift_id": "48791",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-13 09:00:00",
+      "end_date_time": "2018-01-13 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515852000",
+      "end_timestamp": "1515880800",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-13",
+      "shift_id": "48802",
+      "employee_id": "2",
+      "post_id": "270",
+      "site_id": "255",
+      "start_date_time": "2018-01-13 09:00:00",
+      "end_date_time": "2018-01-13 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515852000",
+      "end_timestamp": "1515880800",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-13",
+      "shift_id": "48809",
+      "employee_id": "2",
+      "post_id": "157",
+      "site_id": "224",
+      "start_date_time": "2018-01-13 09:00:00",
+      "end_date_time": "2018-01-13 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515852000",
+      "end_timestamp": "1515880800",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-13",
+      "shift_id": "48811",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-13 09:00:00",
+      "end_date_time": "2018-01-13 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515852000",
+      "end_timestamp": "1515880800",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-14",
+      "shift_id": "48837",
+      "employee_id": "2",
+      "post_id": "274",
+      "site_id": "195",
+      "start_date_time": "2018-01-14 04:00:00",
+      "end_date_time": "2018-01-14 10:00:00",
+      "duration": "6.00",
+      "start_timestamp": "1515920400",
+      "end_timestamp": "1515942000",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-14",
+      "shift_id": "2",
+      "employee_id": "2",
+      "post_id": "270",
+      "site_id": "255",
+      "start_date_time": "2018-01-14 09:00:00",
+      "end_date_time": "2018-01-14 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515938400",
+      "end_timestamp": "1515967200",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-14",
+      "shift_id": "48827",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-14 09:00:00",
+      "end_date_time": "2018-01-14 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515938400",
+      "end_timestamp": "1515967200",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-14",
+      "shift_id": "48829",
+      "employee_id": "2",
+      "post_id": "157",
+      "site_id": "224",
+      "start_date_time": "2018-01-14 09:00:00",
+      "end_date_time": "2018-01-14 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515938400",
+      "end_timestamp": "1515967200",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-14",
+      "shift_id": "48840",
+      "employee_id": "2",
+      "post_id": "263",
+      "site_id": "279",
+      "start_date_time": "2018-01-14 09:00:00",
+      "end_date_time": "2018-01-14 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515938400",
+      "end_timestamp": "1515967200",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-14",
+      "shift_id": "48842",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-14 09:00:00",
+      "end_date_time": "2018-01-14 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515938400",
+      "end_timestamp": "1515967200",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-14",
+      "shift_id": "48848",
+      "employee_id": "2",
+      "post_id": "146",
+      "site_id": "204",
+      "start_date_time": "2018-01-14 09:00:00",
+      "end_date_time": "2018-01-14 15:00:00",
+      "duration": "6.00",
+      "start_timestamp": "1515938400",
+      "end_timestamp": "1515960000",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-14",
+      "shift_id": "48852",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-14 09:00:00",
+      "end_date_time": "2018-01-14 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1515938400",
+      "end_timestamp": "1515967200",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-15",
+      "shift_id": "48950",
+      "employee_id": "2",
+      "post_id": "274",
+      "site_id": "195",
+      "start_date_time": "2018-01-15 04:00:00",
+      "end_date_time": "2018-01-15 10:00:00",
+      "duration": "6.00",
+      "start_timestamp": "1516006800",
+      "end_timestamp": "1516028400",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-15",
+      "shift_id": "48867",
+      "employee_id": "2",
+      "post_id": "146",
+      "site_id": "204",
+      "start_date_time": "2018-01-15 09:00:00",
+      "end_date_time": "2018-01-15 15:00:00",
+      "duration": "6.00",
+      "start_timestamp": "1516024800",
+      "end_timestamp": "1516046400",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-15",
+      "shift_id": "48874",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-15 09:00:00",
+      "end_date_time": "2018-01-15 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516024800",
+      "end_timestamp": "1516053600",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-15",
+      "shift_id": "48914",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-15 09:00:00",
+      "end_date_time": "2018-01-15 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516024800",
+      "end_timestamp": "1516053600",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-15",
+      "shift_id": "48916",
+      "employee_id": "2",
+      "post_id": "270",
+      "site_id": "255",
+      "start_date_time": "2018-01-15 09:00:00",
+      "end_date_time": "2018-01-15 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516024800",
+      "end_timestamp": "1516053600",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-15",
+      "shift_id": "48926",
+      "employee_id": "2",
+      "post_id": "157",
+      "site_id": "224",
+      "start_date_time": "2018-01-15 09:00:00",
+      "end_date_time": "2018-01-15 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516024800",
+      "end_timestamp": "1516053600",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-15",
+      "shift_id": "48965",
+      "employee_id": "2",
+      "post_id": "263",
+      "site_id": "279",
+      "start_date_time": "2018-01-15 09:00:00",
+      "end_date_time": "2018-01-15 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516024800",
+      "end_timestamp": "1516053600",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-15",
+      "shift_id": "48967",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-15 09:00:00",
+      "end_date_time": "2018-01-15 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516024800",
+      "end_timestamp": "1516053600",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-16",
+      "shift_id": "49125",
+      "employee_id": "2",
+      "post_id": "274",
+      "site_id": "195",
+      "start_date_time": "2018-01-16 04:00:00",
+      "end_date_time": "2018-01-16 10:00:00",
+      "duration": "6.00",
+      "start_timestamp": "1516093200",
+      "end_timestamp": "1516114800",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-16",
+      "shift_id": "48999",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-16 09:00:00",
+      "end_date_time": "2018-01-16 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516111200",
+      "end_timestamp": "1516140000",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-16",
+      "shift_id": "49003",
+      "employee_id": "2",
+      "post_id": "263",
+      "site_id": "279",
+      "start_date_time": "2018-01-16 09:00:00",
+      "end_date_time": "2018-01-16 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516111200",
+      "end_timestamp": "1516140000",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-16",
+      "shift_id": "49045",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-16 09:00:00",
+      "end_date_time": "2018-01-16 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516111200",
+      "end_timestamp": "1516140000",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-16",
+      "shift_id": "49047",
+      "employee_id": "2",
+      "post_id": "146",
+      "site_id": "204",
+      "start_date_time": "2018-01-16 09:00:00",
+      "end_date_time": "2018-01-16 15:00:00",
+      "duration": "6.00",
+      "start_timestamp": "1516111200",
+      "end_timestamp": "1516132800",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-16",
+      "shift_id": "49089",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-16 09:00:00",
+      "end_date_time": "2018-01-16 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516111200",
+      "end_timestamp": "1516140000",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-16",
+      "shift_id": "49090",
+      "employee_id": "2",
+      "post_id": "270",
+      "site_id": "255",
+      "start_date_time": "2018-01-16 09:00:00",
+      "end_date_time": "2018-01-16 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516111200",
+      "end_timestamp": "1516140000",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-16",
+      "shift_id": "49102",
+      "employee_id": "2",
+      "post_id": "157",
+      "site_id": "224",
+      "start_date_time": "2018-01-16 09:00:00",
+      "end_date_time": "2018-01-16 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516111200",
+      "end_timestamp": "1516140000",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-17",
+      "shift_id": "49168",
+      "employee_id": "2",
+      "post_id": "274",
+      "site_id": "195",
+      "start_date_time": "2018-01-17 04:00:00",
+      "end_date_time": "2018-01-17 10:00:00",
+      "duration": "6.00",
+      "start_timestamp": "1516179600",
+      "end_timestamp": "1516201200",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-17",
+      "shift_id": "49131",
+      "employee_id": "2",
+      "post_id": "270",
+      "site_id": "255",
+      "start_date_time": "2018-01-17 09:00:00",
+      "end_date_time": "2018-01-17 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516197600",
+      "end_timestamp": "1516226400",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-17",
+      "shift_id": "49144",
+      "employee_id": "2",
+      "post_id": "157",
+      "site_id": "224",
+      "start_date_time": "2018-01-17 09:00:00",
+      "end_date_time": "2018-01-17 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516197600",
+      "end_timestamp": "1516226400",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-17",
+      "shift_id": "49169",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-17 09:00:00",
+      "end_date_time": "2018-01-17 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516197600",
+      "end_timestamp": "1516226400",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-17",
+      "shift_id": "49178",
+      "employee_id": "2",
+      "post_id": "263",
+      "site_id": "279",
+      "start_date_time": "2018-01-17 09:00:00",
+      "end_date_time": "2018-01-17 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516197600",
+      "end_timestamp": "1516226400",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-17",
+      "shift_id": "49213",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-17 09:00:00",
+      "end_date_time": "2018-01-17 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516197600",
+      "end_timestamp": "1516226400",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-17",
+      "shift_id": "49214",
+      "employee_id": "2",
+      "post_id": "146",
+      "site_id": "204",
+      "start_date_time": "2018-01-17 09:00:00",
+      "end_date_time": "2018-01-17 15:00:00",
+      "duration": "6.00",
+      "start_timestamp": "1516197600",
+      "end_timestamp": "1516219200",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-17",
+      "shift_id": "49257",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-17 09:00:00",
+      "end_date_time": "2018-01-17 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516197600",
+      "end_timestamp": "1516226400",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-18",
+      "shift_id": "49340",
+      "employee_id": "2",
+      "post_id": "274",
+      "site_id": "195",
+      "start_date_time": "2018-01-18 04:00:00",
+      "end_date_time": "2018-01-18 10:00:00",
+      "duration": "6.00",
+      "start_timestamp": "1516266000",
+      "end_timestamp": "1516287600",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-18",
+      "shift_id": "49290",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-18 09:00:00",
+      "end_date_time": "2018-01-18 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516284000",
+      "end_timestamp": "1516312800",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-18",
+      "shift_id": "49303",
+      "employee_id": "2",
+      "post_id": "270",
+      "site_id": "255",
+      "start_date_time": "2018-01-18 09:00:00",
+      "end_date_time": "2018-01-18 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516284000",
+      "end_timestamp": "1516312800",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-18",
+      "shift_id": "49315",
+      "employee_id": "2",
+      "post_id": "157",
+      "site_id": "224",
+      "start_date_time": "2018-01-18 09:00:00",
+      "end_date_time": "2018-01-18 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516284000",
+      "end_timestamp": "1516312800",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-18",
+      "shift_id": "49341",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-18 09:00:00",
+      "end_date_time": "2018-01-18 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516284000",
+      "end_timestamp": "1516312800",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-18",
+      "shift_id": "49352",
+      "employee_id": "2",
+      "post_id": "263",
+      "site_id": "279",
+      "start_date_time": "2018-01-18 09:00:00",
+      "end_date_time": "2018-01-18 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516284000",
+      "end_timestamp": "1516312800",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-18",
+      "shift_id": "49382",
+      "employee_id": "2",
+      "post_id": "206",
+      "site_id": "255",
+      "start_date_time": "2018-01-18 09:00:00",
+      "end_date_time": "2018-01-18 17:00:00",
+      "duration": "8.00",
+      "start_timestamp": "1516284000",
+      "end_timestamp": "1516312800",
+      "plan": "0"
+    },
+    {
+      "start_date": "2018-01-18",
+      "shift_id": "49387",
+      "employee_id": "2",
+      "post_id": "146",
+      "site_id": "204",
+      "start_date_time": "2018-01-18 09:00:00",
+      "end_date_time": "2018-01-18 15:00:00",
+      "duration": "6.00",
+      "start_timestamp": "1516284000",
+      "end_timestamp": "1516305600",
+      "plan": "0"
+    }
+  ],
+  "posts": [
+    {
+      "id": "146",
+      "name": "Unarmed guard",
+      "pay_type": "POST_RATE",
+      "pay_rate": "12.00",
+      "site_id": "204",
+      "bill_rate": "20.0000"
+    },
+    {
+      "id": "157",
+      "name": "Armed Guard",
+      "pay_type": "EMPLOYEE_RATE",
+      "pay_rate": null,
+      "site_id": "224",
+      "bill_rate": "30.0000"
+    },
+    {
+      "id": "206",
+      "name": "OP Security Officer",
+      "pay_type": "EMPLOYEE_RATE",
+      "pay_rate": null,
+      "site_id": "255",
+      "bill_rate": null
+    },
+    {
+      "id": "263",
+      "name": "guard",
+      "pay_type": "EMPLOYEE_RATE",
+      "pay_rate": null,
+      "site_id": "279",
+      "bill_rate": null
+    },
+    {
+      "id": "270",
+      "name": "Supervisor",
+      "pay_type": "EMPLOYEE_RATE",
+      "pay_rate": null,
+      "site_id": "255",
+      "bill_rate": "17.2500"
+    },
+    {
+      "id": "274",
+      "name": "Hourly guards ",
+      "pay_type": "EMPLOYEE_RATE",
+      "pay_rate": null,
+      "site_id": "195",
+      "bill_rate": "25.0000"
+    }
+  ],
+  "skills": [
+    {
+      "id": "1",
+      "description": "X - REUSE"
+    },
+    {
+      "id": "2",
+      "description": "X - REUSE"
+    },
+    {
+      "id": "3",
+      "description": "First Aid (CPR)"
+    },
+    {
+      "id": "4",
+      "description": "X - REUSE"
+    },
+    {
+      "id": "5",
+      "description": "X - REUSE"
+    },
+    {
+      "id": "6",
+      "description": "Spanish"
+    },
+    {
+      "id": "7",
+      "description": "French"
+    },
+    {
+      "id": "8",
+      "description": "Security Officer License"
+    },
+    {
+      "id": "9",
+      "description": "Firearm Permit"
+    },
+    {
+      "id": "10",
+      "description": "Driver Permit"
+    },
+    {
+      "id": "11",
+      "description": "First Aid (Standard)"
+    },
+    {
+      "id": "12",
+      "description": "Uniform (White)"
+    },
+    {
+      "id": "13",
+      "description": "Uniform (Black)"
+    },
+    {
+      "id": "14",
+      "description": "Gun Permit"
+    },
+    {
+      "id": "15",
+      "description": "Firearm Permit"
+    },
+    {
+      "id": "16",
+      "description": "Police Force Experience"
+    },
+    {
+      "id": "17",
+      "description": "Insurance License"
+    },
+    {
+      "id": "18",
+      "description": "Probation"
+    },
+    {
+      "id": "19",
+      "description": "Concierge Uniform "
+    },
+    {
+      "id": "20",
+      "description": "CPR"
+    },
+    {
+      "id": "21",
+      "description": "Chalking PArking"
+    },
+    {
+      "id": "22",
+      "description": "Drivers License"
+    },
+    {
+      "id": "23",
+      "description": "Male"
+    },
+    {
+      "id": "24",
+      "description": "Class 1 Mechanic"
+    },
+    {
+      "id": "25",
+      "description": "Licenses A"
+    },
+    {
+      "id": "26",
+      "description": "License B"
+    },
+    {
+      "id": "27",
+      "description": "Group 1 (License A and/or B)"
+    },
+    {
+      "id": "28",
+      "description": "Spanish"
+    },
+    {
+      "id": "29",
+      "description": "Driver's License"
+    },
+    {
+      "id": "30",
+      "description": "Taser"
+    }
+  ],
+  "post_skills": [
+    {
+      "skill_id": "3",
+      "post_id": "5",
+      "type": "SOFT"
+    },
+    {
+      "skill_id": "3",
+      "post_id": "13",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "3",
+      "post_id": "114",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "3",
+      "post_id": "283",
+      "type": "SOFT"
+    },
+    {
+      "skill_id": "6",
+      "post_id": "8",
+      "type": "SOFT"
+    },
+    {
+      "skill_id": "6",
+      "post_id": "72",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "6",
+      "post_id": "278",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "6",
+      "post_id": "281",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "6",
+      "post_id": "282",
+      "type": "SOFT"
+    },
+    {
+      "skill_id": "7",
+      "post_id": "278",
+      "type": "SOFT"
+    },
+    {
+      "skill_id": "7",
+      "post_id": "281",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "7",
+      "post_id": "283",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "8",
+      "post_id": "11",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "8",
+      "post_id": "28",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "8",
+      "post_id": "42",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "8",
+      "post_id": "177",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "8",
+      "post_id": "177",
+      "type": "SOFT"
+    },
+    {
+      "skill_id": "8",
+      "post_id": "178",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "8",
+      "post_id": "287",
+      "type": "SOFT"
+    },
+    {
+      "skill_id": "9",
+      "post_id": "12",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "9",
+      "post_id": "15",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "9",
+      "post_id": "16",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "9",
+      "post_id": "28",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "9",
+      "post_id": "41",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "9",
+      "post_id": "51",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "9",
+      "post_id": "73",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "9",
+      "post_id": "93",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "9",
+      "post_id": "157",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "9",
+      "post_id": "159",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "9",
+      "post_id": "159",
+      "type": "SOFT"
+    },
+    {
+      "skill_id": "9",
+      "post_id": "179",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "9",
+      "post_id": "210",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "9",
+      "post_id": "274",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "9",
+      "post_id": "276",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "9",
+      "post_id": "302",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "10",
+      "post_id": "4",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "11",
+      "post_id": "53",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "14",
+      "post_id": "3",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "14",
+      "post_id": "8",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "14",
+      "post_id": "14",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "14",
+      "post_id": "34",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "14",
+      "post_id": "112",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "15",
+      "post_id": "64",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "15",
+      "post_id": "144",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "15",
+      "post_id": "149",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "15",
+      "post_id": "168",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "15",
+      "post_id": "173",
+      "type": "HARD"
+    },
+    {
+      "skill_id": "22",
+      "post_id": "181",
+      "type": "SOFT"
+    },
+    {
+      "skill_id": "22",
+      "post_id": "282",
+      "type": "SOFT"
+    },
+    {
+      "skill_id": "29",
+      "post_id": "309",
+      "type": "HARD"
+    }
+  ],
+  "time_off": [],
+  "sites": [
+    {
+      "id": "195",
+      "geo_lat": "45.4634277",
+      "geo_lon": "-73.5667120",
+      "name": "Benelux Verdun"
+    },
+    {
+      "id": "204",
+      "geo_lat": null,
+      "geo_lon": null,
+      "name": "The Bulk Barn"
+    },
+    {
+      "id": "224",
+      "geo_lat": "26.8378052",
+      "geo_lon": "-80.1371306",
+      "name": "PGA of America"
+    },
+    {
+      "id": "255",
+      "geo_lat": "37.6785495",
+      "geo_lon": "-121.7974453",
+      "name": "The OSP Tower"
+    },
+    {
+      "id": "279",
+      "geo_lat": null,
+      "geo_lon": null,
+      "name": "lee & tracktik"
+    }
+  ],
+  "employees": [
+    {
+      "id": "2",
+      "name": null,
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "seniority": null,
+      "minimum_rest_period": "8"
+    },
+    {
+      "id": "1131",
+      "name": "Olivier Berthé",
+      "geo_lat": "0.0000000",
+      "geo_lon": "0.0000000",
+      "pay_rate": null,
+      "seniority": null,
+      "minimum_rest_period": "8"
+    },
+    {
+      "id": "1159",
+      "name": "Oliver Poirier",
+      "geo_lat": null,
+      "preferred_hours": "25",
+      "geo_lon": null,
+      "pay_rate": null,
+      "seniority": null,
+      "minimum_rest_period": "8"
+    },
+    {
+      "id": "1190",
+      "name": "Jim Hopper",
+      "geo_lat": null,
+      "geo_lon": null,
+      "preferred_hours": "40",
+      "pay_rate": "13.00",
+      "seniority": "120",
+      "minimum_rest_period": "8"
+    },
+    {
+      "id": "1202",
+      "name": "Oberon Santos",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "seniority": null,
+      "minimum_rest_period": "8"
+    },
+    {
+      "id": "1203",
+      "name": "Oscar Bentley",
+      "preferred_hours": "40",
+      "geo_lat": null,
+      "geo_lon": null,
+      "pay_rate": null,
+      "seniority": null,
+      "minimum_rest_period": "8"
+    }
+  ],
+  "employee_skills": [
+    {
+      "skill_id": "3",
+      "employee_id": "1005"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1016"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1017"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1019"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1020"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1022"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1024"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1028"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1030"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1031"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1042"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1050"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1052"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1056"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1057"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1065"
+    },
+    {
+      "skill_id": "3",
+      "employee_id": "1142"
+    },
+    {
+      "skill_id": "6",
+      "employee_id": "1000"
+    },
+    {
+      "skill_id": "6",
+      "employee_id": "1002"
+    },
+    {
+      "skill_id": "6",
+      "employee_id": "1014"
+    },
+    {
+      "skill_id": "6",
+      "employee_id": "1016"
+    },
+    {
+      "skill_id": "6",
+      "employee_id": "1017"
+    },
+    {
+      "skill_id": "6",
+      "employee_id": "1020"
+    },
+    {
+      "skill_id": "6",
+      "employee_id": "1023"
+    },
+    {
+      "skill_id": "6",
+      "employee_id": "1024"
+    },
+    {
+      "skill_id": "6",
+      "employee_id": "1025"
+    },
+    {
+      "skill_id": "6",
+      "employee_id": "1031"
+    },
+    {
+      "skill_id": "6",
+      "employee_id": "1044"
+    },
+    {
+      "skill_id": "6",
+      "employee_id": "1047"
+    },
+    {
+      "skill_id": "6",
+      "employee_id": "1190"
+    },
+    {
+      "skill_id": "6",
+      "employee_id": "1238"
+    },
+    {
+      "skill_id": "6",
+      "employee_id": "1240"
+    },
+    {
+      "skill_id": "6",
+      "employee_id": "1242"
+    },
+    {
+      "skill_id": "7",
+      "employee_id": "1002"
+    },
+    {
+      "skill_id": "7",
+      "employee_id": "1022"
+    },
+    {
+      "skill_id": "7",
+      "employee_id": "1042"
+    },
+    {
+      "skill_id": "7",
+      "employee_id": "1046"
+    },
+    {
+      "skill_id": "7",
+      "employee_id": "1050"
+    },
+    {
+      "skill_id": "7",
+      "employee_id": "1051"
+    },
+    {
+      "skill_id": "7",
+      "employee_id": "1161"
+    },
+    {
+      "skill_id": "7",
+      "employee_id": "1240"
+    },
+    {
+      "skill_id": "7",
+      "employee_id": "1241"
+    },
+    {
+      "skill_id": "7",
+      "employee_id": "1242"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1004"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1005"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1011"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1012"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1014"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1016"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1017"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1019"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1022"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1024"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1025"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1030"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1031"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1035"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1038"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1042"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1044"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1046"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1050"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1052"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1062"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1065"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1073"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1129"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1130"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1161"
+    },
+    {
+      "skill_id": "8",
+      "employee_id": "1190"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1007"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1017"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1019"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1020"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1022"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1023"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1028"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1031"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1035"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1040"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1041"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1042"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1044"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1046"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1047"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1050"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1051"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1052"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1053"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1062"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1065"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1091"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1129"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1159"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1161"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1190"
+    },
+    {
+      "skill_id": "9",
+      "employee_id": "1203"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1000"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1014"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1019"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1020"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1021"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1023"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1024"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1025"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1026"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1028"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1030"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1042"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1044"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1048"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1050"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1052"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1053"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1062"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1065"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1090"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1107"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1157"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1164"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1165"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1166"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1174"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1177"
+    },
+    {
+      "skill_id": "10",
+      "employee_id": "1238"
+    },
+    {
+      "skill_id": "11",
+      "employee_id": "1014"
+    },
+    {
+      "skill_id": "11",
+      "employee_id": "1035"
+    },
+    {
+      "skill_id": "11",
+      "employee_id": "1048"
+    },
+    {
+      "skill_id": "11",
+      "employee_id": "1051"
+    },
+    {
+      "skill_id": "11",
+      "employee_id": "1130"
+    },
+    {
+      "skill_id": "11",
+      "employee_id": "1238"
+    },
+    {
+      "skill_id": "12",
+      "employee_id": "1014"
+    },
+    {
+      "skill_id": "12",
+      "employee_id": "1016"
+    },
+    {
+      "skill_id": "12",
+      "employee_id": "1017"
+    },
+    {
+      "skill_id": "12",
+      "employee_id": "1019"
+    },
+    {
+      "skill_id": "12",
+      "employee_id": "1024"
+    },
+    {
+      "skill_id": "12",
+      "employee_id": "1025"
+    },
+    {
+      "skill_id": "12",
+      "employee_id": "1042"
+    },
+    {
+      "skill_id": "12",
+      "employee_id": "1046"
+    },
+    {
+      "skill_id": "12",
+      "employee_id": "1052"
+    },
+    {
+      "skill_id": "12",
+      "employee_id": "1062"
+    },
+    {
+      "skill_id": "13",
+      "employee_id": "1014"
+    },
+    {
+      "skill_id": "13",
+      "employee_id": "1016"
+    },
+    {
+      "skill_id": "13",
+      "employee_id": "1017"
+    },
+    {
+      "skill_id": "13",
+      "employee_id": "1024"
+    },
+    {
+      "skill_id": "13",
+      "employee_id": "1042"
+    },
+    {
+      "skill_id": "13",
+      "employee_id": "1047"
+    },
+    {
+      "skill_id": "13",
+      "employee_id": "1050"
+    },
+    {
+      "skill_id": "13",
+      "employee_id": "1062"
+    },
+    {
+      "skill_id": "13",
+      "employee_id": "1157"
+    },
+    {
+      "skill_id": "14",
+      "employee_id": "1000"
+    },
+    {
+      "skill_id": "14",
+      "employee_id": "1003"
+    },
+    {
+      "skill_id": "14",
+      "employee_id": "1005"
+    },
+    {
+      "skill_id": "14",
+      "employee_id": "1014"
+    },
+    {
+      "skill_id": "14",
+      "employee_id": "1021"
+    },
+    {
+      "skill_id": "14",
+      "employee_id": "1022"
+    },
+    {
+      "skill_id": "14",
+      "employee_id": "1051"
+    },
+    {
+      "skill_id": "14",
+      "employee_id": "1061"
+    },
+    {
+      "skill_id": "14",
+      "employee_id": "1089"
+    },
+    {
+      "skill_id": "14",
+      "employee_id": "1090"
+    },
+    {
+      "skill_id": "14",
+      "employee_id": "1129"
+    },
+    {
+      "skill_id": "14",
+      "employee_id": "1130"
+    },
+    {
+      "skill_id": "14",
+      "employee_id": "1188"
+    },
+    {
+      "skill_id": "15",
+      "employee_id": "1023"
+    },
+    {
+      "skill_id": "15",
+      "employee_id": "1048"
+    },
+    {
+      "skill_id": "15",
+      "employee_id": "1050"
+    },
+    {
+      "skill_id": "15",
+      "employee_id": "1090"
+    },
+    {
+      "skill_id": "15",
+      "employee_id": "1107"
+    },
+    {
+      "skill_id": "15",
+      "employee_id": "1157"
+    },
+    {
+      "skill_id": "15",
+      "employee_id": "1164"
+    },
+    {
+      "skill_id": "15",
+      "employee_id": "1166"
+    },
+    {
+      "skill_id": "15",
+      "employee_id": "1174"
+    },
+    {
+      "skill_id": "15",
+      "employee_id": "1177"
+    },
+    {
+      "skill_id": "15",
+      "employee_id": "1186"
+    },
+    {
+      "skill_id": "16",
+      "employee_id": "1129"
+    },
+    {
+      "skill_id": "19",
+      "employee_id": "1073"
+    },
+    {
+      "skill_id": "21",
+      "employee_id": "1140"
+    },
+    {
+      "skill_id": "23",
+      "employee_id": "1008"
+    },
+    {
+      "skill_id": "23",
+      "employee_id": "1011"
+    },
+    {
+      "skill_id": "23",
+      "employee_id": "1013"
+    },
+    {
+      "skill_id": "23",
+      "employee_id": "1250"
+    },
+    {
+      "skill_id": "24",
+      "employee_id": "1204"
+    },
+    {
+      "skill_id": "29",
+      "employee_id": "1238"
+    },
+    {
+      "skill_id": "29",
+      "employee_id": "1249"
+    },
+    {
+      "skill_id": "30",
+      "employee_id": "1249"
+    }
+  ],
+  "employee_availabilities": [],
+  "employees_to_sites": [
+    {
+      "user_id": "1022",
+      "site_id": "195"
+    },
+    {
+      "user_id": "1190",
+      "site_id": "195"
+    },
+    {
+      "user_id": "1161",
+      "site_id": "195"
+    },
+    {
+      "user_id": "1188",
+      "site_id": "195"
+    },
+    {
+      "user_id": "1055",
+      "site_id": "195"
+    },
+    {
+      "user_id": "1131",
+      "site_id": "204"
+    },
+    {
+      "user_id": "1203",
+      "site_id": "255"
+    },
+    {
+      "user_id": "1202",
+      "site_id": "255"
+    },
+    {
+      "user_id": "1159",
+      "site_id": "255"
+    },
+    {
+      "user_id": "1235",
+      "site_id": "255"
+    }
+  ],
+  "site_bans": [
+    {"employee_id": "1235", "site_id": "255"},
+    {"employee_id": "1055", "site_id": "195"}
+  ],
+  "employee_multipliers": {"1235": {"MINIMUM_REST_PERIOD": "1", "HAS_SOME_SOFT_SKILLS": "1"}}
+}
