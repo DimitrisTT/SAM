@@ -6,6 +6,8 @@ import com.tracktik.scheduler.domain.*;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
+import org.optaplanner.core.config.solver.SolverConfig;
+import org.optaplanner.core.config.solver.termination.TerminationConfig;
 import org.optaplanner.core.impl.score.director.ScoreDirector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,8 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayDeque;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -40,6 +44,7 @@ public class Receiver {
   private void solveSchedule(Schedule schedule) {
 
     long startTime = System.currentTimeMillis();
+    Instant startInstant = Instant.now();
     int totalShifts = schedule.getShifts().size();
     long totalShiftsToSchedule = schedule.getShifts().stream().filter(Shift::getPlan).count();
     int totalEmployees = schedule.getEmployees().size();
@@ -52,9 +57,11 @@ public class Receiver {
     jmsTemplate.convertAndSend(QueueNames.response, response);
 
     Solver<Schedule> solver;
-    if (totalShifts > 2) {
+    if (totalShiftsToSchedule > 2) {
+      //solver = standardSolverFactory.buildSolver();
       solver = standardSolverFactory.buildSolver();
     } else {
+      logger.info("Using exhaustive search");
       solver = exhaustiveSolverFactory.buildSolver();
     }
 
@@ -137,6 +144,7 @@ public class Receiver {
     response.getMeta().setShift_assignment_scores(shiftAssignmentScores);
     response.getMeta().setTime_to_solve(System.currentTimeMillis() - startTime);
 
+    logger.info("Duration to complete {}", Duration.between(startInstant, Instant.now()).toString());
     bestSolutions.remove(); //Remove the top since it is also the best solution over all.
 
     //Reverse the order so the best solutions are first

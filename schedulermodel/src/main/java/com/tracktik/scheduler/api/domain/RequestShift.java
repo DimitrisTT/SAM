@@ -1,5 +1,11 @@
 package com.tracktik.scheduler.api.domain;
 
+import lombok.ToString;
+
+import java.util.HashSet;
+import java.util.Set;
+
+@ToString
 public class RequestShift {
 
   public String shift_id;
@@ -13,21 +19,6 @@ public class RequestShift {
   public String plan;
   public String site_id;
   public String employee_id;
+  public Set<String> tags = new HashSet<>();
 
-  @Override
-  public String toString() {
-    return "RequestShift{" +
-        "shift_id='" + shift_id + '\'' +
-        ", start_date_time='" + start_date_time + '\'' +
-        ", end_date_time='" + end_date_time + '\'' +
-        ", duration='" + duration + '\'' +
-        ", start_timestamp=" + start_timestamp +
-        ", end_timestamp=" + end_timestamp +
-        ", post_id='" + post_id + '\'' +
-        ", start_date='" + start_date + '\'' +
-        ", plan='" + plan + '\'' +
-        ", site_id='" + site_id + '\'' +
-        ", employee_id='" + employee_id + '\'' +
-        '}';
-  }
 }

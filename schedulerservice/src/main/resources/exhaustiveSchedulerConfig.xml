@@ -9,6 +9,8 @@
         <scoreDrl>schedulerScoreRules.drl</scoreDrl>
     </scoreDirectorFactory>
 
+    <constructionHeuristic/>
+
     <exhaustiveSearch>
         <exhaustiveSearchType>BRUTE_FORCE</exhaustiveSearchType>
     </exhaustiveSearch>

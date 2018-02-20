@@ -1,14 +1,22 @@
 package com.tracktik.scheduler.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @PlanningEntity(difficultyComparatorClass = ShiftDifficultyComparator.class, movableEntitySelectionFilter = LockedShiftSelectionFilter.class)
+@Accessors(chain = true)
+@Data
+@EqualsAndHashCode(of = "id")
 public class Shift {
 
   private static final Logger logger = LoggerFactory.getLogger(Shift.class);
@@ -20,21 +28,10 @@ public class Shift {
   private Post post;
   private Long startTimeStamp;
   private Long endTimeStamp;
+  private Set<String> tags = new HashSet<>();
 
   @PlanningVariable(valueRangeProviderRefs = "employees")
   private Employee employee;
-
-  public Shift() {
-  }
-
-  public TimeSlot getTimeSlot() {
-    return timeSlot;
-  }
-
-  public Shift setTimeSlot(TimeSlot timeSlot) {
-    this.timeSlot = timeSlot;
-    return this;
-  }
 
   @JsonIgnore
   public LocalTime getStartTime() {
@@ -82,95 +79,4 @@ public class Shift {
     }
   }
 
-  public Post getPost() {
-    return post;
-  }
-
-  public Shift setPost(Post post) {
-    this.post = post;
-    return this;
-  }
-
-  public Employee getEmployee() {
-    return employee;
-  }
-
-  public Shift setEmployee(Employee employee) {
-    this.employee = employee;
-    return this;
-  }
-
-  public Boolean getPlan() {
-    return plan;
-  }
-
-  public Shift setPlan(Boolean plan) {
-    this.plan = plan;
-    return this;
-  }
-
-  public Long getStartTimeStamp() {
-    return startTimeStamp;
-  }
-
-  public Shift setStartTimeStamp(Long startTimeStamp) {
-    this.startTimeStamp = startTimeStamp;
-    return this;
-  }
-
-  public Long getEndTimeStamp() {
-    return endTimeStamp;
-  }
-
-  public Shift setEndTimeStamp(Long endTimeStamp) {
-    this.endTimeStamp = endTimeStamp;
-    return this;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    Shift shift = (Shift) o;
-
-    return id.equals(shift.id);
-  }
-
-  @Override
-  public int hashCode() {
-    return id.hashCode();
-  }
-
-  public String getId() {
-    return id;
-  }
-
-  public Shift setId(String id) {
-    this.id = id;
-    return this;
-  }
-
-  public Float getDuration() {
-    return duration;
-  }
-
-  public Shift setDuration(Float duration) {
-    this.duration = duration;
-    return this;
-  }
-
-  @Override
-  public String toString() {
-    return "Shift{" +
-        "id='" + id + '\'' +
-        ", plan=" + plan +
-        ", timeSlot=" + timeSlot +
-        ", duration=" + duration +
-        ", post=" + post +
-        ", startTimeStamp=" + startTimeStamp +
-        ", endTimeStamp=" + endTimeStamp +
-        ", employee=" + employee +
-        '}';
-  }
 }

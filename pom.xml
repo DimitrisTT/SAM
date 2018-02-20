@@ -4,12 +4,13 @@
 
     <groupId>com.tracktik</groupId>
     <artifactId>scheduler</artifactId>
-    <version>0.13</version>
+    <version>0.14</version>
     <packaging>pom</packaging>
 
     <properties>
         <java.version>1.8</java.version>
         <cucumber.version>1.2.5</cucumber.version>
+        <optaplanner.version>7.6.0.Final</optaplanner.version>
     </properties>
 
     <modules>
@@ -27,13 +28,15 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!--
             <dependency>
-                <groupId>org.kie</groupId>
-                <artifactId>kie-platform-bom</artifactId>
+                <groupId>org.jboss.bom.rhdm</groupId>
+                <artifactId>rhdm-platform-bom</artifactId>
                 <type>pom</type>
-                <version>7.4.0.Final-redhat-2</version>
+                <version>7.0.0.GA-redhat-2</version>
                 <scope>import</scope>
             </dependency>
+            -->
         </dependencies>
     </dependencyManagement>
 

@@ -9,17 +9,11 @@
         <scoreDrl>schedulerScoreRules.drl</scoreDrl>
     </scoreDirectorFactory>
 
-
-    <constructionHeuristic>
-        <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
-    </constructionHeuristic>
-
     <localSearch>
         <localSearchType>HILL_CLIMBING</localSearchType>
-        <termination>
-            <minutesSpentLimit>1</minutesSpentLimit>
-            <unimprovedSecondsSpentLimit>10</unimprovedSecondsSpentLimit>
-        </termination>
     </localSearch>
 
+    <termination>
+        <secondsSpentLimit>2</secondsSpentLimit>
+    </termination>
 </solver>

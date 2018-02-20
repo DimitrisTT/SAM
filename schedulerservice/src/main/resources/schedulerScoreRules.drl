@@ -60,6 +60,12 @@ end
 
 // SOFT CONSTRAINTS
 
+rule "SHIFT_TAG"
+    when
+        Shift(employee != null, employee.hasShiftTags(tags), $value: employee.tagValueSummary(tags))
+    then
+        scoreHolder.addSoftConstraintMatch(kcontext, $value);
+end
 
 rule "MINIMUM_REST_PERIOD"
    when

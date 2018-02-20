@@ -8,7 +8,7 @@
     <parent>
         <artifactId>scheduler</artifactId>
         <groupId>com.tracktik</groupId>
-        <version>0.13</version>
+        <version>0.14</version>
     </parent>
 
     <artifactId>scheduler-service</artifactId>
@@ -30,11 +30,13 @@
         <dependency>
             <groupId>org.optaplanner</groupId>
             <artifactId>optaplanner-core</artifactId>
+            <version>${optaplanner.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.optaplanner</groupId>
             <artifactId>optaplanner-benchmark</artifactId>
+            <version>${optaplanner.version}</version>
         </dependency>
 
     </dependencies>

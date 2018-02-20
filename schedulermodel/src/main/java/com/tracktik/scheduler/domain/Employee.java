@@ -1,8 +1,14 @@
 package com.tracktik.scheduler.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
+import java.util.*;
+
+@Accessors(chain = true)
+@EqualsAndHashCode(of = "id")
+@Data
 public class Employee {
 
   private String id;
@@ -17,140 +23,7 @@ public class Employee {
   private Double longitude;
   private Integer seniority;
   private Long minimumRestPeriod;
-
-  public String getId() {
-    return id;
-  }
-
-  public Employee setId(String id) {
-    this.id = id;
-    return this;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public Employee setName(String name) {
-    this.name = name;
-    return this;
-  }
-
-  public AvailabilityPreference getAvailabilityPreference() {
-    return availabilityPreference;
-  }
-
-  public Employee setAvailabilityPreference(AvailabilityPreference availabilityPreference) {
-    this.availabilityPreference = availabilityPreference;
-    return this;
-  }
-
-  public List<Site> getSiteExperience() {
-    return siteExperience;
-  }
-
-  public Employee setSiteExperience(List<Site> siteExperience) {
-    this.siteExperience = siteExperience;
-    return this;
-  }
-
-  public List<Post> getPostExperience() {
-    return postExperience;
-  }
-
-  public Employee setPostExperience(List<Post> postExperience) {
-    this.postExperience = postExperience;
-    return this;
-  }
-
-  public List<Skill> getSkills() {
-    return skills;
-  }
-
-  public Employee setSkills(List<Skill> skills) {
-    this.skills = skills;
-    return this;
-  }
-
-  public Long getCost() {
-    return cost;
-  }
-
-  public Employee setCost(Long cost) {
-    this.cost = cost;
-    return this;
-  }
-
-  public Long getPreferredHours() {
-    return preferredHours;
-  }
-
-  public Employee setPreferredHours(Long preferredHours) {
-    this.preferredHours = preferredHours;
-    return this;
-  }
-
-  public Double getLatitude() {
-    return latitude;
-  }
-
-  public Employee setLatitude(Double latitude) {
-    this.latitude = latitude;
-    return this;
-  }
-
-  public Double getLongitude() {
-    return longitude;
-  }
-
-  public Employee setLongitude(Double longitude) {
-    this.longitude = longitude;
-    return this;
-  }
-
-  public Integer getSeniority() {
-    return seniority;
-  }
-
-  public Employee setSeniority(Integer seniority) {
-    this.seniority = seniority;
-    return this;
-  }
-
-  public Long getMinimumRestPeriod() {
-    return minimumRestPeriod;
-  }
-
-  public Employee setMinimumRestPeriod(Long minimumRestPeriod) {
-    this.minimumRestPeriod = minimumRestPeriod;
-    return this;
-  }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id == null) ? 0 : id.hashCode());
-    return result;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    Employee other = (Employee) obj;
-    if (id == null) {
-      if (other.id != null)
-        return false;
-    } else if (!id.equals(other.id))
-      return false;
-    return true;
-  }
-
+  private Map<String, Long> tagValues = new HashMap<>();
 
   public Employee setCostFromFloatString(String pay_rate) {
     if (pay_rate != null) {
@@ -162,21 +35,21 @@ public class Employee {
     return this;
   }
 
-  @Override
-  public String toString() {
-    return "Employee{" +
-        "id='" + id + '\'' +
-        ", name='" + name + '\'' +
-        ", availabilityPreference=" + availabilityPreference +
-        ", siteExperience=" + siteExperience +
-        ", postExperience=" + postExperience +
-        ", skills=" + skills +
-        ", cost=" + cost +
-        ", preferredHours=" + preferredHours +
-        ", latitude=" + latitude +
-        ", longitude=" + longitude +
-        ", seniority=" + seniority +
-        ", minimumRestPeriod=" + minimumRestPeriod +
-        '}';
+  public Boolean hasShiftTags(Set<String> shiftTags) {
+
+    for (String key : tagValues.keySet()) {
+      if (shiftTags.contains(key)) {
+        return true;
+      }
+    }
+    return false;
   }
+
+  public Long tagValueSummary(Set<String> shiftTags) {
+
+    return tagValues.entrySet().stream()
+        .filter(stringLongEntry -> shiftTags.contains(stringLongEntry.getKey()))
+        .map(Map.Entry::getValue).mapToLong(Long::longValue).sum();
+  }
+
 }

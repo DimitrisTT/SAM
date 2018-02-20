@@ -1,5 +1,8 @@
 package com.tracktik.scheduler.api.domain;
 
+import lombok.ToString;
+
+@ToString
 public class RequestSite {
 
   public String id;
@@ -7,13 +10,4 @@ public class RequestSite {
   public String geo_lon;
   public String name;
 
-  @Override
-  public String toString() {
-    return "RequestSite{" +
-        "id='" + id + '\'' +
-        ", geo_lat='" + geo_lat + '\'' +
-        ", geo_lon='" + geo_lon + '\'' +
-        ", name='" + name + '\'' +
-        '}';
-  }
 }
