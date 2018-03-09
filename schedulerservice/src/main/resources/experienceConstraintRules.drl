@@ -1,0 +1,120 @@
+
+import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
+import com.tracktik.scheduler.domain.*;
+import com.tracktik.scheduler.service.*;
+import java.util.*;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
+import java.util.concurrent.TimeUnit
+
+global HardSoftLongScoreHolder scoreHolder;
+
+function Long numberOfMatches(Collection first, Collection other) {
+    return first.stream().filter(item -> other.contains(item)).count();
+}
+
+// HARD CONSTRAINTS
+
+/*
+    This constraint will ensure that an employee assigned to a post, will have all of the required skills.
+    It will only fire if the KeyValueFact of HARD_SKILL_ENABLED false doesn't exist. There is also an option
+    where hard skill shall be considered soft in some cases. This rule will only fire if there is no
+    KeyValueFact of HARD_SKILL_IS_HARD of false.
+*/
+rule "MUST_HAVE_HARD_SKILLS"
+    when
+        not KeyValueFact(key == "HARD_SKILL_ENABLED", value == false)
+        not KeyValueFact(key == "HARD_SKILL_IS_HARD", value == false)
+        Shift(post != null, employee != null, !employee.skills.containsAll(post.hardSkills))
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, -1);
+end
+
+// SOFT CONSTRAINTS
+
+/*
+    This constraint will encourage the scheduler to assign an employee that has most or all of the soft skills for a
+    post. It will only fire if there is no KeyValueFact of SOFT_SKILL_ENABLED of false and there is no SOFT_SKILL_MUTLIPLIER.
+    It computes the number of matches between the post skills and the employee's skills. It then multiplies that by 50 and by the
+    employee multiplier.
+*/
+rule "HAS_SOME_SOFT_SKILLS"
+    when
+        not KeyValueFact(key == "SOFT_SKILL_ENABLED", value == false)
+        not KeyValueFact(key == "SOFT_SKILL_MUTLIPLIER")
+        Shift(post != null, employee != null, $employeeId: employee.id, $softSkills: post.softSkills, $skills:employee.skills, numberOfMatches($softSkills, $skills) > 0)
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SOME_SOFT_SKILLS", $employeeMultiplier: multiplier)
+    then
+        Long matches = numberOfMatches($softSkills, $skills);
+        Double dValue = matches * 50 * $employeeMultiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+end
+
+/*
+    Same as above, but also considers a general multiplier as expressed by SOFT_SKILL_MUTLIPLIER.
+*/
+rule "MULTIPLIER_HAS_SOME_SOFT_SKILLS"
+    when
+        Shift(post != null, employee != null, $employeeId: employee.id, $softSkills: post.softSkills, $skills:employee.skills, numberOfMatches($softSkills, $skills) > 0)
+        not KeyValueFact(key == "SOFT_SKILL_ENABLED", value == false)
+        KeyValueFact(key == "SOFT_SKILL_MUTLIPLIER", $multiplier: ((Long)value))
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SOME_SOFT_SKILLS", $employeeMultiplier: multiplier)
+    then
+        Long matches = numberOfMatches($softSkills, $skills);
+        Long matchesSquared = matches * matches;
+        Double dValue = matchesSquared * $multiplier * $employeeMultiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+end
+
+/*
+    This is the same as HAS_SOME_SOFT_SKILLS except it is being applied to hard skill instead. This will happen
+    when there is a KeyValueFact of HARD_SKILL_IS_HARD that is false.
+*/
+rule "EMPLOYEE_MUST_HAVE_HARD_SKILLS_AS_SOFT"
+    when
+        Shift(post != null, employee != null, $hardSkills: post.hardSkills, $skills:employee.skills, numberOfMatches($hardSkills, $skills) > 0)
+        not KeyValueFact(key == "HARD_SKILL_ENABLED", value == false)
+        KeyValueFact(key == "HARD_SKILL_IS_HARD", value == false)
+        KeyValueFact(key == "HARD_SKILL_TYPE_SOFT_MUTLIPLIER", $multiplier: ((Long)value))
+    then
+        scoreHolder.addSoftConstraintMatch(kcontext, numberOfMatches($hardSkills, $skills) * $multiplier);
+end
+
+/*
+    This constraint will encourage the scheduler to assign employees to sites where they have experience. It does this
+    by checking if the employee has no site experience and then adds a negative soft score. If the employee has a
+    EmployeeConstraintMultiplier of HAS_SITE_EXPERIENCE, the score will be multiplied by that as well.
+*/
+rule "HAS_SITE_EXPERIENCE"
+    when
+        Shift(employee != null, post != null, $employeeId: employee.id, post.site not memberOf employee.siteExperience)
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SITE_EXPERIENCE", $multiplier: multiplier)
+    then
+        Long impact = -100L;
+        Double dValue = impact * $multiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+end
+
+/*
+rule "HAS_POST_EXPERIENCE"
+    when
+        Shift(employee != null, post != null, post not memberOf employee.postExperience)
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_POST_EXPERIENCE", $multiplier: multiplier)
+    then
+        scoreHolder.addSoftConstraintMatch(kcontext, -100 * $multiplier);
+end
+*/
+
+/*
+    This constraint will encourage the scheduler to prefer employees that have seniority when assigning them to shifts.
+    If the specific employee as a multiplier, the score will be multiplied by that as well.
+*/
+rule "EMPLOYEE_HAS_SENIORITY"
+    when
+        Shift(employee != null, $employeeId: employee.id)
+        Employee($employeeId == id, seniority != null, $seniority: seniority)
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "EMPLOYEE_HAS_SENIORITY", $multiplier: multiplier)
+    then
+        Double dValue = $seniority * $multiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+end

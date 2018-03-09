@@ -1,0 +1,110 @@
+
+import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
+import com.tracktik.scheduler.domain.*;
+import com.tracktik.scheduler.service.*;
+
+global HardSoftLongScoreHolder scoreHolder;
+
+/*
+    DEFAULTS -- We will insert an EmployeeConstraintMultiplier for these if they don't exist so that we won't have to have two
+    sets of rules for each constraint, one with the multiplier and one without. The default multiplier value is 1 so these will
+    have no effect unless there is a specific value for the employee that was previosly inserted.
+*/
+
+rule "default AVAILABILITY_MAYBE"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "AVAILABILITY_MAYBE")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("AVAILABILITY_MAYBE"));
+end
+
+rule "default AVAILABILITY_NO"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "AVAILABILITY_NO")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("AVAILABILITY_NO"));
+end
+
+rule "default EMPLOYEE_HAS_SENIORITY"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "EMPLOYEE_HAS_SENIORITY")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("EMPLOYEE_HAS_SENIORITY"));
+end
+
+rule "default HAS_SITE_EXPERIENCE"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SITE_EXPERIENCE")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("HAS_SITE_EXPERIENCE"));
+end
+
+rule "default HAS_SOME_SOFT_SKILLS"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SOME_SOFT_SKILLS")
+    then
+        //System.out.println("adding default soft skills multiplier");
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("HAS_SOME_SOFT_SKILLS"));
+end
+
+rule "default LESS_THAN_EXPECTED_HOURS"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "LESS_THAN_EXPECTED_HOURS")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("LESS_THAN_EXPECTED_HOURS"));
+end
+
+rule "default MINIMUM_REST_PERIOD"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "MINIMUM_REST_PERIOD")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("MINIMUM_REST_PERIOD"));
+end
+
+rule "default MORE_THAN_EXPECTED_HOURS"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "MORE_THAN_EXPECTED_HOURS")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("MORE_THAN_EXPECTED_HOURS"));
+end
+
+rule "default OVERTIME_PAY"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "OVERTIME_PAY")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("OVERTIME_PAY"));
+end
+
+rule "default WORKPLACE_CLOSE"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_CLOSE")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("WORKPLACE_CLOSE"));
+end
+
+rule "default WORKPLACE_FAIRLY_CLOSE"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_FAIRLY_CLOSE")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("WORKPLACE_FAIRLY_CLOSE"));
+end
+
+rule "default WORKPLACE_FAR"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_FAR")
+    then
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("WORKPLACE_FAR"));
+end
+

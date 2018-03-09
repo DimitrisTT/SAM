@@ -1,0 +1,75 @@
+
+import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
+import com.tracktik.scheduler.domain.*;
+import com.tracktik.scheduler.service.*;
+import java.util.*;
+
+global HardSoftLongScoreHolder scoreHolder;
+
+// SOFT CONSTRAINTS
+
+rule "period overtime"
+    when
+        PeriodDefinition($startDay: startDay)
+        PeriodOvertimeDefinition($minimumHours: minimumHours, $maximumHours: maximumHours, $multiplier: multiplier)
+        $employee: Employee($employeeId: id)
+        $totalHours: Long( longValue > $minimumHours) from accumulate (
+           Shift(employee != null, $employee == employee, $shiftHours: timeSlot.getDurationHours()),
+           sum($shiftHours)
+        )
+        PeriodOvertimeDefinition($multiplier == multiplier, $totalHours > minimumHours, $totalHours < maximumHours)
+    then
+        Integer amount = ($totalHours - $minimumHours) * $multiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, amount * -1);
+end
+
+rule "daily overtime"
+    when
+        DayDefinition($startHour: startHour)
+        DayOvertimeDefinition($minimumHours: minimumHours, $maximumHours: maximumHours, $multiplier: multiplier)
+        $employee: Employee($employeeId: id)
+        Shift(employee != null, $employee == employee, $startDate: timeSlot.startDate)
+        $totalHours: Long( longValue > $minimumHours) from accumulate (
+           Shift(employee != null, $employee == employee, $dailyHours: timeSlot.getDurationHoursOnDate($startDate)),
+           sum($dailyHours)
+        )
+        DayOvertimeDefinition($multiplier == multiplier, $totalHours > minimumHours, $totalHours < maximumHours)
+    then
+        Integer amount = ($totalHours - $minimumHours) * $multiplier
+        scoreHolder.addSoftConstraintMatch(kcontext, amount * -1);
+end
+
+rule "add cost data"
+    when
+        $employee: Employee($employeeId: id)
+        accumulate(
+            Shift(employee == $employee, $hours: hours, $post: post) and Post(this == $post, $billRate: billRate, $payRate: payRate, billRate!= null, payRate != null);
+            $totalHours: sum($hours),
+            $totalCost: sum($payRate * $hours),
+            $totalBilled: sum($billRate * $hours)
+        )
+     then
+     insertLogical(new CostTotals($employee, $totalHours, $totalBilled.longValue(), $totalCost.longValue() ));
+end
+
+/*
+    There will be a CostTotals fact in memory for every employee assigned to a shift. This rule will
+    calculate the margin and divide it by 100 and add to the soft constraint score. It is divided by 100
+    because the amounts for pay and bill rates were multiplied by 100 to avoid floating point arithmetic.
+*/
+rule "NON_OVERTIME_MARGIN"
+    when
+       CostTotals($margin: totalCost - totalBilled)
+    then
+       scoreHolder.addSoftConstraintMatch(kcontext, $margin / 100 );
+end
+rule "OVERTIME_PAY"
+    when
+        CostTotals(hours>40, $employeeId: employee.id, $otHours: hours - 40, $weightedCost: totalCost/hours) //might have to do rounding instead of truncate
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "OVERTIME_PAY", $multiplier: multiplier)
+    then
+        Long overtimeCost = ($otHours * $weightedCost / 2) * -1;
+        Long costAsDecimal = overtimeCost / 100;
+        Double dValue = costAsDecimal * $multiplier;
+       scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue() );
+end

@@ -7,6 +7,11 @@
     <!-- Score configuration -->
     <scoreDirectorFactory>
         <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtimeConstraintRules.drl</scoreDrl>
     </scoreDirectorFactory>
 
 
