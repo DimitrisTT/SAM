@@ -145,7 +145,7 @@ public class Receiver {
     response.getMeta().setTime_to_solve(System.currentTimeMillis() - startTime);
 
     logger.info("Duration to complete {}", Duration.between(startInstant, Instant.now()).toString());
-    bestSolutions.remove(); //Remove the top since it is also the best solution over all.
+    if (bestSolutions.size() > 0) bestSolutions.remove(); //Remove the top since it is also the best solution over all.
 
     //Reverse the order so the best solutions are first
     bestSolutions.stream().map(schedulingResponse -> schedulingResponse.setStatus(SolverStatus.COMPLETED))

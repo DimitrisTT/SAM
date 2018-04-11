@@ -9,12 +9,6 @@ import java.util.concurrent.TimeUnit
 
 global HardSoftLongScoreHolder scoreHolder;
 
-//This function computes how many hours there are between to dates
-function Long hoursGap(Date startDate, Date endDate) {
-    Long gap = TimeUnit.HOURS.convert(endDate.getTime() - startDate.getTime(), TimeUnit.MILLISECONDS);
-    return gap;
-}
-
 // HARD CONSTRAINTS
 
 /*
@@ -24,8 +18,8 @@ function Long hoursGap(Date startDate, Date endDate) {
 */
 rule "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS"
     when
-        $shift: Shift(employee != null, $employee : employee, $timeSlot : timeSlot)
-        Shift(this != $shift, employee == $employee, (timeSlot.startTime <= $timeSlot.endTime) && ($timeSlot.startTime < timeSlot.endTime))
+        $shift: Shift(employee != null, $employee : employee, $firstShiftStart: start, $firstShiftEnd: end)
+        Shift(this != $shift, employee == $employee, (start <= $firstShiftEnd) && ($firstShiftStart < end))
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
@@ -37,8 +31,8 @@ end
 */
 rule "TIME_OFF_DURING_SHIFT"
     when
-        Shift(employee != null, $employeeId: employee.id, $shiftStart: timeSlot.start, $shiftEnd: timeSlot.end)
-        TimeOff($employeeId == employeeId, (startTime <= $shiftEnd) && ($shiftStart < endTime))
+        Shift(employee != null, $employeeId: employee.id, $shiftStart: start, $shiftEnd: end)
+        TimeOff($employeeId == employeeId, (start <= $shiftEnd) && ($shiftStart < end))
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
@@ -55,9 +49,9 @@ end
 */
 rule "MINIMUM_REST_PERIOD"
    when
-        Shift(employee != null, $employee: employee, $firstShiftEnd: timeSlot.getEnd())
+        Shift(employee != null, $employee: employee, $firstShiftEnd: end)
         EmployeeConstraintMultiplier($employee.id == employeeId, name == "MINIMUM_REST_PERIOD", $employeeMultiplier: multiplier)
-        Shift($employee == employee, $firstShiftEnd.before(timeSlot.getStart()),$secondShiftStart: timeSlot.getStart(), hoursGap($firstShiftEnd, timeSlot.getStart()) < employee.minimumRestPeriod)
+        Shift($employee == employee, $firstShiftEnd < start,$secondShiftStart: start, hoursGap($firstShiftEnd, start) < employee.minimumRestPeriod)
     then
         Long hours = hoursGap($firstShiftEnd, $secondShiftStart);
         Double dValue = hours * hours * $employeeMultiplier * -1;
@@ -74,22 +68,24 @@ end
     If enabled, we will total the number of hours for all shifts that the employee is assigned to. If the total hours are less than expected
     we will then compute the percentage of preferred hours. That percentage will be multipled by the impact and the employee's
     multipler and added to the soft score.
+
+    The employee's preferred hours are multiplied by ten to account for fractional ours in Shifts
 */
 rule "LESS_THAN_EXPECTED_HOURS"
     when
-        $employee : Employee(preferredHours != null, $employeeId: id, $preferredHours: preferredHours)
+        $employee : Employee(preferredHours != null, $employeeId: id, $preferredHours: (preferredHours * 100))
         not KeyValueFact(key == "LESS_THAN_EXPECTED_ENABLED", value == false)
         KeyValueFact(key == "LESS_THAN_EXPECTED_HOURS_IMPACT", $impact: ((Long)value))
         EmployeeConstraintMultiplier($employeeId == employeeId, name == "LESS_THAN_EXPECTED_HOURS", $multiplier: multiplier)
-        $totalHours: Long( longValue < $preferredHours) from accumulate (
-           Shift(employee != null, $employee == employee, $shiftHours: timeSlot.getDurationHours()),
+        //$totalHours: Long( $preferredHours < longValue) from accumulate (
+        $totalHours: Long( longValue < $preferredHours ) from accumulate (
+           Shift(employee != null, $employee == employee, $shiftHours: durationHours()),
            sum($shiftHours)
         )
     then
         Long hoursDifference = $preferredHours - $totalHours;
         Double percentage = hoursDifference.doubleValue() / $preferredHours.doubleValue() * 100D;
         Double dValue =  percentage * $impact * $multiplier * -1;
-        //System.out.println("less than expected hours: " + hoursDifference + " expected: " + $preferredHours + " percentage: " + percentage + " dValue: " + dValue);
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
 end
 
@@ -102,16 +98,18 @@ end
     If enabled, we will total the number of hours for all shifts that the employee is assigned to. If the total hours are more than expected
     we will then compute the percentage of preferred hours. That percentage will be multipled by the impact and the employee's
     multipler and added to the soft score.
+
+    The employee's preferred hours are multiplied by ten to account for fractional ours in Shifts
 */
 rule "MORE_THAN_EXPECTED_HOURS"
     when
 
-        $employee : Employee(preferredHours != null, $employeeId: id, $preferredHours: preferredHours)
+        $employee : Employee(preferredHours != null, $employeeId: id, $preferredHours: (preferredHours * 100))
         not KeyValueFact(key == "MORE_THAN_EXPECTED_ENABLED", value == false)
         KeyValueFact(key == "MORE_THAN_EXPECTED_HOURS_IMPACT", $impact: ((Long)value))
         EmployeeConstraintMultiplier($employeeId == employeeId, name == "MORE_THAN_EXPECTED_HOURS", $multiplier: multiplier)
         $totalHours: Long( longValue > $preferredHours) from accumulate (
-           Shift(employee != null, $employee == employee, $shiftHours: timeSlot.getDurationHours()),
+           Shift(employee != null, $employee == employee, $shiftHours: durationHours()),
            sum($shiftHours)
         )
     then
@@ -169,8 +167,8 @@ end
 rule "CONSECUTIVE_WORK_DAYS"
     when
         Employee($employeeId: id)
-        Shift(employee != null, $employeeId == employee.id, $startDate: startDate)
-        Shift(employee != null, $employeeId == employee.id, startDate == $startDate.minusDays(1L))
+        Shift(employee != null, $employeeId == employee.id, $startDate: start.toLocalDate())
+        Shift(employee != null, $employeeId == employee.id, start.toLocalDate() == $startDate.minusDays(1L))
     then
         scoreHolder.addSoftConstraintMatch(kcontext, 100);
 end

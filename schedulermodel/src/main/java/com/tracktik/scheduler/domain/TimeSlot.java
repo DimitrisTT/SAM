@@ -44,13 +44,13 @@ public class TimeSlot {
     end = new Date(end.toInstant().minus(1, SECONDS).toEpochMilli());
   }
 
-  public Boolean overlaps(TimeSlot other, int hours) {
+/*  public Boolean overlaps(TimeSlot other, int hours) {
 
     Date thisEnd = new Date(this.getEnd().toInstant().plus(hours, HOURS).toEpochMilli());
     Date otherEnd = new Date(other.getEnd().toInstant().plus(hours, HOURS).toEpochMilli());
 
     return this.getStart().before(otherEnd) && other.getStart().before(thisEnd);
-  }
+  }*/
 
   @JsonIgnore
   public Long getDurationHours() {
@@ -60,6 +60,7 @@ public class TimeSlot {
     return hours;
   }
 
+/*
   @JsonIgnore
   public Long getStartTime() {
     return start.getTime();
@@ -69,5 +70,6 @@ public class TimeSlot {
   public Long getEndTime() {
     return end.getTime();
   }
+*/
 
 }

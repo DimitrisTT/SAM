@@ -9,7 +9,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.text.ParseException;
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -17,6 +19,8 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class EmployeeShiftOverlapTest {
+
+  public static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
   @Test
   public void employeeNotAvailableDaysBeforeShift() throws ParseException {
@@ -27,7 +31,8 @@ public class EmployeeShiftOverlapTest {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 22:00:00", "2018-01-18 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 22:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-18 02:00:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.NO)
@@ -48,7 +53,8 @@ public class EmployeeShiftOverlapTest {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 22:00:00", "2018-01-18 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 22:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-18 02:00:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.NO)
@@ -69,7 +75,8 @@ public class EmployeeShiftOverlapTest {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 22:00:00", "2018-01-18 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 22:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-18 02:00:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.NO)
@@ -90,7 +97,8 @@ public class EmployeeShiftOverlapTest {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 22:00:00", "2018-01-18 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 22:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-18 02:00:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.NO)
@@ -111,7 +119,8 @@ public class EmployeeShiftOverlapTest {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 12:00:00", "2018-01-18 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 12:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-18 02:00:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.NO)
@@ -132,7 +141,8 @@ public class EmployeeShiftOverlapTest {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 22:00:00", "2018-01-18 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 22:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-18 02:00:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.NO)
@@ -153,7 +163,8 @@ public class EmployeeShiftOverlapTest {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 22:00:00", "2018-01-18 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 22:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-18 02:00:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.NO)
@@ -174,7 +185,8 @@ public class EmployeeShiftOverlapTest {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 22:00:00", "2018-01-18 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 22:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-18 02:00:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.NO)
@@ -196,7 +208,8 @@ public class EmployeeShiftOverlapTest {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 22:00:00", "2018-01-18 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 22:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-18 02:00:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.NO)
@@ -218,7 +231,8 @@ public class EmployeeShiftOverlapTest {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-02-05 00:00:00", "2018-02-05 08:00:00"));
+        .setStart(LocalDateTime.parse("2018-02-05 00:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-02-05 08:00:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.NO)
@@ -240,7 +254,8 @@ public class EmployeeShiftOverlapTest {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-02-04 16:00:00", "2018-02-05 00:00:00"));
+        .setStart(LocalDateTime.parse("2018-02-04 16:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-02-04 23:59:59", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.NO)
@@ -262,7 +277,8 @@ public class EmployeeShiftOverlapTest {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-02-06 00:00:00", "2018-02-06 08:00:00"));
+        .setStart(LocalDateTime.parse("2018-02-06 00:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-02-06 08:00:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.NO)
@@ -284,7 +300,8 @@ public class EmployeeShiftOverlapTest {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-02-04 23:00:00", "2018-02-05 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-02-04 23:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-02-05 02:00:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.NO)

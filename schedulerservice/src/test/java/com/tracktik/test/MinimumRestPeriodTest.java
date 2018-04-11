@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -27,12 +28,14 @@ public class MinimumRestPeriodTest extends ConstraintRuleTestBase {
     Shift shift1 = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 01:00:00", "2018-01-17 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 01:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 02:00:00", dtf));
 
     Shift shift2 = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 07:00:00", "2018-01-17 08:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 07:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 08:00:00", dtf));
 
     ksession.insert(employee);
     ksession.insert(shift1);
@@ -51,12 +54,14 @@ public class MinimumRestPeriodTest extends ConstraintRuleTestBase {
     Shift shift1 = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 01:00:00", "2018-01-17 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 01:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 02:00:00", dtf));
 
     Shift shift2 = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-18 07:00:00", "2018-01-18 08:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-18 07:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-18 08:00:00", dtf));
 
     ksession.insert(employee);
     ksession.insert(shift1);
@@ -75,12 +80,14 @@ public class MinimumRestPeriodTest extends ConstraintRuleTestBase {
     Shift shift1 = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 01:00:00", "2018-01-17 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 01:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 02:00:00", dtf));
 
     Shift shift2 = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 06:30:00", "2018-01-17 08:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 06:30:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 08:00:00", dtf));
 
     ksession.insert(employee);
     ksession.insert(shift1);
@@ -99,12 +106,14 @@ public class MinimumRestPeriodTest extends ConstraintRuleTestBase {
     Shift shift1 = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 01:00:00", "2018-01-17 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 01:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 02:00:00", dtf));
 
     Shift shift2 = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 06:30:00", "2018-01-17 08:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 06:30:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 08:00:00", dtf));
 
     EmployeeConstraintMultiplier employeeConstraintMultiplier = new EmployeeConstraintMultiplier()
         .setEmployeeId("1").setName("MINIMUM_REST_PERIOD").setMultiplier(5.0);

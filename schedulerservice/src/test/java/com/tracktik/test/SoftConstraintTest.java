@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.text.ParseException;
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -45,7 +46,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now())
         .setPost(post);
 
     ksession.insert(shift);
@@ -78,7 +80,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now())
         .setPost(post);
     EmployeeConstraintMultiplier employeeConstraintMultiplier = new EmployeeConstraintMultiplier()
         .setEmployeeId("1").setName("HAS_SOME_SOFT_SKILLS").setMultiplier(2.0);
@@ -115,7 +118,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now())
         .setPost(post);
 
     KeyValueFact keyValueFact = new KeyValueFact().setKey("SOFT_SKILL_ENABLED").setValue(true);
@@ -152,7 +156,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now())
         .setPost(post);
 
     KeyValueFact keyValueFactSoftSkill = new KeyValueFact().setKey("SOFT_SKILL_ENABLED").setValue(true);
@@ -192,7 +197,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now())
         .setPost(post);
 
     KeyValueFact keyValueFactHardSkill = new KeyValueFact().setKey("HARD_SKILL_ENABLED").setValue(true);
@@ -233,7 +239,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now())
         .setPost(post);
 
     KeyValueFact keyValueFact = new KeyValueFact().setKey("SOFT_SKILL_ENABLED").setValue(false);
@@ -268,7 +275,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now())
         .setPost(post);
 
     ksession.insert(shift);
@@ -289,7 +297,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Employee employee = new Employee().setId("1").setSiteExperience(sites);
 
     Shift shift = new Shift().setId("1").setEmployee(employee).setPost(new Post().setSite(site1))
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()));
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now());
 
     ksession.insert(shift);
 
@@ -310,7 +319,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Employee employee = new Employee().setId("1").setSiteExperience(sites);
 
     Shift shift = new Shift().setId("1").setEmployee(employee).setPost(new Post().setSite(site1))
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()));
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now());
 
     ksession.insert(employee);
     ksession.insert(shift);
@@ -332,7 +342,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Employee employee = new Employee().setId("1").setSiteExperience(sites);
 
     Shift shift = new Shift().setId("1").setEmployee(employee).setPost(new Post().setSite(site1))
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()));
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now());
     EmployeeConstraintMultiplier employeeConstraintMultiplier = new EmployeeConstraintMultiplier()
         .setEmployeeId("1").setName("HAS_SITE_EXPERIENCE").setMultiplier(2.0);
 
@@ -364,7 +375,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
         .setId("1").setSiteExperience(sites).setPostExperience(posts);
 
     Shift shift = new Shift().setId("1").setEmployee(employee).setPost(post1)
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()));
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now());
 
     ksession.insert(shift);
 
@@ -385,7 +397,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Post post = new Post()
         .setSite(site).setId("3").setPayRate(5000L).setBillRate(7500L).setPayType(PayType.POST_RATE);
     Shift shift = new Shift().setId("4")
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now())
         .setEmployee(employee).setPost(post);
 
     EmployeeSiteDistance esd = new EmployeeSiteDistance().setDistance(1L).setEmployeeId(employee.getId()).setSiteId(site.getId());
@@ -425,7 +438,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Post post = new Post()
         .setSite(site).setId("3").setPayRate(5000L).setBillRate(7500L).setPayType(PayType.POST_RATE);
     Shift shift = new Shift().setId("4")
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now())
         .setEmployee(employee).setPost(post);
 
     EmployeeSiteDistance esd = new EmployeeSiteDistance().setDistance(1L).setEmployeeId(employee.getId()).setSiteId(site.getId());
@@ -468,7 +482,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Post post = new Post()
         .setSite(site).setId("3").setPayRate(5000L).setBillRate(7500L).setPayType(PayType.POST_RATE);
     Shift shift = new Shift().setId("4")
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now())
         .setEmployee(employee).setPost(post);
 
     EmployeeSiteDistance esd = new EmployeeSiteDistance().setDistance(20L).setEmployeeId(employee.getId()).setSiteId(site.getId());
@@ -509,7 +524,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Post post = new Post()
         .setSite(site).setId("3").setPayRate(5000L).setBillRate(7500L).setPayType(PayType.POST_RATE);
     Shift shift = new Shift().setId("4")
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now())
         .setEmployee(employee).setPost(post);
 
     EmployeeSiteDistance esd = new EmployeeSiteDistance().setDistance(30L).setEmployeeId(employee.getId()).setSiteId(site.getId());
@@ -550,7 +566,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Post post = new Post()
         .setSite(site).setId("3").setPayRate(5000L).setBillRate(7500L).setPayType(PayType.POST_RATE);
     Shift shift = new Shift().setId("4")
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now())
         .setEmployee(employee).setPost(post);
 
     EmployeeSiteDistance esd = new EmployeeSiteDistance().setDistance(60L).setEmployeeId(employee.getId()).setSiteId(site.getId());
@@ -590,7 +607,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Post post = new Post()
         .setSite(site).setId("3").setPayRate(5000L).setBillRate(7500L).setPayType(PayType.POST_RATE);
     Shift shift = new Shift().setId("4")
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now())
         .setEmployee(employee).setPost(post);
 
     ksession.insert(site);
@@ -616,7 +634,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Post post = new Post()
         .setSite(site).setId("3").setPayRate(5000L).setBillRate(7500L).setPayType(PayType.POST_RATE);
     Shift shift = new Shift().setId("4")
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now())
         .setEmployee(employee).setPost(post);
 
     ksession.insert(site);
@@ -640,7 +659,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Post post = new Post()
         .setSite(site).setId("3");
     Shift shift = new Shift().setId("4")
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()))
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now())
         .setEmployee(employee).setPost(post);
 
     SiteBan ban = new SiteBan().setEmployeeId("200").setSiteId("1");
@@ -666,7 +686,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
 
     Post post = new Post().setSite(site).setId("3");
     Shift shift = new Shift().setId("4").setEmployee(employee).setPost(post)
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()));
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now());
 
     ksession.insert(site);
     ksession.insert(employee);
@@ -688,7 +709,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
 
     Post post = new Post().setSite(site).setId("3");
     Shift shift = new Shift().setId("4").setEmployee(employee).setPost(post)
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()));
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now());
 
     EmployeeConstraintMultiplier employeeConstraintMultiplier = new EmployeeConstraintMultiplier()
         .setEmployeeId("2").setName("EMPLOYEE_HAS_SENIORITY").setMultiplier(2.0);
@@ -713,7 +735,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
 
     Post post = new Post().setSite(site).setId("3");
     Shift shift = new Shift().setId("4").setEmployee(employee).setPost(post)
-        .setTimeSlot(new TimeSlot().setStart(new Date()).setEnd(new Date()));
+        .setStart(LocalDateTime.now())
+        .setEnd(LocalDateTime.now());
 
     ksession.insert(site);
     ksession.insert(employee);
@@ -734,12 +757,14 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift1 = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 12:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 12:00:00", dtf));
 
     Shift shift2 = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 13:00:00", "2018-01-17 14:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 13:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 14:00:00", dtf));
 
     KeyValueFact ruleEnabled = new KeyValueFact().setKey("LESS_THAN_EXPECTED_ENABLED").setValue(true);
     KeyValueFact impact = new KeyValueFact().setKey("LESS_THAN_EXPECTED_HOURS_IMPACT").setValue(5L);
@@ -763,12 +788,15 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift1 = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 12:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 12:00:00", dtf));
 
     Shift shift2 = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 13:00:00", "2018-01-17 14:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 13:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 14:00:00", dtf));
+
     EmployeeConstraintMultiplier employeeConstraintMultiplier = new EmployeeConstraintMultiplier()
         .setEmployeeId("1").setName("LESS_THAN_EXPECTED_HOURS").setMultiplier(2.0);
 
@@ -795,12 +823,14 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift1 = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 01:00:00", "2018-01-17 6:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 01:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 06:00:00", dtf));
 
     Shift shift2 = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 07:00:00", "2018-01-17 12:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 07:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 12:00:00", dtf));
 
     KeyValueFact ruleEnabled = new KeyValueFact().setKey("MORE_THAN_EXPECTED_ENABLED").setValue(true);
     KeyValueFact impact = new KeyValueFact().setKey("MORE_THAN_EXPECTED_HOURS_IMPACT").setValue(5L);
@@ -824,12 +854,14 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift1 = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 01:00:00", "2018-01-17 6:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 01:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 06:00:00", dtf));
 
     Shift shift2 = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 07:00:00", "2018-01-17 12:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 07:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 12:00:00", dtf));
 
     EmployeeConstraintMultiplier employeeConstraintMultiplier = new EmployeeConstraintMultiplier()
         .setEmployeeId("1").setName("MORE_THAN_EXPECTED_HOURS").setMultiplier(2.0);
@@ -857,7 +889,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 11:30:00", dtf));
 
     ksession.insert(employee);
     ksession.insert(shift);
@@ -876,7 +909,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 11:30:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.NO)
@@ -902,7 +936,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 11:30:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.NO)
@@ -931,7 +966,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 11:30:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.NO)
@@ -963,7 +999,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 11:30:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.MAYBE)
@@ -988,13 +1025,15 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift1 = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 11:30:00", dtf));
 
 
     Shift shift2 = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-18 11:00:00", "2018-01-18 11:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-18 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-18 11:30:00", dtf));
 
     ksession.insert(employee);
     ksession.insert(shift1);
@@ -1012,13 +1051,15 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift1 = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-16 11:00:00", "2018-01-16 11:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-16 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-16 11:30:00", dtf));
 
 
     Shift shift2 = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-18 11:00:00", "2018-01-18 11:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-18 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-18 11:30:00", dtf));
 
     ksession.insert(employee);
     ksession.insert(shift1);
@@ -1038,7 +1079,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 11:30:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.MAYBE)
@@ -1068,7 +1110,8 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 11:30:00", dtf));
 
     EmployeeAvailability availability = new EmployeeAvailability()
         .setEmployeeId("1").setType(AvailabilityType.MAYBE)

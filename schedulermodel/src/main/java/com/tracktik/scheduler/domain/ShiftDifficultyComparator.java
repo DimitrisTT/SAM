@@ -7,7 +7,7 @@ public class ShiftDifficultyComparator implements Comparator<Shift>, Serializabl
 
   @Override
   public int compare(Shift shift1, Shift shift2) {
-    return shift1.getTimeSlot().getStart().compareTo(shift2.getTimeSlot().getStart());
+    return shift1.getStart().compareTo(shift2.getStart());
   }
 
 }

@@ -28,9 +28,54 @@ public class RequestMarshallingTest {
       RequestForScheduling request = mapper.readValue(new File("src/test/data/parameterized.json"), RequestForScheduling.class);
       System.out.println(request);
       assert(request.employee_multipliers.containsKey("1235"));
-      Schedule schedule= RequestResponseMapper.requestToSchedule(UUID.randomUUID().toString(), request);
+      Schedule schedule = RequestResponseMapper.requestToSchedule(UUID.randomUUID().toString(), request);
       Optional<EmployeeConstraintMultiplier> optional = schedule.getEmployeeConstraintMultipliers().stream().filter(employeeConstraintMultiplier -> employeeConstraintMultiplier.getEmployeeId().equals("1235") && employeeConstraintMultiplier.getName().equals("MINIMUM_REST_PERIOD")).findAny();
       assert optional.isPresent();
+    } catch (IOException e) {
+      e.printStackTrace();
+      assert(false);
+    }
+
+  }
+
+  @Test
+  public void overtimeMappedToEmployee() throws ParseException {
+
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+      RequestForScheduling request = mapper.readValue(new File("src/test/data/overtime.json"), RequestForScheduling.class);
+      System.out.println(request);
+      Schedule schedule = RequestResponseMapper.requestToSchedule(UUID.randomUUID().toString(), request);
+      assert schedule.getEmployees().stream().anyMatch(employee -> employee.getOvertimeRuleId().equals("1"));
+      assert schedule.getEmployees().stream().anyMatch(employee -> employee.getPayScheduleId().equals("1"));
+    } catch (IOException e) {
+      e.printStackTrace();
+      assert(false);
+    }
+
+  }
+  @Test
+  public void overtimeRules() throws ParseException {
+
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+      RequestForScheduling request = mapper.readValue(new File("src/test/data/overtime.json"), RequestForScheduling.class);
+      Schedule schedule = RequestResponseMapper.requestToSchedule(UUID.randomUUID().toString(), request);
+      assert schedule.getPeriodOvertimeDefinitions().stream().anyMatch(periodOvertimeDefinition -> periodOvertimeDefinition.getName().equals("Standard. Over 40/week"));
+    } catch (IOException e) {
+      e.printStackTrace();
+      assert(false);
+    }
+
+  }
+  @Test
+  public void holidayPeriods() throws ParseException {
+
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+      RequestForScheduling request = mapper.readValue(new File("src/test/data/export.json"), RequestForScheduling.class);
+      Schedule schedule = RequestResponseMapper.requestToSchedule(UUID.randomUUID().toString(), request);
+      assert schedule.getHolidayPeriods().size() != 0;
     } catch (IOException e) {
       e.printStackTrace();
       assert(false);

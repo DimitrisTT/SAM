@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-VERSION="0.14"
+VERSION="0.16"
 scp -C schedulerapi/target/scheduler-api-${VERSION}.jar ubuntu@ec2-54-91-172-100.compute-1.amazonaws.com:/usr/local/scheduler
 scp -C schedulerservice/target/scheduler-service-${VERSION}.jar ubuntu@ec2-54-91-172-100.compute-1.amazonaws.com:/usr/local/scheduler
 ssh ubuntu@ec2-54-91-172-100.compute-1.amazonaws.com 'rm -f /usr/local/scheduler/scheduler-api.jar'

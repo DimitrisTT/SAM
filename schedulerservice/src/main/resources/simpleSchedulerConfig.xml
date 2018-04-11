@@ -6,6 +6,7 @@
     </scanAnnotatedClasses>
     <!-- Score configuration -->
     <scoreDirectorFactory>
+        <scoreDrl>functions.drl</scoreDrl>
         <scoreDrl>schedulerScoreRules.drl</scoreDrl>
         <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
         <scoreDrl>experienceConstraintRules.drl</scoreDrl>

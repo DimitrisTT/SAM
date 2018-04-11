@@ -10,7 +10,11 @@ import java.util.concurrent.TimeUnit
 global HardSoftLongScoreHolder scoreHolder;
 
 function Long numberOfMatches(Collection first, Collection other) {
-    return first.stream().filter(item -> other.contains(item)).count();
+    long count = 0;
+    for (Object item : first) {
+        if (other.contains(item)) count += 1;
+    }
+    return count;
 }
 
 // HARD CONSTRAINTS

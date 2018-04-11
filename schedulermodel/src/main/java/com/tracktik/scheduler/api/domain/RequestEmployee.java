@@ -16,7 +16,10 @@ public class RequestEmployee {
   public String seniority;
   public String preferred_hours;
   public String minimum_rest_period;
-  public String previous_last_end_date_time;
+  //public String previous_last_end_date_time;
   public Map<String, Object> tag_values = new HashMap<>();
+  public String overtime_rule_id;
+  public String pay_schedule_id;
+  public String previous_period_last_end_date_time;
 
 }

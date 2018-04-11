@@ -1,16 +1,15 @@
 package com.tracktik.scheduler.util;
 
 import com.tracktik.scheduler.api.domain.RequestForScheduling;
+import com.tracktik.scheduler.api.domain.RequestOvertimeRule;
 import com.tracktik.scheduler.domain.*;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalTime;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,7 +17,7 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 
 public class RequestResponseMapper {
 
-  private static final SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
   private static final Logger logger = LoggerFactory.getLogger(RequestResponseMapper.class);
 
   private static Long distance(Double geo1_latitude, Double geo1_longitude, Double geo2_latitude, Double geo2_longitude) {
@@ -34,17 +33,11 @@ public class RequestResponseMapper {
     Set<Skill> skillSet = request.skills.stream().parallel().map(requestSkill -> new Skill(requestSkill.id, requestSkill.description)).collect(Collectors.toSet());
 
     schedule.setSites(
-        request.sites.stream().map(old -> {
-          logger.debug("mapping: " + old);
-          Site site = new Site()
-              .setId(old.id)
-              .setName(old.name);
-          if (old.geo_lat != null && old.geo_lon != null) {
-            site.setLatitude(new Double(old.geo_lat)).setLongitude(new Double(old.geo_lon));
-          }
-
-          return site;
-        }).collect(Collectors.toSet())
+        request.sites.stream().map(old -> new Site()
+            .setId(old.id)
+            .setName(old.name)
+            .setLatitude(StringUtils.isBlank(old.geo_lat) ? null : new Double(old.geo_lat))
+            .setLongitude(StringUtils.isBlank(old.geo_lon) ? null : new Double(old.geo_lon))).collect(Collectors.toSet())
     );
 
     //Map<String, Skill> skillsMap = skills.stream().collect(Collectors.toMap(skill -> skill.id, skill -> new Skill(skill.id, skill.description)));
@@ -52,12 +45,12 @@ public class RequestResponseMapper {
     schedule.setPosts(request.posts.stream().map(old -> {
           logger.debug("mapping post: {}", old);
           Post post = new Post();
-          if (old.bill_rate != null) {
+          if (!StringUtils.isBlank(old.bill_rate)) {
             Float billRate = new Float(old.bill_rate);
             billRate = billRate * 100;
             post.setBillRate(billRate.longValue());
           }
-          if (old.pay_rate != null) {
+          if (!StringUtils.isBlank(old.pay_rate)) {
             Float payRate = new Float(old.pay_rate);
             payRate = payRate * 100;
             post.setPayRate(payRate.longValue());
@@ -84,15 +77,19 @@ public class RequestResponseMapper {
     );
 
     request.employees.forEach(employee -> {
+      logger.debug("Mapping employee: {}", employee);
       schedule.addEmployee(
           new Employee()
               .setId(employee.id)
               .setAvailabilityPreference(null)  //TODO account
               .setCostFromFloatString(employee.pay_rate)
               .setName(employee.name)
-              .setPreferredHours(employee.preferred_hours == null ? null : new Long(employee.preferred_hours))  //TODO account for this in the request payload
-              .setLatitude(employee.geo_lat == null ? null : new Double(employee.geo_lat))
-              .setLongitude(employee.geo_lon == null ? null : new Double(employee.geo_lon))
+              .setOvertimeRuleId(employee.overtime_rule_id)
+              .setPayScheduleId(employee.pay_schedule_id)
+              .setPreviousPayPeriodEnd(StringUtils.isBlank(employee.previous_period_last_end_date_time) ? null : LocalDateTime.parse(employee.previous_period_last_end_date_time, dateTimeFormatter))
+              .setPreferredHours(StringUtils.isBlank(employee.preferred_hours) ? null : new Long(employee.preferred_hours))
+              .setLatitude(StringUtils.isBlank(employee.geo_lat) ? null : new Double(employee.geo_lat))
+              .setLongitude(StringUtils.isBlank(employee.geo_lon) ? null : new Double(employee.geo_lon))
               .setSiteExperience(
                   request.employees_to_sites.stream().parallel()
                       .filter(employee_to_site -> employee_to_site.user_id.equals(employee.id))
@@ -116,7 +113,7 @@ public class RequestResponseMapper {
                       .map(skill_id -> skillSet.stream().filter(skill -> skill.getId().equals(skill_id)).findAny().get())
                       .collect(Collectors.toList())
               )
-              .setSeniority(employee.seniority == null ? null : new Integer(employee.seniority))
+              .setSeniority(StringUtils.isBlank(employee.seniority) ? null : new Integer(employee.seniority))
               .setMinimumRestPeriod(employee.minimum_rest_period == null ? new Long(8) : new Long(employee.minimum_rest_period))
       );
     });
@@ -124,15 +121,12 @@ public class RequestResponseMapper {
     schedule.setShifts(
         request.shifts.stream().map(old -> {
           logger.debug("Request shift being parsed: {}", old);
-          Date startDate = parseDate(old.start_date_time);
-          Date endDate = parseDate(old.end_date_time);
           //Make sure the end is exclusive
-          endDate = new Date(endDate.toInstant().minus(1, SECONDS).toEpochMilli());
           Shift shift = new Shift()
               .setId(old.shift_id)
               .setPlan(old.plan == null || old.plan.equals("1"))
-              //The end of the timeslot will be exclusive
-              .setTimeSlot(new TimeSlot().setStart(startDate).setEnd(endDate))
+              .setStart(LocalDateTime.parse(old.start_date_time, dateTimeFormatter))
+              .setEnd(LocalDateTime.parse(old.end_date_time, dateTimeFormatter).minus(1L, SECONDS))
               .setStartTimeStamp(old.start_timestamp)
               .setEndTimeStamp(old.end_timestamp)
               .setDuration(new Float(old.duration))
@@ -147,7 +141,10 @@ public class RequestResponseMapper {
     );
 
     schedule.setTimesOff(request.time_off.stream().map(requestTimeOff -> {
-      return new TimeOff(requestTimeOff.employee_id, new Date(new Long(requestTimeOff.start_time)), new Date(new Long(requestTimeOff.end_time)));
+      return new TimeOff()
+          .setEmployeeId(requestTimeOff.employee_id)
+          .setStart(LocalDateTime.ofInstant(Instant.ofEpochMilli(new Long(requestTimeOff.start_time)), ZoneId.systemDefault()))
+          .setEnd(LocalDateTime.ofInstant(Instant.ofEpochMilli(new Long(requestTimeOff.end_time)), ZoneId.systemDefault()));
     }).collect(Collectors.toSet()));
 
     schedule.setEmployeeAvailabilities(
@@ -195,14 +192,71 @@ public class RequestResponseMapper {
         }).collect(Collectors.toSet())
     );
 
+    Set<RequestOvertimeRule> perPeriodOvertimeRules = request.overtime_rules.stream().filter(requestOvertimeRule -> requestOvertimeRule.rule.containsKey("RULE_HOURS_PER_PERIOD")).collect(Collectors.toSet());
+    perPeriodOvertimeRules.forEach(requestOvertimeRule -> {
+      requestOvertimeRule.rule.values().forEach(ruleList -> {
+          ruleList.forEach(list -> {
+            schedule.getPeriodOvertimeDefinitions().add(new PeriodOvertimeDefinition()
+                .setName(requestOvertimeRule.name)
+                .setId(requestOvertimeRule.id)
+                .setMinimumHours((long) (((Integer) list.get(0))))
+                .setMaximumHours(list.get(1).equals("INF") ? Long.MAX_VALUE : (long) (((Integer) list.get(1))))
+                .setOvertimeType((String)list.get(2)));
+          });
+      });
+    });
+
+    Set<RequestOvertimeRule> perDayOvertimeRules = request.overtime_rules.stream().filter(requestOvertimeRule -> requestOvertimeRule.rule.containsKey("RULE_HOURS_PER_DAY")).collect(Collectors.toSet());
+    perDayOvertimeRules.forEach(requestOvertimeRule -> {
+      requestOvertimeRule.rule.values().forEach(ruleList -> {
+        ruleList.forEach(list -> {
+          schedule.getDayOvertimeDefinitions().add(new DayOvertimeDefinition()
+              .setName(requestOvertimeRule.name)
+              .setId(requestOvertimeRule.id)
+              .setMinimumHours(new Long(((Integer) list.get(0))))
+              .setMaximumHours(list.get(1).equals("INF") ? Long.MAX_VALUE : new Long(((Integer) list.get(1))))
+              .setOvertimeType((String)list.get(2)));
+        });
+      });
+    });
+
+    Set<RequestOvertimeRule> consecutiveDaysOvertimeRules = request.overtime_rules.stream().filter(requestOvertimeRule -> requestOvertimeRule.rule.containsKey("RULE_CONSECUTIVE_DAYS")).collect(Collectors.toSet());
+    consecutiveDaysOvertimeRules.forEach(requestOvertimeRule -> {
+      requestOvertimeRule.rule.values().forEach(ruleList -> {
+        ruleList.forEach(list -> {
+          schedule.getConsecutiveDaysOvertimeDefinitions().add(new ConsecutiveDaysOvertimeDefinition()
+              .setName(requestOvertimeRule.name)
+              .setId(requestOvertimeRule.id)
+              .setMinimumDay(new Long(((Integer) list.get(0))))
+              .setMaximumDay(list.get(1).equals("INF") ? Long.MAX_VALUE : new Long(((Integer) list.get(1))))
+              .setOvertimeType((String)list.get(2))
+              .setMinimumHours(new Long(((Integer) list.get(0))))
+              .setMaximumHours(list.get(1).equals("INF") ? Long.MAX_VALUE : new Long(((Integer) list.get(1)))));
+        });
+      });
+    });
+
+    schedule.setPayrollSchedules(request.payroll_schedules.stream().map(requestPayrollSchedule -> {
+
+      return new PayrollSchedule()
+          .setId(requestPayrollSchedule.id)
+          .setName(requestPayrollSchedule.name)
+          .setAlignHolidaysWithPeriodStartTime(requestPayrollSchedule.align_holidays_with_period_start_time.equals("1"))
+          .setCountHolidayHoursTowardsPeriodOvertime(requestPayrollSchedule.count_holiday_hours_towards_period_ot.equals("1"))
+          .setOverlappingMethod(requestPayrollSchedule.overlapping_method.equals("cutHoursRule") ? OverlappingMethodType.CUT : OverlappingMethodType.SPAN)
+          .setFrequency(requestPayrollSchedule.frequency)
+          .setPeriodStartDate(LocalDate.parse(requestPayrollSchedule.period_start_date))
+          .setPeriodStartTime(LocalTime.parse(requestPayrollSchedule.period_start_time));
+    }).collect(Collectors.toSet()));
+
+    schedule.setHolidayPeriods(request.holidays.stream().map(requestHoliday -> {
+      return new HolidayPeriod()
+          .setPostId(requestHoliday.post_id)
+          .setStart(LocalDateTime.ofEpochSecond(new Long(requestHoliday.start_timestamp), 0, OffsetDateTime.now().getOffset()))
+          .setEnd(LocalDateTime.ofEpochSecond(new Long(requestHoliday.start_timestamp), 0, OffsetDateTime.now().getOffset()));
+    }).collect(Collectors.toSet()));
+
     return schedule;
   }
 
-  private static Date parseDate(String sDateTime) {
-    try {
-      return dateTimeFormatter.parse(sDateTime);
-    } catch (ParseException e) {
-      throw new RuntimeException("Unable to parse: " + sDateTime, e);
-    }
-  }
 }

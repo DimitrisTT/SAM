@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,7 +29,8 @@ public class TagValueTest extends ConstraintRuleTestBase {
     Shift shift1 = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 01:00:00", "2018-01-17 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 01:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 02:00:00", dtf));
 
     ksession.insert(employee);
     ksession.insert(shift1);
@@ -53,7 +55,8 @@ public class TagValueTest extends ConstraintRuleTestBase {
         .setId("1")
         .setTags(tags)
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 01:00:00", "2018-01-17 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 01:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 02:00:00", dtf));
 
     ksession.insert(employee);
     ksession.insert(shift1);
@@ -78,7 +81,8 @@ public class TagValueTest extends ConstraintRuleTestBase {
         .setId("1")
         .setTags(tags)
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 01:00:00", "2018-01-17 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 01:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 02:00:00", dtf));
 
     ksession.insert(employee);
     ksession.insert(shift1);
@@ -105,7 +109,8 @@ public class TagValueTest extends ConstraintRuleTestBase {
         .setId("1")
         .setTags(tags)
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 01:00:00", "2018-01-17 02:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 01:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 02:00:00", dtf));
 
     ksession.insert(employee);
     ksession.insert(shift1);

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Accessors(chain = true)
@@ -24,9 +25,12 @@ public class Employee {
   private Integer seniority;
   private Long minimumRestPeriod;
   private Map<String, Long> tagValues = new HashMap<>();
+  private String overtimeRuleId;
+  private String payScheduleId;
+  private LocalDateTime previousPayPeriodEnd;
 
   public Employee setCostFromFloatString(String pay_rate) {
-    if (pay_rate != null) {
+    if (pay_rate != null && !pay_rate.isEmpty()) {
       Float rate = new Float(pay_rate);
       rate = rate * 100;
       this.setCost(rate.longValue());

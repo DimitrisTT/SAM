@@ -20,17 +20,7 @@ import java.util.Date;
 public class TimeOff {
 
   private String employeeId;
-  private Date startTime;
-  private Date endTime;
-
-  @JsonIgnore
-  public LocalTime getStartLocalTime() {
-    return LocalDateTime.ofInstant(startTime.toInstant(), ZoneId.systemDefault()).toLocalTime();
-  }
-
-  @JsonIgnore
-  public LocalTime getEndLocalTime() {
-    return LocalDateTime.ofInstant(endTime.toInstant(), ZoneId.systemDefault()).toLocalTime();
-  }
+  private LocalDateTime start;
+  private LocalDateTime end;
 
 }

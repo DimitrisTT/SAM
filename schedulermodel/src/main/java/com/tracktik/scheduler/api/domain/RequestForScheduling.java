@@ -12,8 +12,6 @@ import java.util.Set;
 @ToString
 public class RequestForScheduling {
 
-  Logger logger = LoggerFactory.getLogger(RequestForScheduling.class);
-
   public Set<RequestShift> shifts = new HashSet<>();
   public Set<RequestPost> posts = new HashSet<>();
   public Set<RequestSkill> skills = new HashSet<>();
@@ -28,5 +26,8 @@ public class RequestForScheduling {
   public Map<String, Object> facts = new HashMap<>();
   public Set<RequestSiteBan> site_bans = new HashSet<>();
   public Map<String, Map<String, String>> employee_multipliers = new HashMap<>();
+  public Set<RequestOvertimeRule> overtime_rules = new HashSet<>();
+  public Set<RequestPayrollSchedule> payroll_schedules = new HashSet<>();
+  public Set<RequestHoliday> holidays = new HashSet<>();
 
 }

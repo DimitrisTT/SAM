@@ -39,7 +39,7 @@ end
 /*
 rule "MAXIMIZE_PROFIT"
     when
-        Shift($post: post, $timeSlot : timeSlot)
+        Shift($post: post)
         Post(this == $post, $billRate: billRate, $payRate: payRate)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, ($billRate - $payRate)/100L);

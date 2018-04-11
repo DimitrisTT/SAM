@@ -61,6 +61,21 @@ public class Schedule {
   @ProblemFactCollectionProperty
   private Set<EmployeeConstraintMultiplier> employeeConstraintMultipliers = new HashSet<>();
 
+  @ProblemFactCollectionProperty
+  private Set<PeriodOvertimeDefinition> periodOvertimeDefinitions = new HashSet<>();
+
+  @ProblemFactCollectionProperty
+  private Set<DayOvertimeDefinition> dayOvertimeDefinitions = new HashSet<>();
+
+  @ProblemFactCollectionProperty
+  private Set<ConsecutiveDaysOvertimeDefinition> consecutiveDaysOvertimeDefinitions = new HashSet<>();
+
+  @ProblemFactCollectionProperty
+  private Set<PayrollSchedule> payrollSchedules = new HashSet<>();
+
+  @ProblemFactCollectionProperty
+  private Set<HolidayPeriod> holidayPeriods = new HashSet<>();
+
   public Schedule addEmployee(Employee employee) {
     employees.add(employee);
     return this;

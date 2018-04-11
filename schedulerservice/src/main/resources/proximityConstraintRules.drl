@@ -6,12 +6,6 @@ import java.util.*;
 
 global HardSoftLongScoreHolder scoreHolder;
 
-//The distance is now calculated in Java. The function is left here in case it becomes useful in the future.
-function Long calculateDistance(Double geo1_latitude, Double geo1_longitude, Double geo2_latitude, Double geo2_longitude ) {
-    Double distance = ((Math.acos(Math.sin(geo1_latitude * Math.PI / 180D) * Math.sin(geo2_latitude * Math.PI / 180D) + Math.cos(geo1_latitude * Math.PI / 180D) * Math.cos(geo2_latitude * Math.PI / 180D) * Math.cos((geo1_longitude - geo2_longitude) * Math.PI / 180D)) * 180 / Math.PI) * 60 * 1.1515D);
-    return distance.longValue();
-}
-
 /*
     Adds a negative soft value when an employee is assigned to a site that is far from home.
     This rule will only be triggered if enabled with a KeyValueFact of FAR_FROM_SITE_ENABLED.

@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -23,12 +24,14 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     Shift shift1 = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 10:00:00", "2018-01-17 10:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 10:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 10:30:00", dtf));
 
     Shift shift2 = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 10:15:00", "2018-01-17 10:45:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 10:15:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 10:45:00", dtf));
 
     ksession.insert(shift1);
     ksession.insert(shift2);
@@ -46,12 +49,14 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     Shift shift1 = new Shift()
         .setId("1")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-18 10:00:00", "2018-01-18 10:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-18 10:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-18 10:30:00", dtf));
 
     Shift shift2 = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 11:30:00", dtf));
 
     ksession.insert(shift1);
     ksession.insert(shift2);
@@ -87,7 +92,8 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
         .setId("1")
         .setEmployee(employee)
         .setPost(post)
-        .setTimeSlot(new TimeSlot("2018-01-17 04:00:00", "2018-01-17 05:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 04:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 05:00:00", dtf));
 
     ksession.insert(shift);
 
@@ -122,7 +128,8 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
         .setId("1")
         .setEmployee(employee)
         .setPost(post)
-        .setTimeSlot(new TimeSlot("2018-01-17 04:00:00", "2018-01-17 05:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 04:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 05:00:00", dtf));
 
     KeyValueFact hardSkillsEnabled = new KeyValueFact().setKey("HARD_SKILL_ENABLED").setValue(true);
 
@@ -159,7 +166,8 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
         .setId("1")
         .setEmployee(employee)
         .setPost(post)
-        .setTimeSlot(new TimeSlot("2018-01-17 04:00:00", "2018-01-17 05:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 04:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 05:00:00", dtf));
 
     ksession.insert(shift);
 
@@ -194,7 +202,8 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
         .setId("1")
         .setEmployee(employee)
         .setPost(post)
-        .setTimeSlot(new TimeSlot("2018-01-17 04:00:00", "2018-01-17 05:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 04:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 05:00:00", dtf));
 
     KeyValueFact hardSkillsDisabled = new KeyValueFact().setKey("HARD_SKILL_ENABLED").setValue(false);
 
@@ -217,7 +226,8 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
         .setSite(site).setId("3");
     Shift shift = new Shift().setId("4")
         .setEmployee(employee).setPost(post)
-        .setTimeSlot(new TimeSlot("2018-01-17 04:00:00", "2018-01-17 05:00:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 04:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 05:00:00", dtf));
 
     SiteBan ban = new SiteBan().setEmployeeId("2").setSiteId("1");
 
@@ -241,12 +251,12 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 11:30:00", dtf));
 
-    Date startTime = sdf.parse("2018-01-01 00:00:00");
-    Date endTime = sdf.parse("2018-01-20 00:00:00");
-
-    TimeOff timeOff = new TimeOff().setEmployeeId("1").setStartTime(startTime).setEndTime(endTime);
+    TimeOff timeOff = new TimeOff().setEmployeeId("1")
+        .setStart(LocalDateTime.parse("2018-01-01 00:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-20 00:00:00", dtf));
 
     ksession.insert(employee);
     ksession.insert(shift);
@@ -265,12 +275,12 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 11:30:00", dtf));
 
-    Date startTime = sdf.parse("2018-01-01 00:00:00");
-    Date endTime = sdf.parse("2018-01-17 11:00:01");
-
-    TimeOff timeOff = new TimeOff().setEmployeeId("1").setStartTime(startTime).setEndTime(endTime);
+    TimeOff timeOff = new TimeOff().setEmployeeId("1")
+        .setStart(LocalDateTime.parse("2018-01-01 00:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 11:00:01", dtf));
 
     ksession.insert(employee);
     ksession.insert(shift);
@@ -289,12 +299,12 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 11:30:00", dtf));
 
-    Date startTime = sdf.parse("2018-01-17 11:29:00");
-    Date endTime = sdf.parse("2018-01-20 00:00:00");
-
-    TimeOff timeOff = new TimeOff().setEmployeeId("1").setStartTime(startTime).setEndTime(endTime);
+    TimeOff timeOff = new TimeOff().setEmployeeId("1")
+        .setStart(LocalDateTime.parse("2018-01-17 11:29:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-20 00:00:00", dtf));
 
     ksession.insert(employee);
     ksession.insert(shift);
@@ -313,12 +323,12 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
+        .setStart(LocalDateTime.parse("2018-01-17 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 11:30:00", dtf));
 
-    Date startTime = sdf.parse("2018-01-19 00:00:00");
-    Date endTime = sdf.parse("2018-01-20 00:00:00");
-
-    TimeOff timeOff = new TimeOff().setEmployeeId("1").setStartTime(startTime).setEndTime(endTime);
+    TimeOff timeOff = new TimeOff().setEmployeeId("1")
+        .setStart(LocalDateTime.parse("2018-01-19 00:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-20 00:00:00", dtf));
 
     ksession.insert(employee);
     ksession.insert(shift);
@@ -337,10 +347,8 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     Shift shift = new Shift()
         .setId("2")
         .setEmployee(employee)
-        .setTimeSlot(new TimeSlot("2018-01-17 11:00:00", "2018-01-17 11:30:00"));
-
-    Date startTime = sdf.parse("2018-01-19 00:00:00");
-    Date endTime = sdf.parse("2018-01-20 00:00:00");
+        .setStart(LocalDateTime.parse("2018-01-17 11:00:00", dtf))
+        .setEnd(LocalDateTime.parse("2018-01-17 11:30:00", dtf));
 
     ksession.insert(employee);
     ksession.insert(shift);
