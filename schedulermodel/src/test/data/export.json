@@ -23,6 +23,77 @@
         "LESS_THAN_EXPECTED_HOURS_ENABLED": true,
         "LESS_THAN_EXPECTED_HOURS_IMPACT": 200
     },
+    "requestFacts": [
+        {
+            "type": "FAR_FROM_SITE",
+            "active": true,
+            "impact": -70,
+            "isHardImpact": false,
+            "definition": 100
+        },
+        {
+            "type": "FAIRLY_FAR_FROM_SITE",
+            "active": true,
+            "impact": -50,
+            "isHardImpact": false,
+            "definition": 50
+        },
+        {
+            "type": "CLOSE_BY_SITE",
+            "active": true,
+            "impact": -50,
+            "isHardImpact": false,
+            "definition": 10
+        },
+        {
+            "type": "SOFT_SKILL_MISSING",
+            "active": true,
+            "impact": -10,
+            "isHardImpact": false
+        },
+        {
+            "type": "HARD_SKILL_MISSING",
+            "active": true,
+            "impact": -100,
+            "isHardImpact": false,
+            "isHardFailure": true
+        },
+        {
+            "type": "MAYBE_AVAILABLE",
+            "impact": -20
+        },
+        {
+            "type": "NOT_AVAILABLE",
+            "active": true,
+            "impact": -100,
+            "isHardImpact": true
+        },
+        {
+            "type": "MINIMUM_REST_PERIOD",
+            "active": true,
+            "impact": -50,
+            "isHardImpact": false
+        },        {
+            "type": "LESS_THAN_EXPECTED_HOURS",
+            "active": true,
+            "impact": -10,
+            "isHardImpact": false
+        },        {
+            "type": "MORE_THAN_EXPECTED_HOURS",
+            "active": true,
+            "impact": -10,
+            "isHardImpact": false
+        },        {
+            "type": "NO_EXPERIENCE_AT_SITE",
+            "active": true,
+            "impact": -50,
+            "isHardImpact": false
+        },        {
+            "type": "NOT_ASSIGNED_TO_SITE",
+            "active": true,
+            "impact": -100
+        }
+    ],
     "holidays" : [
         {
             "post_id": "2439",

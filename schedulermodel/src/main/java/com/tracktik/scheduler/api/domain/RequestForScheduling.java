@@ -29,5 +29,6 @@ public class RequestForScheduling {
   public Set<RequestOvertimeRule> overtime_rules = new HashSet<>();
   public Set<RequestPayrollSchedule> payroll_schedules = new HashSet<>();
   public Set<RequestHoliday> holidays = new HashSet<>();
+  public Set<RequestFact> requestFacts = new HashSet<>();
 
 }

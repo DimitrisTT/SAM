@@ -76,6 +76,9 @@ public class Schedule {
   @ProblemFactCollectionProperty
   private Set<HolidayPeriod> holidayPeriods = new HashSet<>();
 
+  @ProblemFactCollectionProperty
+  private Set<ConfigFact> configFacts = new HashSet<>();
+
   public Schedule addEmployee(Employee employee) {
     employees.add(employee);
     return this;

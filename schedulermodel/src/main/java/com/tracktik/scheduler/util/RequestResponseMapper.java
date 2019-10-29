@@ -43,7 +43,7 @@ public class RequestResponseMapper {
     //Map<String, Skill> skillsMap = skills.stream().collect(Collectors.toMap(skill -> skill.id, skill -> new Skill(skill.id, skill.description)));
 
     schedule.setPosts(request.posts.stream().map(old -> {
-          logger.debug("mapping post: {}", old);
+        //  logger.debug("mapping post: {}", old);
           Post post = new Post();
           if (!StringUtils.isBlank(old.bill_rate)) {
             Float billRate = new Float(old.bill_rate);
@@ -77,7 +77,7 @@ public class RequestResponseMapper {
     );
 
     request.employees.forEach(employee -> {
-      logger.debug("Mapping employee: {}", employee);
+      //logger.debug("Mapping employee: {}", employee);
       schedule.addEmployee(
           new Employee()
               .setId(employee.id)
@@ -120,7 +120,7 @@ public class RequestResponseMapper {
 
     schedule.setShifts(
         request.shifts.stream().map(old -> {
-          logger.debug("Request shift being parsed: {}", old);
+          //logger.debug("Request shift being parsed: {}", old);
           //Make sure the end is exclusive
           Shift shift = new Shift()
               .setId(old.shift_id)
@@ -254,6 +254,17 @@ public class RequestResponseMapper {
           .setPostId(requestHoliday.post_id)
           .setStart(LocalDateTime.ofEpochSecond(new Long(requestHoliday.start_timestamp), 0, OffsetDateTime.now().getOffset()))
           .setEnd(LocalDateTime.ofEpochSecond(new Long(requestHoliday.start_timestamp), 0, OffsetDateTime.now().getOffset()));
+    }).collect(Collectors.toSet()));
+
+    schedule.setConfigFacts(request.requestFacts.stream().map(requestFact -> {
+        logger.debug("Request facts being parsed: {}", requestFact);
+        return new ConfigFact()
+                .setActive(requestFact.active)
+                .setImpact(requestFact.impact)
+                .setHardImpact(requestFact.isHardImpact)
+                .setDefinition(requestFact.definition)
+                .setType(requestFact.type.asFactType())
+                .setHardFailure(requestFact.isHardFailure);
     }).collect(Collectors.toSet()));
 
     return schedule;

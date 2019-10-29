@@ -6,6 +6,7 @@ import com.tracktik.scheduler.api.domain.RequestForScheduling;
 import com.tracktik.scheduler.domain.EmployeeConstraintMultiplier;
 import com.tracktik.scheduler.domain.Schedule;
 import com.tracktik.scheduler.util.RequestResponseMapper;
+//import jdk.internal.jline.internal.TestAccessible;
 import org.junit.Test;
 
 import java.io.File;
@@ -82,6 +83,21 @@ public class RequestMarshallingTest {
     }
 
   }
+
+  @Test
+  public void factTypes() throws ParseException {
+    ObjectMapper mapper = new ObjectMapper();
+    try{
+      RequestForScheduling request = mapper.readValue(new File("src/test/data/export.json"), RequestForScheduling.class);
+      System.out.println(request.requestFacts);
+      Schedule schedule = RequestResponseMapper.requestToSchedule(UUID.randomUUID().toString(), request);
+      assert schedule.getConfigFacts().size() == 12;
+    } catch (IOException e) {
+      e.printStackTrace();
+      assert(false);
+    }
+
+    }
 
 }
 
