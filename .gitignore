@@ -35,3 +35,4 @@ local/*
 /schedulermodel/target/
 /schedulerservice/target/
 /local/
+scheduler*.iml
