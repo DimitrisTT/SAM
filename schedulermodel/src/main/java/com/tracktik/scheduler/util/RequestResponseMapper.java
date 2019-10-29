@@ -2,6 +2,7 @@ package com.tracktik.scheduler.util;
 
 import com.tracktik.scheduler.api.domain.RequestForScheduling;
 import com.tracktik.scheduler.api.domain.RequestOvertimeRule;
+import com.tracktik.scheduler.configuration.*;
 import com.tracktik.scheduler.domain.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -258,13 +259,47 @@ public class RequestResponseMapper {
 
     schedule.setConfigFacts(request.requestFacts.stream().map(requestFact -> {
         logger.debug("Request facts being parsed: {}", requestFact);
-        return new ConfigFact()
-                .setActive(requestFact.active)
-                .setImpact(requestFact.impact)
-                .setHardImpact(requestFact.isHardImpact)
-                .setDefinition(requestFact.definition)
-                .setType(requestFact.type.asFactType())
-                .setHardFailure(requestFact.isHardFailure);
+        FactType factType = requestFact.type.asFactType();
+        ConfigFact configFact = new ConfigFact();
+        switch (factType){
+            case CLOSE_BY_SITE:
+                configFact = new CloseBySite(requestFact.active, requestFact.impact, requestFact.isHardImpact, requestFact.definition);
+                break;
+            case FAR_FROM_SITE:
+                configFact = new FarFromSite(requestFact.active, requestFact.impact, requestFact.isHardImpact, requestFact.definition);
+                break;
+            case FAIRLY_FAR_FROM_SITE:
+                configFact = new FairlyFarFromSite(requestFact.active, requestFact.impact, requestFact.isHardImpact, requestFact.definition);
+                break;
+            case HARD_SKILL_MISSING:
+                configFact = new HardSkillMissing(requestFact.impact, requestFact.active, requestFact.isHardImpact, requestFact.isHardFailure);
+                break;
+            case LESS_THAN_EXPECTED_HOURS:
+                configFact = new LessThanExpectedHours(requestFact.impact, requestFact.active, requestFact.isHardImpact);
+                break;
+            case MAYBE_AVAILABLE:
+                configFact = new MaybeAvailable(requestFact.impact, requestFact.active);
+                break;
+            case MINIMUM_REST_PERIOD:
+                configFact = new MinimumRestPeriod(requestFact.impact, requestFact.active, requestFact.isHardImpact);
+                break;
+            case MORE_THAN_EXPECTED_HOURS:
+                configFact = new MoreThanExpectedHours(requestFact.impact, requestFact.active, requestFact.isHardImpact);
+                break;
+            case NO_EXPERIENCE_AT_SITE:
+                configFact = new NoExperienceAtSite(requestFact.impact, requestFact.active, requestFact.isHardImpact);
+                break;
+            case NOT_ASSIGNED_TO_SITE:
+                configFact = new NotAssignedToSite(requestFact.impact, requestFact.active, requestFact.isHardImpact);
+                break;
+            case NOT_AVAILABLE:
+                configFact = new NotAvailable(requestFact.impact, requestFact.isHardImpact, requestFact.active);
+                break;
+            case SOFT_SKILL_MISSING:
+                configFact = new SoftSkillMissing(requestFact.impact, requestFact.active, requestFact.isHardImpact);
+                break;
+        }
+        return configFact;
     }).collect(Collectors.toSet()));
 
     return schedule;

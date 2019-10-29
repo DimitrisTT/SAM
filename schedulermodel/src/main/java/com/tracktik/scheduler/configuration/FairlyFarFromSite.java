@@ -1,15 +1,17 @@
-package com.tracktik.scheduler.domain;
+package com.tracktik.scheduler.configuration;
+
+import com.tracktik.scheduler.domain.ConfigFact;
 
 import java.util.Objects;
 
-public class FarFromSite {
+public class FairlyFarFromSite extends ConfigFact {
 
     private boolean active = true;
-    private int scoreImpact = -70;
+    private int scoreImpact = -50;
     private boolean isHardImpact = false;
-    private int definition = 100;
+    private int definition = 50;
 
-    public FarFromSite(boolean active, int scoreImpact, boolean isHardImpact, int definition) {
+    public FairlyFarFromSite(boolean active, int scoreImpact, boolean isHardImpact, int definition) {
         this.active = active;
         this.scoreImpact = scoreImpact;
         this.isHardImpact = isHardImpact;
@@ -52,7 +54,7 @@ public class FarFromSite {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FarFromSite that = (FarFromSite) o;
+        FairlyFarFromSite that = (FairlyFarFromSite) o;
         return active == that.active &&
                 scoreImpact == that.scoreImpact &&
                 isHardImpact == that.isHardImpact &&

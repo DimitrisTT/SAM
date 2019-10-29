@@ -1,8 +1,10 @@
-package com.tracktik.scheduler.domain;
+package com.tracktik.scheduler.configuration;
+
+import com.tracktik.scheduler.domain.ConfigFact;
 
 import java.util.Objects;
 
-public class HardSkillMissing {
+public class HardSkillMissing extends ConfigFact {
 
     private int impactMultiplier = -100;
     private boolean active = true;

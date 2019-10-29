@@ -1,14 +1,16 @@
-package com.tracktik.scheduler.domain;
+package com.tracktik.scheduler.configuration;
+
+import com.tracktik.scheduler.domain.ConfigFact;
 
 import java.util.Objects;
 
-public class LessThanExpectedHours {
+public class MoreThanExpectedHours extends ConfigFact {
 
     private int impact = -10;
     private boolean active = true;
     private boolean isHardImpact = false;
 
-    public LessThanExpectedHours(int impact, boolean active, boolean isHardImpact) {
+    public MoreThanExpectedHours(int impact, boolean active, boolean isHardImpact) {
         this.impact = impact;
         this.active = active;
         this.isHardImpact = isHardImpact;
@@ -42,7 +44,7 @@ public class LessThanExpectedHours {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        LessThanExpectedHours that = (LessThanExpectedHours) o;
+        MoreThanExpectedHours that = (MoreThanExpectedHours) o;
         return impact == that.impact &&
                 active == that.active &&
                 isHardImpact == that.isHardImpact;

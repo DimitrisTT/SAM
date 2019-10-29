@@ -13,7 +13,7 @@ public class ConfigFact {
     private int definition;
     private FactType type;
     private boolean isHardFailure;
-/*
+
     public boolean isActive() {
         return active;
     }
@@ -61,5 +61,4 @@ public class ConfigFact {
     public void setHardFailure(boolean hardFailure) {
         isHardFailure = hardFailure;
     }
-    */
 }

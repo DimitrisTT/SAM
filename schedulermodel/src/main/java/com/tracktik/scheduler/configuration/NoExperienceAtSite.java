@@ -1,25 +1,27 @@
-package com.tracktik.scheduler.domain;
+package com.tracktik.scheduler.configuration;
+
+import com.tracktik.scheduler.domain.ConfigFact;
 
 import java.util.Objects;
 
-public class SoftSkillMissing {
+public class NoExperienceAtSite extends ConfigFact {
 
-    private int impactMultiplier = -10;
+    private int scoreImpact = -50;
     private boolean active = true;
     private boolean isHardImpact = false;
 
-    public SoftSkillMissing(int impactMultiplier, boolean active, boolean isHardImpact) {
-        this.impactMultiplier = impactMultiplier;
+    public NoExperienceAtSite(int scoreImpact, boolean active, boolean isHardImpact) {
+        this.scoreImpact = scoreImpact;
         this.active = active;
         this.isHardImpact = isHardImpact;
     }
 
-    public int getImpactMultiplier() {
-        return impactMultiplier;
+    public int getScoreImpact() {
+        return scoreImpact;
     }
 
-    public void setImpactMultiplier(int impactMultiplier) {
-        this.impactMultiplier = impactMultiplier;
+    public void setScoreImpact(int scoreImpact) {
+        this.scoreImpact = scoreImpact;
     }
 
     public boolean isActive() {
@@ -42,21 +44,21 @@ public class SoftSkillMissing {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SoftSkillMissing that = (SoftSkillMissing) o;
-        return impactMultiplier == that.impactMultiplier &&
+        NoExperienceAtSite that = (NoExperienceAtSite) o;
+        return scoreImpact == that.scoreImpact &&
                 active == that.active &&
                 isHardImpact == that.isHardImpact;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(impactMultiplier, active, isHardImpact);
+        return Objects.hash(scoreImpact, active, isHardImpact);
     }
 
     @Override
     public String toString() {
-        return "SoftSkillMissing{" +
-                "impactMultiplier=" + impactMultiplier +
+        return "NoExperienceAtSite{" +
+                "scoreImpact=" + scoreImpact +
                 ", active=" + active +
                 ", isHardImpact=" + isHardImpact +
                 '}';

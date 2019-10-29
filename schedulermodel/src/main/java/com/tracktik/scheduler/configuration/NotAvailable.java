@@ -1,16 +1,19 @@
-package com.tracktik.scheduler.domain;
+package com.tracktik.scheduler.configuration;
+
+import com.tracktik.scheduler.domain.ConfigFact;
 
 import java.util.Objects;
 
-public class MinimumRestPeriod {
-    private int scoreImpact = -50;
-    private boolean active = true;
-    private boolean isHardImpact = false;
+public class NotAvailable extends ConfigFact {
 
-    public MinimumRestPeriod(int scoreImpact, boolean active, boolean isHardImpact) {
+    private int scoreImpact = -100;
+    private boolean isHardImpact = true;
+    private boolean active = true;
+
+    public NotAvailable(int scoreImpact, boolean isHardImpact, boolean active) {
         this.scoreImpact = scoreImpact;
-        this.active = active;
         this.isHardImpact = isHardImpact;
+        this.active = active;
     }
 
     public int getScoreImpact() {
@@ -21,14 +24,6 @@ public class MinimumRestPeriod {
         this.scoreImpact = scoreImpact;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
     public boolean isHardImpact() {
         return isHardImpact;
     }
@@ -37,27 +32,35 @@ public class MinimumRestPeriod {
         isHardImpact = hardImpact;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MinimumRestPeriod that = (MinimumRestPeriod) o;
+        NotAvailable that = (NotAvailable) o;
         return scoreImpact == that.scoreImpact &&
-                active == that.active &&
-                isHardImpact == that.isHardImpact;
+                isHardImpact == that.isHardImpact &&
+                active == that.active;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(scoreImpact, active, isHardImpact);
+        return Objects.hash(scoreImpact, isHardImpact, active);
     }
 
     @Override
     public String toString() {
-        return "MinimumRestPeriod{" +
+        return "NotAvailable{" +
                 "scoreImpact=" + scoreImpact +
-                ", active=" + active +
                 ", isHardImpact=" + isHardImpact +
+                ", active=" + active +
                 '}';
     }
 }

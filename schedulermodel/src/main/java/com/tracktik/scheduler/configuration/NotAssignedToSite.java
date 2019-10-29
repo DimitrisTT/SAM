@@ -1,8 +1,10 @@
-package com.tracktik.scheduler.domain;
+package com.tracktik.scheduler.configuration;
+
+import com.tracktik.scheduler.domain.ConfigFact;
 
 import java.util.Objects;
 
-public class NotAssignedToSite {
+public class NotAssignedToSite extends ConfigFact {
 
     private int scoreImpact = -50;
     private boolean active = true;

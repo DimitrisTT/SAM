@@ -36,3 +36,4 @@ local/*
 /schedulerservice/target/
 /local/
 scheduler*.iml
+/php-objs/

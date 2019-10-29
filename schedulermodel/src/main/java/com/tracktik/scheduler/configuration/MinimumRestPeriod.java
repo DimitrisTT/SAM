@@ -1,25 +1,26 @@
-package com.tracktik.scheduler.domain;
+package com.tracktik.scheduler.configuration;
+
+import com.tracktik.scheduler.domain.ConfigFact;
 
 import java.util.Objects;
 
-public class MoreThanExpectedHours {
-
-    private int impact = -10;
+public class MinimumRestPeriod extends ConfigFact {
+    private int scoreImpact = -50;
     private boolean active = true;
     private boolean isHardImpact = false;
 
-    public MoreThanExpectedHours(int impact, boolean active, boolean isHardImpact) {
-        this.impact = impact;
+    public MinimumRestPeriod(int scoreImpact, boolean active, boolean isHardImpact) {
+        this.scoreImpact = scoreImpact;
         this.active = active;
         this.isHardImpact = isHardImpact;
     }
 
-    public int getImpact() {
-        return impact;
+    public int getScoreImpact() {
+        return scoreImpact;
     }
 
-    public void setImpact(int impact) {
-        this.impact = impact;
+    public void setScoreImpact(int scoreImpact) {
+        this.scoreImpact = scoreImpact;
     }
 
     public boolean isActive() {
@@ -42,21 +43,21 @@ public class MoreThanExpectedHours {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MoreThanExpectedHours that = (MoreThanExpectedHours) o;
-        return impact == that.impact &&
+        MinimumRestPeriod that = (MinimumRestPeriod) o;
+        return scoreImpact == that.scoreImpact &&
                 active == that.active &&
                 isHardImpact == that.isHardImpact;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(impact, active, isHardImpact);
+        return Objects.hash(scoreImpact, active, isHardImpact);
     }
 
     @Override
     public String toString() {
-        return "LessThanExpectedHours{" +
-                "impact=" + impact +
+        return "MinimumRestPeriod{" +
+                "scoreImpact=" + scoreImpact +
                 ", active=" + active +
                 ", isHardImpact=" + isHardImpact +
                 '}';

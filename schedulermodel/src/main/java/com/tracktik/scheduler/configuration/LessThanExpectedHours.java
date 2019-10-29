@@ -1,25 +1,27 @@
-package com.tracktik.scheduler.domain;
+package com.tracktik.scheduler.configuration;
+
+import com.tracktik.scheduler.domain.ConfigFact;
 
 import java.util.Objects;
 
-public class NoExperienceAtSite {
+public class LessThanExpectedHours extends ConfigFact {
 
-    private int scoreImpact = -50;
+    private int impact = -10;
     private boolean active = true;
     private boolean isHardImpact = false;
 
-    public NoExperienceAtSite(int scoreImpact, boolean active, boolean isHardImpact) {
-        this.scoreImpact = scoreImpact;
+    public LessThanExpectedHours(int impact, boolean active, boolean isHardImpact) {
+        this.impact = impact;
         this.active = active;
         this.isHardImpact = isHardImpact;
     }
 
-    public int getScoreImpact() {
-        return scoreImpact;
+    public int getImpact() {
+        return impact;
     }
 
-    public void setScoreImpact(int scoreImpact) {
-        this.scoreImpact = scoreImpact;
+    public void setImpact(int impact) {
+        this.impact = impact;
     }
 
     public boolean isActive() {
@@ -42,21 +44,21 @@ public class NoExperienceAtSite {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NoExperienceAtSite that = (NoExperienceAtSite) o;
-        return scoreImpact == that.scoreImpact &&
+        LessThanExpectedHours that = (LessThanExpectedHours) o;
+        return impact == that.impact &&
                 active == that.active &&
                 isHardImpact == that.isHardImpact;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(scoreImpact, active, isHardImpact);
+        return Objects.hash(impact, active, isHardImpact);
     }
 
     @Override
     public String toString() {
-        return "NoExperienceAtSite{" +
-                "scoreImpact=" + scoreImpact +
+        return "LessThanExpectedHours{" +
+                "impact=" + impact +
                 ", active=" + active +
                 ", isHardImpact=" + isHardImpact +
                 '}';
