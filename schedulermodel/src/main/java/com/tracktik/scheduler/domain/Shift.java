@@ -45,7 +45,20 @@ public class Shift {
   private Long startTimeStamp;
   private Long endTimeStamp;
   private Set<String> tags = new HashSet<>();
-
+/*
+  public Shift(String id, Boolean plan, LocalDateTime start, LocalDateTime end, Float duration, Post post, Long startTimeStamp, Long endTimeStamp, Set<String> tags, Employee employee) {
+    this.id = id;
+    this.plan = plan;
+    this.start = start;
+    this.end = end;
+    this.duration = duration;
+    this.post = post;
+    this.startTimeStamp = startTimeStamp;
+    this.endTimeStamp = endTimeStamp;
+    this.tags = tags;
+    this.employee = employee;
+  }
+*/
   @PlanningVariable(valueRangeProviderRefs = "employees")
   private Employee employee;
 
@@ -182,4 +195,43 @@ public class Shift {
     return false;
   }
 
+  public String getId() {
+    return id;
+  }
+
+  public Boolean getPlan() {
+    return plan;
+  }
+
+  public LocalDateTime getStart() {
+    return start;
+  }
+
+  public LocalDateTime getEnd() {
+    return end;
+  }
+
+  public Float getDuration() {
+    return duration;
+  }
+
+  public Post getPost() {
+    return post;
+  }
+
+  public Long getStartTimeStamp() {
+    return startTimeStamp;
+  }
+
+  public Long getEndTimeStamp() {
+    return endTimeStamp;
+  }
+
+  public Set<String> getTags() {
+    return tags;
+  }
+
+  public Employee getEmployee() {
+    return employee;
+  }
 }

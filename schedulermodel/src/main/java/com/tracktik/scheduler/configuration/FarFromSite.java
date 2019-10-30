@@ -7,15 +7,19 @@ import java.util.Objects;
 public class FarFromSite extends ConfigFact {
 
     private boolean active = true;
-    private int scoreImpact = -70;
+    private Integer scoreImpact = -70;
     private boolean isHardImpact = false;
-    private int definition = 100;
+    private Integer definition = 100;
 
     public FarFromSite(boolean active, int scoreImpact, boolean isHardImpact, int definition) {
         this.active = active;
         this.scoreImpact = scoreImpact;
         this.isHardImpact = isHardImpact;
         this.definition = definition;
+    }
+
+    public FarFromSite(){
+
     }
 
     public boolean isActive() {
@@ -30,7 +34,7 @@ public class FarFromSite extends ConfigFact {
         return scoreImpact;
     }
 
-    public void setScoreImpact(int scoreImpact) {
+    public void setScoreImpact(Integer scoreImpact) {
         this.scoreImpact = scoreImpact;
     }
 
@@ -46,7 +50,7 @@ public class FarFromSite extends ConfigFact {
         return definition;
     }
 
-    public void setDefinition(int definition) {
+    public void setDefinition(Integer definition) {
         this.definition = definition;
     }
 

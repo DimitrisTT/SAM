@@ -2,6 +2,7 @@
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
 import com.tracktik.scheduler.domain.*;
 import com.tracktik.scheduler.service.*;
+import com.tracktik.scheduler.configuration.FarFromSite;
 import java.util.*;
 
 global HardSoftLongScoreHolder scoreHolder;
@@ -26,6 +27,25 @@ rule "WORKPLACE_FAR"
         EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_FAR", $multiplier: multiplier)
     then
         Double dValue = $impact * $multiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+end
+
+/*
+    Adds a negative soft value when an employee is assigned to a site that is far from home.
+    This rule is based off of the new FarFromSite object; if active it provides a definition and score impact
+    The multiplier that will be applied to the impact is defined in EmployeeConstraintMultiplier since it may differ by employee.
+    The distance between an employee and a site is determined ahead of time in a fact called EmployeeSiteDistance.
+
+    Once an employee is assigned to a site, the soft score is computed by multiplying the impact by the multiplier for the employee.
+*/
+rule "workplace far from site"
+    when
+        FarFromSite(active == true, $definition: definition, $scoreImpact: scoreImpact)
+        EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance > $definition)
+        Shift(employee != null, employee.id == $employeeId, post.site.id == $siteId )
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_FAR", $multiplier: multiplier)
+    then
+        Double dValue = $scoreImpact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
 end
 

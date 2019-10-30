@@ -14,4 +14,20 @@ public class Site {
   private Double latitude;
   private Double longitude;
 
+
+  public String getId() {
+    return id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public Double getLatitude() {
+    return latitude;
+  }
+
+  public Double getLongitude() {
+    return longitude;
+  }
 }
