@@ -13,6 +13,8 @@ import com.tracktik.scheduler.domain.Site;
 import com.tracktik.scheduler.domain.PayType;
 import com.tracktik.scheduler.domain.Skill;
 import com.tracktik.scheduler.configuration.FarFromSite;
+import com.tracktik.scheduler.configuration.FairlyFarFromSite;
+import com.tracktik.scheduler.configuration.CloseBySite;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
@@ -21,8 +23,9 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import java.util.HashSet;
+import java.util.ArrayList;
 
-public class FarFromSiteSteps implements En {
+public class DistanceSiteSteps implements En {
 
   private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 /*
@@ -60,6 +63,7 @@ public class FarFromSiteSteps implements En {
     String pay_rate;
     String seniority;
     String minimum_rest_period;
+    String skillId;
   }
 
   class TestSkill {
@@ -76,7 +80,12 @@ public class FarFromSiteSteps implements En {
   class TestTag{
     String tag;
   }
-
+/*
+  class TestEmployeeSkill {
+    String skillId;
+    String employeeId;
+  }
+*/
   //Employee employee = new Employee().setId("1").setOvertimeRuleId("1").setPayScheduleId("1");
   //PayrollSchedule payrollSchedule = new PayrollSchedule().setId("1");
   //ZoneId zoneId;
@@ -93,19 +102,47 @@ public class FarFromSiteSteps implements En {
   Shift shift = new Shift();
   Set<String> tags = new HashSet<String>();
   Set<Shift> shifts = new HashSet<Shift>();
+  FairlyFarFromSite fairlyFarFromSite = new FairlyFarFromSite();
+  CloseBySite closeBySite = new CloseBySite();
 
-  public FarFromSiteSteps(DroolsTestApi droolsTestApi) {
+  public DistanceSiteSteps(DroolsTestApi droolsTestApi) {
     Given("^Far From Site being active is '(.*?)'", (String active) -> {
       farFromSite.setActive(Boolean.parseBoolean(active));
     });
     And("^its definition is set to '(.*?)'", (String definition) -> {
-      farFromSite.setDefinition(Integer.getInteger(definition));
+      farFromSite.setDefinition(Integer.parseInt(definition));
     });
     And("^its score impact is '(.*?)'", (String scoreImpact) -> {
-      farFromSite.setScoreImpact(Integer.getInteger(scoreImpact));
+      farFromSite.setScoreImpact(Integer.parseInt(scoreImpact));
     });
     And("^it has is Hard Impact set to '(.*?)'", (String isHardImpact) -> {
       farFromSite.setHardImpact(Boolean.parseBoolean(isHardImpact));
+    });
+
+    Given("^Close By Site being active is '(.*?)'", (String active) -> {
+      closeBySite.setActive(Boolean.parseBoolean(active));
+    });
+    And("^its Close By Site definition is set to '(.*?)'", (String definition) -> {
+      closeBySite.setDefinition(Integer.parseInt(definition));
+    });
+    And("^its Close By Site score impact is '(.*?)'", (String scoreImpact) -> {
+      closeBySite.setScoreImpact(Integer.parseInt(scoreImpact));
+    });
+    And("^it Close By Site has is Hard Impact set to '(.*?)'", (String isHardImpact) -> {
+      closeBySite.setHardImpact(Boolean.parseBoolean(isHardImpact));
+    });
+
+    Given("^Fairly Far From Site being active is '(.*?)'", (String active) -> {
+      fairlyFarFromSite.setActive(Boolean.parseBoolean(active));
+    });
+    And("^its Fairly Far From Site definition is set to '(.*?)'", (String definition) -> {
+      fairlyFarFromSite.setDefinition(Integer.parseInt(definition));
+    });
+    And("^its Fairly Far From Site score impact is '(.*?)'", (String scoreImpact) -> {
+      fairlyFarFromSite.setScoreImpact(Integer.parseInt(scoreImpact));
+    });
+    And("^it Fairly Far From Site has is Hard Impact set to '(.*?)'", (String isHardImpact) -> {
+      fairlyFarFromSite.setHardImpact(Boolean.parseBoolean(isHardImpact));
     });
 
 
@@ -114,21 +151,6 @@ public class FarFromSiteSteps implements En {
       site.setName(name);
       site.setLongitude(Double.parseDouble(longitude));
       site.setLatitude(Double.parseDouble(latitude));
-    });
-    And("^the following employees$", (DataTable table) -> {
-      Set<Employee> employeesList = table.asList(TestEmployee.class).stream().map(testEmployee -> {
-        esdSet.add(new EmployeeSiteDistance().setDistance(EmployeeSiteDistance.distance(Double.parseDouble(testEmployee.geo_long), Double.parseDouble(testEmployee.geo_lat), site.getLongitude(), site.getLatitude())).setEmployeeId(testEmployee.id).setSiteId(site.getId()));
-        return new Employee()
-                .setId(testEmployee.id)
-                .setName(testEmployee.name)
-                .setPreferredHours(Long.getLong(testEmployee.preferred_hours))
-                .setLatitude(Double.parseDouble(testEmployee.geo_lat))
-                .setLongitude(Double.parseDouble(testEmployee.geo_long))
-                .setCostFromFloatString(testEmployee.pay_rate)
-                .setSeniority(Integer.getInteger(testEmployee.seniority))
-                .setMinimumRestPeriod(Long.getLong(testEmployee.minimum_rest_period));
-      }).collect(Collectors.toSet());
-      employees = employeesList;
     });
     And("^with payType '(.*?)'$", (String type) -> {
       payType.valueOf(type);
@@ -149,6 +171,36 @@ public class FarFromSiteSteps implements En {
       }).collect(Collectors.toSet());
       hardSkillSet = hardSkills;
     });
+    And("^the following employees$", (DataTable table) -> {
+      Set<Employee> employeesList = table.asList(TestEmployee.class).stream().map(testEmployee -> {
+        esdSet.add(new EmployeeSiteDistance().setDistance(EmployeeSiteDistance.distance(Double.parseDouble(testEmployee.geo_long), Double.parseDouble(testEmployee.geo_lat), site.getLongitude(), site.getLatitude())).setEmployeeId(testEmployee.id).setSiteId(site.getId()));
+        return new Employee()
+                .setId(testEmployee.id)
+                .setName(testEmployee.name)
+                .setPreferredHours(Long.parseLong(testEmployee.preferred_hours))
+                .setLatitude(Double.parseDouble(testEmployee.geo_lat))
+                .setLongitude(Double.parseDouble(testEmployee.geo_long))
+                .setCostFromFloatString(testEmployee.pay_rate)
+                .setSeniority(Integer.parseInt(testEmployee.seniority))
+                .setMinimumRestPeriod(Long.parseLong(testEmployee.minimum_rest_period))
+                .setSkills(hardSkillSet.stream().filter(skill -> skill.getId().equals(testEmployee.skillId)).collect(Collectors.toList()));
+      }).collect(Collectors.toSet());
+      employees = employeesList;
+    });
+    /*
+    And("^the employees have the following skills$", (DataTable table) -> {
+      employee.setSkills(table.asList(TestEmployeeSkill.class).stream().map(testEmployeeSkill -> {
+        employees.stream().filter(employee -> employee.getId().equals(testEmployeeSkill.employeeId))
+                .map(skill -> testEmployeeSkill.skillId)
+                .map(skillId -> hardSkillSet.stream().filter(skill -> skill.getId().equals(skillId)).findAny().get())
+      }).collect(Collectors.toList());
+        request.employee_skills.stream().parallel()
+                .filter(employee_skill -> employee_skill.employee_id.equals(employee.id))
+                .map(employee_skill -> employee_skill.skill_id)
+                .map(skill_id -> skillSet.stream().filter(skill -> skill.getId().equals(skill_id)).findAny().get())
+                .collect(Collectors.toList())
+      });
+    });*/
     And("^the following tags$", (DataTable table) -> {
       Set<String> tagsList = table.asList(TestTag.class).stream().map(testTag -> {
         return new String(testTag.tag);
@@ -162,8 +214,8 @@ public class FarFromSiteSteps implements En {
       post.setSoftSkills(softSkillSet);
       post.setHardSkills(hardSkillSet);
       post.setSite(site);
-      post.setBillRate(Long.getLong(billRate));
-      post.setPayRate(Long.getLong(payRate));
+      post.setBillRate(Long.parseLong(billRate));
+      post.setPayRate(Long.parseLong(payRate));
     });
     And("^the following shift from '(.*?)' to '(.*?)' timestamp '(.*?)' and end '(.*?)' with duration '(.*?)' id '(.*?)' and plan '(.*?)' available$",
             (String startDateTime, String endDateTime, String startTimeStamp, String endTimeStamp, String duration, String shiftId, String plan) -> {
@@ -173,8 +225,8 @@ public class FarFromSiteSteps implements En {
               shift.setEnd(LocalDateTime.parse(endDateTime, dateTimeFormatter));
               shift.setDuration(Float.parseFloat(duration));
               shift.setPost(post);
-              shift.setStartTimeStamp(Long.getLong(startTimeStamp));
-              shift.setEndTimeStamp(Long.getLong(endTimeStamp));
+              shift.setStartTimeStamp(Long.parseLong(startTimeStamp));
+              shift.setEndTimeStamp(Long.parseLong(endTimeStamp));
               shift.setTags(tags);
             });
     And("^the following employee constraint multipliers$", (DataTable table) -> {
@@ -184,6 +236,7 @@ public class FarFromSiteSteps implements En {
                 .setName(testEmployeeConstraintMultiplier.name)
                 .setMultiplier(Double.parseDouble(testEmployeeConstraintMultiplier.multiplier));
       }).collect(Collectors.toSet());
+      ecmSet.forEach(droolsTestApi.ksession::insert);
       ecmSet = employeeConstraintMultiplierSet;
     });
     And("^we apply each employee into the shift for the calculation$", () -> {
@@ -200,20 +253,49 @@ public class FarFromSiteSteps implements En {
         newShift.setTags(shift.getTags());
         newShift.setEmployee(employee);
         shifts.add(newShift);
+        droolsTestApi.ksession.insert(newShift);
       }
     });
     When("^Far From Site rules are calculated$", () -> {
-      System.out.println("employees" + employees);
-      System.out.println("shift " + shifts);
-      System.out.println("esdSet" + esdSet);
-      System.out.println("ecmSet" + ecmSet);
-      System.out.println("FarFromSite" + farFromSite);
-      droolsTestApi.ksession.insert(shifts);
-      droolsTestApi.ksession.insert(esdSet);
-      droolsTestApi.ksession.insert(ecmSet);
+  //    System.out.println("employees" + employees);
+  //    System.out.println("shift " + shifts);
+  //    System.out.println("esdSet" + esdSet);
+  //    System.out.println("ecmSet" + ecmSet);
+  //    System.out.println("FarFromSite" + farFromSite);
       droolsTestApi.ksession.insert(farFromSite);
+      esdSet.forEach(droolsTestApi.ksession::insert);
+      ecmSet.forEach(droolsTestApi.ksession::insert);
+      employees.forEach(droolsTestApi.ksession::insert);
       droolsTestApi.ksession.fireAllRules();
     });
+
+    When("^Fairly Far From Site rules are calculated$", () -> {
+  //    System.out.println("employees" + employees);
+  //    System.out.println("shift " + shifts);
+  //    System.out.println("esdSet" + esdSet);
+  //    System.out.println("ecmSet" + ecmSet);
+  //    System.out.println("FairlyFarFromSite" + fairlyFarFromSite);
+      droolsTestApi.ksession.insert(fairlyFarFromSite);
+      esdSet.forEach(droolsTestApi.ksession::insert);
+      ecmSet.forEach(droolsTestApi.ksession::insert);
+      employees.forEach(droolsTestApi.ksession::insert);
+      droolsTestApi.ksession.fireAllRules();
+    });
+
+    When("^Close By Site rules are calculated$", () -> {
+  //    System.out.println("employees" + employees);
+  //    System.out.println("shift " + shifts);
+  //    System.out.println("esdSet" + esdSet);
+  //    System.out.println("ecmSet" + ecmSet);
+  //    System.out.println("CloseBySite" + closeBySite);
+      droolsTestApi.ksession.insert(closeBySite);
+      esdSet.forEach(droolsTestApi.ksession::insert);
+      ecmSet.forEach(droolsTestApi.ksession::insert);
+      employees.forEach(droolsTestApi.ksession::insert);
+      droolsTestApi.ksession.fireAllRules();
+    });
+
+
 //    Then("^softscore is (-?\\d+)$", (Integer softScore) -> {
  //     assertEquals(softScore.longValue(), droolsTestApi.getScoreHolder().getSoftScore());
   //  });

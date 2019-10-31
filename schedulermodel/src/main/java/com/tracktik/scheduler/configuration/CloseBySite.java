@@ -18,6 +18,10 @@ public class CloseBySite extends ConfigFact {
         this.definition = definition;
     }
 
+    public CloseBySite() {
+
+    }
+
     public boolean isActive() {
         return active;
     }

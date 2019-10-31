@@ -18,6 +18,10 @@ public class FairlyFarFromSite extends ConfigFact {
         this.definition = definition;
     }
 
+    public FairlyFarFromSite() {
+
+    }
+
     public boolean isActive() {
         return active;
     }

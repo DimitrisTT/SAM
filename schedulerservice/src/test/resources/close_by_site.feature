@@ -1,12 +1,12 @@
-Feature: Far From Site
+Feature: Close By Site
 
   Background:
-    Given Far From Site being active is 'true'
-    And its definition is set to '100'
-    And its score impact is '-70'
-    And it has is Hard Impact set to 'true'
+    Given Close By Site being active is 'true'
+    And its Close By Site definition is set to '50'
+    And its Close By Site score impact is '-50'
+    And it Close By Site has is Hard Impact set to 'true'
 
-  Scenario: testing rule firing for those far away with everyone close
+  Scenario: testing rule firing for those close by with everyone close
     Given the following site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
     And with payType 'EMPLOYEE_RATE'
     And the following soft skills
@@ -47,10 +47,10 @@ Feature: Far From Site
       | 1119 | WORKPLACE_FAR | 1          |
       | 1120 | WORKPLACE_FAR | 1          |
     And we apply each employee into the shift for the calculation
-    When Far From Site rules are calculated
+    When Close By Site rules are calculated
     Then softscore is 200
 
-  Scenario: testing rule firing for those far away with half far away
+  Scenario: testing rule firing for those close by with half far away
     Given the following site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
     And with payType 'EMPLOYEE_RATE'
     And the following soft skills
@@ -91,10 +91,10 @@ Feature: Far From Site
       | 1119 | WORKPLACE_FAR | 1          |
       | 1120 | WORKPLACE_FAR | 1          |
     And we apply each employee into the shift for the calculation
-    When Far From Site rules are calculated
-    Then softscore is -150
+    When Close By Site rules are calculated
+    Then softscore is -50
 
-  Scenario: testing rule firing for those far away with everyone far away
+  Scenario: testing rule firing for those close by away with everyone far away
     Given the following site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
     And with payType 'EMPLOYEE_RATE'
     And the following soft skills
@@ -135,5 +135,5 @@ Feature: Far From Site
     | 1119 | WORKPLACE_FAR | 1          |
     | 1120 | WORKPLACE_FAR | 1          |
     And we apply each employee into the shift for the calculation
-    When Far From Site rules are calculated
-    Then softscore is -500
+    When Close By Site rules are calculated
+    Then softscore is -300
