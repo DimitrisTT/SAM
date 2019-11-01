@@ -16,6 +16,10 @@ public class SoftSkillMissing extends ConfigFact {
         this.isHardImpact = isHardImpact;
     }
 
+    public SoftSkillMissing() {
+
+    }
+
     public int getImpactMultiplier() {
         return impactMultiplier;
     }

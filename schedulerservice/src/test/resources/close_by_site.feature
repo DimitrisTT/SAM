@@ -2,8 +2,8 @@ Feature: Close By Site
 
   Background:
     Given Close By Site being active is 'true'
-    And its Close By Site definition is set to '50'
-    And its Close By Site score impact is '-50'
+    And its Close By Site definition is set to '25'
+    And its Close By Site score impact is '5'
     And it Close By Site has is Hard Impact set to 'true'
 
   Scenario: testing rule firing for those close by with everyone close
@@ -92,7 +92,7 @@ Feature: Close By Site
       | 1120 | WORKPLACE_FAR | 1          |
     And we apply each employee into the shift for the calculation
     When Close By Site rules are calculated
-    Then softscore is -50
+    Then softscore is 225
 
   Scenario: testing rule firing for those close by away with everyone far away
     Given the following site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
@@ -136,4 +136,4 @@ Feature: Close By Site
     | 1120 | WORKPLACE_FAR | 1          |
     And we apply each employee into the shift for the calculation
     When Close By Site rules are calculated
-    Then softscore is -300
+    Then softscore is 250

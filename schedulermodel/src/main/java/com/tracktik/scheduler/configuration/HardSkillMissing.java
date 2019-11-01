@@ -8,14 +8,18 @@ public class HardSkillMissing extends ConfigFact {
 
     private int impactMultiplier = -100;
     private boolean active = true;
-    private boolean isHardImpact = false;
-    private boolean isHardFailure = true;
+    private boolean hardImpact = false;
+    private boolean hardFailure = true;
 
-    public HardSkillMissing(int impactMultiplier, boolean active, boolean isHardImpact, boolean isHardFailure) {
+    public HardSkillMissing(int impactMultiplier, boolean active, boolean hardImpact, boolean hardFailure) {
         this.impactMultiplier = impactMultiplier;
         this.active = active;
-        this.isHardImpact = isHardImpact;
-        this.isHardFailure = isHardFailure;
+        this.hardImpact = hardImpact;
+        this.hardFailure = hardFailure;
+    }
+
+    public HardSkillMissing() {
+
     }
 
     public int getImpactMultiplier() {
@@ -35,19 +39,19 @@ public class HardSkillMissing extends ConfigFact {
     }
 
     public boolean isHardImpact() {
-        return isHardImpact;
+        return hardImpact;
     }
 
     public void setHardImpact(boolean hardImpact) {
-        isHardImpact = hardImpact;
+        this.hardImpact = hardImpact;
     }
 
     public boolean isHardFailure() {
-        return isHardFailure;
+        return hardFailure;
     }
 
     public void setHardFailure(boolean hardFailure) {
-        isHardFailure = hardFailure;
+        this.hardFailure = hardFailure;
     }
 
     @Override
@@ -57,13 +61,13 @@ public class HardSkillMissing extends ConfigFact {
         HardSkillMissing that = (HardSkillMissing) o;
         return impactMultiplier == that.impactMultiplier &&
                 active == that.active &&
-                isHardImpact == that.isHardImpact &&
-                isHardFailure == that.isHardFailure;
+                hardImpact == that.hardImpact &&
+                hardFailure == that.hardFailure;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(impactMultiplier, active, isHardImpact, isHardFailure);
+        return Objects.hash(impactMultiplier, active, hardImpact, hardFailure);
     }
 
     @Override
@@ -71,8 +75,8 @@ public class HardSkillMissing extends ConfigFact {
         return "SoftSkillMissing{" +
                 "impactMultiplier=" + impactMultiplier +
                 ", active=" + active +
-                ", isHardImpact=" + isHardImpact +
-                ", isHardFailure=" + isHardFailure +
+                ", HardImpact=" + hardImpact +
+                ", HardFailure=" + hardFailure +
                 '}';
     }
 }

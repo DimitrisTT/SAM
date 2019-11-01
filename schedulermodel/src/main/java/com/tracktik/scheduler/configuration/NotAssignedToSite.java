@@ -16,6 +16,10 @@ public class NotAssignedToSite extends ConfigFact {
         this.isHardImpact = isHardImpact;
     }
 
+    public NotAssignedToSite() {
+
+    }
+
     public int getScoreImpact() {
         return scoreImpact;
     }

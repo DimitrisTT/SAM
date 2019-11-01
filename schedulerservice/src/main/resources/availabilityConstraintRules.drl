@@ -6,6 +6,12 @@ import java.util.*;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit
+import com.tracktik.scheduler.configuration.LessThanExpectedHours;
+import com.tracktik.scheduler.configuration.MoreThanExpectedHours;
+import com.tracktik.scheduler.configuration.MaybeAvailable;
+import com.tracktik.scheduler.configuration.NotAvailable;
+import com.tracktik.scheduler.configuration.MinimumRestPeriod;
+
 
 global HardSoftLongScoreHolder scoreHolder;
 
@@ -56,11 +62,12 @@ rule "MINIMUM_REST_PERIOD"
         Long hours = hoursGap($firstShiftEnd, $secondShiftStart);
         Double dValue = hours * hours * $employeeMultiplier * -1;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+        System.out.println("MRP: " + dValue);
 end
 
 
 /*
-    Adds a negative soft constraint value if the employee is schedule for less than the expected number of hours.
+    Adds a negative soft constraint value if the employee is scheduled for less than the expected number of hours.
     This rule will fire unless a KeyValueFact of LESS_THAN_EXPECTED_ENABLED of false exists.
     The impact of having less than expected hours is expressed in the KeyValueFact of LESS_THAN_EXPECTED_HOURS_IMPACT.
     Each employee can have a different multiplier which is expressed in the EmployeeConstraintMultiplier of LESS_THAN_EXPECTED_HOURS.
@@ -87,7 +94,40 @@ rule "LESS_THAN_EXPECTED_HOURS"
         Double percentage = hoursDifference.doubleValue() / $preferredHours.doubleValue() * 100D;
         Double dValue =  percentage * $impact * $multiplier * -1;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+        System.out.println("less than expected hours" + dValue);
 end
+
+/*
+    Adds a negative soft constraint value if the employee is scheduled for less than the expected number of hours.
+    based off of the new configuration object LessThanExpectedHours
+    This rule will fire unless a KeyValueFact of LESS_THAN_EXPECTED_ENABLED of false exists.
+    The impact of having less than expected hours is expressed in the KeyValueFact of LESS_THAN_EXPECTED_HOURS_IMPACT.
+    Each employee can have a different multiplier which is expressed in the EmployeeConstraintMultiplier of LESS_THAN_EXPECTED_HOURS.
+
+    If active, we will total the number of hours for all shifts that the employee is assigned to. If the total hours are less than expected
+    we will then compute the percentage of preferred hours. That percentage will be multipled by the impact and the employee's
+    multipler and added to the soft score.
+
+    The employee's preferred hours are multiplied by ten to account for fractional hours in Shifts
+*/
+rule "fewer than expected hours"
+    when
+        $employee : Employee(preferredHours != null, $employeeId: id, $preferredHours: (preferredHours * 100))
+        LessThanExpectedHours(active == true, hardImpact == false, $impact: impact)
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "LESS_THAN_EXPECTED_HOURS", $multiplier: multiplier)
+        //$totalHours: Long( $preferredHours < longValue) from accumulate (
+        $totalHours: Long( longValue < $preferredHours ) from accumulate (
+           Shift(employee != null, $employee == employee, $shiftHours: durationHours()),
+           sum($shiftHours)
+        )
+    then
+        Long hoursDifference = $preferredHours - $totalHours;
+        Double percentage = hoursDifference.doubleValue() / $preferredHours.doubleValue() * 100D;
+        Double dValue =  percentage * $impact * $multiplier * -1;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+        System.out.println("less than expected hours" + dValue);
+end
+
 
 /*
     Adds a negative soft constraint value if the employee is schedule for more than the expected number of hours.
@@ -118,7 +158,41 @@ rule "MORE_THAN_EXPECTED_HOURS"
         Double dValue =  percentage * $impact * $multiplier * -1;
         //System.out.println("more than expected hours: " + hoursDifference + " expected: " + $preferredHours + " percentage: " + percentage + " dValue: " + dValue);
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+        System.out.println("More than expected hours" + dValue);
 end
+
+/*
+    Adds a negative soft constraint value if the employee is schedule for more than the expected number of hours.
+    based off of the new configuration object LessThanExpectedHours
+    This rule will fire unless a KeyValueFact of MORE_THAN_EXPECTED_ENABLED of false exists.
+    The impact of having more than expected hours is expressed in the KeyValueFact of MORE_THAN_EXPECTED_HOURS_IMPACT.
+    Each employee can have a different multiplier which is expressed in the EmployeeConstraintMultiplier of MORE_THAN_EXPECTED_HOURS.
+
+    If enabled, we will total the number of hours for all shifts that the employee is assigned to. If the total hours are more than expected
+    we will then compute the percentage of preferred hours. That percentage will be multipled by the impact and the employee's
+    multipler and added to the soft score.
+
+    The employee's preferred hours are multiplied by ten to account for fractional ours in Shifts
+*/
+rule "more than expected hours"
+    when
+
+        $employee : Employee(preferredHours != null, $employeeId: id, $preferredHours: (preferredHours * 100))
+        MoreThanExpectedHours(active == true, hardImpact == false, $impact: impact)
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "MORE_THAN_EXPECTED_HOURS", $multiplier: multiplier)
+        $totalHours: Long( longValue > $preferredHours) from accumulate (
+           Shift(employee != null, $employee == employee, $shiftHours: durationHours()),
+           sum($shiftHours)
+        )
+    then
+        Long hoursDifference = $totalHours - $preferredHours;
+        Double percentage = hoursDifference.doubleValue() / $preferredHours.doubleValue() * 100D;
+        Double dValue =  percentage * $impact * $multiplier * -1;
+        //System.out.println("more than expected hours: " + hoursDifference + " expected: " + $preferredHours + " percentage: " + percentage + " dValue: " + dValue);
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+        System.out.println("More than expected hours" + dValue);
+end
+
 
 /*
     This will add a negative soft constraint value when the employee is scheduled during a time when they prefer not to work.
@@ -137,6 +211,27 @@ rule "AVAILABILITY_NO"
     then
         Double dValue = $impact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+        System.out.println("availability no" + dValue);
+end
+
+/*
+    This will add a negative soft constraint value when the employee is scheduled during a time when they prefer not to work.
+    This rule based off of the new configuration object NotAvailable
+    This rule will only fire if there is no KeyValueFact of AVAILABLE_PREF_NO_ENABLED which is false.
+    If there is an EmployeeAvailability of NO that overlaps a shift where the employee is assigned we will multiply the
+    impact as expressed in the AVAILABLE_PREF_NO_IMPACT by the employee's multiplier for AVAILABILITY_NO and add it to the
+    soft score.
+*/
+rule "not available"
+    when
+        $availability : EmployeeAvailability($employeeId: employeeId, type == AvailabilityType.NO, $day: dayOfWeek, $employeeStart: startTime, $employeeEnd: endTime)
+        Shift(employee != null, $employeeId == employee.id, this.overlaps($availability))
+        NotAvailable(active == true, hardImpact == false, $scoreImpact: scoreImpact)
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "AVAILABILITY_NO", $multiplier: multiplier)
+    then
+        Double dValue = $scoreImpact * $multiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+        System.out.println("availability no" + dValue);
 end
 
 /*
@@ -157,6 +252,27 @@ rule "AVAILABILITY_MAYBE"
     then
         Double dValue = $impact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+        System.out.println("availability maybe" + dValue);
+end
+
+/*
+    This will add a negative soft constraint value when the employee is scheduled during a time when might be able to work.
+    This rule based off of the new configuration object Maybe Available
+    If there is an EmployeeAvailability of MAYBE that overlaps a shift where the employee is assigned we will multiply the
+    impact as expressed in the AVAILABLE_PREF_MAYBE_IMPACT by the employee's multiplier for AVAILABILITY_MAYBE and add it to the
+    soft score.
+*/
+rule "maybe available"
+    when
+        Employee($employeeId: id)
+        $availability : EmployeeAvailability($employeeId == employeeId, type == AvailabilityType.MAYBE, $startTime: startTime, $endTime: endTime, $day: dayOfWeek)
+        Shift(employee != null, $employeeId == employee.id, this.overlaps($availability))
+        MaybeAvailable(active == true, $scoreImpact: scoreImpact)
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "AVAILABILITY_MAYBE", $multiplier: multiplier)
+    then
+        Double dValue = $scoreImpact * $multiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+        System.out.println("availability maybe" + dValue);
 end
 
 /*
@@ -171,4 +287,5 @@ rule "CONSECUTIVE_WORK_DAYS"
         Shift(employee != null, $employeeId == employee.id, start.toLocalDate() == $startDate.minusDays(1L))
     then
         scoreHolder.addSoftConstraintMatch(kcontext, 100);
+        System.out.println("Consecutive work days: " + 100);
 end

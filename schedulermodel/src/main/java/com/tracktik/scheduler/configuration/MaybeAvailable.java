@@ -14,6 +14,10 @@ public class MaybeAvailable extends ConfigFact {
         this.active = active;
     }
 
+    public MaybeAvailable() {
+
+    }
+
     public int getScoreImpact() {
         return scoreImpact;
     }

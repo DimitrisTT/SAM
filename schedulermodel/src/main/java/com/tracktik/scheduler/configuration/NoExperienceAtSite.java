@@ -16,6 +16,10 @@ public class NoExperienceAtSite extends ConfigFact {
         this.isHardImpact = isHardImpact;
     }
 
+    public NoExperienceAtSite() {
+
+    }
+
     public int getScoreImpact() {
         return scoreImpact;
     }

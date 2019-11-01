@@ -7,13 +7,16 @@ import java.util.Objects;
 public class NotAvailable extends ConfigFact {
 
     private int scoreImpact = -100;
-    private boolean isHardImpact = true;
+    private boolean hardImpact = true;
     private boolean active = true;
 
-    public NotAvailable(int scoreImpact, boolean isHardImpact, boolean active) {
+    public NotAvailable(int scoreImpact, boolean hardImpact, boolean active) {
         this.scoreImpact = scoreImpact;
-        this.isHardImpact = isHardImpact;
+        this.hardImpact = hardImpact;
         this.active = active;
+    }
+
+    public NotAvailable() {
     }
 
     public int getScoreImpact() {
@@ -24,12 +27,12 @@ public class NotAvailable extends ConfigFact {
         this.scoreImpact = scoreImpact;
     }
 
-    public boolean isHardImpact() {
-        return isHardImpact;
+    public boolean ishardImpact() {
+        return hardImpact;
     }
 
     public void setHardImpact(boolean hardImpact) {
-        isHardImpact = hardImpact;
+        this.hardImpact = hardImpact;
     }
 
     public boolean isActive() {
@@ -46,20 +49,20 @@ public class NotAvailable extends ConfigFact {
         if (o == null || getClass() != o.getClass()) return false;
         NotAvailable that = (NotAvailable) o;
         return scoreImpact == that.scoreImpact &&
-                isHardImpact == that.isHardImpact &&
+                hardImpact == that.hardImpact &&
                 active == that.active;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(scoreImpact, isHardImpact, active);
+        return Objects.hash(scoreImpact, hardImpact, active);
     }
 
     @Override
     public String toString() {
         return "NotAvailable{" +
                 "scoreImpact=" + scoreImpact +
-                ", isHardImpact=" + isHardImpact +
+                ", hardImpact=" + hardImpact +
                 ", active=" + active +
                 '}';
     }

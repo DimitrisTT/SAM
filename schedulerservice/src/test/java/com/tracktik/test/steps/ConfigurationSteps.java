@@ -3,18 +3,20 @@ package com.tracktik.test.steps;
 import cucumber.api.DataTable;
 import cucumber.api.java8.En;
 import org.drools.core.base.RuleNameMatchesAgendaFilter;
+import org.drools.core.base.RuleNameEqualsAgendaFilter;
 
+import java.time.DayOfWeek;
 import com.tracktik.scheduler.domain.Employee;
 import com.tracktik.scheduler.domain.EmployeeSiteDistance;
+import com.tracktik.scheduler.domain.EmployeeAvailability;
+import com.tracktik.scheduler.domain.AvailabilityType;
 import com.tracktik.scheduler.domain.EmployeeConstraintMultiplier;
 import com.tracktik.scheduler.domain.Shift;
 import com.tracktik.scheduler.domain.Post;
 import com.tracktik.scheduler.domain.Site;
 import com.tracktik.scheduler.domain.PayType;
 import com.tracktik.scheduler.domain.Skill;
-import com.tracktik.scheduler.configuration.FarFromSite;
-import com.tracktik.scheduler.configuration.FairlyFarFromSite;
-import com.tracktik.scheduler.configuration.CloseBySite;
+import com.tracktik.scheduler.configuration.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
@@ -25,35 +27,10 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashSet;
 import java.util.ArrayList;
 
-public class DistanceSiteSteps implements En {
+public class ConfigurationSteps implements En {
 
   private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-/*
-  class TestTimePeriod {
-    String start;
-    String end;
-  }
 
-  class TestPeriodOvertime {
-    String min;
-    String max;
-    String type;
-  }
-
-  class TestDailyOvertime {
-    String min;
-    String max;
-    String type;
-  }
-
-  class TestConsecutiveOvertime {
-    String minDays;
-    String maxDays;
-    String minHours;
-    String maxHours;
-    String type;
-  }
-*/
   class TestEmployee {
     String id;
     String name;
@@ -80,19 +57,17 @@ public class DistanceSiteSteps implements En {
   class TestTag{
     String tag;
   }
-/*
-  class TestEmployeeSkill {
-    String skillId;
-    String employeeId;
+
+  class TestEmployeeAvailability{
+    String id;
+    String availability_type;
+    String day_of_week;
+    String seconds_start;
+    String seconds_end;
   }
-*/
-  //Employee employee = new Employee().setId("1").setOvertimeRuleId("1").setPayScheduleId("1");
-  //PayrollSchedule payrollSchedule = new PayrollSchedule().setId("1");
-  //ZoneId zoneId;
 
   Set<EmployeeConstraintMultiplier> ecmSet = new HashSet<EmployeeConstraintMultiplier>();
   Set<EmployeeSiteDistance> esdSet = new HashSet<EmployeeSiteDistance>();
-  FarFromSite farFromSite = new FarFromSite();
   Set<Employee> employees = new HashSet<Employee>();
   Site site = new Site();
   PayType payType;
@@ -102,49 +77,106 @@ public class DistanceSiteSteps implements En {
   Shift shift = new Shift();
   Set<String> tags = new HashSet<String>();
   Set<Shift> shifts = new HashSet<Shift>();
+  Set<EmployeeAvailability> eaSet = new HashSet<EmployeeAvailability>();
+
+  FarFromSite farFromSite = new FarFromSite();
   FairlyFarFromSite fairlyFarFromSite = new FairlyFarFromSite();
   CloseBySite closeBySite = new CloseBySite();
+  HardSkillMissing hardSkillMissing = new HardSkillMissing();
+  LessThanExpectedHours lessThanExpectedHours = new LessThanExpectedHours();
+  MoreThanExpectedHours moreThanExpectedHours = new MoreThanExpectedHours();
+  NotAvailable notAvailable = new NotAvailable();
+  MaybeAvailable maybeAvailable = new MaybeAvailable();
 
-  public DistanceSiteSteps(DroolsTestApi droolsTestApi) {
-    Given("^Far From Site being active is '(.*?)'", (String active) -> {
+  public ConfigurationSteps(DroolsTestApi droolsTestApi) {
+    Given("^Far From Site being active is '(.*?)'$", (String active) -> {
       farFromSite.setActive(Boolean.parseBoolean(active));
     });
-    And("^its definition is set to '(.*?)'", (String definition) -> {
+    And("^its definition is set to '(.*?)'$", (String definition) -> {
       farFromSite.setDefinition(Integer.parseInt(definition));
     });
-    And("^its score impact is '(.*?)'", (String scoreImpact) -> {
+    And("^its score impact is '(.*?)'$", (String scoreImpact) -> {
       farFromSite.setScoreImpact(Integer.parseInt(scoreImpact));
     });
-    And("^it has is Hard Impact set to '(.*?)'", (String isHardImpact) -> {
+    And("^it has is Hard Impact set to '(.*?)'$", (String isHardImpact) -> {
       farFromSite.setHardImpact(Boolean.parseBoolean(isHardImpact));
     });
 
-    Given("^Close By Site being active is '(.*?)'", (String active) -> {
+    Given("^Close By Site being active is '(.*?)'$", (String active) -> {
       closeBySite.setActive(Boolean.parseBoolean(active));
     });
-    And("^its Close By Site definition is set to '(.*?)'", (String definition) -> {
+    And("^its Close By Site definition is set to '(.*?)'$", (String definition) -> {
       closeBySite.setDefinition(Integer.parseInt(definition));
     });
-    And("^its Close By Site score impact is '(.*?)'", (String scoreImpact) -> {
+    And("^its Close By Site score impact is '(.*?)'$", (String scoreImpact) -> {
       closeBySite.setScoreImpact(Integer.parseInt(scoreImpact));
     });
-    And("^it Close By Site has is Hard Impact set to '(.*?)'", (String isHardImpact) -> {
+    And("^it Close By Site has is Hard Impact set to '(.*?)'$", (String isHardImpact) -> {
       closeBySite.setHardImpact(Boolean.parseBoolean(isHardImpact));
     });
 
-    Given("^Fairly Far From Site being active is '(.*?)'", (String active) -> {
+    Given("^Fairly Far From Site being active is '(.*?)'$", (String active) -> {
       fairlyFarFromSite.setActive(Boolean.parseBoolean(active));
     });
-    And("^its Fairly Far From Site definition is set to '(.*?)'", (String definition) -> {
+    And("^its Fairly Far From Site definition is set to '(.*?)'$", (String definition) -> {
       fairlyFarFromSite.setDefinition(Integer.parseInt(definition));
     });
-    And("^its Fairly Far From Site score impact is '(.*?)'", (String scoreImpact) -> {
+    And("^its Fairly Far From Site score impact is '(.*?)'$", (String scoreImpact) -> {
       fairlyFarFromSite.setScoreImpact(Integer.parseInt(scoreImpact));
     });
-    And("^it Fairly Far From Site has is Hard Impact set to '(.*?)'", (String isHardImpact) -> {
+    And("^it Fairly Far From Site has is Hard Impact set to '(.*?)'$", (String isHardImpact) -> {
       fairlyFarFromSite.setHardImpact(Boolean.parseBoolean(isHardImpact));
     });
 
+    Given("^Hard Skill Missing being active is '(.*?)'$",  (String active) -> {
+      hardSkillMissing.setActive(Boolean.parseBoolean(active));
+    });
+    And("^its Hard Skill Missing is Hard Failure is set to '(.*?)'$", (String isHardFailure) -> {
+      hardSkillMissing.setHardFailure(Boolean.parseBoolean(isHardFailure));
+    });
+    And("^its Hard Skill Missing impact multiplier is '(.*?)'$", (String impactMultiplier) -> {
+      hardSkillMissing.setImpactMultiplier(Integer.parseInt(impactMultiplier));
+    });
+    And("^its Hard Skill Missing is Hard Impact set to '(.*?)'", (String isHardImpact) -> {
+      hardSkillMissing.setHardImpact(Boolean.parseBoolean(isHardImpact));
+    });
+
+    Given("^Less Than Expected Hours being active is '(.*?)'$", (String active) -> {
+      lessThanExpectedHours.setActive(Boolean.parseBoolean(active));
+    });
+    And("^its Less Than Expected Hours impact is '(.*?)'$", (String impact) -> {
+      lessThanExpectedHours.setImpact(Integer.parseInt(impact));
+    });
+    And("^it Less Than Expected Hours has is Hard Impact set to '(.*?)'", (String isHardImpact) -> {
+      lessThanExpectedHours.setHardImpact(Boolean.parseBoolean(isHardImpact));
+    });
+
+    Given("^More Than Expected Hours being active is '(.*?)'$", (String active) -> {
+      moreThanExpectedHours.setActive(Boolean.parseBoolean(active));
+    });
+    And("^its More Than Expected Hours impact is '(.*?)'$", (String impact) -> {
+      moreThanExpectedHours.setImpact(Integer.parseInt(impact));
+    });
+    And("^it More Than Expected Hours has is Hard Impact set to '(.*?)'", (String isHardImpact) -> {
+      moreThanExpectedHours.setHardImpact(Boolean.parseBoolean(isHardImpact));
+    });
+
+    Given("^Not Available being active is '(.*?)'$", (String active) -> {
+      notAvailable.setActive(Boolean.parseBoolean(active));
+    });
+    And("^its Not Available score impact is '(.*?)'$", (String impact) -> {
+      notAvailable.setImpact(Integer.parseInt(impact));
+    });
+    And("^it Not Available has is Hard Impact set to '(.*?)'", (String isHardImpact) -> {
+      notAvailable.setHardImpact(Boolean.parseBoolean(isHardImpact));
+    });
+
+    Given("^Maybe Available being active is '(.*?)'$", (String active) -> {
+      notAvailable.setActive(Boolean.parseBoolean(active));
+    });
+    And("^its Maybe Available score impact is '(.*?)'$", (String impact) -> {
+      notAvailable.setImpact(Integer.parseInt(impact));
+    });
 
     Given("^the following site with id '(.*?)' name '(.*?)' longitude '(.*?)' and latitude '(.*?)'$", (String id, String name, String longitude, String latitude) -> {
       site.setId(id);
@@ -187,20 +219,6 @@ public class DistanceSiteSteps implements En {
       }).collect(Collectors.toSet());
       employees = employeesList;
     });
-    /*
-    And("^the employees have the following skills$", (DataTable table) -> {
-      employee.setSkills(table.asList(TestEmployeeSkill.class).stream().map(testEmployeeSkill -> {
-        employees.stream().filter(employee -> employee.getId().equals(testEmployeeSkill.employeeId))
-                .map(skill -> testEmployeeSkill.skillId)
-                .map(skillId -> hardSkillSet.stream().filter(skill -> skill.getId().equals(skillId)).findAny().get())
-      }).collect(Collectors.toList());
-        request.employee_skills.stream().parallel()
-                .filter(employee_skill -> employee_skill.employee_id.equals(employee.id))
-                .map(employee_skill -> employee_skill.skill_id)
-                .map(skill_id -> skillSet.stream().filter(skill -> skill.getId().equals(skill_id)).findAny().get())
-                .collect(Collectors.toList())
-      });
-    });*/
     And("^the following tags$", (DataTable table) -> {
       Set<String> tagsList = table.asList(TestTag.class).stream().map(testTag -> {
         return new String(testTag.tag);
@@ -236,7 +254,6 @@ public class DistanceSiteSteps implements En {
                 .setName(testEmployeeConstraintMultiplier.name)
                 .setMultiplier(Double.parseDouble(testEmployeeConstraintMultiplier.multiplier));
       }).collect(Collectors.toSet());
-      ecmSet.forEach(droolsTestApi.ksession::insert);
       ecmSet = employeeConstraintMultiplierSet;
     });
     And("^we apply each employee into the shift for the calculation$", () -> {
@@ -255,6 +272,19 @@ public class DistanceSiteSteps implements En {
         shifts.add(newShift);
         droolsTestApi.ksession.insert(newShift);
       }
+    });
+    And("^the following employee availabilities$", (DataTable table) -> {
+      Set<EmployeeAvailability> employeeAvailabilities = table.asList(TestEmployeeAvailability.class).stream().map(testEmployeeAvailability -> {
+        return new EmployeeAvailability()
+                .setEmployeeId(testEmployeeAvailability.id)
+                .setType(AvailabilityType.valueOf(testEmployeeAvailability.availability_type))
+                .setDayOfWeek(DayOfWeek.of(Integer.parseInt(testEmployeeAvailability.day_of_week)))
+                .setStartSeconds(Long.parseLong(testEmployeeAvailability.seconds_start))
+                .setEndSeconds(Long.parseLong(testEmployeeAvailability.seconds_end))
+                .setStartTime(LocalTime.MIDNIGHT.plusSeconds(Long.parseLong(testEmployeeAvailability.seconds_start)))
+                .setEndTime(LocalTime.MIDNIGHT.plusSeconds(Long.parseLong(testEmployeeAvailability.seconds_end)));
+      }).collect(Collectors.toSet());
+      eaSet = employeeAvailabilities;
     });
     When("^Far From Site rules are calculated$", () -> {
   //    System.out.println("employees" + employees);
@@ -295,88 +325,75 @@ public class DistanceSiteSteps implements En {
       droolsTestApi.ksession.fireAllRules();
     });
 
-
-//    Then("^softscore is (-?\\d+)$", (Integer softScore) -> {
- //     assertEquals(softScore.longValue(), droolsTestApi.getScoreHolder().getSoftScore());
-  //  });
-  }
-}
- /*
-    Given("^Payroll start of '(.*?)' '(.*?)' in '(.*?)'$", (String sStartDate, String sStartTime, String sTimeZone) -> {
-      zoneId = ZoneId.of(sTimeZone);
-      ZonedDateTime zonedDateTime = ZonedDateTime.of(LocalDateTime.of(LocalDate.parse(sStartDate), LocalTime.parse(sStartTime)), zoneId);
-      payrollSchedule.setPeriodStartTime(zonedDateTime.toLocalTime()).setPeriodStartDate(zonedDateTime.toLocalDate());
-    });
-    And("^pay cycle frequency of (.*?)$", (String payCycleFrequency) -> {
-      payrollSchedule.setFrequency(payCycleFrequency);
-    });
-    And("^hours spanning daily periods will be cut between periods$", () -> {
-      payrollSchedule.setOverlappingMethod(OverlappingMethodType.CUT);
-    });
-    And("^hours spanning daily periods$", () -> {
-      payrollSchedule.setOverlappingMethod(OverlappingMethodType.SPAN);
-    });
-    And("^holiday periods of$", (DataTable table) -> {
-      Set<HolidayPeriod> periods = table.asList(TestTimePeriod.class).stream().map(testTimePeriod -> {
-        return new HolidayPeriod()
-            .setPostId("1")
-            .setStart(LocalDateTime.parse(testTimePeriod.start, dateTimeFormatter.withZone(zoneId)))
-            .setEnd(LocalDateTime.parse(testTimePeriod.end, dateTimeFormatter.withZone(zoneId)));
-      }).collect(Collectors.toSet());
-      periods.forEach(droolsTestApi.ksession::insert);
-    });
-    And("^employee shifts of$", (DataTable table) -> {
-      AtomicInteger shiftId = new AtomicInteger(1);
-      Set<Shift> shifts = table.asList(TestTimePeriod.class).stream().map(testShift -> {
-        return new Shift()
-            .setId(Integer.toString(shiftId.getAndIncrement()))
-            .setPost(new Post().setId("1"))
-            .setEmployee(employee)
-            .setStart(LocalDateTime.parse(testShift.start, dateTimeFormatter))
-            .setEnd(LocalDateTime.parse(testShift.end, dateTimeFormatter));
-      }).collect(Collectors.toSet());
-      System.out.println("shifts: " + shifts);
-      shifts.forEach(droolsTestApi.ksession::insert);
-    });
-    And("^period overtime definitions with id '(.*?)' of$", (String id, DataTable table) -> {
-      Set<PeriodOvertimeDefinition> periodOvertimeDefinitions = table.asList(TestPeriodOvertime.class).stream().map(testDefinition -> {
-        return new PeriodOvertimeDefinition()
-            .setId(id)
-            .setOvertimeType(testDefinition.type)
-            .setMinimumHours(new Long(testDefinition.min))
-            .setMaximumHours(testDefinition.max.equals("INF") ? Long.MAX_VALUE : new Long(testDefinition.max));
-      }).collect(Collectors.toSet());
-      periodOvertimeDefinitions.forEach(droolsTestApi.ksession::insert);
-    });
-    And("^daily overtime definitions with id '(.*?)' of$", (String id, DataTable table) -> {
-      Set<DayOvertimeDefinition> dayOvertimeDefinitions = table.asList(FarFromSiteSteps.TestDailyOvertime.class).stream().map(testDefinition -> {
-        return new DayOvertimeDefinition()
-            .setId(id)
-            .setOvertimeType(testDefinition.type)
-            .setMinimumHours(new Long(testDefinition.min))
-            .setMaximumHours(testDefinition.max.equals("INF") ? Long.MAX_VALUE : new Long(testDefinition.max));
-      }).collect(Collectors.toSet());
-      dayOvertimeDefinitions.forEach(droolsTestApi.ksession::insert);
-    });
-    And("^consecutive day overtime definitions with id '(.*?)' of$", (String id, DataTable table) -> {
-      Set<ConsecutiveDaysOvertimeDefinition> daysOvertimeDefinitions = table.asList(FarFromSiteSteps.TestConsecutiveOvertime.class).stream().map(testDefinition -> {
-        return new ConsecutiveDaysOvertimeDefinition()
-            .setId(id)
-            .setOvertimeType(testDefinition.type)
-            .setMinimumDay(new Long(testDefinition.minDays))
-            .setMaximumDay(testDefinition.maxDays.equals("INF") ? Long.MAX_VALUE : new Long(testDefinition.maxDays))
-            .setMinimumHours(new Long(testDefinition.minHours))
-            .setMaximumHours(testDefinition.maxHours.equals("INF") ? Long.MAX_VALUE : new Long(testDefinition.maxHours));
-      }).collect(Collectors.toSet());
-      daysOvertimeDefinitions.forEach(droolsTestApi.ksession::insert);
-    });
-    And("^count holiday hours towards period overtime$", () -> {
-      payrollSchedule.setCountHolidayHoursTowardsPeriodOvertime(true);
-    });
-    And("^holiday hours use start time$", () -> {
-      payrollSchedule.setAlignHolidaysWithPeriodStartTime(true);
+    When("^Hard Skill Missing rules are calculated$", () -> {
+      //    System.out.println("employees" + employees);
+      //    System.out.println("shift " + shifts);
+      //    System.out.println("esdSet" + esdSet);
+      //    System.out.println("ecmSet" + ecmSet);
+      //    System.out.println("HardSkillMissing" + closeBySite);
+      droolsTestApi.ksession.insert(hardSkillMissing);
+      esdSet.forEach(droolsTestApi.ksession::insert);
+      ecmSet.forEach(droolsTestApi.ksession::insert);
+      employees.forEach(droolsTestApi.ksession::insert);
+      droolsTestApi.ksession.fireAllRules(new RuleNameEqualsAgendaFilter("MUST_HAVE_HARD_SKILLS"));
     });
 
+    When("^Less Than Expected Hours rules are calculated$", () -> {
+      //    System.out.println("employees" + employees);
+      //    System.out.println("shift " + shifts);
+      //    System.out.println("esdSet" + esdSet);
+      //    System.out.println("ecmSet" + ecmSet);
+      //    System.out.println("CloseBySite" + closeBySite);
+      droolsTestApi.ksession.insert(lessThanExpectedHours);
+      esdSet.forEach(droolsTestApi.ksession::insert);
+      ecmSet.forEach(droolsTestApi.ksession::insert);
+      employees.forEach(droolsTestApi.ksession::insert);
+      droolsTestApi.ksession.fireAllRules();
+    });
+
+    When("^More Than Expected Hours rules are calculated$", () -> {
+      //    System.out.println("employees" + employees);
+      //    System.out.println("shift " + shifts);
+      //    System.out.println("esdSet" + esdSet);
+      //    System.out.println("ecmSet" + ecmSet);
+      //    System.out.println("CloseBySite" + closeBySite);
+      droolsTestApi.ksession.insert(moreThanExpectedHours);
+      esdSet.forEach(droolsTestApi.ksession::insert);
+      ecmSet.forEach(droolsTestApi.ksession::insert);
+      employees.forEach(droolsTestApi.ksession::insert);
+      droolsTestApi.ksession.fireAllRules();
+    });
+
+    When("^Not Available rules are calculated$", () -> {
+      //    System.out.println("employees" + employees);
+      //    System.out.println("shift " + shifts);
+      //    System.out.println("esdSet" + esdSet);
+      //    System.out.println("ecmSet" + ecmSet);
+      //    System.out.println("CloseBySite" + closeBySite);
+      droolsTestApi.ksession.insert(notAvailable);
+      esdSet.forEach(droolsTestApi.ksession::insert);
+      ecmSet.forEach(droolsTestApi.ksession::insert);
+      employees.forEach(droolsTestApi.ksession::insert);
+      eaSet.forEach(droolsTestApi.ksession::insert);
+      droolsTestApi.ksession.fireAllRules();
+    });
+
+    When("^Maybe Available rules are calculated$", () -> {
+      //    System.out.println("employees" + employees);
+      //    System.out.println("shift " + shifts);
+      //    System.out.println("esdSet" + esdSet);
+      //    System.out.println("ecmSet" + ecmSet);
+      //    System.out.println("CloseBySite" + closeBySite);
+      droolsTestApi.ksession.insert(maybeAvailable);
+      esdSet.forEach(droolsTestApi.ksession::insert);
+      ecmSet.forEach(droolsTestApi.ksession::insert);
+      employees.forEach(droolsTestApi.ksession::insert);
+      eaSet.forEach(droolsTestApi.ksession::insert);
+      droolsTestApi.ksession.fireAllRules();
+    });
+
+    Then("^hardscore is (-?\\d+)$", (Integer hardScore) -> {
+      assertEquals(hardScore.longValue(), droolsTestApi.getScoreHolder().getHardScore());
+    });
   }
 }
-*/

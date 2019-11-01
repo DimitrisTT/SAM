@@ -28,6 +28,7 @@ rule "SHIFT_TAG"
         Shift(employee != null, employee.hasShiftTags(tags), $value: employee.tagValueSummary(tags))
     then
         scoreHolder.addSoftConstraintMatch(kcontext, $value);
+        System.out.println("Shift-Tag" + $value);
 end
 
 /*
@@ -43,5 +44,6 @@ rule "MAXIMIZE_PROFIT"
         Post(this == $post, $billRate: billRate, $payRate: payRate)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, ($billRate - $payRate)/100L);
+        System.out.println("Maximize Profit" + ($billRate - $payRate)/100L);
 end
 */

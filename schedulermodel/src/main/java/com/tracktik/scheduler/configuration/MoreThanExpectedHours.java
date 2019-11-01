@@ -8,12 +8,16 @@ public class MoreThanExpectedHours extends ConfigFact {
 
     private int impact = -10;
     private boolean active = true;
-    private boolean isHardImpact = false;
+    private boolean hardImpact = false;
 
-    public MoreThanExpectedHours(int impact, boolean active, boolean isHardImpact) {
+    public MoreThanExpectedHours(int impact, boolean active, boolean hardImpact) {
         this.impact = impact;
         this.active = active;
-        this.isHardImpact = isHardImpact;
+        this.hardImpact = hardImpact;
+    }
+
+    public MoreThanExpectedHours() {
+
     }
 
     public int getImpact() {
@@ -32,12 +36,12 @@ public class MoreThanExpectedHours extends ConfigFact {
         this.active = active;
     }
 
-    public boolean isHardImpact() {
-        return isHardImpact;
+    public boolean ishardImpact() {
+        return hardImpact;
     }
 
     public void setHardImpact(boolean hardImpact) {
-        isHardImpact = hardImpact;
+        this.hardImpact = hardImpact;
     }
 
     @Override
@@ -47,12 +51,12 @@ public class MoreThanExpectedHours extends ConfigFact {
         MoreThanExpectedHours that = (MoreThanExpectedHours) o;
         return impact == that.impact &&
                 active == that.active &&
-                isHardImpact == that.isHardImpact;
+                hardImpact == that.hardImpact;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(impact, active, isHardImpact);
+        return Objects.hash(impact, active, hardImpact);
     }
 
     @Override
@@ -60,7 +64,7 @@ public class MoreThanExpectedHours extends ConfigFact {
         return "LessThanExpectedHours{" +
                 "impact=" + impact +
                 ", active=" + active +
-                ", isHardImpact=" + isHardImpact +
+                ", hardImpact=" + hardImpact +
                 '}';
     }
 }

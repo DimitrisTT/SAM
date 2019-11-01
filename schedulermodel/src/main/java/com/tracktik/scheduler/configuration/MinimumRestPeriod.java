@@ -15,6 +15,10 @@ public class MinimumRestPeriod extends ConfigFact {
         this.isHardImpact = isHardImpact;
     }
 
+    public MinimumRestPeriod() {
+
+    }
+
     public int getScoreImpact() {
         return scoreImpact;
     }
