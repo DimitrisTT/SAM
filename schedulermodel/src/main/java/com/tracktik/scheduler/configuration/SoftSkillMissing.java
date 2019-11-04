@@ -6,14 +6,14 @@ import java.util.Objects;
 
 public class SoftSkillMissing extends ConfigFact {
 
-    private int impactMultiplier = -10;
+    private int impactMultiplier = 1;
     private boolean active = true;
-    private boolean isHardImpact = false;
+    private boolean hardImpact = false;
 
-    public SoftSkillMissing(int impactMultiplier, boolean active, boolean isHardImpact) {
+    public SoftSkillMissing(int impactMultiplier, boolean active, boolean hardImpact) {
         this.impactMultiplier = impactMultiplier;
         this.active = active;
-        this.isHardImpact = isHardImpact;
+        this.hardImpact = hardImpact;
     }
 
     public SoftSkillMissing() {
@@ -37,11 +37,11 @@ public class SoftSkillMissing extends ConfigFact {
     }
 
     public boolean isHardImpact() {
-        return isHardImpact;
+        return hardImpact;
     }
 
     public void setHardImpact(boolean hardImpact) {
-        isHardImpact = hardImpact;
+        hardImpact = hardImpact;
     }
 
     @Override
@@ -51,12 +51,12 @@ public class SoftSkillMissing extends ConfigFact {
         SoftSkillMissing that = (SoftSkillMissing) o;
         return impactMultiplier == that.impactMultiplier &&
                 active == that.active &&
-                isHardImpact == that.isHardImpact;
+                hardImpact == that.hardImpact;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(impactMultiplier, active, isHardImpact);
+        return Objects.hash(impactMultiplier, active, hardImpact);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class SoftSkillMissing extends ConfigFact {
         return "SoftSkillMissing{" +
                 "impactMultiplier=" + impactMultiplier +
                 ", active=" + active +
-                ", isHardImpact=" + isHardImpact +
+                ", hardImpact=" + hardImpact +
                 '}';
     }
 }

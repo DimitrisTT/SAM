@@ -2,6 +2,8 @@ import java.time.*
 import java.util.*;
 
 function Long hoursGap(LocalDateTime start, LocalDateTime end) {
+    System.out.println("mrp from shifts: " + Duration.between(start, end).toHours());
+    System.out.println("start:" + start + " and end: " + end);
     return Duration.between(start, end).toHours();
 }
 

@@ -28,7 +28,7 @@ function Long numberOfMatches(Collection first, Collection other) {
     It will only fire if the KeyValueFact of HARD_SKILL_ENABLED false doesn't exist. There is also an option
     where hard skill shall be considered soft in some cases. This rule will only fire if there is no
     KeyValueFact of HARD_SKILL_IS_HARD of false.
-*/
+
 rule "MUST_HAVE_HARD_SKILLS"
     when
         not KeyValueFact(key == "HARD_SKILL_ENABLED", value == false)
@@ -38,17 +38,22 @@ rule "MUST_HAVE_HARD_SKILLS"
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
 
-/*
+
     This constraint will ensure that an employee assigned to a post will have all of the required skills.
     There is also an option where hard skill shall be considered soft in some cases. This rule is based off of the new
     configuration object, "HardSkillMissing"
 */
 rule "hard skills necessary"
+    //lock-on-active
     when
-        HardSkillMissing(active == true, hardImpact == true, hardFailure == false)
-        Shift(post != null, employee != null, !employee.skills.containsAll(post.hardSkills))
+        HardSkillMissing(active == true, hardImpact == false, hardFailure == true)
+        Shift(post != null, employee != null, !employee.skills.containsAll(post.hardSkills), $employeeId: employee.id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == true)
+        $ecm: EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == false)
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
+        $ecm.setAlreadyFired(true);
+        update($ecm);
 end
 
 // SOFT CONSTRAINTS
@@ -90,6 +95,22 @@ rule "MULTIPLIER_HAS_SOME_SOFT_SKILLS"
 end
 
 /*
+    Same as above, but also considers a general multiplier as expressed by SOFT_SKILL_MUTLIPLIER.
+*/
+rule "soft skill missing with multiplier"
+    when
+        SoftSkillMissing(active == true, $impactMultiplier: impactMultiplier, hardImpact == false)
+        Shift(post != null, employee != null, $employeeId: employee.id, $softSkills: post.softSkills, $skills:employee.skills, numberOfMatches($softSkills, $skills) > 0)
+        EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SOME_SOFT_SKILLS", $employeeMultiplier: multiplier)
+    then
+        Long matches = numberOfMatches($softSkills, $skills);
+        Long matchesSquared = matches * matches;
+        Double dValue = matchesSquared * $impactMultiplier * $employeeMultiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+        System.out.println("multiplier has some soft skills" + dValue);
+end
+
+/*
     This is the same as HAS_SOME_SOFT_SKILLS except it is being applied to hard skill instead. This will happen
     when there is a KeyValueFact of HARD_SKILL_IS_HARD that is false.
 */
@@ -113,12 +134,14 @@ end
 rule "HAS_SITE_EXPERIENCE"
     when
         Shift(employee != null, post != null, $employeeId: employee.id, post.site not memberOf employee.siteExperience)
-        EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SITE_EXPERIENCE", $multiplier: multiplier)
+        $ecm: EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SITE_EXPERIENCE", $multiplier: multiplier, alreadyFired == false)
     then
         Long impact = -100L;
         Double dValue = impact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
         System.out.println("has site experience" + dValue);
+        $ecm.setAlreadyFired(true);
+        update($ecm);
 end
 
 /*
@@ -134,15 +157,17 @@ end
 
 /*
     This constraint will encourage the scheduler to prefer employees that have seniority when assigning them to shifts.
-    If the specific employee as a multiplier, the score will be multiplied by that as well.
+    If the specific employee has a multiplier, the score will be multiplied by that as well.
 */
 rule "EMPLOYEE_HAS_SENIORITY"
     when
         Shift(employee != null, $employeeId: employee.id)
         Employee($employeeId == id, seniority != null, $seniority: seniority)
-        EmployeeConstraintMultiplier($employeeId == employeeId, name == "EMPLOYEE_HAS_SENIORITY", $multiplier: multiplier)
+        $ecm: EmployeeConstraintMultiplier($employeeId == employeeId, name == "EMPLOYEE_HAS_SENIORITY", $multiplier: multiplier, alreadyFired == false)
     then
         Double dValue = $seniority * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
         System.out.println("Seniority adds: " + dValue);
+        $ecm.setAlreadyFired(true);
+        update($ecm);
 end

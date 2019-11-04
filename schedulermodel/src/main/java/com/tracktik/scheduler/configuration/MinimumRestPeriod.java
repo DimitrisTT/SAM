@@ -7,12 +7,12 @@ import java.util.Objects;
 public class MinimumRestPeriod extends ConfigFact {
     private int scoreImpact = -50;
     private boolean active = true;
-    private boolean isHardImpact = false;
+    private boolean hardImpact = false;
 
-    public MinimumRestPeriod(int scoreImpact, boolean active, boolean isHardImpact) {
+    public MinimumRestPeriod(int scoreImpact, boolean active, boolean hardImpact) {
         this.scoreImpact = scoreImpact;
         this.active = active;
-        this.isHardImpact = isHardImpact;
+        this.hardImpact = hardImpact;
     }
 
     public MinimumRestPeriod() {
@@ -36,11 +36,11 @@ public class MinimumRestPeriod extends ConfigFact {
     }
 
     public boolean isHardImpact() {
-        return isHardImpact;
+        return hardImpact;
     }
 
     public void setHardImpact(boolean hardImpact) {
-        isHardImpact = hardImpact;
+        hardImpact = hardImpact;
     }
 
     @Override
@@ -50,12 +50,12 @@ public class MinimumRestPeriod extends ConfigFact {
         MinimumRestPeriod that = (MinimumRestPeriod) o;
         return scoreImpact == that.scoreImpact &&
                 active == that.active &&
-                isHardImpact == that.isHardImpact;
+                hardImpact == that.hardImpact;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(scoreImpact, active, isHardImpact);
+        return Objects.hash(scoreImpact, active, hardImpact);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class MinimumRestPeriod extends ConfigFact {
         return "MinimumRestPeriod{" +
                 "scoreImpact=" + scoreImpact +
                 ", active=" + active +
-                ", isHardImpact=" + isHardImpact +
+                ", hardImpact=" + hardImpact +
                 '}';
     }
 }

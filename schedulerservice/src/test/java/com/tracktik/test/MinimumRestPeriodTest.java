@@ -41,7 +41,7 @@ public class MinimumRestPeriodTest extends ConstraintRuleTestBase {
     ksession.insert(shift1);
     ksession.insert(shift2);
 
-    ksession.fireAllRules(new RuleNameMatchesAgendaFilter(".*MINIMUM_REST_PERIOD.*"));
+    ksession.fireAllRules(new RuleNameMatchesAgendaFilter(".*Minimum Rest Period_PERIOD.*"));
 
     assertEquals(0L, getScoreHolder().getSoftScore());
   }
@@ -67,7 +67,7 @@ public class MinimumRestPeriodTest extends ConstraintRuleTestBase {
     ksession.insert(shift1);
     ksession.insert(shift2);
 
-    ksession.fireAllRules(new RuleNameMatchesAgendaFilter(".*MINIMUM_REST_PERIOD.*"));
+    ksession.fireAllRules(new RuleNameMatchesAgendaFilter(".*Minimum Rest Period_PERIOD.*"));
 
     assertEquals(0L, getScoreHolder().getSoftScore());
   }

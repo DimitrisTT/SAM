@@ -65,6 +65,27 @@ rule "MINIMUM_REST_PERIOD"
         System.out.println("MRP: " + dValue);
 end
 
+/*
+    This constraint will encourage the scheduler to honor an employee's minimum rest period between shifts.
+    It will not fire unless there is a EmployeeConstraintMultiplier fact with the name MINIMUM_REST_PERIOD.
+    It adds a soft constraint value that is the square of the hours between the shifts multiplied by the
+    constraint multiplier for the particular employee.
+
+    TODO need to check the test cases on this.
+*/
+rule "minimum rest period"
+   when
+        MinimumRestPeriod(active == true, hardImpact == false, $scoreImpact: scoreImpact)
+        Shift(employee != null, $employee: employee, $firstShiftEnd: end, $firstShiftId: id)
+        EmployeeConstraintMultiplier($employee.id == employeeId, name == "MINIMUM_REST_PERIOD", $employeeMultiplier: multiplier)
+        Shift($firstShiftId != id, $employee == employee, $firstShiftEnd < start,$secondShiftStart: start, hoursGap($firstShiftEnd, start) < employee.minimumRestPeriod)
+    then
+        Long hours = hoursGap($firstShiftEnd, $secondShiftStart);
+        Double dValue = hours * hours * $employeeMultiplier * $scoreImpact;
+        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
+        System.out.println("MRP: " + dValue);
+end
+
 
 /*
     Adds a negative soft constraint value if the employee is scheduled for less than the expected number of hours.

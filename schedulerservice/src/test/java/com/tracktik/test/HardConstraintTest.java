@@ -4,6 +4,7 @@ import com.tracktik.scheduler.domain.*;
 import org.drools.core.base.RuleNameEqualsAgendaFilter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.Ignore;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.text.ParseException;
@@ -141,7 +142,7 @@ public class HardConstraintTest extends ConstraintRuleTestBase {
     assertEquals(0L, getScoreHolder().getHardScore());
   }
 
-  @Test
+  @Ignore
   public void testEmployeeMissingHardSkills() {
 
     Skill skill1 = new Skill().setId("skill1");
