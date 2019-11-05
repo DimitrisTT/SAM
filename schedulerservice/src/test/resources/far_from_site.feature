@@ -18,16 +18,16 @@ Feature: Far From Site
       | 33 | firearm license |
     And the following employees
       | id   | name      | preferred_hours  | geo_lat  | geo_long  | pay_rate  | seniority  | minimum_rest_period  | skillId |
-      | 1111 | Andre     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1112 | Babara    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1116 | Franciska | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1118 | Helga     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1120 | Julie     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
+      | 1111 | Andre     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1112 | Babara    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1116 | Franciska | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1118 | Helga     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1120 | Julie     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
     And the following tags
       | tag      |
       | sometag  |
@@ -48,7 +48,7 @@ Feature: Far From Site
       | 1120 | WORKPLACE_FAR | 1          |
     And we apply each employee into the shift for the calculation
     When Far From Site rules are calculated
-    Then softscore is 200
+    Then softscore is 0
 
   Scenario: testing rule firing for those far away with half far away
     Given the following site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
@@ -62,16 +62,16 @@ Feature: Far From Site
       | 33 | firearm license |
     And the following employees
       | id   | name      | preferred_hours  | geo_lat  | geo_long  | pay_rate  | seniority  | minimum_rest_period  | skillId |
-      | 1111 | Andre     | 20               | 150      | 140       | 13        | 120        | 8                    | 33      |
-      | 1112 | Babara    | 20               | 150      | 140       | 13        | 120        | 8                    | 33      |
-      | 1113 | Caspar    | 20               | 150      | 140       | 13        | 120        | 8                    | 33      |
-      | 1114 | Danielle  | 20               | 150      | 140       | 13        | 120        | 8                    | 33      |
-      | 1115 | Eduardo   | 20               | 150      | 140       | 13        | 120        | 8                    | 33      |
-      | 1116 | Franciska | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1118 | Helga     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1120 | Julie     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
+      | 1111 | Andre     | 20               | 150      | 140       | 13        | 0          | 8                    | 33      |
+      | 1112 | Babara    | 20               | 150      | 140       | 13        | 0          | 8                    | 33      |
+      | 1113 | Caspar    | 20               | 150      | 140       | 13        | 0          | 8                    | 33      |
+      | 1114 | Danielle  | 20               | 150      | 140       | 13        | 0          | 8                    | 33      |
+      | 1115 | Eduardo   | 20               | 150      | 140       | 13        | 0          | 8                    | 33      |
+      | 1116 | Franciska | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1118 | Helga     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1120 | Julie     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
     And the following tags
       | tag      |
       | sometag  |
@@ -92,7 +92,7 @@ Feature: Far From Site
       | 1120 | WORKPLACE_FAR | 1          |
     And we apply each employee into the shift for the calculation
     When Far From Site rules are calculated
-    Then softscore is -150
+    Then softscore is -350
 
   Scenario: testing rule firing for those far away with everyone far away
     Given the following site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
@@ -106,16 +106,16 @@ Feature: Far From Site
       | 33 | firearm license |
     And the following employees
     | id   | name      | preferred_hours  | geo_lat  | geo_long  | pay_rate  | seniority  | minimum_rest_period  | skillId |
-    | 1111 | Andre     | 20               | 150      | 140       | 13        | 120        | 8                    | 33      |
-    | 1112 | Babara    | 20               | 150      | 140       | 13        | 120        | 8                    | 33      |
-    | 1113 | Caspar    | 20               | 150      | 140       | 13        | 120        | 8                    | 33      |
-    | 1114 | Danielle  | 20               | 150      | 140       | 13        | 120        | 8                    | 33      |
-    | 1115 | Eduardo   | 20               | 150      | 140       | 13        | 120        | 8                    | 33      |
-    | 1116 | Franciska | 20               | 150      | 140       | 13        | 120        | 8                    | 33      |
-    | 1117 | Gregory   | 20               | 150      | 140       | 13        | 120        | 8                    | 33      |
-    | 1118 | Helga     | 20               | 150      | 140       | 13        | 120        | 8                    | 33      |
-    | 1119 | Ivan      | 20               | 150      | 140       | 13        | 120        | 8                    | 33      |
-    | 1120 | Julie     | 20               | 150      | 140       | 13        | 120        | 8                    | 33      |
+    | 1111 | Andre     | 20               | 150      | 140       | 13        | 0          | 8                    | 33      |
+    | 1112 | Babara    | 20               | 150      | 140       | 13        | 0          | 8                    | 33      |
+    | 1113 | Caspar    | 20               | 150      | 140       | 13        | 0          | 8                    | 33      |
+    | 1114 | Danielle  | 20               | 150      | 140       | 13        | 0          | 8                    | 33      |
+    | 1115 | Eduardo   | 20               | 150      | 140       | 13        | 0          | 8                    | 33      |
+    | 1116 | Franciska | 20               | 150      | 140       | 13        | 0          | 8                    | 33      |
+    | 1117 | Gregory   | 20               | 150      | 140       | 13        | 0          | 8                    | 33      |
+    | 1118 | Helga     | 20               | 150      | 140       | 13        | 0          | 8                    | 33      |
+    | 1119 | Ivan      | 20               | 150      | 140       | 13        | 0          | 8                    | 33      |
+    | 1120 | Julie     | 20               | 150      | 140       | 13        | 0          | 8                    | 33      |
     And the following tags
     | tag      |
     | sometag  |
@@ -136,4 +136,4 @@ Feature: Far From Site
     | 1120 | WORKPLACE_FAR | 1          |
     And we apply each employee into the shift for the calculation
     When Far From Site rules are calculated
-    Then softscore is -500
+    Then softscore is -700

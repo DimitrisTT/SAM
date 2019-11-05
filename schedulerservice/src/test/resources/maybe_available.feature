@@ -16,16 +16,16 @@ Feature: Maybe Available
       | 33 | firearm license |
     And the following employees
       | id   | name      | preferred_hours  | geo_lat  | geo_long  | pay_rate  | seniority  | minimum_rest_period  | skillId |
-      | 1111 | Andre     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1112 | Babara    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1116 | Franciska | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1118 | Helga     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1120 | Julie     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
+      | 1111 | Andre     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1112 | Babara    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1116 | Franciska | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1118 | Helga     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1120 | Julie     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
     And the following tags
       | tag      |
       | sometag  |
@@ -58,7 +58,7 @@ Feature: Maybe Available
       | 1120 | MAYBE                | 4           | 30400         | 31400       |
     And we apply each employee into the shift for the calculation
     When Maybe Available rules are calculated
-    Then softscore is 200
+    Then softscore is 0
 
   Scenario: testing rule firing for those with overlap in the beginning
     Given the following site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
@@ -72,16 +72,16 @@ Feature: Maybe Available
       | 33 | firearm license |
     And the following employees
       | id   | name      | preferred_hours  | geo_lat  | geo_long  | pay_rate  | seniority  | minimum_rest_period  | skillId |
-      | 1111 | Andre     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1112 | Babara    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1116 | Franciska | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1118 | Helga     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1120 | Julie     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
+      | 1111 | Andre     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1112 | Babara    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1116 | Franciska | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1118 | Helga     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1120 | Julie     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
     And the following tags
       | tag      |
       | sometag  |
@@ -114,7 +114,7 @@ Feature: Maybe Available
       | 1120 | MAYBE                | 4           | 30400         | 34400       |
     And we apply each employee into the shift for the calculation
     When Maybe Available rules are calculated
-    Then softscore is -800
+    Then softscore is -1000
 
   Scenario: testing rule firing for those with overlap in the end
     Given the following site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
@@ -128,16 +128,16 @@ Feature: Maybe Available
       | 33 | firearm license |
     And the following employees
       | id   | name      | preferred_hours  | geo_lat  | geo_long  | pay_rate  | seniority  | minimum_rest_period  | skillId |
-      | 1111 | Andre     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1112 | Babara    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1116 | Franciska | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1118 | Helga     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1120 | Julie     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
+      | 1111 | Andre     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1112 | Babara    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1116 | Franciska | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1118 | Helga     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1120 | Julie     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
     And the following tags
       | tag      |
       | sometag  |
@@ -170,7 +170,7 @@ Feature: Maybe Available
       | 1120 | MAYBE                | 4           | 60200         | 62200       |
     And we apply each employee into the shift for the calculation
     When Maybe Available rules are calculated
-    Then softscore is -800
+    Then softscore is -1000
 
   Scenario: testing rule firing for those with overlap in the entirety
     Given the following site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
@@ -184,16 +184,16 @@ Feature: Maybe Available
       | 33 | firearm license |
     And the following employees
       | id   | name      | preferred_hours  | geo_lat  | geo_long  | pay_rate  | seniority  | minimum_rest_period  | skillId |
-      | 1111 | Andre     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1112 | Babara    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1116 | Franciska | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1118 | Helga     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1120 | Julie     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
+      | 1111 | Andre     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1112 | Babara    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1116 | Franciska | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1118 | Helga     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1120 | Julie     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
     And the following tags
       | tag      |
       | sometag  |
@@ -226,7 +226,7 @@ Feature: Maybe Available
       | 1120 | MAYBE                | 4           | 30400         | 62200       |
     And we apply each employee into the shift for the calculation
     When Maybe Available rules are calculated
-    Then softscore is -800
+    Then softscore is -1000
 
   Scenario: testing rule firing for half of those with overlap in the entirety and half in the beginning
     Given the following site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
@@ -240,16 +240,16 @@ Feature: Maybe Available
       | 33 | firearm license |
     And the following employees
       | id   | name      | preferred_hours  | geo_lat  | geo_long  | pay_rate  | seniority  | minimum_rest_period  | skillId |
-      | 1111 | Andre     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1112 | Babara    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1116 | Franciska | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1118 | Helga     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1120 | Julie     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
+      | 1111 | Andre     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1112 | Babara    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1116 | Franciska | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1118 | Helga     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1120 | Julie     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
     And the following tags
       | tag      |
       | sometag  |
@@ -282,7 +282,7 @@ Feature: Maybe Available
       | 1120 | MAYBE                | 4           | 30400         | 62200       |
     And we apply each employee into the shift for the calculation
     When Maybe Available rules are calculated
-    Then softscore is -800
+    Then softscore is -1000
 
 
   Scenario: testing rule firing for half of those with overlap in the entirety and half in the end
@@ -297,16 +297,16 @@ Feature: Maybe Available
       | 33 | firearm license |
     And the following employees
       | id   | name      | preferred_hours  | geo_lat  | geo_long  | pay_rate  | seniority  | minimum_rest_period  | skillId |
-      | 1111 | Andre     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1112 | Babara    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1116 | Franciska | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1118 | Helga     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1120 | Julie     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
+      | 1111 | Andre     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1112 | Babara    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1116 | Franciska | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1118 | Helga     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1120 | Julie     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
     And the following tags
       | tag      |
       | sometag  |
@@ -339,7 +339,7 @@ Feature: Maybe Available
       | 1120 | MAYBE                | 4           | 60200         | 62200       |
     And we apply each employee into the shift for the calculation
     When Maybe Available rules are calculated
-    Then softscore is -800
+    Then softscore is -1000
 
   Scenario: testing rule firing for half of those with no overlap and half overlapping in the entirety
     Given the following site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
@@ -353,16 +353,16 @@ Feature: Maybe Available
       | 33 | firearm license |
     And the following employees
       | id   | name      | preferred_hours  | geo_lat  | geo_long  | pay_rate  | seniority  | minimum_rest_period  | skillId |
-      | 1111 | Andre     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1112 | Babara    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1116 | Franciska | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1118 | Helga     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1120 | Julie     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
+      | 1111 | Andre     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1112 | Babara    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1116 | Franciska | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1118 | Helga     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1120 | Julie     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
     And the following tags
       | tag      |
       | sometag  |
@@ -395,7 +395,7 @@ Feature: Maybe Available
       | 1120 | MAYBE                | 4           | 30400         | 62200       |
     And we apply each employee into the shift for the calculation
     When Maybe Available rules are calculated
-    Then softscore is -300
+    Then softscore is -500
 
 
   Scenario: testing rule firing for half of those with overlap in the beginning and half with no overlap
@@ -410,16 +410,16 @@ Feature: Maybe Available
       | 33 | firearm license |
     And the following employees
       | id   | name      | preferred_hours  | geo_lat  | geo_long  | pay_rate  | seniority  | minimum_rest_period  | skillId |
-      | 1111 | Andre     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1112 | Babara    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1116 | Franciska | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1118 | Helga     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1120 | Julie     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
+      | 1111 | Andre     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1112 | Babara    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1116 | Franciska | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1118 | Helga     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1120 | Julie     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
     And the following tags
       | tag      |
       | sometag  |
@@ -452,7 +452,7 @@ Feature: Maybe Available
       | 1120 | MAYBE                | 4           | 30400         | 31400       |
     And we apply each employee into the shift for the calculation
     When Maybe Available rules are calculated
-    Then softscore is -300
+    Then softscore is -500
 
 
 
@@ -468,16 +468,16 @@ Feature: Maybe Available
       | 33 | firearm license |
     And the following employees
       | id   | name      | preferred_hours  | geo_lat  | geo_long  | pay_rate  | seniority  | minimum_rest_period  | skillId |
-      | 1111 | Andre     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1112 | Babara    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1116 | Franciska | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1118 | Helga     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1120 | Julie     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
+      | 1111 | Andre     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1112 | Babara    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1116 | Franciska | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1118 | Helga     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1120 | Julie     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
     And the following tags
       | tag      |
       | sometag  |
@@ -510,7 +510,7 @@ Feature: Maybe Available
       | 1120 | MAYBE                | 4           | 60200         | 62200       |
     And we apply each employee into the shift for the calculation
     When Maybe Available rules are calculated
-    Then softscore is -800
+    Then softscore is -1000
 
   Scenario: testing rule firing for half of those with no overlap and half with an overlap in the end
     Given the following site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
@@ -524,16 +524,16 @@ Feature: Maybe Available
       | 33 | firearm license |
     And the following employees
       | id   | name      | preferred_hours  | geo_lat  | geo_long  | pay_rate  | seniority  | minimum_rest_period  | skillId |
-      | 1111 | Andre     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1112 | Babara    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1116 | Franciska | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1118 | Helga     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
-      | 1120 | Julie     | 20               | 15       | 14        | 13        | 120        | 8                    | 33      |
+      | 1111 | Andre     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1112 | Babara    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1113 | Caspar    | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1114 | Danielle  | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1115 | Eduardo   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1116 | Franciska | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1117 | Gregory   | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1118 | Helga     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1119 | Ivan      | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
+      | 1120 | Julie     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
     And the following tags
       | tag      |
       | sometag  |
@@ -566,5 +566,5 @@ Feature: Maybe Available
       | 1120 | MAYBE                | 4           | 60400         | 62200       |
     And we apply each employee into the shift for the calculation
     When Maybe Available rules are calculated
-    Then softscore is -300
+    Then softscore is -500
     

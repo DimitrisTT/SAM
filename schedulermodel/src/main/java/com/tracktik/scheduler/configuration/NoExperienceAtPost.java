@@ -4,19 +4,19 @@ import com.tracktik.scheduler.domain.ConfigFact;
 
 import java.util.Objects;
 
-public class NoExperienceAtSite extends ConfigFact {
+public class NoExperienceAtPost extends ConfigFact {
 
     private int scoreImpact = -50;
     private boolean active = true;
     private boolean hardImpact = false;
 
-    public NoExperienceAtSite(int scoreImpact, boolean active, boolean hardImpact) {
+    public NoExperienceAtPost(int scoreImpact, boolean active, boolean hardImpact) {
         this.scoreImpact = scoreImpact;
         this.active = active;
         this.hardImpact = hardImpact;
     }
 
-    public NoExperienceAtSite() {
+    public NoExperienceAtPost() {
 
     }
 
@@ -48,7 +48,7 @@ public class NoExperienceAtSite extends ConfigFact {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NoExperienceAtSite that = (NoExperienceAtSite) o;
+        NoExperienceAtPost that = (NoExperienceAtPost) o;
         return scoreImpact == that.scoreImpact &&
                 active == that.active &&
                 hardImpact == that.hardImpact;

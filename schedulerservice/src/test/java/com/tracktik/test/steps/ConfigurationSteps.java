@@ -91,7 +91,8 @@ public class ConfigurationSteps implements En {
   NotAvailable notAvailable = new NotAvailable();
   MaybeAvailable maybeAvailable = new MaybeAvailable();
   MinimumRestPeriod minimumRestPeriod = new MinimumRestPeriod();
-
+  NoExperienceAtSite noExperienceAtSite = new NoExperienceAtSite();
+  NoExperienceAtPost noExperienceAtPost = new NoExperienceAtPost();
 
   public ConfigurationSteps(DroolsTestApi droolsTestApi) {
     Given("^Far From Site being active is '(.*?)'$", (String active) -> {
@@ -203,6 +204,27 @@ public class ConfigurationSteps implements En {
       notAvailable.setHardImpact(Boolean.parseBoolean(isHardImpact));
     });
 
+    Given("^No Experience At Site being active is '(.*?)'$", (String active) -> {
+      noExperienceAtSite.setActive(Boolean.parseBoolean(active));
+    });
+    And("^its No Experience At Site score impact is '(.*?)'$", (String impact) -> {
+      noExperienceAtSite.setImpact(Integer.parseInt(impact));
+    });
+    And("^it No Experience At Site has is Hard Impact set to '(.*?)'", (String isHardImpact) -> {
+      noExperienceAtSite.setHardImpact(Boolean.parseBoolean(isHardImpact));
+    });
+
+    Given("^No Experience At Post being active is '(.*?)'$", (String active) -> {
+      noExperienceAtPost.setActive(Boolean.parseBoolean(active));
+    });
+    And("^its No Experience At Post score impact is '(.*?)'$", (String impact) -> {
+      noExperienceAtPost.setImpact(Integer.parseInt(impact));
+    });
+    And("^it No Experience At Post has is Hard Impact set to '(.*?)'", (String isHardImpact) -> {
+      noExperienceAtPost.setHardImpact(Boolean.parseBoolean(isHardImpact));
+    });
+
+
     Given("^the following site with id '(.*?)' name '(.*?)' longitude '(.*?)' and latitude '(.*?)'$", (String id, String name, String longitude, String latitude) -> {
       site.setId(id);
       site.setName(name);
@@ -259,6 +281,44 @@ public class ConfigurationSteps implements En {
                 .setSkills(softSkillSet.stream().filter(skill -> skill.getId().equals(testEmployee.skillId)||skill.getId().equals(testEmployee.secondSkillId)).collect(Collectors.toList()));
       }).collect(Collectors.toSet());
       employees = employeesList;
+    });
+    And("^the following employees with site experience$", (DataTable table) -> {
+      Set<Employee> employeesList = table.asList(TestEmployee.class).stream().map(testEmployee -> {
+        esdSet.add(new EmployeeSiteDistance().setDistance(EmployeeSiteDistance.distance(Double.parseDouble(testEmployee.geo_long), Double.parseDouble(testEmployee.geo_lat), site.getLongitude(), site.getLatitude())).setEmployeeId(testEmployee.id).setSiteId(site.getId()));
+        return new Employee()
+                .setId(testEmployee.id)
+                .setName(testEmployee.name)
+                .setPreferredHours(Long.parseLong(testEmployee.preferred_hours))
+                .setLatitude(Double.parseDouble(testEmployee.geo_lat))
+                .setLongitude(Double.parseDouble(testEmployee.geo_long))
+                .setCostFromFloatString(testEmployee.pay_rate)
+                .setSeniority(Integer.parseInt(testEmployee.seniority))
+                .setMinimumRestPeriod(Long.parseLong(testEmployee.minimum_rest_period))
+                .setSkills(hardSkillSet.stream().filter(skill -> skill.getId().equals(testEmployee.skillId)||skill.getId().equals(testEmployee.secondSkillId)).collect(Collectors.toList()));
+      }).collect(Collectors.toSet());
+      for(Employee employee: employeesList) {
+        employee.addSiteExperience(site);
+        employees.add(employee);
+      }
+    });
+    And("^the following employees with post experience$", (DataTable table) -> {
+      Set<Employee> employeesList = table.asList(TestEmployee.class).stream().map(testEmployee -> {
+        esdSet.add(new EmployeeSiteDistance().setDistance(EmployeeSiteDistance.distance(Double.parseDouble(testEmployee.geo_long), Double.parseDouble(testEmployee.geo_lat), site.getLongitude(), site.getLatitude())).setEmployeeId(testEmployee.id).setSiteId(site.getId()));
+        return new Employee()
+                .setId(testEmployee.id)
+                .setName(testEmployee.name)
+                .setPreferredHours(Long.parseLong(testEmployee.preferred_hours))
+                .setLatitude(Double.parseDouble(testEmployee.geo_lat))
+                .setLongitude(Double.parseDouble(testEmployee.geo_long))
+                .setCostFromFloatString(testEmployee.pay_rate)
+                .setSeniority(Integer.parseInt(testEmployee.seniority))
+                .setMinimumRestPeriod(Long.parseLong(testEmployee.minimum_rest_period))
+                .setSkills(hardSkillSet.stream().filter(skill -> skill.getId().equals(testEmployee.skillId)||skill.getId().equals(testEmployee.secondSkillId)).collect(Collectors.toList()));
+      }).collect(Collectors.toSet());
+      for(Employee employee: employeesList) {
+        employee.addPostExperience(post);
+        employees.add(employee);
+      }
     });
     And("^the following tags$", (DataTable table) -> {
       Set<String> tagsList = table.asList(TestTag.class).stream().map(testTag -> {
@@ -400,7 +460,7 @@ public class ConfigurationSteps implements En {
       //    System.out.println("shift " + shifts);
       //    System.out.println("esdSet" + esdSet);
       //    System.out.println("ecmSet" + ecmSet);
-      //    System.out.println("HardSkillMissing" + closeBySite);
+      //    System.out.println("HardSkillMissing" + hardSkillMissing);
       droolsTestApi.ksession.insert(hardSkillMissing);
       esdSet.forEach(droolsTestApi.ksession::insert);
       ecmSet.forEach(droolsTestApi.ksession::insert);
@@ -413,7 +473,7 @@ public class ConfigurationSteps implements En {
       //    System.out.println("shift " + shifts);
       //    System.out.println("esdSet" + esdSet);
       //    System.out.println("ecmSet" + ecmSet);
-      //    System.out.println("HardSkillMissing" + closeBySite);
+      //    System.out.println("SoftSkillMissing" + softSkillMissing);
       droolsTestApi.ksession.insert(softSkillMissing);
       esdSet.forEach(droolsTestApi.ksession::insert);
       ecmSet.forEach(droolsTestApi.ksession::insert);
@@ -426,7 +486,7 @@ public class ConfigurationSteps implements En {
       //    System.out.println("shift " + shifts);
       //    System.out.println("esdSet" + esdSet);
       //    System.out.println("ecmSet" + ecmSet);
-      //    System.out.println("CloseBySite" + closeBySite);
+      //    System.out.println("LessThanExpectedHours" + lessThanExpectedHours);
       droolsTestApi.ksession.insert(lessThanExpectedHours);
       esdSet.forEach(droolsTestApi.ksession::insert);
       ecmSet.forEach(droolsTestApi.ksession::insert);
@@ -466,7 +526,7 @@ public class ConfigurationSteps implements En {
       //    System.out.println("shift " + shifts);
       //    System.out.println("esdSet" + esdSet);
       //    System.out.println("ecmSet" + ecmSet);
-      //    System.out.println("CloseBySite" + closeBySite);
+      //    System.out.println("MaybeAvailable: " + maybeAvailable);
       droolsTestApi.ksession.insert(maybeAvailable);
       esdSet.forEach(droolsTestApi.ksession::insert);
       ecmSet.forEach(droolsTestApi.ksession::insert);
@@ -480,8 +540,36 @@ public class ConfigurationSteps implements En {
       //    System.out.println("shift " + shifts);
       //    System.out.println("esdSet" + esdSet);
       //    System.out.println("ecmSet" + ecmSet);
-      //    System.out.println("CloseBySite" + closeBySite);
+      //    System.out.println("MinimumRestPeriod" + minimumRestPeriod);
       droolsTestApi.ksession.insert(minimumRestPeriod);
+      esdSet.forEach(droolsTestApi.ksession::insert);
+      ecmSet.forEach(droolsTestApi.ksession::insert);
+      employees.forEach(droolsTestApi.ksession::insert);
+      eaSet.forEach(droolsTestApi.ksession::insert);
+      droolsTestApi.ksession.fireAllRules();
+    });
+
+    When("^No Experience At Site rules are calculated$", () -> {
+      //  System.out.println("employees: " + employees);
+      //  System.out.println("shifts: " + shifts);
+      //  System.out.println("esdSet: " + esdSet);
+      //  System.out.println("ecmSet: " + ecmSet);
+      //  System.out.println("NoExperienceAtSite: " + noExperienceAtSite);
+      droolsTestApi.ksession.insert(noExperienceAtSite);
+      esdSet.forEach(droolsTestApi.ksession::insert);
+      ecmSet.forEach(droolsTestApi.ksession::insert);
+      employees.forEach(droolsTestApi.ksession::insert);
+      eaSet.forEach(droolsTestApi.ksession::insert);
+      droolsTestApi.ksession.fireAllRules();
+    });
+
+    When("^No Experience At Post rules are calculated$", () -> {
+      System.out.println("employees: " + employees);
+      System.out.println("shifts: " + shifts);
+      System.out.println("esdSet: " + esdSet);
+      System.out.println("ecmSet: " + ecmSet);
+      System.out.println("NoExperienceAtPost: " + noExperienceAtPost);
+      droolsTestApi.ksession.insert(noExperienceAtPost);
       esdSet.forEach(droolsTestApi.ksession::insert);
       ecmSet.forEach(droolsTestApi.ksession::insert);
       employees.forEach(droolsTestApi.ksession::insert);

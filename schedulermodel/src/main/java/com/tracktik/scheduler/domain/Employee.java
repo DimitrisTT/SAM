@@ -56,4 +56,12 @@ public class Employee {
         .map(Map.Entry::getValue).mapToLong(Long::longValue).sum();
   }
 
+  public void addSiteExperience(Site siteExperienced) {
+    this.siteExperience.add(siteExperienced);
+  }
+
+  public void addPostExperience(Post postExperienced) {
+    this.postExperience.add(postExperienced);
+  }
+
 }
