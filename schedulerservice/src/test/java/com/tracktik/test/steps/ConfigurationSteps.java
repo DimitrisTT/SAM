@@ -592,11 +592,11 @@ public class ConfigurationSteps implements En {
     });
 
     When("^Can Not Work Simultaneous Shifts rules are calculated$", () -> {
-      System.out.println("employees: " + employees);
-      System.out.println("shifts: " + shifts);
-      System.out.println("esdSet: " + esdSet);
-      System.out.println("ecmSet: " + ecmSet);
-      System.out.println("CanNotWorkSimultaneousShifts: " + canNotWorkSimultaneousShifts);
+      //System.out.println("employees: " + employees);
+      //System.out.println("shifts: " + shifts);
+      //System.out.println("esdSet: " + esdSet);
+      //System.out.println("ecmSet: " + ecmSet);
+      //System.out.println("CanNotWorkSimultaneousShifts: " + canNotWorkSimultaneousShifts);
       droolsTestApi.ksession.insert(canNotWorkSimultaneousShifts);
       esdSet.forEach(droolsTestApi.ksession::insert);
       ecmSet.forEach(droolsTestApi.ksession::insert);

@@ -23,18 +23,59 @@ global HardSoftLongScoreHolder scoreHolder;
     If they do, the employee may not be assigned to one of the shifts. We add a negative hard constraint to
     tell the scheduler not to double book.
 */
-rule "can not work simultaneous shifts"
+rule "can not work simultaneous shifts - edge overlap"
     when
         CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
         $shift: Shift(employee != null, $employee : employee, $firstShiftStart: start, $firstShiftEnd: end)
-        Shift(this != $shift, employee == $employee, (start <= $firstShiftEnd) && ($firstShiftStart < end))
+        Shift(this != $shift, employee == $employee, ($firstShiftEnd >= start) && ($firstShiftEnd <= end), ($firstShiftStart < start))
         not EmployeeConstraintMultiplier($employee.id == employeeId, alreadyFired == true)
         $ecm: EmployeeConstraintMultiplier($employee.id == employeeId, alreadyFired == false)
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
         $ecm.setAlreadyFired(true);
         update($ecm);
-        System.out.println("can not work simultaneous shifts, adding -1");
+        System.out.println("can not work simultaneous shifts edge overlap, adding -1");
+
+end
+
+
+/*
+    Given two shifts that have the same employee assigned, we will check of the time slots overlap at all.
+    If they do, the employee may not be assigned to one of the shifts. We add a negative hard constraint to
+    tell the scheduler not to double book.
+*/
+rule "can not work simultaneous shifts - entirety overlap"
+    when
+        CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
+        $shift: Shift(employee != null, $employee : employee, $firstShiftStart: start, $firstShiftEnd: end)
+        Shift(this != $shift, employee == $employee, ($firstShiftStart < start) && ($firstShiftEnd > end))
+        not EmployeeConstraintMultiplier($employee.id == employeeId, alreadyFired == true)
+        $ecm: EmployeeConstraintMultiplier($employee.id == employeeId, alreadyFired == false)
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, -1);
+        $ecm.setAlreadyFired(true);
+        update($ecm);
+        System.out.println("can not work simultaneous shifts entirety overlap, adding -1");
+
+end
+
+/*
+    Given two shifts that have the same employee assigned, we will check of the time slots overlap at all.
+    If they do, the employee may not be assigned to one of the shifts. We add a negative hard constraint to
+    tell the scheduler not to double book.
+*/
+rule "can not work simultaneous shifts - same shift overlap"
+    when
+        CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
+        $shift: Shift(employee != null, $employee : employee, $firstShiftStart: start, $firstShiftEnd: end)
+        Shift(this != $shift, employee == $employee, ($firstShiftStart == start) && ($firstShiftEnd == end))
+        not EmployeeConstraintMultiplier($employee.id == employeeId, alreadyFired == true)
+        $ecm: EmployeeConstraintMultiplier($employee.id == employeeId, alreadyFired == false)
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, -1);
+        $ecm.setAlreadyFired(true);
+        update($ecm);
+        System.out.println("can not work simultaneous shifts same shift overlap, adding -1");
 
 end
 
