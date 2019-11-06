@@ -11,6 +11,7 @@ import com.tracktik.scheduler.configuration.MoreThanExpectedHours;
 import com.tracktik.scheduler.configuration.MaybeAvailable;
 import com.tracktik.scheduler.configuration.NotAvailable;
 import com.tracktik.scheduler.configuration.MinimumRestPeriod;
+import com.tracktik.scheduler.configuration.CanNotWorkSimultaneousShifts;
 
 
 global HardSoftLongScoreHolder scoreHolder;
@@ -22,12 +23,19 @@ global HardSoftLongScoreHolder scoreHolder;
     If they do, the employee may not be assigned to one of the shifts. We add a negative hard constraint to
     tell the scheduler not to double book.
 */
-rule "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS"
+rule "can not work simultaneous shifts"
     when
+        CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
         $shift: Shift(employee != null, $employee : employee, $firstShiftStart: start, $firstShiftEnd: end)
         Shift(this != $shift, employee == $employee, (start <= $firstShiftEnd) && ($firstShiftStart < end))
+        not EmployeeConstraintMultiplier($employee.id == employeeId, alreadyFired == true)
+        $ecm: EmployeeConstraintMultiplier($employee.id == employeeId, alreadyFired == false)
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
+        $ecm.setAlreadyFired(true);
+        update($ecm);
+        System.out.println("can not work simultaneous shifts, adding -1");
+
 end
 
 /*

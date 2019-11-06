@@ -8,12 +8,12 @@ public class NotAssignedToSite extends ConfigFact {
 
     private int scoreImpact = -50;
     private boolean active = true;
-    private boolean isHardImpact = false;
+    private boolean hardImpact = false;
 
-    public NotAssignedToSite(int scoreImpact, boolean active, boolean isHardImpact) {
+    public NotAssignedToSite(int scoreImpact, boolean active, boolean hardImpact) {
         this.scoreImpact = scoreImpact;
         this.active = active;
-        this.isHardImpact = isHardImpact;
+        this.hardImpact = hardImpact;
     }
 
     public NotAssignedToSite() {
@@ -36,12 +36,12 @@ public class NotAssignedToSite extends ConfigFact {
         this.active = active;
     }
 
-    public boolean isHardImpact() {
-        return isHardImpact;
+    public boolean ishardImpact() {
+        return hardImpact;
     }
 
     public void setHardImpact(boolean hardImpact) {
-        isHardImpact = hardImpact;
+        this.hardImpact = hardImpact;
     }
 
     @Override
@@ -51,12 +51,12 @@ public class NotAssignedToSite extends ConfigFact {
         NotAssignedToSite that = (NotAssignedToSite) o;
         return scoreImpact == that.scoreImpact &&
                 active == that.active &&
-                isHardImpact == that.isHardImpact;
+                hardImpact == that.hardImpact;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(scoreImpact, active, isHardImpact);
+        return Objects.hash(scoreImpact, active, hardImpact);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class NotAssignedToSite extends ConfigFact {
         return "NoExperienceAtSite{" +
                 "scoreImpact=" + scoreImpact +
                 ", active=" + active +
-                ", isHardImpact=" + isHardImpact +
+                ", hardImpact=" + hardImpact +
                 '}';
     }
 }

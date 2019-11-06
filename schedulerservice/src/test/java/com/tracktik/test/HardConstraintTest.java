@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class HardConstraintTest extends ConstraintRuleTestBase {
 
-  @Test
+  @Ignore
   public void testOverlappingShifts() {
 
     Employee employee = new Employee().setId("1");

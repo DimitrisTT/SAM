@@ -93,6 +93,7 @@ public class ConfigurationSteps implements En {
   MinimumRestPeriod minimumRestPeriod = new MinimumRestPeriod();
   NoExperienceAtSite noExperienceAtSite = new NoExperienceAtSite();
   NoExperienceAtPost noExperienceAtPost = new NoExperienceAtPost();
+  CanNotWorkSimultaneousShifts canNotWorkSimultaneousShifts = new CanNotWorkSimultaneousShifts();
 
   public ConfigurationSteps(DroolsTestApi droolsTestApi) {
     Given("^Far From Site being active is '(.*?)'$", (String active) -> {
@@ -132,6 +133,19 @@ public class ConfigurationSteps implements En {
     });
     And("^it Fairly Far From Site has is Hard Impact set to '(.*?)'$", (String isHardImpact) -> {
       fairlyFarFromSite.setHardImpact(Boolean.parseBoolean(isHardImpact));
+    });
+
+    Given("^Can Not Work Simultaneous Shifts being active is '(.*?)'$",  (String active) -> {
+      canNotWorkSimultaneousShifts.setActive(Boolean.parseBoolean(active));
+    });
+    And("^its Can Not Work Simultaneous Shifts is Hard Failure is set to '(.*?)'$", (String isHardFailure) -> {
+      canNotWorkSimultaneousShifts.setHardFailure(Boolean.parseBoolean(isHardFailure));
+    });
+    And("^its Can Not Work Simultaneous Shifts impact multiplier is '(.*?)'$", (String impactMultiplier) -> {
+      canNotWorkSimultaneousShifts.setImpactMultiplier(Integer.parseInt(impactMultiplier));
+    });
+    And("^its Can Not Work Simultaneous Shifts is Hard Impact set to '(.*?)'", (String isHardImpact) -> {
+      canNotWorkSimultaneousShifts.setHardImpact(Boolean.parseBoolean(isHardImpact));
     });
 
     Given("^Hard Skill Missing being active is '(.*?)'$",  (String active) -> {
@@ -564,12 +578,26 @@ public class ConfigurationSteps implements En {
     });
 
     When("^No Experience At Post rules are calculated$", () -> {
+      //System.out.println("employees: " + employees);
+      //System.out.println("shifts: " + shifts);
+      //System.out.println("esdSet: " + esdSet);
+      //System.out.println("ecmSet: " + ecmSet);
+      //System.out.println("NoExperienceAtPost: " + noExperienceAtPost);
+      droolsTestApi.ksession.insert(noExperienceAtPost);
+      esdSet.forEach(droolsTestApi.ksession::insert);
+      ecmSet.forEach(droolsTestApi.ksession::insert);
+      employees.forEach(droolsTestApi.ksession::insert);
+      eaSet.forEach(droolsTestApi.ksession::insert);
+      droolsTestApi.ksession.fireAllRules();
+    });
+
+    When("^Can Not Work Simultaneous Shifts rules are calculated$", () -> {
       System.out.println("employees: " + employees);
       System.out.println("shifts: " + shifts);
       System.out.println("esdSet: " + esdSet);
       System.out.println("ecmSet: " + ecmSet);
-      System.out.println("NoExperienceAtPost: " + noExperienceAtPost);
-      droolsTestApi.ksession.insert(noExperienceAtPost);
+      System.out.println("CanNotWorkSimultaneousShifts: " + canNotWorkSimultaneousShifts);
+      droolsTestApi.ksession.insert(canNotWorkSimultaneousShifts);
       esdSet.forEach(droolsTestApi.ksession::insert);
       ecmSet.forEach(droolsTestApi.ksession::insert);
       employees.forEach(droolsTestApi.ksession::insert);
