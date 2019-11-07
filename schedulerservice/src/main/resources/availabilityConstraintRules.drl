@@ -86,6 +86,7 @@ end
 */
 rule "TIME_OFF_DURING_SHIFT"
     when
+
         Shift(employee != null, $employeeId: employee.id, $shiftStart: start, $shiftEnd: end)
         TimeOff($employeeId == employeeId, (start <= $shiftEnd) && ($shiftStart < end))
     then
@@ -353,8 +354,8 @@ end
 rule "CONSECUTIVE_WORK_DAYS"
     when
         Employee($employeeId: id)
-        Shift(employee != null, $employeeId == employee.id, $startDate: start.toLocalDate())
-        Shift(employee != null, $employeeId == employee.id, start.toLocalDate() == $startDate.minusDays(1L))
+        $shift: Shift(employee != null, $employeeId == employee.id, $startDate: start!.toLocalDate())
+        Shift(this != $shift, employee != null, $employeeId == employee.id, start!.toLocalDate() == $startDate!.minusDays(1L))
     then
         scoreHolder.addSoftConstraintMatch(kcontext, 100);
         System.out.println("Consecutive work days: " + 100);

@@ -202,7 +202,7 @@ end
     In order to calculate the daily overtime, we need to know all of the days that an employee is assigned to a shift.
     This rule will add a ShiftDate fact for each date that a shift starts. In order to avoid duplicates, we check to see
     if there is one already.
-*/
+
 rule "Overtime daily -- date worked start date"
     when
         Shift($startDate: start.toLocalDate())
@@ -211,9 +211,9 @@ rule "Overtime daily -- date worked start date"
         insert(new ShiftDate($startDate));
 end
 
-/*
+
     A new ShiftDate fact will be inserted for every shift end date if it doesn't already exist.
-*/
+
 rule "Overtime daily -- date worked end date"
     when
         Shift($endDate: end.toLocalDate())
@@ -222,7 +222,7 @@ rule "Overtime daily -- date worked end date"
         insert(new ShiftDate($endDate));
 end
 
-/*
+
     If an employee is assigned to a shift, and there is a PayrollSchedule fact tied to that employee that indicates that
     hours should be "cut", then we will sum all of the hours that are worked on a particular shift date. A DailyHours
     fact will be inserted for the employee for later calculations.

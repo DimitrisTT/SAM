@@ -16,6 +16,7 @@ import com.tracktik.scheduler.domain.Post;
 import com.tracktik.scheduler.domain.Site;
 import com.tracktik.scheduler.domain.PayType;
 import com.tracktik.scheduler.domain.Skill;
+import com.tracktik.scheduler.domain.TimeOff;
 import com.tracktik.scheduler.configuration.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -67,36 +68,45 @@ public class ConfigurationSteps implements En {
     String seconds_end;
   }
 
-  Set<EmployeeConstraintMultiplier> ecmSet = new HashSet<EmployeeConstraintMultiplier>();
-  Set<EmployeeSiteDistance> esdSet = new HashSet<EmployeeSiteDistance>();
-  Set<Employee> employees = new HashSet<Employee>();
-  Site site = new Site();
-  PayType payType;
-  Set<Skill> softSkillSet = new HashSet<Skill>();
-  Set<Skill> hardSkillSet = new HashSet<Skill>();
-  Post post = new Post();
-  Shift shift = new Shift();
-  Shift secondShift = new Shift();
-  Set<String> tags = new HashSet<String>();
-  Set<Shift> shifts = new HashSet<Shift>();
-  Set<EmployeeAvailability> eaSet = new HashSet<EmployeeAvailability>();
+  class TestTimeOff{
+    String id;
+    String start;
+    String end;
+  }
 
-  FarFromSite farFromSite = new FarFromSite();
-  FairlyFarFromSite fairlyFarFromSite = new FairlyFarFromSite();
-  CloseBySite closeBySite = new CloseBySite();
-  HardSkillMissing hardSkillMissing = new HardSkillMissing();
-  SoftSkillMissing softSkillMissing = new SoftSkillMissing();
-  LessThanExpectedHours lessThanExpectedHours = new LessThanExpectedHours();
-  MoreThanExpectedHours moreThanExpectedHours = new MoreThanExpectedHours();
-  NotAvailable notAvailable = new NotAvailable();
-  MaybeAvailable maybeAvailable = new MaybeAvailable();
-  MinimumRestPeriod minimumRestPeriod = new MinimumRestPeriod();
-  NoExperienceAtSite noExperienceAtSite = new NoExperienceAtSite();
-  NoExperienceAtPost noExperienceAtPost = new NoExperienceAtPost();
-  CanNotWorkSimultaneousShifts canNotWorkSimultaneousShifts = new CanNotWorkSimultaneousShifts();
+  Set<EmployeeConstraintMultiplier> ecmSet;
+  Set<EmployeeSiteDistance> esdSet;
+  Set<Employee> employees;
+  Site site;
+  PayType payType;
+  Set<Skill> softSkillSet;
+  Set<Skill> hardSkillSet;
+  Post post;
+  Shift shift;
+  Shift secondShift;
+  Set<String> tags;
+  Set<Shift> shifts;
+  Set<EmployeeAvailability> eaSet;
+  Set<TimeOff> timesOff;
+
+  FarFromSite farFromSite;
+  FairlyFarFromSite fairlyFarFromSite;
+  CloseBySite closeBySite;
+  HardSkillMissing hardSkillMissing;
+  SoftSkillMissing softSkillMissing;
+  LessThanExpectedHours lessThanExpectedHours;
+  MoreThanExpectedHours moreThanExpectedHours;
+  NotAvailable notAvailable;
+  MaybeAvailable maybeAvailable;
+  MinimumRestPeriod minimumRestPeriod;
+  NoExperienceAtSite noExperienceAtSite;
+  NoExperienceAtPost noExperienceAtPost;
+  CanNotWorkSimultaneousShifts canNotWorkSimultaneousShifts;
+  TimeOffDuringShift timeOffDuringShift;
 
   public ConfigurationSteps(DroolsTestApi droolsTestApi) {
     Given("^Far From Site being active is '(.*?)'$", (String active) -> {
+      farFromSite = new FarFromSite();
       farFromSite.setActive(Boolean.parseBoolean(active));
     });
     And("^its definition is set to '(.*?)'$", (String definition) -> {
@@ -110,6 +120,7 @@ public class ConfigurationSteps implements En {
     });
 
     Given("^Close By Site being active is '(.*?)'$", (String active) -> {
+      closeBySite = new CloseBySite();
       closeBySite.setActive(Boolean.parseBoolean(active));
     });
     And("^its Close By Site definition is set to '(.*?)'$", (String definition) -> {
@@ -123,6 +134,7 @@ public class ConfigurationSteps implements En {
     });
 
     Given("^Fairly Far From Site being active is '(.*?)'$", (String active) -> {
+      fairlyFarFromSite = new FairlyFarFromSite();
       fairlyFarFromSite.setActive(Boolean.parseBoolean(active));
     });
     And("^its Fairly Far From Site definition is set to '(.*?)'$", (String definition) -> {
@@ -136,6 +148,7 @@ public class ConfigurationSteps implements En {
     });
 
     Given("^Can Not Work Simultaneous Shifts being active is '(.*?)'$",  (String active) -> {
+      canNotWorkSimultaneousShifts = new CanNotWorkSimultaneousShifts();
       canNotWorkSimultaneousShifts.setActive(Boolean.parseBoolean(active));
     });
     And("^its Can Not Work Simultaneous Shifts is Hard Failure is set to '(.*?)'$", (String isHardFailure) -> {
@@ -148,7 +161,23 @@ public class ConfigurationSteps implements En {
       canNotWorkSimultaneousShifts.setHardImpact(Boolean.parseBoolean(isHardImpact));
     });
 
+    Given("^Time Off During Shift being active is '(.*?)'$",  (String active) -> {
+      timeOffDuringShift = new TimeOffDuringShift();
+      timeOffDuringShift.setActive(Boolean.parseBoolean(active));
+    });
+    And("^its Time Off During Shift is Hard Failure is set to '(.*?)'$", (String isHardFailure) -> {
+      timeOffDuringShift.setHardFailure(Boolean.parseBoolean(isHardFailure));
+    });
+    And("^its Time Off During Shift impact multiplier is '(.*?)'$", (String impactMultiplier) -> {
+      timeOffDuringShift.setImpactMultiplier(Integer.parseInt(impactMultiplier));
+    });
+    And("^its Time Off During Shift is Hard Impact set to '(.*?)'", (String isHardImpact) -> {
+      timeOffDuringShift.setHardImpact(Boolean.parseBoolean(isHardImpact));
+    });
+
+
     Given("^Hard Skill Missing being active is '(.*?)'$",  (String active) -> {
+      hardSkillMissing = new HardSkillMissing();
       hardSkillMissing.setActive(Boolean.parseBoolean(active));
     });
     And("^its Hard Skill Missing is Hard Failure is set to '(.*?)'$", (String isHardFailure) -> {
@@ -162,6 +191,7 @@ public class ConfigurationSteps implements En {
     });
 
     Given("^Soft Skill Missing being active is '(.*?)'$",  (String active) -> {
+      softSkillMissing = new SoftSkillMissing();
       softSkillMissing.setActive(Boolean.parseBoolean(active));
     });
     And("^its Soft Skill Missing impact multiplier is '(.*?)'$", (String impactMultiplier) -> {
@@ -172,6 +202,7 @@ public class ConfigurationSteps implements En {
     });
 
     Given("^Less Than Expected Hours being active is '(.*?)'$", (String active) -> {
+      lessThanExpectedHours = new LessThanExpectedHours();
       lessThanExpectedHours.setActive(Boolean.parseBoolean(active));
     });
     And("^its Less Than Expected Hours impact is '(.*?)'$", (String impact) -> {
@@ -182,6 +213,7 @@ public class ConfigurationSteps implements En {
     });
 
     Given("^More Than Expected Hours being active is '(.*?)'$", (String active) -> {
+      moreThanExpectedHours = new MoreThanExpectedHours();
       moreThanExpectedHours.setActive(Boolean.parseBoolean(active));
     });
     And("^its More Than Expected Hours impact is '(.*?)'$", (String impact) -> {
@@ -192,6 +224,7 @@ public class ConfigurationSteps implements En {
     });
 
     Given("^Not Available being active is '(.*?)'$", (String active) -> {
+      notAvailable = new NotAvailable();
       notAvailable.setActive(Boolean.parseBoolean(active));
     });
     And("^its Not Available score impact is '(.*?)'$", (String impact) -> {
@@ -202,23 +235,26 @@ public class ConfigurationSteps implements En {
     });
 
     Given("^Maybe Available being active is '(.*?)'$", (String active) -> {
-      notAvailable.setActive(Boolean.parseBoolean(active));
+      maybeAvailable = new MaybeAvailable();
+      maybeAvailable.setActive(Boolean.parseBoolean(active));
     });
     And("^its Maybe Available score impact is '(.*?)'$", (String impact) -> {
-      notAvailable.setImpact(Integer.parseInt(impact));
+      maybeAvailable.setImpact(Integer.parseInt(impact));
     });
 
     Given("^Minimum Rest Period being active is '(.*?)'$", (String active) -> {
-      notAvailable.setActive(Boolean.parseBoolean(active));
+      minimumRestPeriod = new MinimumRestPeriod();
+      minimumRestPeriod.setActive(Boolean.parseBoolean(active));
     });
     And("^its Minimum Rest Period score impact is '(.*?)'$", (String impact) -> {
-      notAvailable.setImpact(Integer.parseInt(impact));
+      minimumRestPeriod.setImpact(Integer.parseInt(impact));
     });
     And("^its Minimum Rest Period is hard impact is set to '(.*?)'", (String isHardImpact) -> {
-      notAvailable.setHardImpact(Boolean.parseBoolean(isHardImpact));
+      minimumRestPeriod.setHardImpact(Boolean.parseBoolean(isHardImpact));
     });
 
     Given("^No Experience At Site being active is '(.*?)'$", (String active) -> {
+      noExperienceAtSite = new NoExperienceAtSite();
       noExperienceAtSite.setActive(Boolean.parseBoolean(active));
     });
     And("^its No Experience At Site score impact is '(.*?)'$", (String impact) -> {
@@ -229,6 +265,7 @@ public class ConfigurationSteps implements En {
     });
 
     Given("^No Experience At Post being active is '(.*?)'$", (String active) -> {
+      noExperienceAtPost = new NoExperienceAtPost();
       noExperienceAtPost.setActive(Boolean.parseBoolean(active));
     });
     And("^its No Experience At Post score impact is '(.*?)'$", (String impact) -> {
@@ -240,6 +277,7 @@ public class ConfigurationSteps implements En {
 
 
     Given("^the following site with id '(.*?)' name '(.*?)' longitude '(.*?)' and latitude '(.*?)'$", (String id, String name, String longitude, String latitude) -> {
+      site = new Site();
       site.setId(id);
       site.setName(name);
       site.setLongitude(Double.parseDouble(longitude));
@@ -266,6 +304,7 @@ public class ConfigurationSteps implements En {
     });
     And("^the following employees$", (DataTable table) -> {
       Set<Employee> employeesList = table.asList(TestEmployee.class).stream().map(testEmployee -> {
+        esdSet = new HashSet<EmployeeSiteDistance>();
         esdSet.add(new EmployeeSiteDistance().setDistance(EmployeeSiteDistance.distance(Double.parseDouble(testEmployee.geo_long), Double.parseDouble(testEmployee.geo_lat), site.getLongitude(), site.getLatitude())).setEmployeeId(testEmployee.id).setSiteId(site.getId()));
         return new Employee()
                 .setId(testEmployee.id)
@@ -278,10 +317,12 @@ public class ConfigurationSteps implements En {
                 .setMinimumRestPeriod(Long.parseLong(testEmployee.minimum_rest_period))
                 .setSkills(hardSkillSet.stream().filter(skill -> skill.getId().equals(testEmployee.skillId)||skill.getId().equals(testEmployee.secondSkillId)).collect(Collectors.toList()));
       }).collect(Collectors.toSet());
+      if(employees == null) employees = new HashSet<Employee>();
       employees = employeesList;
     });
     And("^the following employees with a soft skill$", (DataTable table) -> {
       Set<Employee> employeesList = table.asList(TestEmployee.class).stream().map(testEmployee -> {
+        esdSet = new HashSet<EmployeeSiteDistance>();
         esdSet.add(new EmployeeSiteDistance().setDistance(EmployeeSiteDistance.distance(Double.parseDouble(testEmployee.geo_long), Double.parseDouble(testEmployee.geo_lat), site.getLongitude(), site.getLatitude())).setEmployeeId(testEmployee.id).setSiteId(site.getId()));
         return new Employee()
                 .setId(testEmployee.id)
@@ -294,10 +335,12 @@ public class ConfigurationSteps implements En {
                 .setMinimumRestPeriod(Long.parseLong(testEmployee.minimum_rest_period))
                 .setSkills(softSkillSet.stream().filter(skill -> skill.getId().equals(testEmployee.skillId)||skill.getId().equals(testEmployee.secondSkillId)).collect(Collectors.toList()));
       }).collect(Collectors.toSet());
+      if(employees == null) employees = new HashSet<Employee>();
       employees = employeesList;
     });
     And("^the following employees with site experience$", (DataTable table) -> {
       Set<Employee> employeesList = table.asList(TestEmployee.class).stream().map(testEmployee -> {
+        esdSet = new HashSet<EmployeeSiteDistance>();
         esdSet.add(new EmployeeSiteDistance().setDistance(EmployeeSiteDistance.distance(Double.parseDouble(testEmployee.geo_long), Double.parseDouble(testEmployee.geo_lat), site.getLongitude(), site.getLatitude())).setEmployeeId(testEmployee.id).setSiteId(site.getId()));
         return new Employee()
                 .setId(testEmployee.id)
@@ -308,8 +351,10 @@ public class ConfigurationSteps implements En {
                 .setCostFromFloatString(testEmployee.pay_rate)
                 .setSeniority(Integer.parseInt(testEmployee.seniority))
                 .setMinimumRestPeriod(Long.parseLong(testEmployee.minimum_rest_period))
+                .setSiteExperience(new ArrayList<Site>())
                 .setSkills(hardSkillSet.stream().filter(skill -> skill.getId().equals(testEmployee.skillId)||skill.getId().equals(testEmployee.secondSkillId)).collect(Collectors.toList()));
       }).collect(Collectors.toSet());
+      if(employees == null) employees = new HashSet<Employee>();
       for(Employee employee: employeesList) {
         employee.addSiteExperience(site);
         employees.add(employee);
@@ -317,6 +362,7 @@ public class ConfigurationSteps implements En {
     });
     And("^the following employees with post experience$", (DataTable table) -> {
       Set<Employee> employeesList = table.asList(TestEmployee.class).stream().map(testEmployee -> {
+        esdSet = new HashSet<EmployeeSiteDistance>();
         esdSet.add(new EmployeeSiteDistance().setDistance(EmployeeSiteDistance.distance(Double.parseDouble(testEmployee.geo_long), Double.parseDouble(testEmployee.geo_lat), site.getLongitude(), site.getLatitude())).setEmployeeId(testEmployee.id).setSiteId(site.getId()));
         return new Employee()
                 .setId(testEmployee.id)
@@ -327,13 +373,27 @@ public class ConfigurationSteps implements En {
                 .setCostFromFloatString(testEmployee.pay_rate)
                 .setSeniority(Integer.parseInt(testEmployee.seniority))
                 .setMinimumRestPeriod(Long.parseLong(testEmployee.minimum_rest_period))
+                .setPostExperience(new ArrayList<Post>())
                 .setSkills(hardSkillSet.stream().filter(skill -> skill.getId().equals(testEmployee.skillId)||skill.getId().equals(testEmployee.secondSkillId)).collect(Collectors.toList()));
       }).collect(Collectors.toSet());
+      if(employees == null) employees = new HashSet<Employee>();
       for(Employee employee: employeesList) {
         employee.addPostExperience(post);
         employees.add(employee);
       }
     });
+
+    And("^the following Time Off was requested$", (DataTable table) -> {
+      Set<TimeOff> timeOffSet = table.asList(TestTimeOff.class).stream().map(testTimeOff -> {
+      return new TimeOff()
+              .setEmployeeId(testTimeOff.id)
+              .setStart(LocalDateTime.parse(testTimeOff.start, dateTimeFormatter))
+              .setEnd(LocalDateTime.parse(testTimeOff.end, dateTimeFormatter));
+      }).collect(Collectors.toSet());
+      timesOff = timeOffSet;
+    });
+
+
     And("^the following tags$", (DataTable table) -> {
       Set<String> tagsList = table.asList(TestTag.class).stream().map(testTag -> {
         return new String(testTag.tag);
@@ -341,6 +401,7 @@ public class ConfigurationSteps implements En {
       tags = tagsList;
     });
     And("^the following post with id '(.*?)' name '(.*?)' bill rate '(.*?)' and pay rate '(.*?)'$", (String id, String name, String billRate, String payRate) -> {
+      post = new Post();
       post.setId(id);
       post.setName(name);
       post.setPayType(payType);
@@ -352,6 +413,7 @@ public class ConfigurationSteps implements En {
     });
     And("^the following shift from '(.*?)' to '(.*?)' timestamp '(.*?)' and end '(.*?)' with duration '(.*?)' id '(.*?)' and plan '(.*?)' available$",
             (String startDateTime, String endDateTime, String startTimeStamp, String endTimeStamp, String duration, String shiftId, String plan) -> {
+              shift = new Shift();
               shift.setId(shiftId);
               shift.setPlan(Boolean.parseBoolean(plan));
               shift.setStart(LocalDateTime.parse(startDateTime, dateTimeFormatter));
@@ -364,6 +426,7 @@ public class ConfigurationSteps implements En {
             });
     And("^a second shift from '(.*?)' to '(.*?)' timestamp '(.*?)' and end '(.*?)' with duration '(.*?)' id '(.*?)' and plan '(.*?)' available$",
             (String startDateTime, String endDateTime, String startTimeStamp, String endTimeStamp, String duration, String shiftId, String plan) -> {
+              secondShift = new Shift();
               secondShift.setId(shiftId);
               secondShift.setPlan(Boolean.parseBoolean(plan));
               secondShift.setStart(LocalDateTime.parse(startDateTime, dateTimeFormatter));
@@ -396,6 +459,7 @@ public class ConfigurationSteps implements En {
         newShift.setEndTimeStamp(shift.getEndTimeStamp());
         newShift.setTags(shift.getTags());
         newShift.setEmployee(employee);
+        shifts = new HashSet<Shift>();
         shifts.add(newShift);
         droolsTestApi.ksession.insert(newShift);
       }
@@ -428,6 +492,7 @@ public class ConfigurationSteps implements En {
                 .setStartTime(LocalTime.MIDNIGHT.plusSeconds(Long.parseLong(testEmployeeAvailability.seconds_start)))
                 .setEndTime(LocalTime.MIDNIGHT.plusSeconds(Long.parseLong(testEmployeeAvailability.seconds_end)));
       }).collect(Collectors.toSet());
+      eaSet = new HashSet<EmployeeAvailability>();
       eaSet = employeeAvailabilities;
     });
     When("^Far From Site rules are calculated$", () -> {
@@ -564,11 +629,11 @@ public class ConfigurationSteps implements En {
     });
 
     When("^No Experience At Site rules are calculated$", () -> {
-      //  System.out.println("employees: " + employees);
-      //  System.out.println("shifts: " + shifts);
-      //  System.out.println("esdSet: " + esdSet);
-      //  System.out.println("ecmSet: " + ecmSet);
-      //  System.out.println("NoExperienceAtSite: " + noExperienceAtSite);
+        System.out.println("employees: " + employees);
+        System.out.println("shifts: " + shifts);
+        System.out.println("esdSet: " + esdSet);
+        System.out.println("ecmSet: " + ecmSet);
+        System.out.println("NoExperienceAtSite: " + noExperienceAtSite);
       droolsTestApi.ksession.insert(noExperienceAtSite);
       esdSet.forEach(droolsTestApi.ksession::insert);
       ecmSet.forEach(droolsTestApi.ksession::insert);
@@ -601,12 +666,56 @@ public class ConfigurationSteps implements En {
       esdSet.forEach(droolsTestApi.ksession::insert);
       ecmSet.forEach(droolsTestApi.ksession::insert);
       employees.forEach(droolsTestApi.ksession::insert);
-      eaSet.forEach(droolsTestApi.ksession::insert);
+      droolsTestApi.ksession.fireAllRules();
+    });
+
+    When("^Time Off During Shift rules are calculated$", () -> {
+      //System.out.println("employees: " + employees);
+      //System.out.println("shifts: " + shifts);
+      //System.out.println("esdSet: " + esdSet);
+      //System.out.println("ecmSet: " + ecmSet);
+      //System.out.println("CanNotWorkSimultaneousShifts: " + timeOffDuringShift);
+      droolsTestApi.ksession.insert(timeOffDuringShift);
+      esdSet.forEach(droolsTestApi.ksession::insert);
+      ecmSet.forEach(droolsTestApi.ksession::insert);
+      employees.forEach(droolsTestApi.ksession::insert);
+      timesOff.forEach(droolsTestApi.ksession::insert);
       droolsTestApi.ksession.fireAllRules();
     });
 
     Then("^hardscore is (-?\\d+)$", (Integer hardScore) -> {
       assertEquals(hardScore.longValue(), droolsTestApi.getScoreHolder().getHardScore());
+    });
+
+    After(() -> {
+      farFromSite = null;
+      fairlyFarFromSite = null;
+      closeBySite = null;
+      hardSkillMissing = null;
+      softSkillMissing = null;
+      lessThanExpectedHours = null;
+      moreThanExpectedHours = null;
+      notAvailable = null;
+      maybeAvailable = null;
+      minimumRestPeriod = null;
+      noExperienceAtSite = null;
+      noExperienceAtPost = null;
+      canNotWorkSimultaneousShifts = null;
+      timeOffDuringShift = null;
+      ecmSet = null;
+      esdSet = null;
+      employees = null;
+      site = null;
+      payType = null;
+      softSkillSet = null;
+      hardSkillSet = null;
+      post = null;
+      shift = null;
+      secondShift = null;
+      tags = null;
+      shifts = null;
+      eaSet = null;
+      timesOff= null;
     });
   }
 }
