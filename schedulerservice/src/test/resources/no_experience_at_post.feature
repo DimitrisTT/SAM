@@ -15,6 +15,7 @@ Feature: No Experience at Post
     And the following hard skills
       | id | description     |
       | 33 | firearm license |
+    And the following post with id '1337' name 'armed guard' bill rate '12' and pay rate '20'
     And the following employees with post experience
       | id   | name      | preferred_hours  | geo_lat  | geo_long  | pay_rate  | seniority  | minimum_rest_period  | skillId |
       | 1111 | Andre     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
@@ -31,7 +32,6 @@ Feature: No Experience at Post
       | tag      |
       | sometag  |
       | othertag |
-    And the following post with id '1337' name 'armed guard' bill rate '12' and pay rate '20'
     And the following shift from '2018-01-18 09:00:00' to '2018-01-18 17:00:00' timestamp '1516284000' and end '1516312800' with duration '8.00' id '55' and plan 'true' available
     And the following employee constraint multipliers
       | id   | name          | multiplier |
@@ -71,6 +71,7 @@ Feature: No Experience at Post
     And the following hard skills
       | id | description     |
       | 33 | firearm license |
+    And the following post with id '1337' name 'armed guard' bill rate '12' and pay rate '20'
     And the following employees
       | id   | name      | preferred_hours  | geo_lat  | geo_long  | pay_rate  | seniority  | minimum_rest_period  | skillId |
       | 1111 | Andre     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
@@ -89,7 +90,6 @@ Feature: No Experience at Post
       | tag      |
       | sometag  |
       | othertag |
-    And the following post with id '1337' name 'armed guard' bill rate '12' and pay rate '20'
     And the following shift from '2018-01-18 09:00:00' to '2018-01-18 17:00:00' timestamp '1516284000' and end '1516312800' with duration '8.00' id '55' and plan 'true' available
     And the following employee constraint multipliers
       | id   | name          | multiplier |
@@ -129,6 +129,7 @@ Feature: No Experience at Post
     And the following hard skills
       | id | description     |
       | 33 | firearm license |
+    And the following post with id '1337' name 'armed guard' bill rate '12' and pay rate '20'
     And the following employees
       | id   | name      | preferred_hours  | geo_lat  | geo_long  | pay_rate  | seniority  | minimum_rest_period  | skillId |
       | 1111 | Andre     | 20               | 15       | 14        | 13        | 0          | 8                    | 33      |
@@ -145,7 +146,6 @@ Feature: No Experience at Post
       | tag      |
       | sometag  |
       | othertag |
-    And the following post with id '1337' name 'armed guard' bill rate '12' and pay rate '20'
     And the following shift from '2018-01-18 09:00:00' to '2018-01-18 17:00:00' timestamp '1516284000' and end '1516312800' with duration '8.00' id '55' and plan 'true' available
     And the following employee constraint multipliers
       | id   | name          | multiplier |

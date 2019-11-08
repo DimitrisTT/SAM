@@ -79,7 +79,7 @@ rule "Overtime period -- period hours with cut hours overtime"
     then
         Long amount = ($totalHours - ($minimumHours * 100)) * -150 / 100;
         scoreHolder.addSoftConstraintMatch(kcontext, amount);
-        System.out.println("Overtime period" + amount);
+        //System.out.println("Overtime period" + amount);
 end
 
 /*
@@ -106,7 +106,7 @@ rule "Overtime period -- period hours with cut hours double time"
     then
         Long amount = ($totalHours - ($minimumHours * 100)) * -50 / 100;
         scoreHolder.addSoftConstraintMatch(kcontext, amount);
-        System.out.println("Double Time Period" + amount);
+        //System.out.println("Double Time Period" + amount);
 end
 
 /*
@@ -132,7 +132,7 @@ rule "Overtime period -- period hours with spanning hours overtime"
     then
         Long amount = ($totalHours - ($minimumHours * 100)) * -150 / 100;
         scoreHolder.addSoftConstraintMatch(kcontext, amount);
-        System.out.println("spanning hours overtime" + amount);
+        //System.out.println("spanning hours overtime" + amount);
 end
 
 /*
@@ -158,7 +158,7 @@ rule "Overtime period -- period hours with spanning hours double time"
     then
         Long amount = ($totalHours - ($minimumHours * 100)) * -50 / 100;
         scoreHolder.addSoftConstraintMatch(kcontext, amount);
-        System.out.println("spanning hours double time" + amount);
+        //System.out.println("spanning hours double time" + amount);
 end
 
 /*
@@ -176,7 +176,7 @@ rule "Overtime period -- holiday hours aligned with start"
     then
         Long amount = Math.round($shift.durationHours() * -1.5);
         scoreHolder.addSoftConstraintMatch(kcontext, amount);
-        System.out.println("holiday hours" + amount);
+        //System.out.println("holiday hours" + amount);
 end
 
 /*
@@ -195,7 +195,7 @@ rule "Overtime period -- holiday hours cut"
         Long amount = intervalToHours($holiday.getInterval().intersection($shift.getInterval()));
         amount = Math.round(amount * -1.5);
         scoreHolder.addSoftConstraintMatch(kcontext, amount);
-        System.out.println("Holiday hours cut" + amount);
+        //System.out.println("Holiday hours cut" + amount);
 end
 
 /*
@@ -280,7 +280,7 @@ rule "Overtime daily -- calculate overtime"
         insertLogical(new HasDayOvertime($employeeId));
         Long amount = ($hoursWorked - ($minimumHours * 100)) * -150 / 100;
         scoreHolder.addSoftConstraintMatch(kcontext, amount);
-        System.out.println("calculate overtime" + amount);
+        //System.out.println("calculate overtime" + amount);
 end
 /*
     For each day that an employee worked, we will check the number of hours to see if it is greater than the
@@ -302,7 +302,7 @@ rule "Overtime daily -- calculate double-time"
         insertLogical(new HasDayOvertime($employeeId));
         Long amount = ($hoursWorked - ($minimumHours * 100)) * -50 / 100;
         scoreHolder.addSoftConstraintMatch(kcontext, amount);
-        System.out.println("calculate double-time" + amount);
+        //System.out.println("calculate double-time" + amount);
 end
 
 /*
@@ -347,7 +347,7 @@ rule "NON_OVERTIME_MARGIN"
        CostTotals($margin: totalCost - totalBilled)
     then
        scoreHolder.addSoftConstraintMatch(kcontext, $margin / 100 );
-       System.out.println("non-overtime margin" + $margin / 100);
+       //System.out.println("non-overtime margin" + $margin / 100);
 end
 */
 /*
@@ -360,6 +360,6 @@ rule "OVERTIME_PAY"
         Long costAsDecimal = overtimeCost / 100;
         Double dValue = costAsDecimal * $multiplier;
        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue() );
-       System.out.println("overtime_pay" + dValue);
+       //System.out.println("overtime_pay" + dValue);
 end
 */

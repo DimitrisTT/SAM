@@ -303,8 +303,8 @@ public class ConfigurationSteps implements En {
       hardSkillSet = hardSkills;
     });
     And("^the following employees$", (DataTable table) -> {
+      esdSet = new HashSet<EmployeeSiteDistance>();
       Set<Employee> employeesList = table.asList(TestEmployee.class).stream().map(testEmployee -> {
-        esdSet = new HashSet<EmployeeSiteDistance>();
         esdSet.add(new EmployeeSiteDistance().setDistance(EmployeeSiteDistance.distance(Double.parseDouble(testEmployee.geo_long), Double.parseDouble(testEmployee.geo_lat), site.getLongitude(), site.getLatitude())).setEmployeeId(testEmployee.id).setSiteId(site.getId()));
         return new Employee()
                 .setId(testEmployee.id)
@@ -321,8 +321,8 @@ public class ConfigurationSteps implements En {
       employees = employeesList;
     });
     And("^the following employees with a soft skill$", (DataTable table) -> {
+      esdSet = new HashSet<EmployeeSiteDistance>();
       Set<Employee> employeesList = table.asList(TestEmployee.class).stream().map(testEmployee -> {
-        esdSet = new HashSet<EmployeeSiteDistance>();
         esdSet.add(new EmployeeSiteDistance().setDistance(EmployeeSiteDistance.distance(Double.parseDouble(testEmployee.geo_long), Double.parseDouble(testEmployee.geo_lat), site.getLongitude(), site.getLatitude())).setEmployeeId(testEmployee.id).setSiteId(site.getId()));
         return new Employee()
                 .setId(testEmployee.id)
@@ -339,8 +339,8 @@ public class ConfigurationSteps implements En {
       employees = employeesList;
     });
     And("^the following employees with site experience$", (DataTable table) -> {
+      esdSet = new HashSet<EmployeeSiteDistance>();
       Set<Employee> employeesList = table.asList(TestEmployee.class).stream().map(testEmployee -> {
-        esdSet = new HashSet<EmployeeSiteDistance>();
         esdSet.add(new EmployeeSiteDistance().setDistance(EmployeeSiteDistance.distance(Double.parseDouble(testEmployee.geo_long), Double.parseDouble(testEmployee.geo_lat), site.getLongitude(), site.getLatitude())).setEmployeeId(testEmployee.id).setSiteId(site.getId()));
         return new Employee()
                 .setId(testEmployee.id)
@@ -361,8 +361,8 @@ public class ConfigurationSteps implements En {
       }
     });
     And("^the following employees with post experience$", (DataTable table) -> {
+      esdSet = new HashSet<EmployeeSiteDistance>();
       Set<Employee> employeesList = table.asList(TestEmployee.class).stream().map(testEmployee -> {
-        esdSet = new HashSet<EmployeeSiteDistance>();
         esdSet.add(new EmployeeSiteDistance().setDistance(EmployeeSiteDistance.distance(Double.parseDouble(testEmployee.geo_long), Double.parseDouble(testEmployee.geo_lat), site.getLongitude(), site.getLatitude())).setEmployeeId(testEmployee.id).setSiteId(site.getId()));
         return new Employee()
                 .setId(testEmployee.id)

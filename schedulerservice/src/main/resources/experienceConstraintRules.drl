@@ -75,7 +75,7 @@ rule "HAS_SOME_SOFT_SKILLS"
         Long matches = numberOfMatches($softSkills, $skills);
         Double dValue = matches * 50 * $employeeMultiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("has some soft skills" + dValue);
+        //System.out.println("has some soft skills" + dValue);
 end
 
 
@@ -92,7 +92,7 @@ rule "MULTIPLIER_HAS_SOME_SOFT_SKILLS"
         Long matchesSquared = matches * matches;
         Double dValue = matchesSquared * $multiplier * $employeeMultiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("multiplier has some soft skills" + dValue);
+        //System.out.println("multiplier has some soft skills" + dValue);
 end
 */
 /*
@@ -108,7 +108,7 @@ rule "soft skill missing with multiplier"
         Long matchesSquared = matches * matches;
         Double dValue = matchesSquared * $impactMultiplier * $employeeMultiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("multiplier has some soft skills" + dValue);
+        //System.out.println("multiplier has some soft skills" + dValue);
 end
 
 /*
@@ -123,7 +123,7 @@ rule "EMPLOYEE_MUST_HAVE_HARD_SKILLS_AS_SOFT"
         KeyValueFact(key == "HARD_SKILL_TYPE_SOFT_MUTLIPLIER", $multiplier: ((Long)value))
     then
         scoreHolder.addSoftConstraintMatch(kcontext, numberOfMatches($hardSkills, $skills) * $multiplier);
-        System.out.println("must have hard skills as soft" + numberOfMatches($hardSkills, $skills) * $multiplier);
+        //System.out.println("must have hard skills as soft" + numberOfMatches($hardSkills, $skills) * $multiplier);
 
 end
 
@@ -140,7 +140,7 @@ rule "HAS_SITE_EXPERIENCE"
         Long impact = -100L;
         Double dValue = impact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("has site experience" + dValue);
+        //System.out.println("has site experience" + dValue);
         $ecm.setAlreadyFired(true);
         update($ecm);
 end*/
@@ -158,7 +158,7 @@ rule "no site experience"
     then
         Double dValue = $scoreImpact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("no site experience" + dValue);
+        //System.out.println("no site experience" + dValue);
         $ecm.setAlreadyFired(true);
         update($ecm);
 end
@@ -170,7 +170,7 @@ rule "HAS_POST_EXPERIENCE"
         EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_POST_EXPERIENCE", $multiplier: multiplier)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, -100 * $multiplier);
-        System.out.println("has post experience" + (-100*$multiplier));
+        //System.out.println("has post experience" + (-100*$multiplier));
 end
 */
 
@@ -187,7 +187,7 @@ rule "no post experience"
     then
         Double dValue = $scoreImpact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("has post experience" + ($scoreImpact*$multiplier));
+        //System.out.println("has post experience" + ($scoreImpact*$multiplier));
 end
 
 
@@ -203,7 +203,7 @@ rule "EMPLOYEE_HAS_SENIORITY"
     then
         Double dValue = $seniority * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("Seniority adds: " + dValue);
+        //System.out.println("Seniority adds: " + dValue);
         $ecm.setAlreadyFired(true);
         update($ecm);
 end

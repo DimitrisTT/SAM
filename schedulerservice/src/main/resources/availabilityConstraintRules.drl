@@ -34,7 +34,7 @@ rule "can not work simultaneous shifts - edge overlap"
         scoreHolder.addHardConstraintMatch(kcontext, -1);
         $ecm.setAlreadyFired(true);
         update($ecm);
-        System.out.println("can not work simultaneous shifts edge overlap, adding -1");
+        //System.out.println("can not work simultaneous shifts edge overlap, adding -1");
 
 end
 
@@ -55,7 +55,7 @@ rule "can not work simultaneous shifts - entirety overlap"
         scoreHolder.addHardConstraintMatch(kcontext, -1);
         $ecm.setAlreadyFired(true);
         update($ecm);
-        System.out.println("can not work simultaneous shifts entirety overlap, adding -1");
+        //System.out.println("can not work simultaneous shifts entirety overlap, adding -1");
 
 end
 
@@ -75,7 +75,7 @@ rule "can not work simultaneous shifts - same shift overlap"
         scoreHolder.addHardConstraintMatch(kcontext, -1);
         $ecm.setAlreadyFired(true);
         update($ecm);
-        System.out.println("can not work simultaneous shifts same shift overlap, adding -1");
+        //System.out.println("can not work simultaneous shifts same shift overlap, adding -1");
 
 end
 
@@ -112,7 +112,7 @@ rule "MINIMUM_REST_PERIOD"
         Long hours = hoursGap($firstShiftEnd, $secondShiftStart);
         Double dValue = hours * hours * $employeeMultiplier * -1;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("MRP: " + dValue);
+        //System.out.println("MRP: " + dValue);
 end
 
 /*
@@ -133,7 +133,7 @@ rule "minimum rest period"
         Long hours = hoursGap($firstShiftEnd, $secondShiftStart);
         Double dValue = hours * hours * $employeeMultiplier * $scoreImpact;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("MRP: " + dValue);
+        //System.out.println("MRP: " + dValue);
 end
 
 
@@ -165,7 +165,7 @@ rule "LESS_THAN_EXPECTED_HOURS"
         Double percentage = hoursDifference.doubleValue() / $preferredHours.doubleValue() * 100D;
         Double dValue =  percentage * $impact * $multiplier * -1;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("less than expected hours" + dValue);
+        //System.out.println("less than expected hours" + dValue);
 end
 
 /*
@@ -196,7 +196,7 @@ rule "fewer than expected hours"
         Double percentage = hoursDifference.doubleValue() / $preferredHours.doubleValue() * 100D;
         Double dValue =  percentage * $impact * $multiplier * -1;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("less than expected hours" + dValue);
+        //System.out.println("less than expected hours" + dValue);
 end
 
 
@@ -227,9 +227,9 @@ rule "MORE_THAN_EXPECTED_HOURS"
         Long hoursDifference = $totalHours - $preferredHours;
         Double percentage = hoursDifference.doubleValue() / $preferredHours.doubleValue() * 100D;
         Double dValue =  percentage * $impact * $multiplier * -1;
-        //System.out.println("more than expected hours: " + hoursDifference + " expected: " + $preferredHours + " percentage: " + percentage + " dValue: " + dValue);
+        ////System.out.println("more than expected hours: " + hoursDifference + " expected: " + $preferredHours + " percentage: " + percentage + " dValue: " + dValue);
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("More than expected hours" + dValue);
+        //System.out.println("More than expected hours" + dValue);
 end
 
 /*
@@ -259,9 +259,9 @@ rule "more than expected hours"
         Long hoursDifference = $totalHours - $preferredHours;
         Double percentage = hoursDifference.doubleValue() / $preferredHours.doubleValue() * 100D;
         Double dValue =  percentage * $impact * $multiplier * -1;
-        //System.out.println("more than expected hours: " + hoursDifference + " expected: " + $preferredHours + " percentage: " + percentage + " dValue: " + dValue);
+        ////System.out.println("more than expected hours: " + hoursDifference + " expected: " + $preferredHours + " percentage: " + percentage + " dValue: " + dValue);
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("More than expected hours" + dValue);
+        //System.out.println("More than expected hours" + dValue);
 end
 
 
@@ -282,7 +282,7 @@ rule "AVAILABILITY_NO"
     then
         Double dValue = $impact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("availability no" + dValue);
+        //System.out.println("availability no" + dValue);
 end
 
 /*
@@ -302,7 +302,7 @@ rule "not available"
     then
         Double dValue = $scoreImpact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("availability no" + dValue);
+        //System.out.println("availability no" + dValue);
 end
 
 /*
@@ -323,7 +323,7 @@ rule "AVAILABILITY_MAYBE"
     then
         Double dValue = $impact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("availability maybe" + dValue);
+        //System.out.println("availability maybe" + dValue);
 end
 
 /*
@@ -343,7 +343,7 @@ rule "maybe available"
     then
         Double dValue = $scoreImpact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("availability maybe" + dValue);
+        //System.out.println("availability maybe" + dValue);
 end
 
 /*
@@ -358,5 +358,5 @@ rule "CONSECUTIVE_WORK_DAYS"
         Shift(this != $shift, employee != null, $employeeId == employee.id, start!.toLocalDate() == $startDate!.minusDays(1L))
     then
         scoreHolder.addSoftConstraintMatch(kcontext, 100);
-        System.out.println("Consecutive work days: " + 100);
+        //System.out.println("Consecutive work days: " + 100);
 end

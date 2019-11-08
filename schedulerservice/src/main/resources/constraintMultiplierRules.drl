@@ -48,7 +48,7 @@ rule "default HAS_SOME_SOFT_SKILLS"
         Employee($employeeId: id)
         not EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SOME_SOFT_SKILLS")
     then
-        //System.out.println("adding default soft skills multiplier");
+        ////System.out.println("adding default soft skills multiplier");
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("HAS_SOME_SOFT_SKILLS"));
 end
 

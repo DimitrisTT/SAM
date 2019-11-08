@@ -30,7 +30,7 @@ rule "WORKPLACE_FAR"
     then
         Double dValue = $impact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("(Far) added to softscore: " + dValue.longValue());
+        //System.out.println("(Far) added to softscore: " + dValue.longValue());
 end
 
 /*
@@ -50,7 +50,7 @@ rule "workplace far from site"
     then
         Double dValue = $scoreImpact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-       // System.out.println("workplace far added to softscore: " + dValue.longValue());
+       // //System.out.println("workplace far added to softscore: " + dValue.longValue());
 end
 
 /*
@@ -70,7 +70,7 @@ rule "workplace fairly far from site"
     then
         Double dValue = $scoreImpact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-      //  System.out.println("workplace fairly far added to softscore: " + dValue.longValue());
+      //  //System.out.println("workplace fairly far added to softscore: " + dValue.longValue());
 end
 
 /*
@@ -90,7 +90,7 @@ rule "workplace close by site"
     then
         Double dValue = $scoreImpact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-       // System.out.println("workplace fairly far added to softscore: " + dValue.longValue());
+       // //System.out.println("workplace fairly far added to softscore: " + dValue.longValue());
 end
 
 /*
@@ -114,7 +114,7 @@ rule "WORKPLACE_FAIRLY_CLOSE"
     then
         Double dValue = $impact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("(fairly close) added to softscore: " + dValue.longValue());
+        //System.out.println("(fairly close) added to softscore: " + dValue.longValue());
 end
 
 /*
@@ -138,5 +138,5 @@ rule "WORKPLACE_CLOSE"
     then
         Double dValue = $impact * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        System.out.println("(Close) added to softscore: " + dValue.longValue());
+        //System.out.println("(Close) added to softscore: " + dValue.longValue());
 end
