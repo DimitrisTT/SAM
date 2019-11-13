@@ -11,30 +11,6 @@ global HardSoftLongScoreHolder scoreHolder;
 
 /*
     Adds a negative soft value when an employee is assigned to a site that is far from home.
-    This rule will only be triggered if enabled with a KeyValueFact of FAR_FROM_SITE_ENABLED.
-    The distance that is considered far is defined in a KeyValueFact of FAR_FROM_SITE_DEFINITION.
-    The amount that being far from the workplace will impact the score is defined in a KeyValueFact of FAR_FROM_SITE_IMPACT.
-    The multiplier that will be applied to the impact is defined in EmployeeConstraintMultiplier since it may differ by employee.
-    The distance between an employee and a site is determined ahead of time in a fact called EmployeeSiteDistance.
-
-    Once an employee is assigned to a site, the soft score is computed by multiplying the impact by the multiplier for the employee.
-*/
-rule "WORKPLACE_FAR"
-    when
-        not KeyValueFact(key == "FAR_FROM_SITE_ENABLED", value == false)
-        KeyValueFact(key == "FAR_FROM_SITE_DEFINITION", $definition: ((Long)value))
-        KeyValueFact(key == "FAR_FROM_SITE_IMPACT", $impact: ((Long)value))
-        EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance > $definition)
-        Shift(employee != null, employee.id == $employeeId, post.site.id ==$siteId )
-        EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_FAR", $multiplier: multiplier)
-    then
-        Double dValue = $impact * $multiplier;
-        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        //System.out.println("(Far) added to softscore: " + dValue.longValue());
-end
-
-/*
-    Adds a negative soft value when an employee is assigned to a site that is far from home.
     This rule is based off of the new FarFromSite object; if active it provides a definition and score impact
     The multiplier that will be applied to the impact is defined in EmployeeConstraintMultiplier since it may differ by employee.
     The distance between an employee and a site is determined ahead of time in a fact called EmployeeSiteDistance.
@@ -93,50 +69,4 @@ rule "workplace close by site"
        // //System.out.println("workplace fairly far added to softscore: " + dValue.longValue());
 end
 
-/*
-    Adds a negative soft value when an employee is assigned to a site that is fairly close to home.
-    This rule will only be triggered if enabled with a KeyValueFact of FAIRLY_FAR_FROM_SITE_ENABLED.
-    The distance that is considered fairly close is defined in a KeyValueFact of FAIRLY_FAR_FROM_SITE_DEFINITION.
-    The amount that being fairly close to the workplace will impact the score is defined in a KeyValueFact of FAIRLY_FROM_FROM_SITE_IMPACT.
-    The multiplier that will be applied to the impact is defined in EmployeeConstraintMultiplier since it may differ by employee.
-    The distance between an employee and a site is determined ahead of time in a fact called EmployeeSiteDistance.
 
-    Once an employee is assigned to a site, the soft score is computed by multiplying the impact by the multiplier for the employee.
-*/
-rule "WORKPLACE_FAIRLY_CLOSE"
-    when
-        not KeyValueFact(key == "FAIRLY_FAR_FROM_SITE_ENABLED", value == false)
-        KeyValueFact(key == "FAIRLY_FAR_FROM_SITE_DEFINITION", $definition: ((Long)value))
-        KeyValueFact(key == "FAIRLY_FROM_FROM_SITE_IMPACT", $impact: ((Long)value))
-        EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance > $definition)
-        Shift(employee != null, employee.id == $employeeId, post.site.id == $siteId )
-        EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_FAIRLY_CLOSE", $multiplier: multiplier)
-    then
-        Double dValue = $impact * $multiplier;
-        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        //System.out.println("(fairly close) added to softscore: " + dValue.longValue());
-end
-
-/*
-    Adds a negative soft value when an employee is assigned to a site that is close to home.
-    This rule will only be triggered if enabled with a KeyValueFact of CLOSE_FROM_SITE_ENABLED.
-    The distance that is considered close is defined in a KeyValueFact of CLOSE_FROM_SITE_DEFINITION.
-    The amount that being close to the workplace will impact the score is defined in a KeyValueFact of CLOSE_FROM_SITE_IMPACT.
-    The multiplier that will be applied to the impact is defined in EmployeeConstraintMultiplier since it may differ by employee.
-    The distance between an employee and a site is determined ahead of time in a fact called EmployeeSiteDistance.
-
-    Once an employee is assigned to a site, the soft score is computed by multiplying the impact by the multiplier for the employee.
-*/
-rule "WORKPLACE_CLOSE"
-    when
-        not KeyValueFact(key == "CLOSE_FROM_SITE_ENABLED", value == false)
-        KeyValueFact(key == "CLOSE_FROM_SITE_DEFINITION", $definition: ((Long)value))
-        KeyValueFact(key == "CLOSE_FROM_SITE_IMPACT", $impact: ((Long)value))
-        EmployeeSiteDistance($employeeId: employeeId, $siteId: siteId, distance <= $definition)
-        Shift(employee != null, employee.id == $employeeId, post.site.id == $siteId )
-        EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_CLOSE", $multiplier: multiplier)
-    then
-        Double dValue = $impact * $multiplier;
-        scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
-        //System.out.println("(Close) added to softscore: " + dValue.longValue());
-end

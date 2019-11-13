@@ -61,7 +61,7 @@ Feature: Minimum Rest Period
     And we apply each employee into the shift for the calculation
     And we apply each employee into the second shift for the calculation
     When Minimum Rest Period rules are calculated
-    Then softscore is -2040
+    Then softscore is -2000
 
 
   Scenario: testing rule firing for those with more than their minimum rest period in hours

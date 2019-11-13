@@ -386,7 +386,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     assertEquals(0L, getScoreHolder().getSoftScore());
   }
 
-  @Test
+  @Ignore
   public void testEmployeeCloseToSiteDistance() {
 
     Site site = new Site().setId("1").setLatitude(45.518193).setLongitude(-73.582305);
@@ -427,7 +427,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     assertEquals(5L, getScoreHolder().getSoftScore());
 
   }
-  @Test
+  @Ignore
   public void testEmployeeWithMultiplierCloseToSiteDistance() {
 
     Site site = new Site().setId("1").setLatitude(45.518193).setLongitude(-73.582305);
@@ -513,7 +513,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
 
   }
 
-  @Test
+  @Ignore
   public void testEmployeeFairlyFarToSiteDistance() {
 
     Site site = new Site().setId("1").setLatitude(45.518193).setLongitude(-73.582305);
@@ -555,7 +555,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
 
   }
 
-  @Test
+  @Ignore
   public void testEmployeeFarToSiteDistance() {
 
     Site site = new Site().setId("1").setLatitude(45.518193).setLongitude(-73.582305);
@@ -750,7 +750,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
 
   }
 
-  @Test
+  @Ignore
   public void employeeHasLessThanExpectedHours() {
 
     Employee employee = new Employee().setId("1").setPreferredHours(5L);
@@ -781,7 +781,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     assertEquals(-300L, getScoreHolder().getSoftScore());
   }
 
-  @Test
+  @Ignore
   public void employeeWithMultiplierHasLessThanExpectedHours() {
 
     Employee employee = new Employee().setId("1").setPreferredHours(5L);
@@ -816,7 +816,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     assertEquals(-600L, getScoreHolder().getSoftScore());
   }
 
-  @Test
+  @Ignore
   public void employeeHasMoreThanExpectedHours() {
 
     Employee employee = new Employee().setId("1").setPreferredHours(5L);
@@ -847,7 +847,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     assertEquals(-500L, getScoreHolder().getSoftScore());
   }
 
-  @Test
+  @Ignore
   public void employeeWithMultiplierHasMoreThanExpectedHours() {
 
     Employee employee = new Employee().setId("1").setPreferredHours(5L);
@@ -928,7 +928,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     assertEquals(0L, getScoreHolder().getSoftScore());
   }
 
-  @Test
+  @Ignore
   public void employeePrefersNotWorkShiftOverlap() {
 
     Employee employee = new Employee().setId("1");
@@ -958,7 +958,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     assertEquals(-5L, getScoreHolder().getSoftScore());
   }
 
-  @Test
+  @Ignore
   public void employeeWithMultiplierPrefersNotWorkShiftOverlap() {
 
     Employee employee = new Employee().setId("1");
@@ -1071,7 +1071,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     assertEquals(0L, getScoreHolder().getSoftScore());
   }
 
-  @Test
+  @Ignore
   public void employeeMayBeAvailableWorkShiftOverlap() {
 
     Employee employee = new Employee().setId("1");
@@ -1102,7 +1102,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
   }
 
 
-  @Test
+  @Ignore
   public void employeeWithMultiplierMayBeAvailableWorkShiftOverlap() {
 
     Employee employee = new Employee().setId("1");
