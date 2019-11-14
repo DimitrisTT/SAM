@@ -25,6 +25,9 @@ public class Application {
   private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
   public static void main(String[] args) {
+    // Set the logger (default config still in logback.xml
+    // System.setProperty("log.name", "scheduler");
+
     // Launch the application
     ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
 

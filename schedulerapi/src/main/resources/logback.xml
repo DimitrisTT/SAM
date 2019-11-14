@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-  <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+  <property name="USER_HOME" value="/home/nellis/TrackTikLogs/Schedulerapi/logs" />
+
+  <timestamp key="bySecond" datePattern="yyyyMMdd.HHmmss"/>
+
+  <appender name="schedulerApiAppender" class="ch.qos.logback.core.FileAppender">
+    <file>${USER_HOME}/${log.name}-${bySecond}.log</file>
     <encoder>
-      <pattern>%d [%t] %-5p %m%n</pattern>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
     </encoder>
   </appender>
 
   <!-- To override the debug log level from the command line, use the VM option "-Dlogback.level.org.optaplanner=trace" -->
-  <logger name="com.tracktik" level="${logback.level.com.tracktik:-info}"/>
+  <logger name="com.tracktik" level="${logback.level.com.tracktik:-info}" additivity="false">
+    <appender-ref ref="schedulerApiAppender"/>
+  </logger>
+
+  <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <!-- pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern -->
+      <pattern>%d [%t] %-5p %m%n</pattern>
+    </encoder>
+  </appender>
 
   <root level="error">
     <appender-ref ref="consoleAppender" />
