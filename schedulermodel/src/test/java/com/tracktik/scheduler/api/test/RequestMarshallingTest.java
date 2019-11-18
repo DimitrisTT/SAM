@@ -87,15 +87,30 @@ public class RequestMarshallingTest {
   @Test
   public void factTypes() throws ParseException {
     ObjectMapper mapper = new ObjectMapper();
-    try{
+    try {
       RequestForScheduling request = mapper.readValue(new File("src/test/data/export.json"), RequestForScheduling.class);
       System.out.println(request.requestFacts);
       Schedule schedule = RequestResponseMapper.requestToSchedule(UUID.randomUUID().toString(), request);
       assert schedule.getConfigFacts().size() == 12;
     } catch (IOException e) {
       e.printStackTrace();
-      assert(false);
+      assert (false);
     }
+
+  }
+
+    @Test
+    public void scaleFacts() throws ParseException {
+      ObjectMapper mapper = new ObjectMapper();
+      try{
+        RequestForScheduling request = mapper.readValue(new File("src/test/data/export.json"), RequestForScheduling.class);
+        System.out.println(request.scaleFacts);
+        Schedule schedule = RequestResponseMapper.requestToSchedule(UUID.randomUUID().toString(), request);
+        assert schedule.getScaleFacts().size() == 3;
+      } catch (IOException e) {
+        e.printStackTrace();
+        assert(false);
+      }
 
     }
 

@@ -24302,5 +24302,29 @@
     ],
     "site_bans": [
 
+    ],
+    "scaleFacts": [
+        {
+            "scaleTag": "RISK",
+            "scaleType": "LEVEL",
+            "rating": "3",
+            "scaleImpactSquare": "true",
+            "scaleImpact": "50"
+        },
+        {
+            "scaleTag": "PERSONALITY",
+            "scaleType": "DELTA",
+            "rating": "4",
+            "scaleImpactSquare": "false",
+            "scaleImpact": "50"
+        },
+        {
+            "scaleTag": "PHYSICALITY",
+            "scaleType": "NPS",
+            "rating": "2",
+            "scaleImpactSquare": "true",
+            "scaleImpact": "50"
+        }
     ]
+
 }

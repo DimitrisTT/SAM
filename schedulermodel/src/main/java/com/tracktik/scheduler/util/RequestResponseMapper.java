@@ -302,6 +302,16 @@ public class RequestResponseMapper {
         return configFact;
     }).collect(Collectors.toSet()));
 
+      schedule.setScaleFacts(request.scaleFacts.stream().map(requestScaleFact -> {
+          logger.debug("Scale facts being parsed: {}", requestScaleFact);
+          return new ScaleFact()
+                  .setScaleTag(ScaleTag.valueOf(requestScaleFact.scaleTag))
+                  .setScaleType(ScaleType.valueOf(requestScaleFact.scaleType))
+                  .setRating(Integer.parseInt(requestScaleFact.rating))
+                  .setImpact(new Impact(Boolean.parseBoolean(requestScaleFact.scaleImpactSquare), Integer.parseInt(requestScaleFact.scaleImpact)));
+      }).collect(Collectors.toSet()));
+
+
     return schedule;
   }
 
