@@ -1,0 +1,32 @@
+import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
+import com.tracktik.scheduler.domain.*;
+import com.tracktik.scheduler.service.*;
+import java.util.*;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
+import java.util.concurrent.TimeUnit
+
+
+global HardSoftLongScoreHolder scoreHolder;
+
+function Long numberOfMatches(Collection first, Collection other) {
+    long count = 0;
+    for (Object item : first) {
+        if (other.contains(item)) count += 1;
+    }
+    return count;
+}
+
+// Scale Fact Level
+
+//rule "scale fact level is below employee's level"
+//    //lock-on-active
+//    when
+//        Shift(post != null, employee != null, post.scaleFacts. $employeeId: employee.id)
+//        not EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == true)
+//        $ecm: EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == false)
+//    then
+//        scoreHolder.addHardConstraintMatch(kcontext, -1);
+//        $ecm.setAlreadyFired(true);
+//        update($ecm);
+//end

@@ -29,7 +29,7 @@ rule "hard skills necessary"
     //lock-on-active
     when
         HardSkillMissing(active == true, hardImpact == false, hardFailure == true)
-        Shift(post != null, employee != null, !employee.skills.containsAll(post.hardSkills), $employeeId: employee.id)
+        Shift(post != null, employee != null, post.hardSkills != null, !employee.skills.containsAll(post.hardSkills), $employeeId: employee.id)
         not EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == true)
         $ecm: EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == false)
     then
@@ -46,7 +46,7 @@ end
 rule "soft skill missing with multiplier"
     when
         SoftSkillMissing(active == true, $impactMultiplier: impactMultiplier, hardImpact == false)
-        Shift(post != null, employee != null, $employeeId: employee.id, $softSkills: post.softSkills, $skills:employee.skills, numberOfMatches($softSkills, $skills) > 0)
+        Shift(post != null, employee != null, $employeeId: employee.id, $softSkills: post.softSkills, $skills:employee.skills, $skills != null, $softSkills != null, numberOfMatches($softSkills, $skills) > 0)
         EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SOME_SOFT_SKILLS", $employeeMultiplier: multiplier)
     then
         Long matches = numberOfMatches($softSkills, $skills);
@@ -62,7 +62,7 @@ end
 */
 rule "EMPLOYEE_MUST_HAVE_HARD_SKILLS_AS_SOFT"
     when
-        Shift(post != null, employee != null, $hardSkills: post.hardSkills, $skills:employee.skills, numberOfMatches($hardSkills, $skills) > 0)
+        Shift(post != null, employee != null, $hardSkills: post.hardSkills, $skills:employee.skills, $skills != null, $hardSkills != null, numberOfMatches($hardSkills, $skills) > 0)
         not KeyValueFact(key == "HARD_SKILL_ENABLED", value == false)
         KeyValueFact(key == "HARD_SKILL_IS_HARD", value == false)
         KeyValueFact(key == "HARD_SKILL_TYPE_SOFT_MUTLIPLIER", $multiplier: ((Long)value))
