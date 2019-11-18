@@ -31,5 +31,7 @@ public class RequestForScheduling {
   public Set<RequestHoliday> holidays = new HashSet<>();
   public Set<RequestFact> requestFacts = new HashSet<>();
   public Set<RequestScaleFact> scaleFacts = new HashSet<>();
+  public Set<RequestScale> scales = new HashSet<>();
+  public Set<RequestEmployeeScale> employee_scales = new HashSet<>();
 
 }

@@ -10,6 +10,7 @@ public class ScaleFact {
   private ScaleTag scaleTag;
   private ScaleType scaleType;
   private Integer rating;
+  private Integer postId;
   private Impact impact;
 
 }

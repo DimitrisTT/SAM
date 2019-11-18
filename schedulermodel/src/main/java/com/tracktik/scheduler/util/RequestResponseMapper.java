@@ -32,6 +32,7 @@ public class RequestResponseMapper {
     schedule.setId(id);
 
     Set<Skill> skillSet = request.skills.stream().parallel().map(requestSkill -> new Skill(requestSkill.id, requestSkill.description)).collect(Collectors.toSet());
+    Set<Scale> scaleSet = request.scales.stream().parallel().map(requestScale -> new Scale(requestScale.id, ScaleTag.valueOf(requestScale.tag), Integer.parseInt(requestScale.rating))).collect(Collectors.toSet());
 
     schedule.setSites(
         request.sites.stream().map(old -> new Site()
@@ -113,6 +114,13 @@ public class RequestResponseMapper {
                       .map(employee_skill -> employee_skill.skill_id)
                       .map(skill_id -> skillSet.stream().filter(skill -> skill.getId().equals(skill_id)).findAny().get())
                       .collect(Collectors.toList())
+              )
+              .setScales(
+                      request.employee_scales.stream().parallel()
+                              .filter(employee_scale -> employee_scale.employee_id.equals(employee.id))
+                              .map(employee_scale -> employee_scale.scale_id)
+                              .map(scale_id -> scaleSet.stream().filter(scale -> scale.getId().equals(scale_id)).findAny().get())
+                              .collect(Collectors.toList())
               )
               .setSeniority(StringUtils.isBlank(employee.seniority) ? null : new Integer(employee.seniority))
               .setMinimumRestPeriod(employee.minimum_rest_period == null ? new Long(8) : new Long(employee.minimum_rest_period))
@@ -308,6 +316,7 @@ public class RequestResponseMapper {
                   .setScaleTag(ScaleTag.valueOf(requestScaleFact.scaleTag))
                   .setScaleType(ScaleType.valueOf(requestScaleFact.scaleType))
                   .setRating(Integer.parseInt(requestScaleFact.rating))
+                  .setPostId(Integer.parseInt(requestScaleFact.post_id))
                   .setImpact(new Impact(Boolean.parseBoolean(requestScaleFact.scaleImpactSquare), Integer.parseInt(requestScaleFact.scaleImpact)));
       }).collect(Collectors.toSet()));
 

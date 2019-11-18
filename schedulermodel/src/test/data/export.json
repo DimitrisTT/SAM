@@ -6513,6 +6513,83 @@
             "align_holidays_with_period_start_time": "0"
         }
     ],
+    "scales": [
+        {
+            "id": "11",
+            "tag": "RISK",
+            "rating": "5"
+        },
+        {
+            "id": "12",
+            "tag": "RISK",
+            "rating": "5"
+        },
+        {
+            "id": "13",
+            "tag": "RISK",
+            "rating": "5"
+        },
+        {
+            "id": "14",
+            "tag": "RISK",
+            "rating": "5"
+        },
+        {
+            "id": "15",
+            "tag": "RISK",
+            "rating": "5"
+        },
+        {
+            "id": "21",
+            "tag": "PERSONALITY",
+            "rating": "1"
+        },
+        {
+            "id": "22",
+            "tag": "PERSONALITY",
+            "rating": "2"
+        },
+        {
+            "id": "23",
+            "tag": "PERSONALITY",
+            "rating": "3"
+        },
+        {
+            "id": "24",
+            "tag": "PERSONALITY",
+            "rating": "4"
+        },
+        {
+            "id": "25",
+            "tag": "PERSONALITY",
+            "rating": "5"
+        },
+        {
+            "id": "31",
+            "tag": "RISK",
+            "rating": "1"
+        },
+        {
+            "id": "32",
+            "tag": "RISK",
+            "rating": "2"
+        },
+        {
+            "id": "33",
+            "tag": "RISK",
+            "rating": "3"
+        },
+        {
+            "id": "34",
+            "tag": "RISK",
+            "rating": "4"
+        },
+        {
+            "id": "35",
+            "tag": "RISK",
+            "rating": "35"
+        }
+    ],
     "skills": [
         {
             "id": "1",
@@ -9875,6 +9952,20 @@
             "previous_period_last_end_date_time": "",
             "pay_rate": "13.00",
             "seniority": "19"
+        }
+    ],
+    "employee_scales": [
+        {
+            "scale_id": "15",
+            "employee_id": "1002"
+        },
+        {
+            "scale_id": "21",
+            "employee_id": "1007"
+        },
+        {
+            "scale_id": "33",
+            "employee_id": "1012"
         }
     ],
     "employee_skills": [
@@ -24308,6 +24399,7 @@
             "scaleTag": "RISK",
             "scaleType": "LEVEL",
             "rating": "3",
+            "post_id": "100000",
             "scaleImpactSquare": "true",
             "scaleImpact": "50"
         },
@@ -24315,6 +24407,7 @@
             "scaleTag": "PERSONALITY",
             "scaleType": "DELTA",
             "rating": "4",
+            "post_id": "100000",
             "scaleImpactSquare": "false",
             "scaleImpact": "50"
         },
@@ -24322,6 +24415,7 @@
             "scaleTag": "PHYSICALITY",
             "scaleType": "NPS",
             "rating": "2",
+            "post_id": "100000",
             "scaleImpactSquare": "true",
             "scaleImpact": "50"
         }

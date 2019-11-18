@@ -18,6 +18,7 @@ public class Employee {
   private List<Site> siteExperience = new ArrayList<>();
   private List<Post> postExperience = new ArrayList<>();
   private List<Skill> skills = new ArrayList<>();
+  private List<Scale> scales = new ArrayList<>();
   private Long cost;  //times 100
   private Long preferredHours;
   private Double latitude;
