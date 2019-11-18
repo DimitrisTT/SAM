@@ -10,6 +10,10 @@ public class Impact {
   private Boolean square = false;
   private Integer impact;
 
+  public Impact(){
+
+  }
+
   public Impact(Boolean square, Integer impact) {
     this.square = square;
     this.impact = impact;

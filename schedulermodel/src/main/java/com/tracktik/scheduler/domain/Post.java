@@ -21,6 +21,7 @@ public class Post {
   private PayType payType;
   private Set<Skill> softSkills = new HashSet<Skill>();
   private Set<Skill> hardSkills = new HashSet<Skill>();
+  private Set<ScaleFact> scaleFacts = new HashSet<ScaleFact>();
 
   public Long getNumberOfMatchingSoftSkills(Collection skills) {
     return softSkills.stream().filter(skills::contains).count();
@@ -28,6 +29,10 @@ public class Post {
 
   public Long getNumberOfMatchingHardSkills(Collection skills) {
     return hardSkills.stream().filter(skills::contains).count();
+  }
+
+  public Long getNumberOfMatchingScaleFacts(Collection scales) {
+    return scaleFacts.stream().filter(scales::contains).count();
   }
 
 }

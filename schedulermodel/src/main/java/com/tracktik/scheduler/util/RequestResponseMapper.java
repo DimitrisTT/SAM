@@ -33,6 +33,7 @@ public class RequestResponseMapper {
 
     Set<Skill> skillSet = request.skills.stream().parallel().map(requestSkill -> new Skill(requestSkill.id, requestSkill.description)).collect(Collectors.toSet());
     Set<Scale> scaleSet = request.scales.stream().parallel().map(requestScale -> new Scale(requestScale.id, ScaleTag.valueOf(requestScale.tag), Integer.parseInt(requestScale.rating))).collect(Collectors.toSet());
+    Set<ScaleFact> scaleFactSet = request.scale_facts.stream().parallel().map(requestScaleFact -> new ScaleFact(Integer.parseInt(requestScaleFact.id), ScaleTag.valueOf(requestScaleFact.scale_tag), ScaleType.valueOf(requestScaleFact.scale_type), Integer.parseInt(requestScaleFact.rating), Integer.parseInt(requestScaleFact.post_id), new Impact(Boolean.parseBoolean(requestScaleFact.scale_impact_square), Integer.parseInt(requestScaleFact.scale_impact)))).collect(Collectors.toSet());
 
     schedule.setSites(
         request.sites.stream().map(old -> new Site()
@@ -67,12 +68,16 @@ public class RequestResponseMapper {
 
           Set<String> hardSkillIds = request.post_skills.stream().parallel().filter(skill -> skill.post_id.equals(old.id) && skill.type.equals(SkillType.HARD.name())).map(skill -> skill.skill_id).collect(Collectors.toSet());
           Set<String> softSkillIds = request.post_skills.stream().parallel().filter(skill -> skill.post_id.equals(old.id) && skill.type.equals(SkillType.SOFT.name())).map(skill -> skill.skill_id).collect(Collectors.toSet());
+          Set<String> scaleFactIds = request.scale_facts.stream().parallel().filter(scale -> scale.post_id.equals(old.id)).map(scale -> scale.id).collect(Collectors.toSet());
 
           post.setHardSkills(
               skillSet.stream().parallel().filter(skill -> hardSkillIds.contains(skill.getId())).collect(Collectors.toSet())
           );
           post.setSoftSkills(
               skillSet.stream().parallel().filter(skill -> softSkillIds.contains(skill.getId())).collect(Collectors.toSet())
+          );
+          post.setScaleFacts(
+              scaleFactSet.stream().parallel().filter(scale -> scaleFactIds.contains(scale.getId())).collect(Collectors.toSet())
           );
           return post;
         }).collect(Collectors.toSet())
@@ -310,14 +315,15 @@ public class RequestResponseMapper {
         return configFact;
     }).collect(Collectors.toSet()));
 
-      schedule.setScaleFacts(request.scaleFacts.stream().map(requestScaleFact -> {
+      schedule.setScaleFacts(request.scale_facts.stream().map(requestScaleFact -> {
           logger.debug("Scale facts being parsed: {}", requestScaleFact);
           return new ScaleFact()
-                  .setScaleTag(ScaleTag.valueOf(requestScaleFact.scaleTag))
-                  .setScaleType(ScaleType.valueOf(requestScaleFact.scaleType))
+                  .setId(Integer.parseInt(requestScaleFact.id))
+                  .setScaleTag(ScaleTag.valueOf(requestScaleFact.scale_tag))
+                  .setScaleType(ScaleType.valueOf(requestScaleFact.scale_type))
                   .setRating(Integer.parseInt(requestScaleFact.rating))
                   .setPostId(Integer.parseInt(requestScaleFact.post_id))
-                  .setImpact(new Impact(Boolean.parseBoolean(requestScaleFact.scaleImpactSquare), Integer.parseInt(requestScaleFact.scaleImpact)));
+                  .setImpact(new Impact(Boolean.parseBoolean(requestScaleFact.scale_impact_square), Integer.parseInt(requestScaleFact.scale_impact)));
       }).collect(Collectors.toSet()));
 
 

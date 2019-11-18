@@ -104,7 +104,7 @@ public class RequestMarshallingTest {
       ObjectMapper mapper = new ObjectMapper();
       try{
         RequestForScheduling request = mapper.readValue(new File("src/test/data/export.json"), RequestForScheduling.class);
-        System.out.println(request.scaleFacts);
+        System.out.println(request.scale_facts);
         Schedule schedule = RequestResponseMapper.requestToSchedule(UUID.randomUUID().toString(), request);
         assert schedule.getScaleFacts().size() == 3;
       } catch (IOException e) {

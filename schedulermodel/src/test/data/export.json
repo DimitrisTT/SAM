@@ -24394,30 +24394,33 @@
     "site_bans": [
 
     ],
-    "scaleFacts": [
+    "scale_facts": [
         {
-            "scaleTag": "RISK",
-            "scaleType": "LEVEL",
+            "id": "1",
+            "scale_tag": "RISK",
+            "scale_type": "LEVEL",
             "rating": "3",
             "post_id": "100000",
-            "scaleImpactSquare": "true",
-            "scaleImpact": "50"
+            "scale_impact_square": "true",
+            "scale_impact": "50"
         },
         {
-            "scaleTag": "PERSONALITY",
-            "scaleType": "DELTA",
+            "id": "2",
+            "scale_tag": "PERSONALITY",
+            "scale_type": "DELTA",
             "rating": "4",
             "post_id": "100000",
-            "scaleImpactSquare": "false",
-            "scaleImpact": "50"
+            "scale_impact_square": "false",
+            "scale_impact": "50"
         },
         {
-            "scaleTag": "PHYSICALITY",
-            "scaleType": "NPS",
+            "id": "3",
+            "scale_tag": "PHYSICALITY",
+            "scale_type": "NPS",
             "rating": "2",
             "post_id": "100000",
-            "scaleImpactSquare": "true",
-            "scaleImpact": "50"
+            "scale_impact_square": "true",
+            "scale_impact": "50"
         }
     ]
 
