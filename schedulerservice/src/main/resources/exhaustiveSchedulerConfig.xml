@@ -12,7 +12,8 @@
         <scoreDrl>experienceConstraintRules.drl</scoreDrl>
         <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
         <scoreDrl>proximityConstraintRules.drl</scoreDrl>
-        <scoreDrl>overtimeConstraintRules.drl</scoreDrl>
+        <!--<scoreDrl>overtimeConstraintRules.drl</scoreDrl>-->
+        <scoreDrl>scaleRules.drl</scoreDrl>
     </scoreDirectorFactory>
 
     <constructionHeuristic/>

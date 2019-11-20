@@ -29,8 +29,6 @@ public class ScaleFactSteps implements En {
     String pay_rate;
     String seniority;
     String minimum_rest_period;
-    String skillId;
-    String secondSkillId;
     String scaleId;
   }
 
@@ -77,10 +75,11 @@ public class ScaleFactSteps implements En {
     And("^its post_id is set to '(.*?)'$", (String postId) -> {
       scaleFact.setPostId(Integer.parseInt(postId));
     });
-    And("^its impact has square '(.*?)' and impact of '(.*?)'$", (String square, String impactImpact) -> {
+    And("^the ScaleFact impact has square '(.*?)' and impact of '(.*?)'$", (String square, String impactImpact) -> {
       impact = new Impact();
       impact.setSquare(Boolean.parseBoolean(square));
       impact.setImpact(Integer.parseInt(impactImpact));
+      scaleFact.setImpact(impact);
     });
 
     Given("^a site with id '(.*?)' name '(.*?)' longitude '(.*?)' and latitude '(.*?)'$", (String id, String name, String longitude, String latitude) -> {

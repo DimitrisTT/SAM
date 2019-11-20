@@ -16,6 +16,7 @@ rule "default AVAILABILITY_MAYBE"
         Employee($employeeId: id)
         not EmployeeConstraintMultiplier($employeeId == employeeId, name == "AVAILABILITY_MAYBE")
     then
+    //System.out.println("added availabilitymaybe");
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("AVAILABILITY_MAYBE"));
 end
 
@@ -24,6 +25,7 @@ rule "default AVAILABILITY_NO"
         Employee($employeeId: id)
         not EmployeeConstraintMultiplier($employeeId == employeeId, name == "AVAILABILITY_NO")
     then
+    //System.out.println("added availabilityno");
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("AVAILABILITY_NO"));
 end
 
@@ -32,6 +34,7 @@ rule "default EMPLOYEE_HAS_SENIORITY"
         Employee($employeeId: id)
         not EmployeeConstraintMultiplier($employeeId == employeeId, name == "EMPLOYEE_HAS_SENIORITY")
     then
+    //System.out.println("added employeehasseniority");
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("EMPLOYEE_HAS_SENIORITY"));
 end
 
@@ -40,6 +43,7 @@ rule "default HAS_SITE_EXPERIENCE"
         Employee($employeeId: id)
         not EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SITE_EXPERIENCE")
     then
+    //System.out.println("added hassiteexperience");
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("HAS_SITE_EXPERIENCE"));
 end
 
@@ -48,7 +52,7 @@ rule "default HAS_SOME_SOFT_SKILLS"
         Employee($employeeId: id)
         not EmployeeConstraintMultiplier($employeeId == employeeId, name == "HAS_SOME_SOFT_SKILLS")
     then
-        ////System.out.println("adding default soft skills multiplier");
+        //System.out.println("adding default soft skills multiplier");
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("HAS_SOME_SOFT_SKILLS"));
 end
 
@@ -57,6 +61,7 @@ rule "default LESS_THAN_EXPECTED_HOURS"
         Employee($employeeId: id)
         not EmployeeConstraintMultiplier($employeeId == employeeId, name == "LESS_THAN_EXPECTED_HOURS")
     then
+    //System.out.println("added lessthanexpectedhours");
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("LESS_THAN_EXPECTED_HOURS"));
 end
 
@@ -65,6 +70,7 @@ rule "default MINIMUM_REST_PERIOD"
         Employee($employeeId: id)
         not EmployeeConstraintMultiplier($employeeId == employeeId, name == "MINIMUM_REST_PERIOD")
     then
+    //System.out.println("added minimumrestperiod");
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("MINIMUM_REST_PERIOD"));
 end
 
@@ -73,6 +79,7 @@ rule "default MORE_THAN_EXPECTED_HOURS"
         Employee($employeeId: id)
         not EmployeeConstraintMultiplier($employeeId == employeeId, name == "MORE_THAN_EXPECTED_HOURS")
     then
+        //System.out.println("added morethanexpectedhours");
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("MORE_THAN_EXPECTED_HOURS"));
 end
 
@@ -81,6 +88,7 @@ rule "default OVERTIME_PAY"
         Employee($employeeId: id)
         not EmployeeConstraintMultiplier($employeeId == employeeId, name == "OVERTIME_PAY")
     then
+    //System.out.println("added overtimepay");
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("OVERTIME_PAY"));
 end
 
@@ -89,6 +97,7 @@ rule "default WORKPLACE_CLOSE"
         Employee($employeeId: id)
         not EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_CLOSE")
     then
+    //System.out.println("added workplaceclose");
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("WORKPLACE_CLOSE"));
 end
 
@@ -97,6 +106,7 @@ rule "default WORKPLACE_FAIRLY_CLOSE"
         Employee($employeeId: id)
         not EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_FAIRLY_CLOSE")
     then
+    //System.out.println("added workplacefairlyclose");
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("WORKPLACE_FAIRLY_CLOSE"));
 end
 
@@ -105,6 +115,17 @@ rule "default WORKPLACE_FAR"
         Employee($employeeId: id)
         not EmployeeConstraintMultiplier($employeeId == employeeId, name == "WORKPLACE_FAR")
     then
+        //System.out.println("added workplacefar");
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("WORKPLACE_FAR"));
 end
+
+rule "default SCALEFACT"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "SCALEFACT")
+    then
+        System.out.println("add scalefact");
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("SCALEFACT"));
+end
+
 

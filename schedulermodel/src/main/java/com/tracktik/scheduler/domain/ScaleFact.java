@@ -7,11 +7,11 @@ import lombok.experimental.Accessors;
 @Data
 public class ScaleFact {
 
-  private Integer id;
+  private int id;
   private ScaleTag scaleTag;
   private ScaleType scaleType;
-  private Integer rating;
-  private Integer postId;
+  private int rating;
+  private int postId;
   private Impact impact;
 
   public ScaleFact() {
@@ -25,5 +25,13 @@ public class ScaleFact {
     this.rating = rating;
     this.postId = postId;
     this.impact = impact;
+  }
+
+  public int getRating() {
+    return rating;
+  }
+
+  public Impact getImpact() {
+    return impact;
   }
 }

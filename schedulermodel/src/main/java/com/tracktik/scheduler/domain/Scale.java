@@ -15,7 +15,7 @@ public class Scale {
 
   private String id;
   private ScaleTag scaleTag;
-  private Integer rating;
+  private int rating;
 
   public String getId() {
     return id;
@@ -25,7 +25,7 @@ public class Scale {
     return scaleTag;
   }
 
-  public Integer getRating() {
+  public int getRating() {
     return rating;
   }
 }

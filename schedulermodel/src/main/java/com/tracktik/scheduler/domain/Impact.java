@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 public class Impact {
 
   private Boolean square = false;
-  private Integer impact;
+  private int impact;
 
   public Impact(){
 
