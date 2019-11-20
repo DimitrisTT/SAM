@@ -34,7 +34,7 @@ dialect "mvel"
         scoreHolder.addSoftConstraintMatch(kcontext, lValue);
         $ecm.setAlreadyFired(true);
         update($ecm);
-        System.out.println("The scale fact level rule fired for employee: " + $employee.id + " with squared diff value: " + lValue);
+        //System.out.println("The scale fact level rule fired for employee: " + $employee.id + " with squared diff value: " + lValue);
 end
 
 rule "scale fact level is below employee level and impact is linear"
@@ -50,5 +50,5 @@ dialect "mvel"
         scoreHolder.addSoftConstraintMatch(kcontext, lValue);
         $ecm.setAlreadyFired(true);
         update($ecm);
-        System.out.println("The scale fact level rule fired for employee: " + $employee.id + " with value: " + lValue);
+        //System.out.println("The scale fact level rule fired for employee: " + $employee.id + " with value: " + lValue);
 end

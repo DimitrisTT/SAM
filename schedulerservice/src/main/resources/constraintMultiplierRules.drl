@@ -124,7 +124,7 @@ rule "default SCALEFACT"
         Employee($employeeId: id)
         not EmployeeConstraintMultiplier($employeeId == employeeId, name == "SCALEFACT")
     then
-        System.out.println("add scalefact");
+        //System.out.println("add scalefact");
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("SCALEFACT"));
 end
 

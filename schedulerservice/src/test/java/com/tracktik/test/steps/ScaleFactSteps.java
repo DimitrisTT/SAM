@@ -163,11 +163,11 @@ public class ScaleFactSteps implements En {
       post.setPayRate(Long.parseLong(payRate));
     });
     When("^Scale Fact rules are calculated$", () -> {
-      System.out.println("employees" + employees);
-      System.out.println("shift " + shifts);
-      System.out.println("esdSet" + esdSet);
-      System.out.println("ecmSet" + ecmSet);
-      System.out.println("ScaleFact" + scaleFact);
+      //System.out.println("employees" + employees);
+      //System.out.println("shift " + shifts);
+      //System.out.println("esdSet" + esdSet);
+      //System.out.println("ecmSet" + ecmSet);
+      //System.out.println("ScaleFact" + scaleFact);
       droolsTestApi.ksession.insert(scaleFact);
       esdSet.forEach(droolsTestApi.ksession::insert);
       employees.forEach(droolsTestApi.ksession::insert);
