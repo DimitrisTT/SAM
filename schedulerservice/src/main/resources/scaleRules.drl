@@ -52,3 +52,67 @@ dialect "mvel"
         update($ecm);
         //System.out.println("The scale fact level rule fired for employee: " + $employee.id + " with value: " + lValue);
 end
+
+rule "scale fact delta is below employee delta and impact is squared"
+dialect "mvel"
+    when
+        Shift(post != null, employee != null, $employee: employee, $post: post)
+        $scaleFact: ScaleFact( scaleType == ScaleType.DELTA, impact.square == true ) from $post.scaleFacts
+        $employeeScale: Scale( scaleTag == $scaleFact.scaleTag, rating < $scaleFact.rating) from $employee.scales
+        $ecm: EmployeeConstraintMultiplier(employeeId == $employee.id, alreadyFired == false, name == "SCALEFACT")
+    then
+        int difference = $scaleFact.rating - $employeeScale.rating;
+        Long lValue = (difference * difference * $scaleFact.impact.impact * -1);
+        scoreHolder.addSoftConstraintMatch(kcontext, lValue);
+        $ecm.setAlreadyFired(true);
+        update($ecm);
+        //System.out.println("The scale fact level rule fired for employee: " + $employee.id + " with squared diff value: " + lValue);
+end
+
+rule "scale fact delta is below employee delta and impact is linear"
+dialect "mvel"
+    when
+        Shift(post != null, employee != null, $employee: employee, $post: post)
+        $scaleFact: ScaleFact( scaleType == ScaleType.DELTA, impact.square == false ) from $post.scaleFacts
+        $employeeScale: Scale( scaleTag == $scaleFact.scaleTag, rating < $scaleFact.rating) from $employee.scales
+        $ecm: EmployeeConstraintMultiplier(employeeId == $employee.id, alreadyFired == false, name == "SCALEFACT")
+    then
+        int difference = $employeeScale.rating - $scaleFact.rating;
+        Long lValue = (difference * $scaleFact.impact.impact);
+        scoreHolder.addSoftConstraintMatch(kcontext, lValue);
+        $ecm.setAlreadyFired(true);
+        update($ecm);
+        //System.out.println("The scale fact level rule fired for employee: " + $employee.id + " with value: " + lValue);
+end
+
+rule "scale fact delta is above employee delta and impact is squared"
+dialect "mvel"
+    when
+        Shift(post != null, employee != null, $employee: employee, $post: post)
+        $scaleFact: ScaleFact( scaleType == ScaleType.DELTA, impact.square == true ) from $post.scaleFacts
+        $employeeScale: Scale( scaleTag == $scaleFact.scaleTag, rating > $scaleFact.rating) from $employee.scales
+        $ecm: EmployeeConstraintMultiplier(employeeId == $employee.id, alreadyFired == false, name == "SCALEFACT")
+    then
+        int difference = $scaleFact.rating - $employeeScale.rating;
+        Long lValue = (difference * difference * $scaleFact.impact.impact * -1);
+        scoreHolder.addSoftConstraintMatch(kcontext, lValue);
+        $ecm.setAlreadyFired(true);
+        update($ecm);
+        //System.out.println("The scale fact level rule fired for employee: " + $employee.id + " with squared diff value: " + lValue);
+end
+
+rule "scale fact delta is above employee delta and impact is linear"
+dialect "mvel"
+    when
+        Shift(post != null, employee != null, $employee: employee, $post: post)
+        $scaleFact: ScaleFact( scaleType == ScaleType.DELTA, impact.square == false ) from $post.scaleFacts
+        $employeeScale: Scale( scaleTag == $scaleFact.scaleTag, rating > $scaleFact.rating) from $employee.scales
+        $ecm: EmployeeConstraintMultiplier(employeeId == $employee.id, alreadyFired == false, name == "SCALEFACT")
+    then
+        int difference = $scaleFact.rating - $employeeScale.rating;
+        Long lValue = (difference * $scaleFact.impact.impact);
+        scoreHolder.addSoftConstraintMatch(kcontext, lValue);
+        $ecm.setAlreadyFired(true);
+        update($ecm);
+        //System.out.println("The scale fact level rule fired for employee: " + $employee.id + " with value: " + lValue);
+end
