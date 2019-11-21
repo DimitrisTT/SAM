@@ -7,7 +7,7 @@ Feature: Scale Fact Level
     And its rating is set to '3'
     And its post_id is set to '1337'
 
-  Scenario: testing rule firing for those all with the scale Fact set to a rating of 1 and a square impact
+  Scenario: Delta rule firing for those all with the scale Fact set to a rating of 1 and a square impact
     Given a site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
     And with payType 'EMPLOYEE_RATE'
     And the ScaleFact impact has square 'true' and impact of '50'
@@ -38,7 +38,7 @@ Feature: Scale Fact Level
     When Scale Fact rules are calculated
     Then softscore is -2000
 
-  Scenario: testing rule firing for those all with the scale Fact set to a rating of 1 and a linear impact
+  Scenario: Delta rule firing for those all with the scale Fact set to a rating of 1 and a linear impact
     Given a site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
     And with payType 'EMPLOYEE_RATE'
     And the ScaleFact impact has square 'false' and impact of '50'
@@ -69,7 +69,7 @@ Feature: Scale Fact Level
     When Scale Fact rules are calculated
     Then softscore is -1000
 
-  Scenario: testing rule firing for those all with the scale Fact set to a rating of 3 and a square impact
+  Scenario: Delta rule firing for those all with the scale Fact set to a rating of 3 and a square impact
     Given a site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
     And with payType 'EMPLOYEE_RATE'
     And the ScaleFact impact has square 'true' and impact of '50'
@@ -100,7 +100,7 @@ Feature: Scale Fact Level
     When Scale Fact rules are calculated
     Then softscore is 0
 
-  Scenario: testing rule firing for those all with the scale Fact set to a rating of 3 and a linear impact
+  Scenario: Delta rule firing for those all with the scale Fact set to a rating of 3 and a linear impact
     Given a site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
     And with payType 'EMPLOYEE_RATE'
     And the ScaleFact impact has square 'false' and impact of '50'
@@ -131,7 +131,7 @@ Feature: Scale Fact Level
     When Scale Fact rules are calculated
     Then softscore is 0
 
-  Scenario: testing rule firing for those all with the scale Fact set to a rating of 5 and a square impact
+  Scenario: Delta rule firing for those all with the scale Fact set to a rating of 5 and a square impact
     Given a site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
     And with payType 'EMPLOYEE_RATE'
     And the ScaleFact impact has square 'true' and impact of '50'
@@ -162,7 +162,7 @@ Feature: Scale Fact Level
     When Scale Fact rules are calculated
     Then softscore is -2000
 
-  Scenario: testing rule firing for those all with the scale Fact set to a rating of 5 and a linear impact
+  Scenario: Delta rule firing for those all with the scale Fact set to a rating of 5 and a linear impact
     Given a site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
     And with payType 'EMPLOYEE_RATE'
     And the ScaleFact impact has square 'false' and impact of '50'

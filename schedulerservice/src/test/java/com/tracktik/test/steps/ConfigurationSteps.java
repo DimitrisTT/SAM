@@ -629,11 +629,11 @@ public class ConfigurationSteps implements En {
     });
 
     When("^No Experience At Site rules are calculated$", () -> {
-        System.out.println("employees: " + employees);
-        System.out.println("shifts: " + shifts);
-        System.out.println("esdSet: " + esdSet);
-        System.out.println("ecmSet: " + ecmSet);
-        System.out.println("NoExperienceAtSite: " + noExperienceAtSite);
+     //   System.out.println("employees: " + employees);
+     //   System.out.println("shifts: " + shifts);
+     //   System.out.println("esdSet: " + esdSet);
+     //   System.out.println("ecmSet: " + ecmSet);
+     //   System.out.println("NoExperienceAtSite: " + noExperienceAtSite);
       droolsTestApi.ksession.insert(noExperienceAtSite);
       esdSet.forEach(droolsTestApi.ksession::insert);
       ecmSet.forEach(droolsTestApi.ksession::insert);
