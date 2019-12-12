@@ -57,13 +57,13 @@ public class Receiver {
     jmsTemplate.convertAndSend(QueueNames.response, response);
 
     Solver<Schedule> solver;
-    if (totalShiftsToSchedule > 2) {
-      //solver = standardSolverFactory.buildSolver();
+    //if (totalShiftsToSchedule > 2) {
+    //  //solver = standardSolverFactory.buildSolver();
       solver = standardSolverFactory.buildSolver();
-    } else {
-      logger.info("Using exhaustive search");
-      solver = exhaustiveSolverFactory.buildSolver();
-    }
+    //} else {
+    //  logger.info("Using exhaustive search");
+    //  solver = exhaustiveSolverFactory.buildSolver();
+    //}
 
     ScoreDirector<Schedule> scoreDirector = solver.getScoreDirectorFactory().buildScoreDirector();
 

@@ -119,6 +119,15 @@ rule "default WORKPLACE_FAR"
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("WORKPLACE_FAR"));
 end
 
+rule "default CONSECUTIVE_WORK_DAYS"
+    when
+        Employee($employeeId: id)
+        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "CONSECUTIVE_WORK_DAYS")
+    then
+        //System.out.println("added consecutiveworkdays");
+        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("CONSECUTIVE_WORK_DAYS"));
+end
+
 rule "default SCALEFACT"
     when
         Employee($employeeId: id)

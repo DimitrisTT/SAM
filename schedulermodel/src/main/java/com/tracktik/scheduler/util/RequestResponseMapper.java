@@ -201,7 +201,8 @@ public class RequestResponseMapper {
             return new EmployeeConstraintMultiplier()
                 .setEmployeeId(employeeId)
                 .setName(stringStringEntry.getKey())
-                .setMultiplier(new Double(stringStringEntry.getValue()));
+                .setMultiplier(new Double(stringStringEntry.getValue()))
+                .setAlreadyFired(false);
           });
         }).collect(Collectors.toSet())
     );

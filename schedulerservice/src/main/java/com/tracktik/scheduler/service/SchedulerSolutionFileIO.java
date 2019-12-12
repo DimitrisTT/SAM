@@ -223,6 +223,7 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
 
     try (
         BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+      System.out.println(file.getAbsolutePath());
       writer.write(mapper.writeValueAsString(response));
       writer.close();
     } catch (IOException e) {

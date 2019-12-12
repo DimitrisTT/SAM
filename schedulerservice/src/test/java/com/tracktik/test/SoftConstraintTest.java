@@ -1,7 +1,7 @@
 package com.tracktik.test;
 
 import com.tracktik.scheduler.domain.*;
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.junit.Ignore;
 import org.drools.core.base.RuleNameEndsWithAgendaFilter;
 import org.drools.core.base.RuleNameEqualsAgendaFilter;
 import org.drools.core.base.RuleNameMatchesAgendaFilter;
@@ -210,7 +210,10 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(keyValueFactHardSkill);
     ksession.insert(keyValueFactMultiplier);
     ksession.insert(keyValueFactHardSkillAsSoft);
-
+System.out.println("shift: " + shift);
+    System.out.println("keyValueHardSkill: " + keyValueFactHardSkill);
+    System.out.println("keyValueFactMultiplier: " + keyValueFactMultiplier);
+    System.out.println("keyValueFactHardSkillAsSoft: " + keyValueFactHardSkillAsSoft);
     ksession.fireAllRules(new RuleNameEqualsAgendaFilter("EMPLOYEE_MUST_HAVE_HARD_SKILLS_AS_SOFT"));
 
     assertEquals(200L, getScoreHolder().getSoftScore());
@@ -1040,7 +1043,7 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(shift1);
     ksession.insert(shift2);
 
-    ksession.fireAllRules(new RuleNameEqualsAgendaFilter("CONSECUTIVE_WORK_DAYS"));
+    ksession.fireAllRules();
 
     assertEquals(100L, getScoreHolder().getSoftScore());
   }

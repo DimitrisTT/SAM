@@ -10,6 +10,7 @@
             <problemStatisticType>SCORE_CALCULATION_SPEED</problemStatisticType>
             <problemStatisticType>MOVE_COUNT_PER_STEP</problemStatisticType>
             <problemStatisticType>MEMORY_USE</problemStatisticType>
+            <problemStatisticType>BEST_SCORE</problemStatisticType>
         </problemBenchmarks>
         <solver>
             <scanAnnotatedClasses/>
@@ -25,9 +26,11 @@
                 <scoreDrl>schedulerScoreRules.drl</scoreDrl>
                 <scoreDrl>scaleRules.drl</scoreDrl>
             </scoreDirectorFactory>
-
+            <localSearch>HILL_CLIMBING</localSearch>
             <termination>
-                <unimprovedMinutesSpentLimit>2</unimprovedMinutesSpentLimit>
+                <terminationCompositionStyle>OR</terminationCompositionStyle>
+                <secondsSpentLimit>9000</secondsSpentLimit>
+                <unimprovedSecondsSpentLimit>200</unimprovedSecondsSpentLimit>
             </termination>
 
         </solver>
@@ -35,11 +38,13 @@
     </inheritedSolverBenchmark>
 
     <solverBenchmark>
+
         <name>Basic</name>
         <solver>
 
+
             <constructionHeuristic />
-            <localSearch/>
+            <localSearch>LATE_ACCEPTANCE</localSearch>
 
         </solver>
     </solverBenchmark>

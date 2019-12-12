@@ -17,12 +17,83 @@
         "FAR_FROM_SITE_IMPACT": -20,
         "FAIRLY_FAR_FROM_SITE_ENABLED": true,
         "FAIRLY_FAR_FROM_SITE_DEFINITION": 25,
-        "FAIRLY_FROM_FROM_SITE_IMPACT": -10,
+        "FAIRLY_FAR_FROM_SITE_IMPACT": -10,
         "MORE_THAN_EXPECTED_HOURS_ENABLED": true,
         "MORE_THAN_EXPECTED_HOURS_IMPACT": 200,
         "LESS_THAN_EXPECTED_HOURS_ENABLED": true,
         "LESS_THAN_EXPECTED_HOURS_IMPACT": 200
     },
+    "requestFacts": [
+        {
+            "type": "FAR_FROM_SITE",
+            "active": true,
+            "impact": -70,
+            "isHardImpact": false,
+            "definition": 100
+        },
+        {
+            "type": "FAIRLY_FAR_FROM_SITE",
+            "active": true,
+            "impact": -50,
+            "isHardImpact": false,
+            "definition": 50
+        },
+        {
+            "type": "CLOSE_BY_SITE",
+            "active": true,
+            "impact": -50,
+            "isHardImpact": false,
+            "definition": 10
+        },
+        {
+            "type": "SOFT_SKILL_MISSING",
+            "active": true,
+            "impact": -10,
+            "isHardImpact": false
+        },
+        {
+            "type": "HARD_SKILL_MISSING",
+            "active": true,
+            "impact": -100,
+            "isHardImpact": false,
+            "isHardFailure": true
+        },
+        {
+            "type": "MAYBE_AVAILABLE",
+            "impact": -20
+        },
+        {
+            "type": "NOT_AVAILABLE",
+            "active": true,
+            "impact": -100,
+            "isHardImpact": true
+        },
+        {
+            "type": "MINIMUM_REST_PERIOD",
+            "active": true,
+            "impact": -50,
+            "isHardImpact": false
+        },        {
+            "type": "LESS_THAN_EXPECTED_HOURS",
+            "active": true,
+            "impact": -10,
+            "isHardImpact": false
+        },        {
+            "type": "MORE_THAN_EXPECTED_HOURS",
+            "active": true,
+            "impact": -10,
+            "isHardImpact": false
+        },        {
+            "type": "NO_EXPERIENCE_AT_SITE",
+            "active": true,
+            "impact": -50,
+            "isHardImpact": false
+        },        {
+            "type": "NOT_ASSIGNED_TO_SITE",
+            "active": true,
+            "impact": -100
+        }
+    ],
     "holidays" : [
         {
             "post_id": "2439",
@@ -52,7 +123,7 @@
             "duration": "9.00",
             "start_timestamp": "1505142000",
             "end_timestamp": "1505174400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -65,7 +136,7 @@
             "duration": "9.00",
             "start_timestamp": "1505228400",
             "end_timestamp": "1505260800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -78,7 +149,7 @@
             "duration": "9.00",
             "start_timestamp": "1505314800",
             "end_timestamp": "1505347200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -91,7 +162,7 @@
             "duration": "9.00",
             "start_timestamp": "1505746800",
             "end_timestamp": "1505779200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -104,7 +175,7 @@
             "duration": "9.00",
             "start_timestamp": "1505833200",
             "end_timestamp": "1505865600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -117,7 +188,7 @@
             "duration": "9.00",
             "start_timestamp": "1505919600",
             "end_timestamp": "1505952000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-04",
@@ -130,7 +201,7 @@
             "duration": "9.00",
             "start_timestamp": "1504537200",
             "end_timestamp": "1504569600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -143,7 +214,7 @@
             "duration": "9.00",
             "start_timestamp": "1504623600",
             "end_timestamp": "1504656000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -156,7 +227,7 @@
             "duration": "9.00",
             "start_timestamp": "1504710000",
             "end_timestamp": "1504742400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -169,7 +240,7 @@
             "duration": "9.00",
             "start_timestamp": "1506351600",
             "end_timestamp": "1506384000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -182,7 +253,7 @@
             "duration": "9.00",
             "start_timestamp": "1506438000",
             "end_timestamp": "1506470400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -195,7 +266,7 @@
             "duration": "9.00",
             "start_timestamp": "1506524400",
             "end_timestamp": "1506556800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -208,7 +279,7 @@
             "duration": "0.17",
             "start_timestamp": "1505469600",
             "end_timestamp": "1505470200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -221,7 +292,7 @@
             "duration": "6.00",
             "start_timestamp": "1504288800",
             "end_timestamp": "1504310400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -234,7 +305,7 @@
             "duration": "6.50",
             "start_timestamp": "1504265400",
             "end_timestamp": "1504288800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-02",
@@ -247,7 +318,7 @@
             "duration": "12.00",
             "start_timestamp": "1504351800",
             "end_timestamp": "1504395000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -260,7 +331,7 @@
             "duration": "6.50",
             "start_timestamp": "1504611000",
             "end_timestamp": "1504634400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -273,7 +344,7 @@
             "duration": "6.50",
             "start_timestamp": "1504697400",
             "end_timestamp": "1504720800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -286,7 +357,7 @@
             "duration": "6.50",
             "start_timestamp": "1504783800",
             "end_timestamp": "1504807200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -299,7 +370,7 @@
             "duration": "6.50",
             "start_timestamp": "1504870200",
             "end_timestamp": "1504893600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -312,7 +383,7 @@
             "duration": "6.00",
             "start_timestamp": "1504720800",
             "end_timestamp": "1504742400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -325,7 +396,7 @@
             "duration": "6.00",
             "start_timestamp": "1504807200",
             "end_timestamp": "1504828800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -338,7 +409,7 @@
             "duration": "6.00",
             "start_timestamp": "1504893600",
             "end_timestamp": "1504915200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -351,7 +422,7 @@
             "duration": "6.00",
             "start_timestamp": "1504634400",
             "end_timestamp": "1504656000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -364,7 +435,7 @@
             "duration": "12.50",
             "start_timestamp": "1505734200",
             "end_timestamp": "1505779200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -377,7 +448,7 @@
             "duration": "6.50",
             "start_timestamp": "1505820600",
             "end_timestamp": "1505844000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -390,7 +461,7 @@
             "duration": "6.00",
             "start_timestamp": "1505844000",
             "end_timestamp": "1505865600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -403,7 +474,7 @@
             "duration": "6.50",
             "start_timestamp": "1505907000",
             "end_timestamp": "1505930400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -416,7 +487,7 @@
             "duration": "6.00",
             "start_timestamp": "1505930400",
             "end_timestamp": "1505952000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -429,7 +500,7 @@
             "duration": "6.00",
             "start_timestamp": "1506016800",
             "end_timestamp": "1506038400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -442,7 +513,7 @@
             "duration": "6.50",
             "start_timestamp": "1505993400",
             "end_timestamp": "1506016800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -455,7 +526,7 @@
             "duration": "6.50",
             "start_timestamp": "1506079800",
             "end_timestamp": "1506103200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -468,7 +539,7 @@
             "duration": "6.00",
             "start_timestamp": "1506103200",
             "end_timestamp": "1506124800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-09",
@@ -481,7 +552,7 @@
             "duration": "12.00",
             "start_timestamp": "1504956600",
             "end_timestamp": "1504999800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -494,7 +565,7 @@
             "duration": "12.50",
             "start_timestamp": "1505129400",
             "end_timestamp": "1505174400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -507,7 +578,7 @@
             "duration": "12.50",
             "start_timestamp": "1505215800",
             "end_timestamp": "1505260800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -520,7 +591,7 @@
             "duration": "6.50",
             "start_timestamp": "1505302200",
             "end_timestamp": "1505325600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -533,7 +604,7 @@
             "duration": "6.00",
             "start_timestamp": "1505325600",
             "end_timestamp": "1505347200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -546,7 +617,7 @@
             "duration": "6.50",
             "start_timestamp": "1505388600",
             "end_timestamp": "1505412000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -559,7 +630,7 @@
             "duration": "6.00",
             "start_timestamp": "1505412000",
             "end_timestamp": "1505433600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -572,7 +643,7 @@
             "duration": "6.50",
             "start_timestamp": "1505475000",
             "end_timestamp": "1505498400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -585,7 +656,7 @@
             "duration": "6.00",
             "start_timestamp": "1505498400",
             "end_timestamp": "1505520000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-16",
@@ -598,7 +669,7 @@
             "duration": "12.00",
             "start_timestamp": "1505561400",
             "end_timestamp": "1505604600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-23",
@@ -611,7 +682,7 @@
             "duration": "12.00",
             "start_timestamp": "1506166200",
             "end_timestamp": "1506209400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -624,7 +695,7 @@
             "duration": "12.50",
             "start_timestamp": "1506339000",
             "end_timestamp": "1506384000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -637,7 +708,7 @@
             "duration": "6.00",
             "start_timestamp": "1506448800",
             "end_timestamp": "1506470400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -650,7 +721,7 @@
             "duration": "6.00",
             "start_timestamp": "1506535200",
             "end_timestamp": "1506556800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -663,7 +734,7 @@
             "duration": "6.00",
             "start_timestamp": "1506621600",
             "end_timestamp": "1506643200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -676,7 +747,7 @@
             "duration": "6.00",
             "start_timestamp": "1506708000",
             "end_timestamp": "1506729600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -689,7 +760,7 @@
             "duration": "6.50",
             "start_timestamp": "1506425400",
             "end_timestamp": "1506448800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -702,7 +773,7 @@
             "duration": "6.50",
             "start_timestamp": "1506511800",
             "end_timestamp": "1506535200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -715,7 +786,7 @@
             "duration": "6.50",
             "start_timestamp": "1506598200",
             "end_timestamp": "1506621600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -728,7 +799,7 @@
             "duration": "6.50",
             "start_timestamp": "1506684600",
             "end_timestamp": "1506708000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -741,7 +812,7 @@
             "duration": "12.00",
             "start_timestamp": "1504267200",
             "end_timestamp": "1504310400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-02",
@@ -754,7 +825,7 @@
             "duration": "12.00",
             "start_timestamp": "1504353600",
             "end_timestamp": "1504396800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -767,7 +838,7 @@
             "duration": "12.00",
             "start_timestamp": "1504612800",
             "end_timestamp": "1504656000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -780,7 +851,7 @@
             "duration": "12.00",
             "start_timestamp": "1504699200",
             "end_timestamp": "1504742400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -793,7 +864,7 @@
             "duration": "12.00",
             "start_timestamp": "1504785600",
             "end_timestamp": "1504828800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -806,7 +877,7 @@
             "duration": "12.00",
             "start_timestamp": "1504872000",
             "end_timestamp": "1504915200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-09",
@@ -819,7 +890,7 @@
             "duration": "12.00",
             "start_timestamp": "1504958400",
             "end_timestamp": "1505001600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -832,7 +903,7 @@
             "duration": "12.00",
             "start_timestamp": "1505131200",
             "end_timestamp": "1505174400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -845,7 +916,7 @@
             "duration": "12.00",
             "start_timestamp": "1505217600",
             "end_timestamp": "1505260800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -858,7 +929,7 @@
             "duration": "12.00",
             "start_timestamp": "1505304000",
             "end_timestamp": "1505347200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -871,7 +942,7 @@
             "duration": "12.00",
             "start_timestamp": "1505390400",
             "end_timestamp": "1505433600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -884,7 +955,7 @@
             "duration": "12.00",
             "start_timestamp": "1505476800",
             "end_timestamp": "1505520000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-16",
@@ -897,7 +968,7 @@
             "duration": "12.00",
             "start_timestamp": "1505563200",
             "end_timestamp": "1505606400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -910,7 +981,7 @@
             "duration": "12.00",
             "start_timestamp": "1505736000",
             "end_timestamp": "1505779200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -923,7 +994,7 @@
             "duration": "12.00",
             "start_timestamp": "1505822400",
             "end_timestamp": "1505865600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -936,7 +1007,7 @@
             "duration": "12.00",
             "start_timestamp": "1505908800",
             "end_timestamp": "1505952000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -949,7 +1020,7 @@
             "duration": "12.00",
             "start_timestamp": "1505995200",
             "end_timestamp": "1506038400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -962,7 +1033,7 @@
             "duration": "12.00",
             "start_timestamp": "1506081600",
             "end_timestamp": "1506124800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-23",
@@ -975,7 +1046,7 @@
             "duration": "12.00",
             "start_timestamp": "1506168000",
             "end_timestamp": "1506211200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -988,7 +1059,7 @@
             "duration": "12.00",
             "start_timestamp": "1506340800",
             "end_timestamp": "1506384000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -1001,7 +1072,7 @@
             "duration": "12.00",
             "start_timestamp": "1506427200",
             "end_timestamp": "1506470400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -1014,7 +1085,7 @@
             "duration": "12.00",
             "start_timestamp": "1506513600",
             "end_timestamp": "1506556800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -1027,7 +1098,7 @@
             "duration": "12.00",
             "start_timestamp": "1506600000",
             "end_timestamp": "1506643200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -1040,7 +1111,7 @@
             "duration": "12.00",
             "start_timestamp": "1506686400",
             "end_timestamp": "1506729600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-30",
@@ -1053,7 +1124,7 @@
             "duration": "12.00",
             "start_timestamp": "1506772800",
             "end_timestamp": "1506816000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -1066,7 +1137,7 @@
             "duration": "12.00",
             "start_timestamp": "1504267200",
             "end_timestamp": "1504310400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-02",
@@ -1079,7 +1150,7 @@
             "duration": "12.00",
             "start_timestamp": "1504353600",
             "end_timestamp": "1504396800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -1092,7 +1163,7 @@
             "duration": "12.00",
             "start_timestamp": "1504612800",
             "end_timestamp": "1504656000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -1105,7 +1176,7 @@
             "duration": "12.00",
             "start_timestamp": "1504699200",
             "end_timestamp": "1504742400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -1118,7 +1189,7 @@
             "duration": "12.00",
             "start_timestamp": "1504785600",
             "end_timestamp": "1504828800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -1131,7 +1202,7 @@
             "duration": "12.00",
             "start_timestamp": "1504872000",
             "end_timestamp": "1504915200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-09",
@@ -1144,7 +1215,7 @@
             "duration": "12.00",
             "start_timestamp": "1504958400",
             "end_timestamp": "1505001600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -1157,7 +1228,7 @@
             "duration": "12.00",
             "start_timestamp": "1505131200",
             "end_timestamp": "1505174400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -1170,7 +1241,7 @@
             "duration": "12.00",
             "start_timestamp": "1505217600",
             "end_timestamp": "1505260800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -1183,7 +1254,7 @@
             "duration": "12.00",
             "start_timestamp": "1505304000",
             "end_timestamp": "1505347200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -1196,7 +1267,7 @@
             "duration": "12.00",
             "start_timestamp": "1505390400",
             "end_timestamp": "1505433600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -1209,7 +1280,7 @@
             "duration": "12.00",
             "start_timestamp": "1505476800",
             "end_timestamp": "1505520000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-16",
@@ -1222,7 +1293,7 @@
             "duration": "12.00",
             "start_timestamp": "1505563200",
             "end_timestamp": "1505606400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -1235,7 +1306,7 @@
             "duration": "12.00",
             "start_timestamp": "1505736000",
             "end_timestamp": "1505779200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -1248,7 +1319,7 @@
             "duration": "12.00",
             "start_timestamp": "1505822400",
             "end_timestamp": "1505865600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -1261,7 +1332,7 @@
             "duration": "12.00",
             "start_timestamp": "1505908800",
             "end_timestamp": "1505952000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -1274,7 +1345,7 @@
             "duration": "12.00",
             "start_timestamp": "1505995200",
             "end_timestamp": "1506038400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -1287,7 +1358,7 @@
             "duration": "12.00",
             "start_timestamp": "1506081600",
             "end_timestamp": "1506124800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-23",
@@ -1300,7 +1371,7 @@
             "duration": "12.00",
             "start_timestamp": "1506168000",
             "end_timestamp": "1506211200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -1313,7 +1384,7 @@
             "duration": "12.00",
             "start_timestamp": "1506340800",
             "end_timestamp": "1506384000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -1326,7 +1397,7 @@
             "duration": "12.00",
             "start_timestamp": "1506427200",
             "end_timestamp": "1506470400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -1339,7 +1410,7 @@
             "duration": "12.00",
             "start_timestamp": "1506513600",
             "end_timestamp": "1506556800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -1352,7 +1423,7 @@
             "duration": "12.00",
             "start_timestamp": "1506600000",
             "end_timestamp": "1506643200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -1365,7 +1436,7 @@
             "duration": "12.00",
             "start_timestamp": "1506686400",
             "end_timestamp": "1506729600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-30",
@@ -1378,7 +1449,7 @@
             "duration": "12.00",
             "start_timestamp": "1506772800",
             "end_timestamp": "1506816000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -1391,7 +1462,7 @@
             "duration": "12.00",
             "start_timestamp": "1504267200",
             "end_timestamp": "1504310400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-02",
@@ -1404,7 +1475,7 @@
             "duration": "12.00",
             "start_timestamp": "1504353600",
             "end_timestamp": "1504396800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -1417,7 +1488,7 @@
             "duration": "12.00",
             "start_timestamp": "1504785600",
             "end_timestamp": "1504828800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -1430,7 +1501,7 @@
             "duration": "12.00",
             "start_timestamp": "1504872000",
             "end_timestamp": "1504915200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-09",
@@ -1443,7 +1514,7 @@
             "duration": "12.00",
             "start_timestamp": "1504958400",
             "end_timestamp": "1505001600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -1456,7 +1527,7 @@
             "duration": "12.00",
             "start_timestamp": "1504699200",
             "end_timestamp": "1504742400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -1469,7 +1540,7 @@
             "duration": "12.00",
             "start_timestamp": "1505131200",
             "end_timestamp": "1505174400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -1482,7 +1553,7 @@
             "duration": "12.00",
             "start_timestamp": "1505217600",
             "end_timestamp": "1505260800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -1495,7 +1566,7 @@
             "duration": "1.00",
             "start_timestamp": "1505304000",
             "end_timestamp": "1505307600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -1508,7 +1579,7 @@
             "duration": "12.00",
             "start_timestamp": "1505390400",
             "end_timestamp": "1505433600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -1521,7 +1592,7 @@
             "duration": "12.00",
             "start_timestamp": "1505476800",
             "end_timestamp": "1505520000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -1534,7 +1605,7 @@
             "duration": "12.00",
             "start_timestamp": "1504612800",
             "end_timestamp": "1504656000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-16",
@@ -1547,7 +1618,7 @@
             "duration": "12.00",
             "start_timestamp": "1505563200",
             "end_timestamp": "1505606400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -1560,7 +1631,7 @@
             "duration": "12.00",
             "start_timestamp": "1505736000",
             "end_timestamp": "1505779200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -1573,7 +1644,7 @@
             "duration": "12.00",
             "start_timestamp": "1505822400",
             "end_timestamp": "1505865600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -1586,7 +1657,7 @@
             "duration": "12.00",
             "start_timestamp": "1505908800",
             "end_timestamp": "1505952000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -1599,7 +1670,7 @@
             "duration": "12.00",
             "start_timestamp": "1505995200",
             "end_timestamp": "1506038400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -1612,7 +1683,7 @@
             "duration": "12.00",
             "start_timestamp": "1506081600",
             "end_timestamp": "1506124800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -1625,7 +1696,7 @@
             "duration": "9.00",
             "start_timestamp": "1505314800",
             "end_timestamp": "1505347200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-23",
@@ -1638,7 +1709,7 @@
             "duration": "12.00",
             "start_timestamp": "1506168000",
             "end_timestamp": "1506211200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -1651,7 +1722,7 @@
             "duration": "12.00",
             "start_timestamp": "1506600000",
             "end_timestamp": "1506643200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -1664,7 +1735,7 @@
             "duration": "7.50",
             "start_timestamp": "1506686400",
             "end_timestamp": "1506713400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-30",
@@ -1677,7 +1748,7 @@
             "duration": "12.00",
             "start_timestamp": "1506772800",
             "end_timestamp": "1506816000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -1690,7 +1761,7 @@
             "duration": "12.00",
             "start_timestamp": "1506340800",
             "end_timestamp": "1506384000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -1703,7 +1774,7 @@
             "duration": "12.00",
             "start_timestamp": "1506427200",
             "end_timestamp": "1506470400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -1716,7 +1787,7 @@
             "duration": "12.00",
             "start_timestamp": "1506513600",
             "end_timestamp": "1506556800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -1729,7 +1800,7 @@
             "duration": "4.50",
             "start_timestamp": "1506713400",
             "end_timestamp": "1506729600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -1742,7 +1813,7 @@
             "duration": "6.50",
             "start_timestamp": "1504267200",
             "end_timestamp": "1504290600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-02",
@@ -1755,7 +1826,7 @@
             "duration": "12.00",
             "start_timestamp": "1504353600",
             "end_timestamp": "1504396800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -1768,7 +1839,7 @@
             "duration": "12.00",
             "start_timestamp": "1504612800",
             "end_timestamp": "1504656000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -1781,7 +1852,7 @@
             "duration": "12.00",
             "start_timestamp": "1504699200",
             "end_timestamp": "1504742400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -1794,7 +1865,7 @@
             "duration": "12.00",
             "start_timestamp": "1504785600",
             "end_timestamp": "1504828800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -1807,7 +1878,7 @@
             "duration": "12.00",
             "start_timestamp": "1504872000",
             "end_timestamp": "1504915200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-09",
@@ -1820,7 +1891,7 @@
             "duration": "12.00",
             "start_timestamp": "1504958400",
             "end_timestamp": "1505001600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -1833,7 +1904,7 @@
             "duration": "12.00",
             "start_timestamp": "1505131200",
             "end_timestamp": "1505174400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -1846,7 +1917,7 @@
             "duration": "12.00",
             "start_timestamp": "1505217600",
             "end_timestamp": "1505260800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -1859,7 +1930,7 @@
             "duration": "12.00",
             "start_timestamp": "1505304000",
             "end_timestamp": "1505347200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -1872,7 +1943,7 @@
             "duration": "12.00",
             "start_timestamp": "1505390400",
             "end_timestamp": "1505433600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -1885,7 +1956,7 @@
             "duration": "12.00",
             "start_timestamp": "1505476800",
             "end_timestamp": "1505520000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-16",
@@ -1898,7 +1969,7 @@
             "duration": "6.00",
             "start_timestamp": "1505563200",
             "end_timestamp": "1505584800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -1911,7 +1982,7 @@
             "duration": "12.00",
             "start_timestamp": "1505736000",
             "end_timestamp": "1505779200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -1924,7 +1995,7 @@
             "duration": "12.00",
             "start_timestamp": "1505822400",
             "end_timestamp": "1505865600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -1937,7 +2008,7 @@
             "duration": "12.00",
             "start_timestamp": "1505908800",
             "end_timestamp": "1505952000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -1950,7 +2021,7 @@
             "duration": "12.00",
             "start_timestamp": "1505995200",
             "end_timestamp": "1506038400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -1963,7 +2034,7 @@
             "duration": "12.00",
             "start_timestamp": "1506081600",
             "end_timestamp": "1506124800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -1976,7 +2047,7 @@
             "duration": "5.50",
             "start_timestamp": "1504290600",
             "end_timestamp": "1504310400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-23",
@@ -1989,7 +2060,7 @@
             "duration": "12.00",
             "start_timestamp": "1506168000",
             "end_timestamp": "1506211200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -2002,7 +2073,7 @@
             "duration": "12.00",
             "start_timestamp": "1506340800",
             "end_timestamp": "1506384000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -2015,7 +2086,7 @@
             "duration": "12.00",
             "start_timestamp": "1506427200",
             "end_timestamp": "1506470400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -2028,7 +2099,7 @@
             "duration": "12.00",
             "start_timestamp": "1506513600",
             "end_timestamp": "1506556800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -2041,7 +2112,7 @@
             "duration": "6.00",
             "start_timestamp": "1506600000",
             "end_timestamp": "1506621600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -2054,7 +2125,7 @@
             "duration": "12.00",
             "start_timestamp": "1506686400",
             "end_timestamp": "1506729600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -2067,7 +2138,7 @@
             "duration": "6.00",
             "start_timestamp": "1506621600",
             "end_timestamp": "1506643200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-30",
@@ -2080,7 +2151,7 @@
             "duration": "12.50",
             "start_timestamp": "1506771000",
             "end_timestamp": "1506816000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -2093,7 +2164,7 @@
             "duration": "11.00",
             "start_timestamp": "1504314000",
             "end_timestamp": "1504353600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-02",
@@ -2106,7 +2177,7 @@
             "duration": "10.00",
             "start_timestamp": "1504402200",
             "end_timestamp": "1504438200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -2119,7 +2190,7 @@
             "duration": "12.00",
             "start_timestamp": "1504270800",
             "end_timestamp": "1504314000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-03",
@@ -2132,7 +2203,7 @@
             "duration": "10.00",
             "start_timestamp": "1504488600",
             "end_timestamp": "1504524600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -2145,7 +2216,7 @@
             "duration": "10.00",
             "start_timestamp": "1504832400",
             "end_timestamp": "1504868400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -2158,7 +2229,7 @@
             "duration": "11.00",
             "start_timestamp": "1504918800",
             "end_timestamp": "1504958400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-09",
@@ -2171,7 +2242,7 @@
             "duration": "10.00",
             "start_timestamp": "1505007000",
             "end_timestamp": "1505043000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -2184,7 +2255,7 @@
             "duration": "10.00",
             "start_timestamp": "1504659600",
             "end_timestamp": "1504695600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -2197,7 +2268,7 @@
             "duration": "10.00",
             "start_timestamp": "1504746000",
             "end_timestamp": "1504782000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-04",
@@ -2210,7 +2281,7 @@
             "duration": "10.00",
             "start_timestamp": "1504575000",
             "end_timestamp": "1504611000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-03",
@@ -2223,7 +2294,7 @@
             "duration": "10.00",
             "start_timestamp": "1504445400",
             "end_timestamp": "1504481400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-10",
@@ -2236,7 +2307,7 @@
             "duration": "10.00",
             "start_timestamp": "1505093400",
             "end_timestamp": "1505129400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-10",
@@ -2249,7 +2320,7 @@
             "duration": "10.00",
             "start_timestamp": "1505050200",
             "end_timestamp": "1505086200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -2262,7 +2333,7 @@
             "duration": "10.00",
             "start_timestamp": "1505178000",
             "end_timestamp": "1505214000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -2275,7 +2346,7 @@
             "duration": "10.00",
             "start_timestamp": "1505264400",
             "end_timestamp": "1505300400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -2288,7 +2359,7 @@
             "duration": "10.00",
             "start_timestamp": "1505350800",
             "end_timestamp": "1505386800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -2301,7 +2372,7 @@
             "duration": "10.00",
             "start_timestamp": "1505437200",
             "end_timestamp": "1505473200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -2314,7 +2385,7 @@
             "duration": "11.00",
             "start_timestamp": "1505523600",
             "end_timestamp": "1505563200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-16",
@@ -2327,7 +2398,7 @@
             "duration": "10.00",
             "start_timestamp": "1505611800",
             "end_timestamp": "1505647800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-17",
@@ -2340,7 +2411,7 @@
             "duration": "10.00",
             "start_timestamp": "1505698200",
             "end_timestamp": "1505734200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-17",
@@ -2353,7 +2424,7 @@
             "duration": "10.00",
             "start_timestamp": "1505655000",
             "end_timestamp": "1505691000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -2366,7 +2437,7 @@
             "duration": "10.00",
             "start_timestamp": "1505782800",
             "end_timestamp": "1505818800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -2379,7 +2450,7 @@
             "duration": "10.00",
             "start_timestamp": "1505869200",
             "end_timestamp": "1505905200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -2392,7 +2463,7 @@
             "duration": "10.00",
             "start_timestamp": "1505955600",
             "end_timestamp": "1505991600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -2405,7 +2476,7 @@
             "duration": "10.00",
             "start_timestamp": "1506042000",
             "end_timestamp": "1506078000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -2418,7 +2489,7 @@
             "duration": "11.00",
             "start_timestamp": "1506128400",
             "end_timestamp": "1506168000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-23",
@@ -2431,7 +2502,7 @@
             "duration": "10.00",
             "start_timestamp": "1506216600",
             "end_timestamp": "1506252600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-24",
@@ -2444,7 +2515,7 @@
             "duration": "10.00",
             "start_timestamp": "1506303000",
             "end_timestamp": "1506339000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-24",
@@ -2457,7 +2528,7 @@
             "duration": "10.00",
             "start_timestamp": "1506259800",
             "end_timestamp": "1506295800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -2470,7 +2541,7 @@
             "duration": "10.00",
             "start_timestamp": "1506387600",
             "end_timestamp": "1506423600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -2483,7 +2554,7 @@
             "duration": "10.00",
             "start_timestamp": "1506474000",
             "end_timestamp": "1506510000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -2496,7 +2567,7 @@
             "duration": "10.00",
             "start_timestamp": "1506560400",
             "end_timestamp": "1506596400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -2509,7 +2580,7 @@
             "duration": "10.00",
             "start_timestamp": "1506646800",
             "end_timestamp": "1506682800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -2522,7 +2593,7 @@
             "duration": "11.00",
             "start_timestamp": "1506733200",
             "end_timestamp": "1506772800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-30",
@@ -2535,7 +2606,7 @@
             "duration": "10.00",
             "start_timestamp": "1506821400",
             "end_timestamp": "1506857400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-10-01",
@@ -2548,7 +2619,7 @@
             "duration": "10.00",
             "start_timestamp": "1506864600",
             "end_timestamp": "1506900600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-10-01",
@@ -2561,7 +2632,7 @@
             "duration": "10.00",
             "start_timestamp": "1506907800",
             "end_timestamp": "1506943800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -2574,7 +2645,7 @@
             "duration": "6.00",
             "start_timestamp": "1504267200",
             "end_timestamp": "1504288800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -2587,7 +2658,7 @@
             "duration": "6.00",
             "start_timestamp": "1504288800",
             "end_timestamp": "1504310400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -2600,7 +2671,7 @@
             "duration": "6.00",
             "start_timestamp": "1504612800",
             "end_timestamp": "1504634400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -2613,7 +2684,7 @@
             "duration": "6.00",
             "start_timestamp": "1504634400",
             "end_timestamp": "1504656000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -2626,7 +2697,7 @@
             "duration": "6.00",
             "start_timestamp": "1504699200",
             "end_timestamp": "1504720800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -2639,7 +2710,7 @@
             "duration": "6.00",
             "start_timestamp": "1504720800",
             "end_timestamp": "1504742400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -2652,7 +2723,7 @@
             "duration": "6.00",
             "start_timestamp": "1504785600",
             "end_timestamp": "1504807200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -2665,7 +2736,7 @@
             "duration": "6.00",
             "start_timestamp": "1504872000",
             "end_timestamp": "1504893600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -2678,7 +2749,7 @@
             "duration": "6.00",
             "start_timestamp": "1504893600",
             "end_timestamp": "1504915200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -2691,7 +2762,7 @@
             "duration": "6.00",
             "start_timestamp": "1504807200",
             "end_timestamp": "1504828800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -2704,7 +2775,7 @@
             "duration": "6.00",
             "start_timestamp": "1505131200",
             "end_timestamp": "1505152800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -2717,7 +2788,7 @@
             "duration": "6.00",
             "start_timestamp": "1505152800",
             "end_timestamp": "1505174400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -2730,7 +2801,7 @@
             "duration": "6.00",
             "start_timestamp": "1505217600",
             "end_timestamp": "1505239200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -2743,7 +2814,7 @@
             "duration": "6.00",
             "start_timestamp": "1505239200",
             "end_timestamp": "1505260800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -2756,7 +2827,7 @@
             "duration": "6.00",
             "start_timestamp": "1505304000",
             "end_timestamp": "1505325600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -2769,7 +2840,7 @@
             "duration": "6.00",
             "start_timestamp": "1505325600",
             "end_timestamp": "1505347200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -2782,7 +2853,7 @@
             "duration": "6.00",
             "start_timestamp": "1505390400",
             "end_timestamp": "1505412000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -2795,7 +2866,7 @@
             "duration": "6.00",
             "start_timestamp": "1505412000",
             "end_timestamp": "1505433600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -2808,7 +2879,7 @@
             "duration": "6.00",
             "start_timestamp": "1505498400",
             "end_timestamp": "1505520000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -2821,7 +2892,7 @@
             "duration": "6.00",
             "start_timestamp": "1505476800",
             "end_timestamp": "1505498400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -2834,7 +2905,7 @@
             "duration": "6.00",
             "start_timestamp": "1505736000",
             "end_timestamp": "1505757600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -2847,7 +2918,7 @@
             "duration": "6.00",
             "start_timestamp": "1505757600",
             "end_timestamp": "1505779200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -2860,7 +2931,7 @@
             "duration": "6.00",
             "start_timestamp": "1505822400",
             "end_timestamp": "1505844000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -2873,7 +2944,7 @@
             "duration": "6.00",
             "start_timestamp": "1505844000",
             "end_timestamp": "1505865600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -2886,7 +2957,7 @@
             "duration": "6.00",
             "start_timestamp": "1505908800",
             "end_timestamp": "1505930400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -2899,7 +2970,7 @@
             "duration": "6.00",
             "start_timestamp": "1505930400",
             "end_timestamp": "1505952000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -2912,7 +2983,7 @@
             "duration": "6.00",
             "start_timestamp": "1505995200",
             "end_timestamp": "1506016800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -2925,7 +2996,7 @@
             "duration": "6.00",
             "start_timestamp": "1506016800",
             "end_timestamp": "1506038400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -2938,7 +3009,7 @@
             "duration": "6.00",
             "start_timestamp": "1506081600",
             "end_timestamp": "1506103200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -2951,7 +3022,7 @@
             "duration": "6.00",
             "start_timestamp": "1506103200",
             "end_timestamp": "1506124800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -2964,7 +3035,7 @@
             "duration": "6.00",
             "start_timestamp": "1506708000",
             "end_timestamp": "1506729600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -2977,7 +3048,7 @@
             "duration": "6.00",
             "start_timestamp": "1506686400",
             "end_timestamp": "1506708000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -2990,7 +3061,7 @@
             "duration": "6.00",
             "start_timestamp": "1506362400",
             "end_timestamp": "1506384000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -3003,7 +3074,7 @@
             "duration": "6.00",
             "start_timestamp": "1506340800",
             "end_timestamp": "1506362400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -3016,7 +3087,7 @@
             "duration": "6.00",
             "start_timestamp": "1506448800",
             "end_timestamp": "1506470400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -3029,7 +3100,7 @@
             "duration": "6.00",
             "start_timestamp": "1506427200",
             "end_timestamp": "1506448800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -3042,7 +3113,7 @@
             "duration": "6.00",
             "start_timestamp": "1506535200",
             "end_timestamp": "1506556800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -3055,7 +3126,7 @@
             "duration": "6.00",
             "start_timestamp": "1506513600",
             "end_timestamp": "1506535200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -3068,7 +3139,7 @@
             "duration": "6.00",
             "start_timestamp": "1506600000",
             "end_timestamp": "1506621600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -3081,7 +3152,7 @@
             "duration": "6.00",
             "start_timestamp": "1506621600",
             "end_timestamp": "1506643200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-30",
@@ -3094,7 +3165,7 @@
             "duration": "12.00",
             "start_timestamp": "1506771000",
             "end_timestamp": "1506814200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -3107,7 +3178,7 @@
             "duration": "8.50",
             "start_timestamp": "1504263600",
             "end_timestamp": "1504294200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -3120,7 +3191,7 @@
             "duration": "5.50",
             "start_timestamp": "1504294200",
             "end_timestamp": "1504314000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-02",
@@ -3133,7 +3204,7 @@
             "duration": "12.50",
             "start_timestamp": "1504351800",
             "end_timestamp": "1504396800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -3146,7 +3217,7 @@
             "duration": "8.50",
             "start_timestamp": "1504609200",
             "end_timestamp": "1504639800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -3159,7 +3230,7 @@
             "duration": "8.50",
             "start_timestamp": "1504695600",
             "end_timestamp": "1504726200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -3172,7 +3243,7 @@
             "duration": "8.50",
             "start_timestamp": "1504782000",
             "end_timestamp": "1504812600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -3185,7 +3256,7 @@
             "duration": "8.00",
             "start_timestamp": "1504868400",
             "end_timestamp": "1504897200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -3198,7 +3269,7 @@
             "duration": "5.50",
             "start_timestamp": "1504639800",
             "end_timestamp": "1504659600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -3211,7 +3282,7 @@
             "duration": "5.50",
             "start_timestamp": "1504726200",
             "end_timestamp": "1504746000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -3224,7 +3295,7 @@
             "duration": "5.50",
             "start_timestamp": "1504812600",
             "end_timestamp": "1504832400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -3237,7 +3308,7 @@
             "duration": "6.00",
             "start_timestamp": "1504897200",
             "end_timestamp": "1504918800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-09",
@@ -3250,7 +3321,7 @@
             "duration": "12.50",
             "start_timestamp": "1504956600",
             "end_timestamp": "1505001600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -3263,7 +3334,7 @@
             "duration": "8.00",
             "start_timestamp": "1505127600",
             "end_timestamp": "1505156400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -3276,7 +3347,7 @@
             "duration": "6.00",
             "start_timestamp": "1505156400",
             "end_timestamp": "1505178000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -3289,7 +3360,7 @@
             "duration": "8.00",
             "start_timestamp": "1505214000",
             "end_timestamp": "1505242800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -3302,7 +3373,7 @@
             "duration": "6.00",
             "start_timestamp": "1505242800",
             "end_timestamp": "1505264400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -3315,7 +3386,7 @@
             "duration": "6.00",
             "start_timestamp": "1505329200",
             "end_timestamp": "1505350800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -3328,7 +3399,7 @@
             "duration": "8.00",
             "start_timestamp": "1505300400",
             "end_timestamp": "1505329200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -3341,7 +3412,7 @@
             "duration": "8.00",
             "start_timestamp": "1505386800",
             "end_timestamp": "1505415600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -3354,7 +3425,7 @@
             "duration": "6.00",
             "start_timestamp": "1505415600",
             "end_timestamp": "1505437200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -3367,7 +3438,7 @@
             "duration": "8.00",
             "start_timestamp": "1505473200",
             "end_timestamp": "1505502000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -3380,7 +3451,7 @@
             "duration": "6.00",
             "start_timestamp": "1505502000",
             "end_timestamp": "1505523600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-16",
@@ -3393,7 +3464,7 @@
             "duration": "12.50",
             "start_timestamp": "1505561400",
             "end_timestamp": "1505606400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -3406,7 +3477,7 @@
             "duration": "8.00",
             "start_timestamp": "1505732400",
             "end_timestamp": "1505761200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -3419,7 +3490,7 @@
             "duration": "6.00",
             "start_timestamp": "1505761200",
             "end_timestamp": "1505782800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -3432,7 +3503,7 @@
             "duration": "8.00",
             "start_timestamp": "1505818800",
             "end_timestamp": "1505847600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -3445,7 +3516,7 @@
             "duration": "6.00",
             "start_timestamp": "1505847600",
             "end_timestamp": "1505869200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -3458,7 +3529,7 @@
             "duration": "8.00",
             "start_timestamp": "1505905200",
             "end_timestamp": "1505934000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -3471,7 +3542,7 @@
             "duration": "6.00",
             "start_timestamp": "1505934000",
             "end_timestamp": "1505955600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -3484,7 +3555,7 @@
             "duration": "6.00",
             "start_timestamp": "1506020400",
             "end_timestamp": "1506042000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -3497,7 +3568,7 @@
             "duration": "8.00",
             "start_timestamp": "1505991600",
             "end_timestamp": "1506020400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -3510,7 +3581,7 @@
             "duration": "8.00",
             "start_timestamp": "1506078000",
             "end_timestamp": "1506106800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -3523,7 +3594,7 @@
             "duration": "6.00",
             "start_timestamp": "1506106800",
             "end_timestamp": "1506128400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-23",
@@ -3536,7 +3607,7 @@
             "duration": "12.50",
             "start_timestamp": "1506166200",
             "end_timestamp": "1506211200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -3549,7 +3620,7 @@
             "duration": "8.00",
             "start_timestamp": "1506337200",
             "end_timestamp": "1506366000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -3562,7 +3633,7 @@
             "duration": "6.00",
             "start_timestamp": "1506366000",
             "end_timestamp": "1506387600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -3575,7 +3646,7 @@
             "duration": "8.00",
             "start_timestamp": "1506423600",
             "end_timestamp": "1506452400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -3588,7 +3659,7 @@
             "duration": "6.00",
             "start_timestamp": "1506452400",
             "end_timestamp": "1506474000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -3601,7 +3672,7 @@
             "duration": "8.00",
             "start_timestamp": "1506510000",
             "end_timestamp": "1506538800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -3614,7 +3685,7 @@
             "duration": "6.00",
             "start_timestamp": "1506538800",
             "end_timestamp": "1506560400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -3627,7 +3698,7 @@
             "duration": "8.00",
             "start_timestamp": "1506596400",
             "end_timestamp": "1506625200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -3640,7 +3711,7 @@
             "duration": "6.00",
             "start_timestamp": "1506625200",
             "end_timestamp": "1506646800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -3653,7 +3724,7 @@
             "duration": "8.00",
             "start_timestamp": "1506682800",
             "end_timestamp": "1506711600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -3666,7 +3737,7 @@
             "duration": "6.00",
             "start_timestamp": "1506711600",
             "end_timestamp": "1506733200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -3679,7 +3750,7 @@
             "duration": "2.00",
             "start_timestamp": "1505307600",
             "end_timestamp": "1505314800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -3692,7 +3763,7 @@
             "duration": "3.00",
             "start_timestamp": "1505307600",
             "end_timestamp": "1505318400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -3705,7 +3776,7 @@
             "duration": "3.00",
             "start_timestamp": "1505912400",
             "end_timestamp": "1505923200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -3718,7 +3789,7 @@
             "duration": "3.00",
             "start_timestamp": "1505912400",
             "end_timestamp": "1505923200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -3731,7 +3802,7 @@
             "duration": "10.50",
             "start_timestamp": "1504263600",
             "end_timestamp": "1504301400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -3744,7 +3815,7 @@
             "duration": "10.50",
             "start_timestamp": "1504609200",
             "end_timestamp": "1504647000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -3757,7 +3828,7 @@
             "duration": "8.50",
             "start_timestamp": "1504695600",
             "end_timestamp": "1504726200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -3770,7 +3841,7 @@
             "duration": "10.50",
             "start_timestamp": "1504782000",
             "end_timestamp": "1504819800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -3783,7 +3854,7 @@
             "duration": "8.50",
             "start_timestamp": "1504868400",
             "end_timestamp": "1504899000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-02",
@@ -3796,7 +3867,7 @@
             "duration": "8.00",
             "start_timestamp": "1504357200",
             "end_timestamp": "1504386000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -3809,7 +3880,7 @@
             "duration": "10.50",
             "start_timestamp": "1505127600",
             "end_timestamp": "1505165400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -3822,7 +3893,7 @@
             "duration": "10.50",
             "start_timestamp": "1505214000",
             "end_timestamp": "1505251800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -3835,7 +3906,7 @@
             "duration": "10.50",
             "start_timestamp": "1505300400",
             "end_timestamp": "1505338200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -3848,7 +3919,7 @@
             "duration": "10.50",
             "start_timestamp": "1505386800",
             "end_timestamp": "1505424600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -3861,7 +3932,7 @@
             "duration": "10.50",
             "start_timestamp": "1505473200",
             "end_timestamp": "1505511000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-09",
@@ -3874,7 +3945,7 @@
             "duration": "8.00",
             "start_timestamp": "1504962000",
             "end_timestamp": "1504990800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -3887,7 +3958,7 @@
             "duration": "10.50",
             "start_timestamp": "1505732400",
             "end_timestamp": "1505770200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -3900,7 +3971,7 @@
             "duration": "10.50",
             "start_timestamp": "1505818800",
             "end_timestamp": "1505856600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -3913,7 +3984,7 @@
             "duration": "10.50",
             "start_timestamp": "1505905200",
             "end_timestamp": "1505943000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -3926,7 +3997,7 @@
             "duration": "10.50",
             "start_timestamp": "1505991600",
             "end_timestamp": "1506029400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -3939,7 +4010,7 @@
             "duration": "10.50",
             "start_timestamp": "1506078000",
             "end_timestamp": "1506115800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-23",
@@ -3952,7 +4023,7 @@
             "duration": "8.00",
             "start_timestamp": "1506171600",
             "end_timestamp": "1506200400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-16",
@@ -3965,7 +4036,7 @@
             "duration": "8.00",
             "start_timestamp": "1505566800",
             "end_timestamp": "1505595600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -3978,7 +4049,7 @@
             "duration": "10.50",
             "start_timestamp": "1506337200",
             "end_timestamp": "1506375000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -3991,7 +4062,7 @@
             "duration": "10.50",
             "start_timestamp": "1506423600",
             "end_timestamp": "1506461400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -4004,7 +4075,7 @@
             "duration": "10.50",
             "start_timestamp": "1506510000",
             "end_timestamp": "1506547800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -4017,7 +4088,7 @@
             "duration": "10.50",
             "start_timestamp": "1506596400",
             "end_timestamp": "1506634200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -4030,7 +4101,7 @@
             "duration": "10.50",
             "start_timestamp": "1506682800",
             "end_timestamp": "1506720600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-30",
@@ -4043,7 +4114,7 @@
             "duration": "8.00",
             "start_timestamp": "1506776400",
             "end_timestamp": "1506805200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -4056,7 +4127,7 @@
             "duration": "8.00",
             "start_timestamp": "1504265400",
             "end_timestamp": "1504294200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -4069,7 +4140,7 @@
             "duration": "8.00",
             "start_timestamp": "1504323000",
             "end_timestamp": "1504351800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -4082,7 +4153,7 @@
             "duration": "8.00",
             "start_timestamp": "1504294200",
             "end_timestamp": "1504323000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-02",
@@ -4095,7 +4166,7 @@
             "duration": "12.00",
             "start_timestamp": "1504351800",
             "end_timestamp": "1504395000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-02",
@@ -4108,7 +4179,7 @@
             "duration": "12.00",
             "start_timestamp": "1504395000",
             "end_timestamp": "1504438200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-04",
@@ -4121,7 +4192,7 @@
             "duration": "8.00",
             "start_timestamp": "1504524600",
             "end_timestamp": "1504553400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -4134,7 +4205,7 @@
             "duration": "8.00",
             "start_timestamp": "1504611000",
             "end_timestamp": "1504639800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -4147,7 +4218,7 @@
             "duration": "10.00",
             "start_timestamp": "1504697400",
             "end_timestamp": "1504733400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -4160,7 +4231,7 @@
             "duration": "8.00",
             "start_timestamp": "1504783800",
             "end_timestamp": "1504812600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -4173,7 +4244,7 @@
             "duration": "10.00",
             "start_timestamp": "1504870200",
             "end_timestamp": "1504906200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-04",
@@ -4186,7 +4257,7 @@
             "duration": "8.00",
             "start_timestamp": "1504553400",
             "end_timestamp": "1504582200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -4199,7 +4270,7 @@
             "duration": "8.00",
             "start_timestamp": "1504639800",
             "end_timestamp": "1504668600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -4212,7 +4283,7 @@
             "duration": "8.00",
             "start_timestamp": "1504726200",
             "end_timestamp": "1504755000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -4225,7 +4296,7 @@
             "duration": "8.00",
             "start_timestamp": "1504812600",
             "end_timestamp": "1504841400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-04",
@@ -4238,7 +4309,7 @@
             "duration": "8.00",
             "start_timestamp": "1504582200",
             "end_timestamp": "1504611000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -4251,7 +4322,7 @@
             "duration": "8.00",
             "start_timestamp": "1504668600",
             "end_timestamp": "1504697400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -4264,7 +4335,7 @@
             "duration": "8.00",
             "start_timestamp": "1504755000",
             "end_timestamp": "1504783800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -4277,7 +4348,7 @@
             "duration": "8.00",
             "start_timestamp": "1504841400",
             "end_timestamp": "1504870200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -4290,7 +4361,7 @@
             "duration": "8.00",
             "start_timestamp": "1504927800",
             "end_timestamp": "1504956600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-03",
@@ -4303,7 +4374,7 @@
             "duration": "12.00",
             "start_timestamp": "1504438200",
             "end_timestamp": "1504481400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-03",
@@ -4316,7 +4387,7 @@
             "duration": "12.00",
             "start_timestamp": "1504481400",
             "end_timestamp": "1504524600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-09",
@@ -4329,7 +4400,7 @@
             "duration": "12.00",
             "start_timestamp": "1504956600",
             "end_timestamp": "1504999800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-09",
@@ -4342,7 +4413,7 @@
             "duration": "12.00",
             "start_timestamp": "1504999800",
             "end_timestamp": "1505043000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-10",
@@ -4355,7 +4426,7 @@
             "duration": "12.00",
             "start_timestamp": "1505086200",
             "end_timestamp": "1505129400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-10",
@@ -4368,7 +4439,7 @@
             "duration": "12.00",
             "start_timestamp": "1505043000",
             "end_timestamp": "1505086200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -4381,7 +4452,7 @@
             "duration": "8.00",
             "start_timestamp": "1505129400",
             "end_timestamp": "1505158200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -4394,7 +4465,7 @@
             "duration": "8.00",
             "start_timestamp": "1505158200",
             "end_timestamp": "1505187000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -4407,7 +4478,7 @@
             "duration": "8.00",
             "start_timestamp": "1505187000",
             "end_timestamp": "1505215800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -4420,7 +4491,7 @@
             "duration": "4.50",
             "start_timestamp": "1505257200",
             "end_timestamp": "1505273400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -4433,7 +4504,7 @@
             "duration": "8.00",
             "start_timestamp": "1505273400",
             "end_timestamp": "1505302200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -4446,7 +4517,7 @@
             "duration": "10.00",
             "start_timestamp": "1505215800",
             "end_timestamp": "1505251800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -4459,7 +4530,7 @@
             "duration": "8.00",
             "start_timestamp": "1505302200",
             "end_timestamp": "1505331000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -4472,7 +4543,7 @@
             "duration": "8.00",
             "start_timestamp": "1505331000",
             "end_timestamp": "1505359800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -4485,7 +4556,7 @@
             "duration": "8.00",
             "start_timestamp": "1505359800",
             "end_timestamp": "1505388600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -4498,7 +4569,7 @@
             "duration": "8.00",
             "start_timestamp": "1505388600",
             "end_timestamp": "1505417400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -4511,7 +4582,7 @@
             "duration": "8.00",
             "start_timestamp": "1505417400",
             "end_timestamp": "1505446200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -4524,7 +4595,7 @@
             "duration": "8.00",
             "start_timestamp": "1505446200",
             "end_timestamp": "1505475000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -4537,7 +4608,7 @@
             "duration": "8.00",
             "start_timestamp": "1505532600",
             "end_timestamp": "1505561400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -4550,7 +4621,7 @@
             "duration": "8.00",
             "start_timestamp": "1505475000",
             "end_timestamp": "1505503800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -4563,7 +4634,7 @@
             "duration": "8.00",
             "start_timestamp": "1505503800",
             "end_timestamp": "1505532600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -4576,7 +4647,7 @@
             "duration": "8.00",
             "start_timestamp": "1504899000",
             "end_timestamp": "1504927800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-16",
@@ -4589,7 +4660,7 @@
             "duration": "12.00",
             "start_timestamp": "1505604600",
             "end_timestamp": "1505647800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-16",
@@ -4602,7 +4673,7 @@
             "duration": "12.00",
             "start_timestamp": "1505561400",
             "end_timestamp": "1505604600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-17",
@@ -4615,7 +4686,7 @@
             "duration": "12.00",
             "start_timestamp": "1505647800",
             "end_timestamp": "1505691000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-17",
@@ -4628,7 +4699,7 @@
             "duration": "12.00",
             "start_timestamp": "1505691000",
             "end_timestamp": "1505734200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -4641,7 +4712,7 @@
             "duration": "8.00",
             "start_timestamp": "1505734200",
             "end_timestamp": "1505763000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -4654,7 +4725,7 @@
             "duration": "8.00",
             "start_timestamp": "1505763000",
             "end_timestamp": "1505791800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -4667,7 +4738,7 @@
             "duration": "8.00",
             "start_timestamp": "1505791800",
             "end_timestamp": "1505820600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -4680,7 +4751,7 @@
             "duration": "8.00",
             "start_timestamp": "1505849400",
             "end_timestamp": "1505878200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -4693,7 +4764,7 @@
             "duration": "8.00",
             "start_timestamp": "1505878200",
             "end_timestamp": "1505907000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -4706,7 +4777,7 @@
             "duration": "8.00",
             "start_timestamp": "1505820600",
             "end_timestamp": "1505849400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -4719,7 +4790,7 @@
             "duration": "8.00",
             "start_timestamp": "1505907000",
             "end_timestamp": "1505935800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -4732,7 +4803,7 @@
             "duration": "8.00",
             "start_timestamp": "1505935800",
             "end_timestamp": "1505964600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -4745,7 +4816,7 @@
             "duration": "8.00",
             "start_timestamp": "1505964600",
             "end_timestamp": "1505993400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -4758,7 +4829,7 @@
             "duration": "5.50",
             "start_timestamp": "1506031200",
             "end_timestamp": "1506051000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -4771,7 +4842,7 @@
             "duration": "8.00",
             "start_timestamp": "1506051000",
             "end_timestamp": "1506079800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -4784,7 +4855,7 @@
             "duration": "10.50",
             "start_timestamp": "1505993400",
             "end_timestamp": "1506031200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -4797,7 +4868,7 @@
             "duration": "8.00",
             "start_timestamp": "1506079800",
             "end_timestamp": "1506108600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -4810,7 +4881,7 @@
             "duration": "8.00",
             "start_timestamp": "1506108600",
             "end_timestamp": "1506137400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -4823,7 +4894,7 @@
             "duration": "8.00",
             "start_timestamp": "1506137400",
             "end_timestamp": "1506166200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-23",
@@ -4836,7 +4907,7 @@
             "duration": "12.00",
             "start_timestamp": "1506166200",
             "end_timestamp": "1506209400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-23",
@@ -4849,7 +4920,7 @@
             "duration": "12.00",
             "start_timestamp": "1506209400",
             "end_timestamp": "1506252600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -4862,7 +4933,7 @@
             "duration": "1.50",
             "start_timestamp": "1505251800",
             "end_timestamp": "1505257200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-24",
@@ -4875,7 +4946,7 @@
             "duration": "12.00",
             "start_timestamp": "1506295800",
             "end_timestamp": "1506339000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-24",
@@ -4888,7 +4959,7 @@
             "duration": "12.00",
             "start_timestamp": "1506252600",
             "end_timestamp": "1506295800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -4901,7 +4972,7 @@
             "duration": "8.00",
             "start_timestamp": "1506339000",
             "end_timestamp": "1506367800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -4914,7 +4985,7 @@
             "duration": "8.00",
             "start_timestamp": "1506425400",
             "end_timestamp": "1506454200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -4927,7 +4998,7 @@
             "duration": "8.00",
             "start_timestamp": "1506511800",
             "end_timestamp": "1506540600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -4940,7 +5011,7 @@
             "duration": "8.00",
             "start_timestamp": "1506598200",
             "end_timestamp": "1506627000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -4953,7 +5024,7 @@
             "duration": "8.00",
             "start_timestamp": "1506684600",
             "end_timestamp": "1506713400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -4966,7 +5037,7 @@
             "duration": "8.00",
             "start_timestamp": "1506367800",
             "end_timestamp": "1506396600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -4979,7 +5050,7 @@
             "duration": "8.00",
             "start_timestamp": "1506454200",
             "end_timestamp": "1506483000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -4992,7 +5063,7 @@
             "duration": "8.00",
             "start_timestamp": "1506540600",
             "end_timestamp": "1506569400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -5005,7 +5076,7 @@
             "duration": "8.00",
             "start_timestamp": "1506627000",
             "end_timestamp": "1506655800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -5018,7 +5089,7 @@
             "duration": "8.00",
             "start_timestamp": "1506713400",
             "end_timestamp": "1506742200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -5031,7 +5102,7 @@
             "duration": "8.00",
             "start_timestamp": "1506396600",
             "end_timestamp": "1506425400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -5044,7 +5115,7 @@
             "duration": "8.00",
             "start_timestamp": "1506483000",
             "end_timestamp": "1506511800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -5057,7 +5128,7 @@
             "duration": "8.00",
             "start_timestamp": "1506569400",
             "end_timestamp": "1506598200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -5070,7 +5141,7 @@
             "duration": "8.00",
             "start_timestamp": "1506655800",
             "end_timestamp": "1506684600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -5083,7 +5154,7 @@
             "duration": "8.00",
             "start_timestamp": "1506742200",
             "end_timestamp": "1506771000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-30",
@@ -5096,7 +5167,7 @@
             "duration": "12.00",
             "start_timestamp": "1506771000",
             "end_timestamp": "1506814200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-30",
@@ -5109,7 +5180,7 @@
             "duration": "12.00",
             "start_timestamp": "1506814200",
             "end_timestamp": "1506857400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-10-01",
@@ -5122,7 +5193,7 @@
             "duration": "12.00",
             "start_timestamp": "1506857400",
             "end_timestamp": "1506900600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-10-01",
@@ -5135,7 +5206,7 @@
             "duration": "12.00",
             "start_timestamp": "1506900600",
             "end_timestamp": "1506943800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-04",
@@ -5148,7 +5219,7 @@
             "duration": "12.00",
             "start_timestamp": "1504530000",
             "end_timestamp": "1504573200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -5161,7 +5232,7 @@
             "duration": "12.00",
             "start_timestamp": "1504616400",
             "end_timestamp": "1504659600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -5174,7 +5245,7 @@
             "duration": "12.00",
             "start_timestamp": "1504702800",
             "end_timestamp": "1504746000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -5187,7 +5258,7 @@
             "duration": "12.00",
             "start_timestamp": "1504789200",
             "end_timestamp": "1504832400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -5200,7 +5271,7 @@
             "duration": "12.00",
             "start_timestamp": "1504875600",
             "end_timestamp": "1504918800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -5213,7 +5284,7 @@
             "duration": "12.00",
             "start_timestamp": "1505134800",
             "end_timestamp": "1505178000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -5226,7 +5297,7 @@
             "duration": "12.00",
             "start_timestamp": "1505221200",
             "end_timestamp": "1505264400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -5239,7 +5310,7 @@
             "duration": "12.00",
             "start_timestamp": "1505307600",
             "end_timestamp": "1505350800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -5252,7 +5323,7 @@
             "duration": "12.00",
             "start_timestamp": "1505394000",
             "end_timestamp": "1505437200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -5265,7 +5336,7 @@
             "duration": "12.00",
             "start_timestamp": "1505480400",
             "end_timestamp": "1505523600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -5278,7 +5349,7 @@
             "duration": "5.00",
             "start_timestamp": "1505912400",
             "end_timestamp": "1505930400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -5291,7 +5362,7 @@
             "duration": "12.00",
             "start_timestamp": "1505998800",
             "end_timestamp": "1506042000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -5304,7 +5375,7 @@
             "duration": "12.00",
             "start_timestamp": "1506085200",
             "end_timestamp": "1506128400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -5317,7 +5388,7 @@
             "duration": "12.00",
             "start_timestamp": "1506344400",
             "end_timestamp": "1506387600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -5330,7 +5401,7 @@
             "duration": "12.00",
             "start_timestamp": "1506430800",
             "end_timestamp": "1506474000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -5343,7 +5414,7 @@
             "duration": "12.00",
             "start_timestamp": "1506517200",
             "end_timestamp": "1506560400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -5356,7 +5427,7 @@
             "duration": "12.00",
             "start_timestamp": "1506603600",
             "end_timestamp": "1506646800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -5369,7 +5440,7 @@
             "duration": "12.00",
             "start_timestamp": "1506690000",
             "end_timestamp": "1506733200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -5382,7 +5453,7 @@
             "duration": "5.50",
             "start_timestamp": "1505935800",
             "end_timestamp": "1505955600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-01",
@@ -5395,7 +5466,7 @@
             "duration": "12.00",
             "start_timestamp": "1504310400",
             "end_timestamp": "1504353600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-02",
@@ -5408,7 +5479,7 @@
             "duration": "12.00",
             "start_timestamp": "1504396800",
             "end_timestamp": "1504440000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-03",
@@ -5421,7 +5492,7 @@
             "duration": "12.00",
             "start_timestamp": "1504483200",
             "end_timestamp": "1504526400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-04",
@@ -5434,7 +5505,7 @@
             "duration": "12.00",
             "start_timestamp": "1504569600",
             "end_timestamp": "1504612800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -5447,7 +5518,7 @@
             "duration": "12.00",
             "start_timestamp": "1504656000",
             "end_timestamp": "1504699200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -5460,7 +5531,7 @@
             "duration": "12.00",
             "start_timestamp": "1504742400",
             "end_timestamp": "1504785600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -5473,7 +5544,7 @@
             "duration": "12.00",
             "start_timestamp": "1504828800",
             "end_timestamp": "1504872000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -5486,7 +5557,7 @@
             "duration": "12.00",
             "start_timestamp": "1504915200",
             "end_timestamp": "1504958400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-09",
@@ -5499,7 +5570,7 @@
             "duration": "12.00",
             "start_timestamp": "1505001600",
             "end_timestamp": "1505044800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -5512,7 +5583,7 @@
             "duration": "12.00",
             "start_timestamp": "1505174400",
             "end_timestamp": "1505217600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -5525,7 +5596,7 @@
             "duration": "12.00",
             "start_timestamp": "1505260800",
             "end_timestamp": "1505304000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -5538,7 +5609,7 @@
             "duration": "12.00",
             "start_timestamp": "1505347200",
             "end_timestamp": "1505390400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -5551,7 +5622,7 @@
             "duration": "12.00",
             "start_timestamp": "1505433600",
             "end_timestamp": "1505476800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-10",
@@ -5564,7 +5635,7 @@
             "duration": "12.00",
             "start_timestamp": "1505088000",
             "end_timestamp": "1505131200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -5577,7 +5648,7 @@
             "duration": "12.00",
             "start_timestamp": "1505779200",
             "end_timestamp": "1505822400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -5590,7 +5661,7 @@
             "duration": "12.00",
             "start_timestamp": "1505865600",
             "end_timestamp": "1505908800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -5603,7 +5674,7 @@
             "duration": "12.00",
             "start_timestamp": "1505952000",
             "end_timestamp": "1505995200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -5616,7 +5687,7 @@
             "duration": "12.00",
             "start_timestamp": "1506038400",
             "end_timestamp": "1506081600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -5629,7 +5700,7 @@
             "duration": "12.00",
             "start_timestamp": "1506124800",
             "end_timestamp": "1506168000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-16",
@@ -5642,7 +5713,7 @@
             "duration": "12.00",
             "start_timestamp": "1505606400",
             "end_timestamp": "1505649600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-17",
@@ -5655,7 +5726,7 @@
             "duration": "12.00",
             "start_timestamp": "1505692800",
             "end_timestamp": "1505736000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-23",
@@ -5668,7 +5739,7 @@
             "duration": "12.00",
             "start_timestamp": "1506211200",
             "end_timestamp": "1506254400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-24",
@@ -5681,7 +5752,7 @@
             "duration": "12.00",
             "start_timestamp": "1506297600",
             "end_timestamp": "1506340800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-30",
@@ -5694,7 +5765,7 @@
             "duration": "12.00",
             "start_timestamp": "1506816000",
             "end_timestamp": "1506859200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-29",
@@ -5707,7 +5778,7 @@
             "duration": "12.00",
             "start_timestamp": "1506729600",
             "end_timestamp": "1506772800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -5720,7 +5791,7 @@
             "duration": "12.00",
             "start_timestamp": "1506643200",
             "end_timestamp": "1506686400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -5733,7 +5804,7 @@
             "duration": "12.00",
             "start_timestamp": "1506556800",
             "end_timestamp": "1506600000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -5746,7 +5817,7 @@
             "duration": "12.00",
             "start_timestamp": "1506470400",
             "end_timestamp": "1506513600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -5759,7 +5830,7 @@
             "duration": "12.00",
             "start_timestamp": "1506384000",
             "end_timestamp": "1506427200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-10-01",
@@ -5772,7 +5843,7 @@
             "duration": "12.00",
             "start_timestamp": "1506902400",
             "end_timestamp": "1506945600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-03",
@@ -5785,7 +5856,7 @@
             "duration": "12.00",
             "start_timestamp": "1504483200",
             "end_timestamp": "1504526400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-04",
@@ -5798,7 +5869,7 @@
             "duration": "12.00",
             "start_timestamp": "1504569600",
             "end_timestamp": "1504612800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-05",
@@ -5811,7 +5882,7 @@
             "duration": "12.00",
             "start_timestamp": "1504656000",
             "end_timestamp": "1504699200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-02",
@@ -5824,7 +5895,7 @@
             "duration": "12.00",
             "start_timestamp": "1504396800",
             "end_timestamp": "1504440000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-06",
@@ -5837,7 +5908,7 @@
             "duration": "12.00",
             "start_timestamp": "1504742400",
             "end_timestamp": "1504785600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -5850,7 +5921,7 @@
             "duration": "12.00",
             "start_timestamp": "1504915200",
             "end_timestamp": "1504958400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-09",
@@ -5863,7 +5934,7 @@
             "duration": "12.00",
             "start_timestamp": "1505001600",
             "end_timestamp": "1505044800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-10",
@@ -5876,7 +5947,7 @@
             "duration": "12.00",
             "start_timestamp": "1505088000",
             "end_timestamp": "1505131200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-11",
@@ -5889,7 +5960,7 @@
             "duration": "12.00",
             "start_timestamp": "1505174400",
             "end_timestamp": "1505217600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-12",
@@ -5902,7 +5973,7 @@
             "duration": "12.00",
             "start_timestamp": "1505260800",
             "end_timestamp": "1505304000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-13",
@@ -5915,7 +5986,7 @@
             "duration": "12.00",
             "start_timestamp": "1505347200",
             "end_timestamp": "1505390400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-14",
@@ -5928,7 +5999,7 @@
             "duration": "12.00",
             "start_timestamp": "1505433600",
             "end_timestamp": "1505476800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -5941,7 +6012,7 @@
             "duration": "12.00",
             "start_timestamp": "1505520000",
             "end_timestamp": "1505563200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-07",
@@ -5954,7 +6025,7 @@
             "duration": "12.00",
             "start_timestamp": "1504828800",
             "end_timestamp": "1504872000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-16",
@@ -5967,7 +6038,7 @@
             "duration": "12.00",
             "start_timestamp": "1505606400",
             "end_timestamp": "1505649600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-17",
@@ -5980,7 +6051,7 @@
             "duration": "12.00",
             "start_timestamp": "1505692800",
             "end_timestamp": "1505736000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-18",
@@ -5993,7 +6064,7 @@
             "duration": "12.00",
             "start_timestamp": "1505779200",
             "end_timestamp": "1505822400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-19",
@@ -6006,7 +6077,7 @@
             "duration": "12.00",
             "start_timestamp": "1505865600",
             "end_timestamp": "1505908800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-20",
@@ -6019,7 +6090,7 @@
             "duration": "12.00",
             "start_timestamp": "1505952000",
             "end_timestamp": "1505995200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-21",
@@ -6032,7 +6103,7 @@
             "duration": "12.00",
             "start_timestamp": "1506038400",
             "end_timestamp": "1506081600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-22",
@@ -6045,7 +6116,7 @@
             "duration": "12.00",
             "start_timestamp": "1506124800",
             "end_timestamp": "1506168000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-23",
@@ -6058,7 +6129,7 @@
             "duration": "12.00",
             "start_timestamp": "1506211200",
             "end_timestamp": "1506254400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-25",
@@ -6071,7 +6142,7 @@
             "duration": "12.00",
             "start_timestamp": "1506384000",
             "end_timestamp": "1506427200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-30",
@@ -6084,7 +6155,7 @@
             "duration": "12.00",
             "start_timestamp": "1506816000",
             "end_timestamp": "1506859200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-26",
@@ -6097,7 +6168,7 @@
             "duration": "12.00",
             "start_timestamp": "1506470400",
             "end_timestamp": "1506513600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-27",
@@ -6110,7 +6181,7 @@
             "duration": "12.00",
             "start_timestamp": "1506556800",
             "end_timestamp": "1506600000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-28",
@@ -6123,7 +6194,7 @@
             "duration": "12.00",
             "start_timestamp": "1506643200",
             "end_timestamp": "1506686400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-10-01",
@@ -6136,7 +6207,7 @@
             "duration": "12.00",
             "start_timestamp": "1506902400",
             "end_timestamp": "1506945600",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-02",
@@ -6149,7 +6220,7 @@
             "duration": "10.00",
             "start_timestamp": "1504400400",
             "end_timestamp": "1504436400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-16",
@@ -6162,7 +6233,7 @@
             "duration": "8.00",
             "start_timestamp": "1505617200",
             "end_timestamp": "1505646000",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-24",
@@ -6175,12 +6246,12 @@
             "duration": "8.00",
             "start_timestamp": "1506308400",
             "end_timestamp": "1506337200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-30",
             "shift_id": "816224",
-            "employee_id": "2",
+            "employee_id": "165092",
             "post_id": "2470",
             "site_id": "9884",
             "start_date_time": "2017-09-30 19:00:00",
@@ -6201,7 +6272,7 @@
             "duration": "4.38",
             "start_timestamp": "1504309020",
             "end_timestamp": "1504324800",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-03",
@@ -6214,7 +6285,7 @@
             "duration": "7.30",
             "start_timestamp": "1504464120",
             "end_timestamp": "1504490400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-08",
@@ -6227,7 +6298,7 @@
             "duration": "4.67",
             "start_timestamp": "1504912560",
             "end_timestamp": "1504929360",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-10",
@@ -6240,7 +6311,7 @@
             "duration": "7.52",
             "start_timestamp": "1505068140",
             "end_timestamp": "1505095200",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-15",
@@ -6253,7 +6324,7 @@
             "duration": "4.73",
             "start_timestamp": "1505517360",
             "end_timestamp": "1505534400",
-            "plan": "0"
+            "plan": "1"
         },
         {
             "start_date": "2017-09-17",
@@ -6266,7 +6337,7 @@
             "duration": "6.27",
             "start_timestamp": "1505677440",
             "end_timestamp": "1505700000",
-            "plan": "0"
+            "plan": "1"
         }
     ],
     "posts": [
@@ -6440,6 +6511,83 @@
             "overlapping_method": "cutHoursRule",
             "count_holiday_hours_towards_period_ot": "0",
             "align_holidays_with_period_start_time": "0"
+        }
+    ],
+    "scales": [
+        {
+            "id": "11",
+            "tag": "RISK",
+            "rating": "5"
+        },
+        {
+            "id": "12",
+            "tag": "RISK",
+            "rating": "5"
+        },
+        {
+            "id": "13",
+            "tag": "RISK",
+            "rating": "5"
+        },
+        {
+            "id": "14",
+            "tag": "RISK",
+            "rating": "5"
+        },
+        {
+            "id": "15",
+            "tag": "RISK",
+            "rating": "5"
+        },
+        {
+            "id": "21",
+            "tag": "PERSONALITY",
+            "rating": "1"
+        },
+        {
+            "id": "22",
+            "tag": "PERSONALITY",
+            "rating": "2"
+        },
+        {
+            "id": "23",
+            "tag": "PERSONALITY",
+            "rating": "3"
+        },
+        {
+            "id": "24",
+            "tag": "PERSONALITY",
+            "rating": "4"
+        },
+        {
+            "id": "25",
+            "tag": "PERSONALITY",
+            "rating": "5"
+        },
+        {
+            "id": "31",
+            "tag": "RISK",
+            "rating": "1"
+        },
+        {
+            "id": "32",
+            "tag": "RISK",
+            "rating": "2"
+        },
+        {
+            "id": "33",
+            "tag": "RISK",
+            "rating": "3"
+        },
+        {
+            "id": "34",
+            "tag": "RISK",
+            "rating": "4"
+        },
+        {
+            "id": "35",
+            "tag": "RISK",
+            "rating": "35"
         }
     ],
     "skills": [
@@ -9804,6 +9952,20 @@
             "previous_period_last_end_date_time": "",
             "pay_rate": "13.00",
             "seniority": "19"
+        }
+    ],
+    "employee_scales": [
+        {
+            "scale_id": "15",
+            "employee_id": "1002"
+        },
+        {
+            "scale_id": "21",
+            "employee_id": "1007"
+        },
+        {
+            "scale_id": "33",
+            "employee_id": "1012"
         }
     ],
     "employee_skills": [
@@ -24231,5 +24393,35 @@
     ],
     "site_bans": [
 
+    ],
+    "scale_facts": [
+        {
+            "id": "1",
+            "scale_tag": "RISK",
+            "scale_type": "LEVEL",
+            "rating": "3",
+            "post_id": "100000",
+            "scale_impact_square": "true",
+            "scale_impact": "50"
+        },
+        {
+            "id": "2",
+            "scale_tag": "PERSONALITY",
+            "scale_type": "DELTA",
+            "rating": "4",
+            "post_id": "100000",
+            "scale_impact_square": "false",
+            "scale_impact": "50"
+        },
+        {
+            "id": "3",
+            "scale_tag": "PHYSICALITY",
+            "scale_type": "NPS",
+            "rating": "2",
+            "post_id": "100000",
+            "scale_impact_square": "true",
+            "scale_impact": "50"
+        }
     ]
+
 }

@@ -18,8 +18,8 @@ public class Benchmark {
     List<SolverBenchmarkBluePrintConfig> blueprintConfigs = benchmarkFactory.getPlannerBenchmarkConfig().getSolverBenchmarkBluePrintConfigList();
     if (blueprintConfigs == null) blueprintConfigs = new ArrayList<>();
     SolverBenchmarkBluePrintConfig solverBenchmarkBluePrintConfig = new SolverBenchmarkBluePrintConfig();
-    solverBenchmarkBluePrintConfig.setSolverBenchmarkBluePrintType(SolverBenchmarkBluePrintType.EVERY_CONSTRUCTION_HEURISTIC_TYPE_WITH_EVERY_LOCAL_SEARCH_TYPE);
-    blueprintConfigs.add(solverBenchmarkBluePrintConfig);
+    //solverBenchmarkBluePrintConfig.setSolverBenchmarkBluePrintType(SolverBenchmarkBluePrintType.HILL_CLIMBING);
+    //blueprintConfigs.add(solverBenchmarkBluePrintConfig);
     benchmarkFactory.getPlannerBenchmarkConfig().setSolverBenchmarkBluePrintConfigList(blueprintConfigs);
 
     PlannerBenchmark benchmark = benchmarkFactory.buildPlannerBenchmark();

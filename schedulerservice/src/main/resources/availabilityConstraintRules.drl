@@ -26,10 +26,10 @@ global HardSoftLongScoreHolder scoreHolder;
 rule "can not work simultaneous shifts - edge overlap"
     when
         CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
-        $shift: Shift(employee != null, $employee : employee, $firstShiftStart: start, $firstShiftEnd: end)
-        Shift(this != $shift, employee == $employee, ($firstShiftEnd >= start) && ($firstShiftEnd <= end), ($firstShiftStart < start))
-        not EmployeeConstraintMultiplier($employee.id == employeeId, alreadyFired == true)
-        $ecm: EmployeeConstraintMultiplier($employee.id == employeeId, alreadyFired == false)
+        $shift: Shift(employee != null, $employeeId : employee.id, $firstShiftStart: start, $firstShiftEnd: end)
+        Shift(this != $shift, employee != null, employee.id == $employeeId, ($firstShiftEnd >= start) && ($firstShiftEnd <= end), ($firstShiftStart < start))
+        not EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == true)
+        $ecm: EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == false)
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
         $ecm.setAlreadyFired(true);
@@ -47,10 +47,10 @@ end
 rule "can not work simultaneous shifts - entirety overlap"
     when
         CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
-        $shift: Shift(employee != null, $employee : employee, $firstShiftStart: start, $firstShiftEnd: end)
-        Shift(this != $shift, employee == $employee, ($firstShiftStart < start) && ($firstShiftEnd > end))
-        not EmployeeConstraintMultiplier($employee.id == employeeId, alreadyFired == true)
-        $ecm: EmployeeConstraintMultiplier($employee.id == employeeId, alreadyFired == false)
+        $shift: Shift(employee != null, $employeeId : employee.id, $firstShiftStart: start, $firstShiftEnd: end)
+        Shift(this != $shift, employee != null, employee.id == $employeeId, ($firstShiftStart < start) && ($firstShiftEnd > end))
+        not EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == true)
+        $ecm: EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == false)
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
         $ecm.setAlreadyFired(true);
@@ -67,10 +67,10 @@ end
 rule "can not work simultaneous shifts - same shift overlap"
     when
         CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
-        $shift: Shift(employee != null, $employee : employee, $firstShiftStart: start, $firstShiftEnd: end)
-        Shift(this != $shift, employee == $employee, ($firstShiftStart == start) && ($firstShiftEnd == end))
-        not EmployeeConstraintMultiplier($employee.id == employeeId, alreadyFired == true)
-        $ecm: EmployeeConstraintMultiplier($employee.id == employeeId, alreadyFired == false)
+        $shift: Shift(employee != null, $employeeId: employee.id, $firstShiftStart: start, $firstShiftEnd: end)
+        Shift(this != $shift, employee != null, employee.id == $employeeId, ($firstShiftStart == start) && ($firstShiftEnd == end))
+        not EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == true)
+        $ecm: EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == false)
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
         $ecm.setAlreadyFired(true);
@@ -106,9 +106,9 @@ end
 rule "minimum rest period"
    when
         MinimumRestPeriod(active == true, hardImpact == false, $scoreImpact: scoreImpact)
-        Shift(employee != null, $employee: employee, $firstShiftEnd: end, $firstShiftId: id)
-        EmployeeConstraintMultiplier($employee.id == employeeId, name == "MINIMUM_REST_PERIOD", $employeeMultiplier: multiplier)
-        Shift($firstShiftId != id, $employee == employee, $firstShiftEnd < start,$secondShiftStart: start, hoursGap($firstShiftEnd, start) < employee.minimumRestPeriod)
+        Shift(employee != null, $employeeId: employee.Id, $firstShiftEnd: end, $firstShiftId: id)
+        EmployeeConstraintMultiplier(employeeId == $employeeId, name == "MINIMUM_REST_PERIOD", $employeeMultiplier: multiplier)
+        Shift($firstShiftId != id, employee != null, employee.id == $employeeId, $firstShiftEnd < start, $secondShiftStart: start, hoursGap($firstShiftEnd, start) < employee.minimumRestPeriod)
     then
         Long hours = hoursGap($firstShiftEnd, $secondShiftStart);
         Double dValue = hours * hours * $employeeMultiplier * $scoreImpact;
@@ -137,7 +137,7 @@ rule "fewer than expected hours"
         EmployeeConstraintMultiplier($employeeId == employeeId, name == "LESS_THAN_EXPECTED_HOURS", $multiplier: multiplier)
         //$totalHours: Long( $preferredHours < longValue) from accumulate (
         $totalHours: Long( longValue < $preferredHours ) from accumulate (
-           Shift(employee != null, $employee == employee, $shiftHours: durationHours()),
+           Shift(employee != null, $employeeId == employee.id, $shiftHours: durationHours()),
            sum($shiftHours)
         )
     then
@@ -168,7 +168,7 @@ rule "more than expected hours"
         MoreThanExpectedHours(active == true, hardImpact == false, $impact: impact)
         EmployeeConstraintMultiplier($employeeId == employeeId, name == "MORE_THAN_EXPECTED_HOURS", $multiplier: multiplier)
         $totalHours: Long( longValue > $preferredHours) from accumulate (
-           Shift(employee != null, $employee == employee, $shiftHours: durationHours()),
+           Shift(employee != null, $employeeId == employee.id, $shiftHours: durationHours()),
            sum($shiftHours)
         )
     then
@@ -190,7 +190,7 @@ end
 */
 rule "not available"
     when
-        $availability : EmployeeAvailability($employeeId: employeeId, type == AvailabilityType.NO, $day: dayOfWeek, $employeeStart: startTime, $employeeEnd: endTime)
+        $availability : EmployeeAvailability($employeeId: employeeId, type == AvailabilityType.NO)
         Shift(employee != null, $employeeId == employee.id, this.overlaps($availability))
         NotAvailable(active == true, hardImpact == false, $scoreImpact: scoreImpact)
         EmployeeConstraintMultiplier($employeeId == employeeId, name == "AVAILABILITY_NO", $multiplier: multiplier)
@@ -209,8 +209,7 @@ end
 */
 rule "maybe available"
     when
-        Employee($employeeId: id)
-        $availability : EmployeeAvailability($employeeId == employeeId, type == AvailabilityType.MAYBE, $startTime: startTime, $endTime: endTime, $day: dayOfWeek)
+        $availability : EmployeeAvailability($employeeId: employeeId, type == AvailabilityType.MAYBE)
         Shift(employee != null, $employeeId == employee.id, this.overlaps($availability))
         MaybeAvailable(active == true, $scoreImpact: scoreImpact)
         EmployeeConstraintMultiplier($employeeId == employeeId, name == "AVAILABILITY_MAYBE", $multiplier: multiplier)
@@ -225,12 +224,17 @@ end
     a positive 100 will be added to the soft score. If there are gaps, nothing will be added or subtracted. This seems
     to be enough to eliminate the gaps.
 */
+
 rule "CONSECUTIVE_WORK_DAYS"
     when
-        Employee($employeeId: id)
-        $shift: Shift(employee != null, $employeeId == employee.id, $startDate: start!.toLocalDate())
-        Shift(this != $shift, employee != null, $employeeId == employee.id, start!.toLocalDate() == $startDate!.minusDays(1L))
+        //Employee($employeeId: id)
+        Shift($shiftId: id, employee != null, $employeeId: employee.id, start != null, $startDate: start.toLocalDate())
+        Shift(id != $shiftId, employee != null, $employeeId == employee.id, start!= null, start.toLocalDate() == $startDate.minusDays(1L))
+        $ecm: EmployeeConstraintMultiplier(employeeId == $employeeId, alreadyFired == false, name == "CONSECUTIVE_WORK_DAYS")
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, 100);
+        Long lValue = 100L;
+        scoreHolder.addSoftConstraintMatch(kcontext, lValue);
+        $ecm.setAlreadyFired(true);
+        update($ecm);
         //System.out.println("Consecutive work days: " + 100);
 end
