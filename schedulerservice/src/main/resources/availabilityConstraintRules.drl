@@ -227,8 +227,8 @@ end
 
 rule "CONSECUTIVE_WORK_DAYS"
     when
-        //Employee($employeeId: id)
-        Shift($shiftId: id, employee != null, $employeeId: employee.id, start != null, $startDate: start.toLocalDate())
+        Employee($employeeId: id)
+        Shift($shiftId: id, employee != null, $employeeId == employee.id, start != null, $startDate: start.toLocalDate())
         Shift(id != $shiftId, employee != null, $employeeId == employee.id, start!= null, start.toLocalDate() == $startDate.minusDays(1L))
         $ecm: EmployeeConstraintMultiplier(employeeId == $employeeId, alreadyFired == false, name == "CONSECUTIVE_WORK_DAYS")
     then
