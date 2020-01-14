@@ -38,7 +38,7 @@ Feature: Overtime Track Tik tests
       | 2016-08-14 01:30:00 | 2016-08-14 07:00:00 |
       | 2016-08-14 18:00:00 | 2016-08-15 01:30:00 |
     When overtime is calculated
-    Then softscore is -2874
+    Then softscore is 0
 
   Scenario: Overtime T02 Scenario 02
     Given Payroll start of '2016-01-05' '00:00' in 'America/New_York'
@@ -97,7 +97,7 @@ Feature: Overtime Track Tik tests
       |2016-08-24 12:00:00|2016-08-24 17:00:00|
       |2016-08-24 18:00:00|2016-08-24 20:00:00|
     When overtime is calculated
-    Then softscore is -6375
+    Then softscore is 0
 
 
   Scenario: Overtime T03 Scenario 03
@@ -159,7 +159,7 @@ Feature: Overtime Track Tik tests
       |2016-08-30 22:00:00|2016-08-31 06:38:20|
       |2016-08-31 22:00:00|2016-09-01 06:36:18|
     When overtime is calculated
-    Then softscore is -21290
+    Then softscore is 0
 
   Scenario: Overtime T04 Scenario 04
     Given Payroll start of '2016-01-07' '00:00' in 'America/Vancouver'
@@ -220,7 +220,7 @@ Feature: Overtime Track Tik tests
       |2016-08-30 22:00:00|2016-08-31 06:38:20|
       |2016-08-31 22:00:00|2016-09-01 06:36:18|
     When overtime is calculated
-    Then softscore is -20600
+    Then softscore is 0
 
   Scenario: Overtime T05 Scenario 05
     Given Payroll start of '2016-01-08' '00:00' in 'America/New_York'
@@ -285,7 +285,7 @@ Feature: Overtime Track Tik tests
       |2016-09-02 19:30:00|2016-09-02 22:00:00|
       |2016-09-02 23:00:00|2016-09-03 03:00:00|
     When overtime is calculated
-    Then softscore is -1462
+    Then softscore is 0
 
   Scenario: Overtime T06 Scenario 06
     Given Payroll start of '2016-01-09' '08:00' in 'Europe/Berlin'
@@ -508,7 +508,7 @@ Feature: Overtime Track Tik tests
       |2016-09-30 12:00:00|2016-09-30 14:00:36|
       |2016-09-30 17:00:00|2016-09-30 18:59:24|
     When overtime is calculated
-    Then softscore is -322729
+    Then softscore is 0
 
   Scenario: Overtime T08 Scenario 08
     Given Payroll start of '2016-01-11' '00:00' in 'America/New_York'
@@ -591,7 +591,7 @@ Feature: Overtime Track Tik tests
       |2016-09-14 19:00:00|2016-09-15 01:00:00|
       |2016-09-15 11:00:00|2016-09-15 15:18:00|
     When overtime is calculated
-    Then softscore is -17128
+    Then softscore is 0
 
   Scenario: Overtime T09 Scenario 09
     Given Payroll start of '2016-01-12' '20:00' in 'Europe/Berlin'
@@ -781,7 +781,7 @@ Feature: Overtime Track Tik tests
       |2016-09-12 23:00:00|2016-09-13 03:00:00|
       |2016-09-13 03:00:00|2016-09-13 07:00:00|
     When overtime is calculated
-    Then softscore is -22188
+    Then softscore is 0
 
   Scenario: Overtime T13 Scenario 13
     Given Payroll start of '2016-01-18' '00:00' in 'America/Vancouver'
@@ -844,7 +844,7 @@ Feature: Overtime Track Tik tests
       | 2016-10-15 09:25:00 | 2016-10-15 22:49:00 |
       | 2016-10-16 09:05:00 | 2016-10-16 21:52:00 |
     When overtime is calculated
-    Then softscore is -13140
+    Then softscore is 0
 
   Scenario: Overtime T15 Scenario 15
     Given Payroll start of '2016-01-20' '20:00' in 'Europe/Berlin'
@@ -878,7 +878,7 @@ Feature: Overtime Track Tik tests
       | 2016-10-15 09:25:00 | 2016-10-15 22:49:00 |
       | 2016-10-16 09:05:00 | 2016-10-16 21:52:00 |
     When overtime is calculated
-    Then softscore is -12466
+    Then softscore is 0
 
   Scenario: Overtime T16 Scenario 16
     Given Payroll start of '2016-01-21' '00:00' in 'America/Vancouver'
@@ -912,7 +912,7 @@ Feature: Overtime Track Tik tests
       | 2016-10-15 09:25:00 | 2016-10-15 22:49:00 |
       | 2016-10-16 09:05:00 | 2016-10-16 21:52:00 |
     When overtime is calculated
-    Then softscore is -2584
+    Then softscore is 0
 
   Scenario: Overtime T17 Scenario 17
     Given Payroll start of '2016-01-22' '00:00' in 'America/New_York'
@@ -948,7 +948,7 @@ Feature: Overtime Track Tik tests
       | 2016-10-15 09:25:00 | 2016-10-15 22:49:00 |
       | 2016-10-16 09:05:00 | 2016-10-16 21:52:00 |
     When overtime is calculated
-    Then softscore is -11089
+    Then softscore is 0
 
   Scenario: Overtime T18 Scenario 18
     Given Payroll start of '2016-01-23' '08:00' in 'Europe/Berlin'
@@ -984,7 +984,7 @@ Feature: Overtime Track Tik tests
       | 2016-10-15 09:25:00 | 2016-10-15 22:49:00 |
       | 2016-10-16 09:05:00 | 2016-10-16 21:52:00 |
     When overtime is calculated
-    Then softscore is -406
+    Then softscore is 0
 
   Scenario: Overtime T19 Scenario 19
     Given Payroll start of '2016-01-24' '08:00' in 'America/Vancouver'
@@ -1021,7 +1021,7 @@ Feature: Overtime Track Tik tests
       | 2016-10-15 09:25:00 | 2016-10-15 22:49:00 |
       | 2016-10-16 09:05:00 | 2016-10-16 21:52:00 |
     When overtime is calculated
-    Then softscore is -8122
+    Then softscore is 0
 
   Scenario: Overtime T20 Scenario 20
     Given Payroll start of '2016-01-25' '08:00' in 'America/New_York'
@@ -1061,7 +1061,7 @@ Feature: Overtime Track Tik tests
       | 2016-10-15 09:25:00 | 2016-10-15 22:49:00 |
       | 2016-10-16 09:05:00 | 2016-10-16 21:52:00 |
     When overtime is calculated
-    Then softscore is -148832
+    Then softscore is 0
 
   Scenario: Overtime T21 Scenario 21
     Given Payroll start of '2016-01-26' '20:00' in 'Europe/Berlin'
@@ -1102,7 +1102,7 @@ Feature: Overtime Track Tik tests
       | 2016-10-15 09:25:00 | 2016-10-15 22:49:00 |
       | 2016-10-16 09:05:00 | 2016-10-16 21:52:00 |
     When overtime is calculated
-    Then softscore is -9088
+    Then softscore is 0
 
   Scenario: Overtime T22 Scenario 22
     Given Payroll start of '2016-01-27' '00:00' in 'America/Vancouver'
@@ -1142,7 +1142,7 @@ Feature: Overtime Track Tik tests
       | 2016-10-15 09:25:00 | 2016-10-15 22:49:00 |
       | 2016-10-16 09:05:00 | 2016-10-16 21:52:00 |
     When overtime is calculated
-    Then softscore is -12679
+    Then softscore is 0
 
   Scenario: Overtime T26 Scenario 26
     Given Payroll start of '2017-02-01' '06:00' in 'America/Los_Angeles'
@@ -1156,4 +1156,4 @@ Feature: Overtime Track Tik tests
       | start               | end                 |
       | 2017-11-04 18:00:00 | 2017-11-05 07:00:00 |
     When overtime is calculated
-    Then softscore is -800
+    Then softscore is 0

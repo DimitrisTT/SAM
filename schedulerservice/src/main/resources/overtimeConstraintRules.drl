@@ -1,0 +1,28 @@
+
+import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
+import com.tracktik.scheduler.domain.*;
+import com.tracktik.scheduler.service.*;
+import java.util.*;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
+import java.util.concurrent.TimeUnit
+import com.tracktik.scheduler.configuration.LessThanExpectedHours;
+import com.tracktik.scheduler.configuration.MoreThanExpectedHours;
+import com.tracktik.scheduler.configuration.MaybeAvailable;
+import com.tracktik.scheduler.configuration.NotAvailable;
+import com.tracktik.scheduler.configuration.MinimumRestPeriod;
+import com.tracktik.scheduler.configuration.CanNotWorkSimultaneousShifts;
+
+
+global HardSoftLongScoreHolder scoreHolder;
+
+/*
+* Rule for Overtime T01 - Scenario 01
+* Expected results:
+* [[[PayrollCode::HOL], 10.16], [[PayrollCode::REG], 58.76]],
+* [[[PayrollCode::HOL], 9], [[PayrollCode::REG], 63.54]],
+* [[[PayrollCode::REG], 1.5]],
+* On the first holiday he works 10.16 hours
+* On the second holiday he works 9 hours
+*
+*/
