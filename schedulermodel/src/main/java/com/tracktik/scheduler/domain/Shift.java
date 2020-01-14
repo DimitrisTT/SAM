@@ -42,8 +42,8 @@ public class Shift {
   private LocalDateTime end;
   private Float duration;
   private Post post;
-  private Long startTimeStamp;
-  private Long endTimeStamp;
+  private Long startTimeStamp = 0L;
+  private Long endTimeStamp = 0L;
   private Set<String> tags = new HashSet<>();
 /*
   public Shift(String id, Boolean plan, LocalDateTime start, LocalDateTime end, Float duration, Post post, Long startTimeStamp, Long endTimeStamp, Set<String> tags, Employee employee) {
@@ -194,6 +194,22 @@ public class Shift {
 
     return false;
   }
+
+  public void setTimeStamps() {
+    if(start != null) {
+      startTimeStamp += start.getSecond();
+      startTimeStamp += (start.getMinute() * 60);
+      startTimeStamp += (start.getHour() * 3600);
+      startTimeStamp += (start.getDayOfYear() * 86400);
+    }
+    if(end != null) {
+      endTimeStamp += end.getSecond();
+      endTimeStamp += (end.getMinute() * 60);
+      endTimeStamp += (end.getHour() * 3600);
+      endTimeStamp += (end.getDayOfYear() * 86400);
+    }
+  }
+
 
   public String getId() {
     return id;

@@ -26,3 +26,48 @@ global HardSoftLongScoreHolder scoreHolder;
 * On the second holiday he works 9 hours
 *
 */
+
+rule "holiday hours begin in a shift"
+    when
+        Employee( $employeeId: id)
+        HolidayPeriod($holidayStart: startTimeStamp, $holidayEnd: endTimeStamp)
+        Shift( employee != null, employee.id == $employeeId, startTimeStamp < $holidayStart, endTimeStamp < $holidayEnd, $endTimeStamp: endTimeStamp)
+    then
+        Long lValue = $endTimeStamp - $holidayStart;
+        scoreHolder.addSoftConstraintMatch(kcontext, lValue);
+        System.out.println("holiday hours begin in a shift" + lValue);
+end
+
+rule "a shift begins in holiday hours"
+    when
+        Employee( $employeeId: id)
+        HolidayPeriod($holidayStart: startTimeStamp, $holidayEnd: endTimeStamp)
+        Shift( employee != null, employee.id == $employeeId, $holidayStart < startTimeStamp, $holidayEnd < endTimeStamp, $startTimeStamp: startTimeStamp)
+    then
+        Long lValue = $holidayEnd - $startTimeStamp;
+        scoreHolder.addSoftConstraintMatch(kcontext, lValue);
+        System.out.println("a shift begins in holiday hours" + lValue);
+end
+
+rule "a shift lies entirely within holiday hours"
+    when
+        Employee( $employeeId: id)
+        HolidayPeriod($holidayStart: startTimeStamp, $holidayEnd: endTimeStamp)
+        Shift( employee != null, employee.id == $employeeId, $holidayStart < startTimeStamp, endTimeStamp < $holidayEnd, $startTimeStamp: startTimeStamp, $endTimeStamp: endTimeStamp)
+    then
+        Long lValue = $endTimeStamp - $startTimeStamp;
+        scoreHolder.addSoftConstraintMatch(kcontext, lValue);
+        System.out.println("a shift lies entirely within holiday hours" + lValue);
+end
+
+rule "a shift encompasses holiday hours"
+    when
+        Employee( $employeeId: id)
+        HolidayPeriod($holidayStart: startTimeStamp, $holidayEnd: endTimeStamp)
+        Shift( employee != null, employee.id == $employeeId, startTimeStamp < $holidayStart, $holidayEnd < endTimeStamp, $startTimeStamp: startTimeStamp, $endTimeStamp: endTimeStamp)
+    then
+        Long lValue = $holidayEnd - $holidayStart;
+        scoreHolder.addSoftConstraintMatch(kcontext, lValue);
+        System.out.println("a shift encompasses holiday hours" + lValue);
+end
+

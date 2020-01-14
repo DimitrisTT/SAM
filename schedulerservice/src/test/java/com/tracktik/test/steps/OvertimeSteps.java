@@ -67,6 +67,8 @@ public class OvertimeSteps implements En {
             .setStart(LocalDateTime.parse(testTimePeriod.start, dateTimeFormatter.withZone(zoneId)))
             .setEnd(LocalDateTime.parse(testTimePeriod.end, dateTimeFormatter.withZone(zoneId)));
       }).collect(Collectors.toSet());
+      periods.forEach(HolidayPeriod::setTimeStamps);
+      System.out.println("holiday periods of: " + periods);
       periods.forEach(droolsTestApi.ksession::insert);
     });
     And("^employee shifts of$", (DataTable table) -> {
@@ -79,7 +81,14 @@ public class OvertimeSteps implements En {
             .setStart(LocalDateTime.parse(testShift.start, dateTimeFormatter))
             .setEnd(LocalDateTime.parse(testShift.end, dateTimeFormatter));
       }).collect(Collectors.toSet());
-      System.out.println("shifts: " + shifts);
+      shifts.forEach(Shift::setTimeStamps);
+      for(Shift shift: shifts){
+        System.out.println("Employee: " + shift.getEmployee().getId());
+        System.out.print("shift start time: " + shift.getStart() + "  ||  ");
+        System.out.println("shift end time: " + shift.getEnd());
+        System.out.print("shift start time stamp: " + shift.getStartTimeStamp() + "  ||  ");
+        System.out.println("shift end time stamp: " + shift.getEndTimeStamp());
+      }
       shifts.forEach(droolsTestApi.ksession::insert);
     });
     And("^period overtime definitions with id '(.*?)' of$", (String id, DataTable table) -> {
@@ -121,14 +130,15 @@ public class OvertimeSteps implements En {
       payrollSchedule.setAlignHolidaysWithPeriodStartTime(true);
     });
     When("^overtime is calculated$", () -> {
-      System.out.println("employee " + employee);
-      System.out.println("payrollSchedule " + payrollSchedule);
+      System.out.println("employee: " + employee.getId());
+      //System.out.println("payrollSchedule " + payrollSchedule);
       droolsTestApi.ksession.insert(employee);
       droolsTestApi.ksession.insert(payrollSchedule);
-      droolsTestApi.ksession.fireAllRules(new RuleNameMatchesAgendaFilter("^Overtime .*"));
+      droolsTestApi.ksession.fireAllRules();
     });
     Then("^softscore is (-?\\d+)$", (Integer softScore) -> {
       assertEquals(softScore.longValue(), droolsTestApi.getScoreHolder().getSoftScore());
     });
   }
 }
+//new RuleNameMatchesAgendaFilter("^Overtime .*"

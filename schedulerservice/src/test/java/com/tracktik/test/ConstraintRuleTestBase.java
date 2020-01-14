@@ -47,7 +47,7 @@ public class ConstraintRuleTestBase {
         "src/main/resources/constraintMultiplierRules.drl",
         "src/main/resources/functions.drl",
         "src/main/resources/experienceConstraintRules.drl",
-        //"src/main/resources/overtimeConstraintRules.drl",
+        "src/main/resources/overtimeConstraintRules.drl",
         "src/main/resources/proximityConstraintRules.drl",
         "src/main/resources/scaleRules.drl",
         "src/main/resources/schedulerScoreRules.drl").forEach(name -> {

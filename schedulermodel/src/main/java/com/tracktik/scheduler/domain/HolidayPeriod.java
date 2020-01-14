@@ -21,6 +21,23 @@ public class HolidayPeriod {
   @JsonSerialize(using = LocalDateTimeSerializer.class)
   @JsonDeserialize(using = LocalDateTimeDeserializer.class)
   private LocalDateTime end;
+  private Long startTimeStamp = 0L;
+  private Long endTimeStamp = 0L;
+
+  public void setTimeStamps() {
+    if(start != null) {
+      startTimeStamp += start.getSecond();
+      startTimeStamp += (start.getMinute() * 60);
+      startTimeStamp += (start.getHour() * 3600);
+      startTimeStamp += (start.getDayOfYear() * 86400);
+    }
+    if(end != null) {
+      endTimeStamp += end.getSecond();
+      endTimeStamp += (end.getMinute() * 60);
+      endTimeStamp += (end.getHour() * 3600);
+      endTimeStamp += (end.getDayOfYear() * 86400);
+    }
+  }
 
   public Interval getInterval() {
     return Interval.of(start.atZone(ZoneId.systemDefault()).toInstant(), end.atZone(ZoneId.systemDefault()).toInstant());
