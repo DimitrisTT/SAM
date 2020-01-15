@@ -157,6 +157,41 @@ public class Receiver {
 
     scoreDirector.close();
     logger.info("Schedule solved for {}", response.getId());
+    int dvah = 0;
+    int wamh = 0;
+    int oa = 0;
+    int sc = 0;
+    int other = 0;
+    for( Shift shift: response.getShifts() ) {
+      logger.info("Shift {}", shift);
+      switch (shift.getPost().getSite().getId()) {
+        case "9721":
+          oa++;
+          break;
+        case "9880":
+          dvah++;
+          break;
+        case "9884":
+          sc++;
+          break;
+        case "58080":
+          wamh++;
+          break;
+        default:
+          other++;
+          break;
+      }
+    }
+      logger.info("===================================");
+      logger.info("SolverStatus: {}", response.getStatus());
+      logger.info("===================================");
+      logger.info("Total shifts per site: ");
+      logger.info("Office Aurora: {}", Integer.toString(oa));
+      logger.info("Denver VA Hospital: {}", Integer.toString(dvah));
+      logger.info("Spot Check: {}", Integer.toString(sc));
+      logger.info("Windsor at Meadow Hills: {}", Integer.toString(wamh));
+      logger.info("Other sites: {}", Integer.toString(other));
+    //logger.info("Response object {}", response);
 
   }
 
