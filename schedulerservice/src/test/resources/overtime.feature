@@ -38,7 +38,7 @@ Feature: Overtime Track Tik tests
       | 2016-08-14 01:30:00 | 2016-08-14 07:00:00 |
       | 2016-08-14 18:00:00 | 2016-08-15 01:30:00 |
     When overtime is calculated
-    Then softscore is -15352233
+    Then softscore is 100
 
   #Scenario: Overtime T02 Scenario 02
     #Given Payroll start of '2016-01-05' '00:00' in 'America/New_York'

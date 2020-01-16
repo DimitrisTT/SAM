@@ -130,14 +130,27 @@ public class OvertimeSteps implements En {
       payrollSchedule.setAlignHolidaysWithPeriodStartTime(true);
     });
     When("^overtime is calculated$", () -> {
-      System.out.println("employee: " + employee.getId());
       //System.out.println("payrollSchedule " + payrollSchedule);
+      //Clockwise clockwise = new Clockwise();
+      //employee.setClockwise(clockwise);
+      System.out.println("employee: " + employee.getId());
       droolsTestApi.ksession.insert(employee);
       droolsTestApi.ksession.insert(payrollSchedule);
       droolsTestApi.ksession.fireAllRules();
     });
     Then("^softscore is (-?\\d+)$", (Integer softScore) -> {
       assertEquals(softScore.longValue(), droolsTestApi.getScoreHolder().getSoftScore());
+      for(Object object: droolsTestApi.ksession.getObjects()){
+        if(object.getClass().equals(Employee.class)){
+          Employee employee = (Employee) object;
+          for(Payroll payroll: employee.getClockwise().getPayrollSet()){
+            if(payroll.getTimestampDifference() > 0){
+              System.out.println(payroll);
+            }
+          }
+        }
+      }
+
     });
   }
 }

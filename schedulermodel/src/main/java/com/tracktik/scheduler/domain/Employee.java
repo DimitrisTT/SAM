@@ -29,6 +29,7 @@ public class Employee {
   private String overtimeRuleId;
   private String payScheduleId;
   private LocalDateTime previousPayPeriodEnd;
+  private Clockwise clockwise;
 
   public Employee setCostFromFloatString(String pay_rate) {
     if (pay_rate != null && !pay_rate.isEmpty()) {

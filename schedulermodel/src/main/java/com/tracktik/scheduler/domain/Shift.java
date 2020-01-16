@@ -45,6 +45,7 @@ public class Shift {
   private Long startTimeStamp = 0L;
   private Long endTimeStamp = 0L;
   private Set<String> tags = new HashSet<>();
+  private boolean otCounted = false;
 /*
   public Shift(String id, Boolean plan, LocalDateTime start, LocalDateTime end, Float duration, Post post, Long startTimeStamp, Long endTimeStamp, Set<String> tags, Employee employee) {
     this.id = id;
