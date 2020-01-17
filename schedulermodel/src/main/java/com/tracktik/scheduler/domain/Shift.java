@@ -195,6 +195,21 @@ public class Shift {
     return false;
   }
 
+  public void setTimes(){
+    startTimeStamp = 0L;
+    //startTimeStamp += start.getDayOfYear()*86400;
+    //startTimeStamp += start.getHour()*3600;
+    //startTimeStamp += start.getMinute()*60;
+    //startTimeStamp += start.getSecond();
+
+    endTimeStamp = 0L;
+    //endTimeStamp += end.getDayOfYear()*86400;
+    //endTimeStamp += end.getHour()*3600;
+    //endTimeStamp += end.getMinute()*60;
+    //endTimeStamp += end.getSecond();
+
+  }
+
   public String getId() {
     return id;
   }

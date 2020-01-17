@@ -1,9 +1,13 @@
 package com.tracktik.scheduler.configuration;
 
 import com.tracktik.scheduler.domain.ConfigFact;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.Objects;
 
+@Accessors(chain = true)
+@Data
 public class CanNotWorkSimultaneousShifts extends ConfigFact {
 
     private int impactMultiplier = -100;

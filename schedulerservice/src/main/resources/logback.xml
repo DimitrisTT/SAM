@@ -26,8 +26,9 @@
 
   <!-- To override the debug log level from the command line, use the VM option "-Dlogback.level.org.optaplanner=trace"
   ${logback.level.org.optaplanner:-info}-->
-  <logger name="org.optaplanner" level="info"/>
-  <logger name="com.tracktik" level="${logback.level.com.tracktik:-info}"/>
+  <logger name="org.optaplanner" level="${logback.level.org.optaplanner:-info}"/>
+  <logger name="com.tracktik" level="${logback.level.org.optaplanner:-info}"/>
+
 
   <root level="error">
     <appender-ref ref="consoleAppender" />

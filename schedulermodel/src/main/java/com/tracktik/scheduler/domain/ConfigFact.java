@@ -61,4 +61,6 @@ public class ConfigFact {
     public void setHardFailure(boolean hardFailure) {
         isHardFailure = hardFailure;
     }
+
+
 }

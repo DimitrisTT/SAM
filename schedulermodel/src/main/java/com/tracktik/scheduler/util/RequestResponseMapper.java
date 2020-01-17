@@ -132,6 +132,9 @@ public class RequestResponseMapper {
       );
     });
 
+    //.setStartTimeStamp(old.start_timestamp)
+      //.setEndTimeStamp(old.end_timestamp)
+
     schedule.setShifts(
         request.shifts.stream().map(old -> {
           //logger.debug("Request shift being parsed: {}", old);
@@ -142,7 +145,7 @@ public class RequestResponseMapper {
               .setStart(LocalDateTime.parse(old.start_date_time, dateTimeFormatter))
               .setEnd(LocalDateTime.parse(old.end_date_time, dateTimeFormatter).minus(1L, SECONDS))
               .setStartTimeStamp(old.start_timestamp)
-              .setEndTimeStamp(old.end_timestamp)
+              .setEndTimeStamp(old.start_timestamp)
               .setDuration(new Float(old.duration))
               .setPost(
                   schedule.getPosts().stream().filter(post -> post.getId().equals(old.post_id)).findAny().get()
@@ -151,8 +154,15 @@ public class RequestResponseMapper {
             schedule.getEmployees().stream().filter(employee -> employee.getId().equals(old.employee_id)).findAny().ifPresent(shift::setEmployee);
           }
           return shift;
+
         }).collect(Collectors.toSet())
     );
+
+    for(Shift shift: schedule.getShifts()){
+     //   System.out.println(shift);
+   //     shift.setTimes();
+        System.out.println(shift);
+    }
 
     schedule.setTimesOff(request.time_off.stream().map(requestTimeOff -> {
       return new TimeOff()
