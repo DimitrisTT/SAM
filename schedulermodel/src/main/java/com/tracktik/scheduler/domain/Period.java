@@ -11,4 +11,8 @@ public class Period {
     private int id;
     private int startTimeStamp;
     private int endTimeStamp;
+    private boolean otCounted = false;
+    private boolean dblCounted = false;
+
+
 }

@@ -17,15 +17,21 @@ public class Clockwise {
     private int id;
     private Set<Payroll> payrollSet = new HashSet<Payroll>();
     private Set<Period> periodSet = new HashSet<Period>();
+    private Set<DaySlice> daySliceSet = new HashSet<DaySlice>();
+    private boolean periodCutShifts = false;
+    private boolean countHolidays = false;
+    private boolean alignHolidays = false;
 
     /*
     @param pst is a payrollSchedule's PeriodStartTime
     @param psd is a payrollSchedule's PeriodStartDate
     @param freq is a payrollSchedule's Frequency
      */
-    public Clockwise(LocalTime pst, LocalDate psd, String freq){
+    public Clockwise(LocalTime pst, LocalDate psd, boolean count, boolean align, String freq, OverlappingMethodType omt){
         periodSet = new HashSet<Period>();
         payrollSet =  new HashSet<Payroll>();
+        countHolidays = count;
+        alignHolidays = align;
         int tempTime = 0;
         switch (freq){
             case "weekly":
@@ -48,6 +54,9 @@ public class Clockwise {
                     periodSet.add(period);
                     payrollSet.addAll(Payroll.gimmeFive(i));
                 }
+                if(omt==OverlappingMethodType.CUT){
+                    periodCutShifts = true;
+                }
                 break;
             case "bi_weekly":
                 for(int i=0; i<6; i++){
@@ -69,10 +78,25 @@ public class Clockwise {
                     periodSet.add(period);
                     payrollSet.addAll(Payroll.gimmeFive(i));
                 }
+                if(omt==OverlappingMethodType.CUT){
+                    periodCutShifts = true;
+                }
                 break;
             default:
                 break;
         }
     }
 
+    public void printSets(){
+        System.out.println("Printing Clockwise: " + id);
+        System.out.println("Payrolls: ");
+        for (Payroll payroll: payrollSet) {
+            System.out.println(payroll);
+        }
+        System.out.println("Periods: ");
+        for (Period period: periodSet) {
+            System.out.println(period);
+        }
+
+    }
 }

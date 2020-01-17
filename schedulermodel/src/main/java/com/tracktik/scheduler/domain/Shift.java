@@ -45,7 +45,18 @@ public class Shift {
   private Long startTimeStamp = 0L;
   private Long endTimeStamp = 0L;
   private Set<String> tags = new HashSet<>();
+
+  // for overtime rule calculation
+  private int periodId = 0;
+  private boolean regCounted = false;
+  private boolean regCutFirstCounted = false;
+  private boolean regCutSecondCounted = false;
+  private boolean holCounted = false;
+  private boolean holCutFirstCounted = false;
+  private boolean holCutSecondCounted = false;
   private boolean otCounted = false;
+  private boolean dblCounted = false;
+  private boolean ptoCounted = false;
 /*
   public Shift(String id, Boolean plan, LocalDateTime start, LocalDateTime end, Float duration, Post post, Long startTimeStamp, Long endTimeStamp, Set<String> tags, Employee employee) {
     this.id = id;
@@ -90,6 +101,10 @@ public class Shift {
     //Long milliseconds = Duration.between(start, end).toMillis() * 100;
     //logger.info("Duration hours for: " + this.start + " " + this.end  + " " + milliseconds / (1000 * 60 * 60));
     return milliseconds / 36_000;
+  }
+
+  public long durationAsLong(){
+    return (long) duration.longValue();
   }
 
   public Long durationHoursDuring(LocalDate startDate, LocalTime time, LocalDate endDate) {
