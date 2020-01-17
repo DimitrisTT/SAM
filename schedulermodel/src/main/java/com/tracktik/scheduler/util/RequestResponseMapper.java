@@ -288,6 +288,9 @@ public class RequestResponseMapper {
             case HARD_SKILL_MISSING:
                 configFact = new HardSkillMissing(requestFact.impact, requestFact.active, requestFact.isHardImpact, requestFact.isHardFailure);
                 break;
+            case CAN_NOT_WORK_SIMULTANEOUS_SHIFTS:
+                configFact = new CanNotWorkSimultaneousShifts(requestFact.impact, requestFact.active, requestFact.isHardImpact, requestFact.isHardFailure);
+                break;
             case LESS_THAN_EXPECTED_HOURS:
                 configFact = new LessThanExpectedHours(requestFact.impact, requestFact.active, requestFact.isHardImpact);
                 break;

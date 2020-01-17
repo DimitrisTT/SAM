@@ -18,8 +18,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayDeque;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -157,40 +156,61 @@ public class Receiver {
 
     scoreDirector.close();
     logger.info("Schedule solved for {}", response.getId());
-    int dvah = 0;
-    int wamh = 0;
-    int oa = 0;
-    int sc = 0;
-    int other = 0;
+
+    // Shift Based Report:
     for( Shift shift: response.getShifts() ) {
-      logger.info("Shift {}", shift);
-      switch (shift.getPost().getSite().getId()) {
-        case "9721":
-          oa++;
-          break;
-        case "9880":
-          dvah++;
-          break;
-        case "9884":
-          sc++;
-          break;
-        case "58080":
-          wamh++;
-          break;
-        default:
-          other++;
-          break;
+      logger.info("Shift {}", shift.getId());
+      logger.info("    Start: {}", shift.getStart());
+      logger.info("    Duration: {}", shift.getDuration());
+      logger.info("    Site Name: {}", shift.getPost().getSite().getName());
+      logger.info("    Employee: {}", shift.getEmployee().getId());
+      if (shift.getEmployee().getSiteExperience() != null) {
+        logger.info("        site experience: yes");
+      } else {
+        logger.info("        site experience: no");
+      }
+      if (shift.getEmployee().getPostExperience() != null) {
+        logger.info("        post experience: yes");
+      } else {
+        logger.info("        post experience: no");
+      }
+      if (shift.getEmployee().getSeniority() != null) {
+        logger.info("        seniority: yes");
+      } else {
+        logger.info("        seniority: no");
       }
     }
-      logger.info("===================================");
-      logger.info("SolverStatus: {}", response.getStatus());
-      logger.info("===================================");
-      logger.info("Total shifts per site: ");
-      logger.info("Office Aurora: {}", Integer.toString(oa));
-      logger.info("Denver VA Hospital: {}", Integer.toString(dvah));
-      logger.info("Spot Check: {}", Integer.toString(sc));
-      logger.info("Windsor at Meadow Hills: {}", Integer.toString(wamh));
-      logger.info("Other sites: {}", Integer.toString(other));
+
+    // Employee Based Report:
+    List<Employee> employees = new ArrayList<Employee>();
+    List<HashSet<Shift>> shiftList = new ArrayList<HashSet<Shift>>();
+    HashSet<Shift> shifts = new HashSet<Shift>();
+    for( Shift shift: response.getShifts()){
+      if(!employees.contains(shift.getEmployee())){
+        employees.add(shift.getEmployee());
+        shifts = new HashSet<Shift>();
+        shifts.add(shift);
+        shiftList.add(shifts);
+      } else {
+        shifts = shiftList.get(employees.indexOf(shift.getEmployee()));
+        shifts.add(shift);
+      }
+    }
+    for(Employee employee: employees){
+      logger.info("Employee: {}", employee.getId());
+      logger.info("    Shifts: [ {");
+      for( Shift shift: shiftList.get(employees.indexOf(employee))) {
+        logger.info("        Site name: {}", shift.getPost().getSite().getName());
+        logger.info("        Start: {}", shift.getStart());
+        logger.info("        Duration: {}", shift.getDuration());
+        logger.info("    },{");
+      }
+      logger.info("    } ]");
+    }
+
+    logger.info("===========================================");
+    logger.info("SolverStatus: {}", response.getStatus());
+    logger.info("===========================================");
     //logger.info("Response object {}", response);
 
   }

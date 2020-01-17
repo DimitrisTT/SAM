@@ -27,7 +27,7 @@ rule "can not work simultaneous shifts - edge overlap"
     when
         CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
         $shift: Shift(employee != null, $employeeId : employee.id, $firstShiftStart: start, $firstShiftEnd: end)
-        Shift(this != $shift, employee != null, employee.id == $employeeId, ($firstShiftEnd >= start) && ($firstShiftEnd <= end), ($firstShiftStart < start))
+        Shift(this != $shift, employee != null, employee.id == $employeeId, ($firstShiftEnd > start) && ($firstShiftStart < end) && ($firstShiftStart > start) && $firstShiftEnd >= end)
         not EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == true)
         $ecm: EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == false)
     then
@@ -38,6 +38,25 @@ rule "can not work simultaneous shifts - edge overlap"
 
 end
 
+/*
+    Given two shifts that have the same employee assigned, we will check of the time slots overlap at all.
+    If they do, the employee may not be assigned to one of the shifts. We add a negative hard constraint to
+    tell the scheduler not to double book.
+*/
+rule "can not work simultaneous shifts - reverse edge overlap"
+    when
+        CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
+        $shift: Shift(employee != null, $employeeId : employee.id, $firstShiftStart: start, $firstShiftEnd: end)
+        Shift(this != $shift, employee != null, employee.id == $employeeId, ($firstShiftStart <= start) && ($firstShiftEnd > start) && (end >= $firstShiftEnd) && (end > $firstShiftStart))
+        not EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == true)
+        $ecm: EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == false)
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, -1);
+        $ecm.setAlreadyFired(true);
+        update($ecm);
+        //System.out.println("can not work simultaneous shifts edge overlap, adding -1");
+
+end
 
 /*
     Given two shifts that have the same employee assigned, we will check of the time slots overlap at all.
