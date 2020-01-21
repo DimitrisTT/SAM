@@ -24,7 +24,7 @@ public class Payroll {
         this.payrollType = payrollType;
     }
 
-    public static Set<Payroll> gimmeFive(int id){
+    public static Set<Payroll> gimmeSix(int id){
         HashSet<Payroll> payrolls = new HashSet<Payroll>();
         payrolls.add(new Payroll(id, PayrollType.HOL));
         payrolls.add(new Payroll(id, PayrollType.OT));

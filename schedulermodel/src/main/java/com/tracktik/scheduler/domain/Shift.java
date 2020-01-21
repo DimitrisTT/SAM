@@ -48,6 +48,9 @@ public class Shift {
 
   // for overtime rule calculation
   private int periodId = 0;
+  //private int weekId = 0;
+  private int dayId = 0;
+  private int holidayId = 0;
   private boolean regCounted = false;
   private boolean regCutFirstCounted = false;
   private boolean regCutSecondCounted = false;
@@ -226,6 +229,42 @@ public class Shift {
     }
   }
 
+  public void fillIn(Shift shift){
+    this.id = shift.getId();
+    this.plan = shift.getPlan();;
+    this.start = shift.getStart();
+    this.end = shift.getEnd();
+    this.duration = shift.getDuration();
+    this.post = shift.getPost();
+    this.endTimeStamp = shift.getEndTimeStamp();
+    this.tags = shift.getTags();
+    this.employee = shift.getEmployee();
+    this.periodId = shift.getPeriodId()+1;
+    this.dayId = shift.getDayId();
+    this.holidayId = shift.getHolidayId();
+
+  }
+
+
+  public boolean isRegCounted() {
+    return regCounted;
+  }
+
+  public boolean isHolCounted() {
+    return holCounted;
+  }
+
+  public boolean isOtCounted() {
+    return otCounted;
+  }
+
+  public boolean isDblCounted() {
+    return dblCounted;
+  }
+
+  public boolean isPtoCounted() {
+    return ptoCounted;
+  }
 
   public String getId() {
     return id;

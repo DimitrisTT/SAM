@@ -16,19 +16,19 @@ import java.util.ArrayList;
 public class Clockwise {
     private int id;
     private Set<Payroll> payrollSet = new HashSet<Payroll>();
-    private Set<Period> periodSet = new HashSet<Period>();
+    private Set<WorkPeriod> workPeriodSet = new HashSet<WorkPeriod>();
     private Set<DaySlice> daySliceSet = new HashSet<DaySlice>();
-    private boolean periodCutShifts = false;
+    private boolean workPeriodCutShifts = false;
     private boolean countHolidays = false;
     private boolean alignHolidays = false;
 
     /*
-    @param pst is a payrollSchedule's PeriodStartTime
-    @param psd is a payrollSchedule's PeriodStartDate
+    @param pst is a payrollSchedule's WorkPeriodStartTime
+    @param psd is a payrollSchedule's WorkPeriodStartDate
     @param freq is a payrollSchedule's Frequency
      */
     public Clockwise(LocalTime pst, LocalDate psd, boolean count, boolean align, String freq, OverlappingMethodType omt){
-        periodSet = new HashSet<Period>();
+        workPeriodSet = new HashSet<WorkPeriod>();
         payrollSet =  new HashSet<Payroll>();
         countHolidays = count;
         alignHolidays = align;
@@ -36,50 +36,50 @@ public class Clockwise {
         switch (freq){
             case "weekly":
                 for(int i=0; i<12; i++) {
-                    Period period = new Period();
-                    period.setId(i);
+                    WorkPeriod workPeriod = new WorkPeriod();
+                    workPeriod.setPeriodId(i);
                     if(i == 0){
                         tempTime += (psd.getDayOfYear() * 86400);
                         tempTime += (pst.getHour() * 3600);
                         tempTime += (pst.getMinute() * 60);
                         tempTime += (pst.getSecond());
-                        period.setStartTimeStamp(tempTime);
+                        workPeriod.setStartTimeStamp(tempTime);
                     } else {
                         tempTime++;
-                        period.setStartTimeStamp(tempTime);
+                        workPeriod.setStartTimeStamp(tempTime);
                     }
                     tempTime += (7*86400); //days in a week * seconds in a day
-                    tempTime--; //to not offset every period by one second
-                    period.setEndTimeStamp(tempTime);
-                    periodSet.add(period);
-                    payrollSet.addAll(Payroll.gimmeFive(i));
+                    tempTime--; //to not offset every workPeriod by one second
+                    workPeriod.setEndTimeStamp(tempTime);
+                    workPeriodSet.add(workPeriod);
+                    payrollSet.addAll(Payroll.gimmeSix(i));
                 }
                 if(omt==OverlappingMethodType.CUT){
-                    periodCutShifts = true;
+                    workPeriodCutShifts = true;
                 }
                 break;
             case "bi_weekly":
                 for(int i=0; i<6; i++){
-                    Period period = new Period();
-                    period.setId(i);
+                    WorkPeriod workPeriod = new WorkPeriod();
+                    workPeriod.setPeriodId(i);
                     if(i == 0){
                         tempTime += (psd.getDayOfYear() * 86400);
                         tempTime += (pst.getHour() * 3600);
                         tempTime += (pst.getMinute() * 60);
                         tempTime += (pst.getSecond());
-                        period.setStartTimeStamp(tempTime);
+                        workPeriod.setStartTimeStamp(tempTime);
                     } else {
                         tempTime++;
-                        period.setStartTimeStamp(tempTime);
+                        workPeriod.setStartTimeStamp(tempTime);
                     }
                     tempTime += (14*86400); //days in two weeks * seconds in a day
-                    tempTime--; //to not offset every period by one second
-                    period.setEndTimeStamp(tempTime);
-                    periodSet.add(period);
-                    payrollSet.addAll(Payroll.gimmeFive(i));
+                    tempTime--; //to not offset every workPeriod by one second
+                    workPeriod.setEndTimeStamp(tempTime);
+                    workPeriodSet.add(workPeriod);
+                    payrollSet.addAll(Payroll.gimmeSix(i));
                 }
                 if(omt==OverlappingMethodType.CUT){
-                    periodCutShifts = true;
+                    workPeriodCutShifts = true;
                 }
                 break;
             default:
@@ -93,9 +93,9 @@ public class Clockwise {
         for (Payroll payroll: payrollSet) {
             System.out.println(payroll);
         }
-        System.out.println("Periods: ");
-        for (Period period: periodSet) {
-            System.out.println(period);
+        System.out.println("WorkPeriods: ");
+        for (WorkPeriod workPeriod: workPeriodSet) {
+            System.out.println(workPeriod);
         }
 
     }
