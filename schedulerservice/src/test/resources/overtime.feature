@@ -64,6 +64,164 @@ Feature: Overtime Track Tik tests
     Then softscore is 100
 
 
+  Scenario: Shift, holiday, and period functionality with period overtime
+    Given Payroll start of '2020-01-01' '00:00' in 'America/Vancouver'
+    And pay cycle frequency of weekly
+    And period overtime definitions with id '1' of
+      |min|max|type|
+      |40 |INF|OT  |
+    And hours spanning daily periods will be cut between periods
+    And count holiday hours towards period overtime
+    And holiday periods of
+      |start              |end                |
+      |2020-01-02 00:00:00|2020-01-03 00:00:00|
+      |2020-01-07 00:00:00|2020-01-08 00:00:00|
+      |2020-01-08 00:00:00|2020-01-09 00:00:00|
+    And employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 09:00:00|
+      |2020-01-03 04:00:00|2020-01-03 14:00:00|
+      |2020-01-04 04:00:00|2020-01-04 14:00:00|
+      |2020-01-05 04:00:00|2020-01-05 14:00:00|
+      |2020-01-06 04:00:00|2020-01-06 14:00:00|
+      |2020-01-07 22:00:00|2020-01-08 02:00:00|
+      |2020-01-09 04:00:00|2020-01-09 09:00:00|
+    When overtime is calculated
+    Then softscore is 100
+
+  Scenario: Shift, holiday, and period functionality without cut with period overtime
+    Given Payroll start of '2020-01-01' '00:00' in 'America/Vancouver'
+    And pay cycle frequency of weekly
+    And period overtime definitions with id '1' of
+      |min|max|type|
+      |40 |INF|OT  |
+    And hours spanning daily periods
+    And count holiday hours towards period overtime
+    And holiday periods of
+      |start              |end                |
+      |2020-01-02 00:00:00|2020-01-03 00:00:00|
+      |2020-01-07 00:00:00|2020-01-08 00:00:00|
+      |2020-01-08 00:00:00|2020-01-09 00:00:00|
+    And employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 09:00:00|
+      |2020-01-03 04:00:00|2020-01-03 14:00:00|
+      |2020-01-04 04:00:00|2020-01-04 14:00:00|
+      |2020-01-05 04:00:00|2020-01-05 14:00:00|
+      |2020-01-06 04:00:00|2020-01-06 14:00:00|
+      |2020-01-07 22:00:00|2020-01-08 02:00:00|
+      |2020-01-09 04:00:00|2020-01-09 09:00:00|
+    When overtime is calculated
+    Then softscore is 100
+
+  Scenario: Shift, holiday, and period functionality with period overtime
+    Given Payroll start of '2020-01-01' '00:00' in 'America/Vancouver'
+    And pay cycle frequency of weekly
+    And period overtime definitions with id '1' of
+      |min|max|type|
+      |40 |INF|OT  |
+    And hours spanning daily periods will be cut between periods
+    And count holiday hours towards period overtime
+    And holiday periods of
+      |start              |end                |
+      |2020-01-02 00:00:00|2020-01-03 00:00:00|
+      |2020-01-07 00:00:00|2020-01-08 00:00:00|
+      |2020-01-08 00:00:00|2020-01-09 00:00:00|
+    And employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 09:00:00|
+      |2020-01-03 04:00:00|2020-01-03 14:00:00|
+      |2020-01-04 04:00:00|2020-01-04 14:00:00|
+      |2020-01-05 04:00:00|2020-01-05 14:00:00|
+      |2020-01-06 04:00:00|2020-01-06 14:00:00|
+      |2020-01-07 22:00:00|2020-01-08 02:00:00|
+      |2020-01-09 04:00:00|2020-01-09 09:00:00|
+    When overtime is calculated
+    Then softscore is 100
+
+  Scenario: Shift, holiday, and period functionality without cut with period overtime
+    Given Payroll start of '2020-01-01' '00:00' in 'America/Vancouver'
+    And pay cycle frequency of weekly
+    And period overtime definitions with id '1' of
+      |min|max|type|
+      |40 |INF|OT  |
+    And hours spanning daily periods
+    And count holiday hours towards period overtime
+    And holiday periods of
+      |start              |end                |
+      |2020-01-02 00:00:00|2020-01-03 00:00:00|
+      |2020-01-07 00:00:00|2020-01-08 00:00:00|
+      |2020-01-08 00:00:00|2020-01-09 00:00:00|
+    And employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 09:00:00|
+      |2020-01-03 04:00:00|2020-01-03 14:00:00|
+      |2020-01-04 04:00:00|2020-01-04 14:00:00|
+      |2020-01-05 04:00:00|2020-01-05 14:00:00|
+      |2020-01-06 04:00:00|2020-01-06 14:00:00|
+      |2020-01-07 22:00:00|2020-01-08 02:00:00|
+      |2020-01-09 04:00:00|2020-01-09 09:00:00|
+    When overtime is calculated
+    Then softscore is 100
+
+
+  Scenario: Shift, holiday, and period functionality with period overtime not counting holidays
+    Given Payroll start of '2020-01-01' '00:00' in 'America/Vancouver'
+    And pay cycle frequency of weekly
+    And period overtime definitions with id '1' of
+      |min|max|type|
+      |40 |INF|OT  |
+    And hours spanning daily periods will be cut between periods
+    And holiday periods of
+      |start              |end                |
+      |2020-01-02 00:00:00|2020-01-03 00:00:00|
+      |2020-01-07 00:00:00|2020-01-08 00:00:00|
+      |2020-01-08 00:00:00|2020-01-09 00:00:00|
+    And employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 09:00:00|
+      |2020-01-03 04:00:00|2020-01-03 14:00:00|
+      |2020-01-04 04:00:00|2020-01-04 14:00:00|
+      |2020-01-05 04:00:00|2020-01-05 14:00:00|
+      |2020-01-06 04:00:00|2020-01-06 14:00:00|
+      |2020-01-07 22:00:00|2020-01-08 02:00:00|
+      |2020-01-09 04:00:00|2020-01-09 09:00:00|
+      |2020-01-11 04:00:00|2020-01-11 15:00:00|
+      |2020-01-12 04:00:00|2020-01-12 15:00:00|
+      |2020-01-13 04:00:00|2020-01-13 15:00:00|
+      |2020-01-14 04:00:00|2020-01-14 15:00:00|
+    When overtime is calculated
+    Then softscore is 100
+
+  Scenario: Shift, holiday, and period functionality without cut with period overtime not counting holidays
+    Given Payroll start of '2020-01-01' '00:00' in 'America/Vancouver'
+    And pay cycle frequency of weekly
+    And period overtime definitions with id '1' of
+      |min|max|type|
+      |40 |INF|OT  |
+    And hours spanning daily periods
+    And holiday periods of
+      |start              |end                |
+      |2020-01-02 00:00:00|2020-01-03 00:00:00|
+      |2020-01-07 00:00:00|2020-01-08 00:00:00|
+      |2020-01-09 00:00:00|2020-01-10 00:00:00|
+    And employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 09:00:00|
+      |2020-01-03 04:00:00|2020-01-03 14:00:00|
+      |2020-01-04 04:00:00|2020-01-04 14:00:00|
+      |2020-01-05 04:00:00|2020-01-05 14:00:00|
+      |2020-01-06 04:00:00|2020-01-06 14:00:00|
+      |2020-01-07 22:00:00|2020-01-08 02:00:00|
+      |2020-01-09 04:00:00|2020-01-09 09:00:00|
+      |2020-01-11 04:00:00|2020-01-11 15:00:00|
+      |2020-01-12 04:00:00|2020-01-12 15:00:00|
+      |2020-01-13 04:00:00|2020-01-13 15:00:00|
+      |2020-01-14 04:00:00|2020-01-14 15:00:00|
+    When overtime is calculated
+    Then softscore is 100
+
+
 #  Scenario: Overtime T01 Scenario 01
 #    Given Payroll start of '2016-06-01' '00:00' in 'America/Vancouver'
 #    And pay cycle frequency of weekly
