@@ -5,10 +5,10 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Accessors(chain = true)
-@EqualsAndHashCode
 @Data
 public class Payroll {
     private int id;
@@ -18,6 +18,10 @@ public class Payroll {
     private Long totHours = 0L;
     private Long timestampDifference = 0L;
     private PayrollType payrollType;
+
+    public Payroll() {
+
+    }
 
     public Payroll(int id, PayrollType payrollType){
         this.id = id;
@@ -58,5 +62,24 @@ public class Payroll {
         totHours += hour;
         totHours += (((minute*60)+second)/3600);
         //totHours = Math.round(totHours * 100.0)/100.0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Payroll payroll = (Payroll) o;
+        return id == payroll.id &&
+                hour == payroll.hour &&
+                minute == payroll.minute &&
+                second == payroll.second &&
+                Objects.equals(totHours, payroll.totHours) &&
+                Objects.equals(timestampDifference, payroll.timestampDifference) &&
+                payrollType == payroll.payrollType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, hour, minute, second, totHours, timestampDifference, payrollType);
     }
 }

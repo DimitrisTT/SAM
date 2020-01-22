@@ -10,7 +10,10 @@ Feature: Overtime Track Tik tests
       |2020-01-02 04:00:00|2020-01-02 09:00:00|
       |2020-01-07 22:00:00|2020-01-08 02:00:00|
     When overtime is calculated
-    Then softscore is 0
+    Then Payroll results are as expected
+      | id | hour | minute | second | totHours | timestampDifference | payrollType |
+      | 0  | 7    | 0      | 0      | 7        | 25200               | REG         |
+      | 1  | 2    | 0      | 0      | 2        | 7200                | REG         |
 
   Scenario: Shift and period functionality without cut
     Given Payroll start of '2020-01-01' '00:00' in 'America/Vancouver'
@@ -22,13 +25,14 @@ Feature: Overtime Track Tik tests
       |2020-01-02 04:00:00|2020-01-02 09:00:00|
       |2020-01-07 22:00:00|2020-01-08 02:00:00|
     When overtime is calculated
-    Then softscore is 0
+    Then Payroll results are as expected
+      | id | hour | minute | second | totHours | timestampDifference | payrollType |
+      | 0  | 9    | 0      | 0      | 9        | 32400               | REG         |
 
   Scenario: Shift, holiday, and period functionality
     Given Payroll start of '2020-01-01' '00:00' in 'America/Vancouver'
     And pay cycle frequency of weekly
     And hours spanning daily periods will be cut between periods
-    And count holiday hours towards period overtime
     And holiday periods of
       |start              |end                |
       |2020-01-02 00:00:00|2020-01-03 00:00:00|
@@ -41,14 +45,17 @@ Feature: Overtime Track Tik tests
       |2020-01-07 22:00:00|2020-01-08 02:00:00|
       |2020-01-09 04:00:00|2020-01-09 09:00:00|
     When overtime is calculated
-    Then softscore is 100
-
+    Then Payroll results are as expected
+      | id | hour | minute | second | totHours | timestampDifference | payrollType |
+      | 0  | 5    | 0      | 0      | 5        | 18000               | REG         |
+      | 0  | 7    | 0      | 0      | 7        | 25200               | HOL         |
+      | 1  | 5    | 0      | 0      | 5        | 18000               | REG         |
+      | 1  | 2    | 0      | 0      | 2        | 7200                | HOL         |
 
   Scenario: Shift, holiday, and period functionality without cut
     Given Payroll start of '2020-01-01' '00:00' in 'America/Vancouver'
     And pay cycle frequency of weekly
     And hours spanning daily periods
-    And count holiday hours towards period overtime
     And holiday periods of
       |start              |end                |
       |2020-01-02 00:00:00|2020-01-03 00:00:00|
@@ -61,58 +68,11 @@ Feature: Overtime Track Tik tests
       |2020-01-07 22:00:00|2020-01-08 02:00:00|
       |2020-01-09 04:00:00|2020-01-09 09:00:00|
     When overtime is calculated
-    Then softscore is 100
-
-
-  Scenario: Shift, holiday, and period functionality with period overtime
-    Given Payroll start of '2020-01-01' '00:00' in 'America/Vancouver'
-    And pay cycle frequency of weekly
-    And period overtime definitions with id '1' of
-      |min|max|type|
-      |40 |INF|OT  |
-    And hours spanning daily periods will be cut between periods
-    And count holiday hours towards period overtime
-    And holiday periods of
-      |start              |end                |
-      |2020-01-02 00:00:00|2020-01-03 00:00:00|
-      |2020-01-07 00:00:00|2020-01-08 00:00:00|
-      |2020-01-08 00:00:00|2020-01-09 00:00:00|
-    And employee shifts of
-      |start              |end                |
-      |2020-01-02 04:00:00|2020-01-02 09:00:00|
-      |2020-01-03 04:00:00|2020-01-03 14:00:00|
-      |2020-01-04 04:00:00|2020-01-04 14:00:00|
-      |2020-01-05 04:00:00|2020-01-05 14:00:00|
-      |2020-01-06 04:00:00|2020-01-06 14:00:00|
-      |2020-01-07 22:00:00|2020-01-08 02:00:00|
-      |2020-01-09 04:00:00|2020-01-09 09:00:00|
-    When overtime is calculated
-    Then softscore is 100
-
-  Scenario: Shift, holiday, and period functionality without cut with period overtime
-    Given Payroll start of '2020-01-01' '00:00' in 'America/Vancouver'
-    And pay cycle frequency of weekly
-    And period overtime definitions with id '1' of
-      |min|max|type|
-      |40 |INF|OT  |
-    And hours spanning daily periods
-    And count holiday hours towards period overtime
-    And holiday periods of
-      |start              |end                |
-      |2020-01-02 00:00:00|2020-01-03 00:00:00|
-      |2020-01-07 00:00:00|2020-01-08 00:00:00|
-      |2020-01-08 00:00:00|2020-01-09 00:00:00|
-    And employee shifts of
-      |start              |end                |
-      |2020-01-02 04:00:00|2020-01-02 09:00:00|
-      |2020-01-03 04:00:00|2020-01-03 14:00:00|
-      |2020-01-04 04:00:00|2020-01-04 14:00:00|
-      |2020-01-05 04:00:00|2020-01-05 14:00:00|
-      |2020-01-06 04:00:00|2020-01-06 14:00:00|
-      |2020-01-07 22:00:00|2020-01-08 02:00:00|
-      |2020-01-09 04:00:00|2020-01-09 09:00:00|
-    When overtime is calculated
-    Then softscore is 100
+    Then Payroll results are as expected
+      | id | hour | minute | second | totHours | timestampDifference | payrollType |
+      | 0  | 9    | 0      | 0      | 9        | 32400               | HOL         |
+      | 0  | 5    | 0      | 0      | 5        | 18000               | REG         |
+      | 1  | 5    | 0      | 0      | 5        | 18000               | REG         |
 
   Scenario: Shift, holiday, and period functionality with period overtime
     Given Payroll start of '2020-01-01' '00:00' in 'America/Vancouver'
@@ -137,7 +97,14 @@ Feature: Overtime Track Tik tests
       |2020-01-07 22:00:00|2020-01-08 02:00:00|
       |2020-01-09 04:00:00|2020-01-09 09:00:00|
     When overtime is calculated
-    Then softscore is 100
+    Then Payroll results are as expected
+      | id | hour | minute | second | totHours | timestampDifference | payrollType |
+      | 0  | 40   | 0      | 0      | 40       | 144000              | REG         |
+      | 0  | 7    | 0      | 0      | 7        | 25200               | HOL         |
+      | 0  | 7    | 0      | 0      | 7        | 25200               | OT          |
+      | 1  | 5    | 0      | 0      | 5        | 18000               | REG         |
+      | 1  | 2    | 0      | 0      | 2        | 7200                | HOL         |
+      | 1  | 2    | 0      | 0      | 2        | 7200                | OT          |
 
   Scenario: Shift, holiday, and period functionality without cut with period overtime
     Given Payroll start of '2020-01-01' '00:00' in 'America/Vancouver'
@@ -162,7 +129,14 @@ Feature: Overtime Track Tik tests
       |2020-01-07 22:00:00|2020-01-08 02:00:00|
       |2020-01-09 04:00:00|2020-01-09 09:00:00|
     When overtime is calculated
-    Then softscore is 100
+    Then Payroll results are as expected
+      | id | hour | minute | second | totHours | timestampDifference | payrollType |
+      | 0  | 40   | 0      | 0      | 40       | 144000              | REG         |
+      | 0  | 9    | 0      | 0      | 9        | 32400               | HOL         |
+      | 0  | 9    | 0      | 0      | 9        | 32400               | OT          |
+      | 1  | 5    | 0      | 0      | 5        | 18000               | REG         |
+      | 1  | 0    | 0      | 0      | 0        | 0                   | HOL         |
+      | 1  | 0    | 0      | 0      | 0        | 0                   | OT          |
 
 
   Scenario: Shift, holiday, and period functionality with period overtime not counting holidays
@@ -191,7 +165,14 @@ Feature: Overtime Track Tik tests
       |2020-01-13 04:00:00|2020-01-13 15:00:00|
       |2020-01-14 04:00:00|2020-01-14 15:00:00|
     When overtime is calculated
-    Then softscore is 100
+    Then Payroll results are as expected
+      | id | hour | minute | second | totHours | timestampDifference | payrollType |
+      | 0  | 40   | 0      | 0      | 40       | 144000              | REG         |
+      | 0  | 7    | 0      | 0      | 7        | 25200               | HOL         |
+      | 0  | 0    | 0      | 0      | 0        | 0                   | OT          |
+      | 1  | 49   | 0      | 0      | 49       | 176400              | REG         |
+      | 1  | 2    | 0      | 0      | 2        | 7200                | HOL         |
+      | 1  | 9    | 0      | 0      | 9        | 32400               | OT          |
 
   Scenario: Shift, holiday, and period functionality without cut with period overtime not counting holidays
     Given Payroll start of '2020-01-01' '00:00' in 'America/Vancouver'
@@ -219,7 +200,14 @@ Feature: Overtime Track Tik tests
       |2020-01-13 04:00:00|2020-01-13 15:00:00|
       |2020-01-14 04:00:00|2020-01-14 15:00:00|
     When overtime is calculated
-    Then softscore is 100
+    Then Payroll results are as expected
+      | id | hour | minute | second | totHours | timestampDifference | payrollType |
+      | 0  | 42   | 0      | 0      | 42       | 151200              | REG         |
+      | 0  | 7    | 0      | 0      | 7        | 25200               | HOL         |
+      | 0  | 2    | 0      | 0      | 2        | 7200                   | OT          |
+      | 1  | 44   | 0      | 0      | 44       | 158400              | REG         |
+      | 1  | 5    | 0      | 0      | 5        | 18000               | HOL         |
+      | 1  | 4    | 0      | 0      | 4        | 14400               | OT          |
 
 
 #  Scenario: Overtime T01 Scenario 01

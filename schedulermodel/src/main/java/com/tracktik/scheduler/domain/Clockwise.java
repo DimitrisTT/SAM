@@ -45,11 +45,13 @@ public class Clockwise {
                         tempTime += (pst.getSecond());
                         workPeriod.setStartTimeStamp(tempTime);
                     } else {
-                        tempTime++;
+                    //    tempTime++;
                         workPeriod.setStartTimeStamp(tempTime);
                     }
                     tempTime += (7*86400); //days in a week * seconds in a day
-                    tempTime--; //to not offset every workPeriod by one second
+                    //if(i>0){
+                      //  tempTime--; //to not offset every workPeriod by one second
+                    //}
                     workPeriod.setEndTimeStamp(tempTime);
                     workPeriodSet.add(workPeriod);
                     payrollSet.addAll(Payroll.gimmeSix(i));
@@ -99,4 +101,6 @@ public class Clockwise {
         }
 
     }
+
+
 }
