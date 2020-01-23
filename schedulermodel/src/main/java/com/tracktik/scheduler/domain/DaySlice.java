@@ -34,7 +34,7 @@ public class DaySlice {
             daySlice = new DaySlice(id, i, dayStart*i);
             daySlices.add(daySlice);
         }
-        System.out.println(daySlices);
+
         return daySlices;
     }
 

@@ -99,13 +99,6 @@ public class OvertimeSteps implements En {
                 .setEnd(LocalDateTime.parse(testShift.end, dateTimeFormatter));
       }).collect(Collectors.toSet());
       shifts.forEach(Shift::setTimeStamps);
-      //for(Shift shift: shifts){
-      //  System.out.println("Employee: " + shift.getEmployee().getId());
-      //  System.out.print("shift start time: " + shift.getStart() + "  ||  ");
-      //  System.out.println("shift end time: " + shift.getEnd());
-      //  System.out.print("shift start time stamp: " + shift.getStartTimeStamp() + "  ||  ");
-      //  System.out.println("shift end time stamp: " + shift.getEndTimeStamp());
-      //}
       shifts.forEach(droolsTestApi.ksession::insert);
     });
     And("^period overtime definitions with id '(.*?)' of$", (String id, DataTable table) -> {

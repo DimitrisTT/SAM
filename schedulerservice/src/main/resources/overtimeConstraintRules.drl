@@ -293,8 +293,6 @@ salience -10
         $payroll.setTimes();
         $workPeriod.setOtCounted(true);
         update($employee);
-        System.out.println("overtime counting holidays time converted: ");
-        System.out.println("tothours: " + $totHours + " holiday hours: " + $holidayHours + " minimumHours: " + $minimumHours);
 end
 
 rule "overtime added to a period due to overtime definition counting holidays"
@@ -312,8 +310,6 @@ salience -10
         $payroll.setTimes();
         $workPeriod.setOtCounted(true);
         update($employee);
-        System.out.println("overtime counting holidays time converted: ");
-        System.out.println("tothours: " + $totHours + " holiday hours: " + $holidayHours + " minimumHours: " + $minimumHours);
 end
 
 rule "overtime added to a period due to overtime definition not counting holidays"

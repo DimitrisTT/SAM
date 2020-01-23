@@ -158,12 +158,6 @@ public class RequestResponseMapper {
         }).collect(Collectors.toSet())
     );
 
-    for(Shift shift: schedule.getShifts()){
-     //   System.out.println(shift);
-   //     shift.setTimes();
-        System.out.println(shift);
-    }
-
     schedule.setTimesOff(request.time_off.stream().map(requestTimeOff -> {
       return new TimeOff()
           .setEmployeeId(requestTimeOff.employee_id)

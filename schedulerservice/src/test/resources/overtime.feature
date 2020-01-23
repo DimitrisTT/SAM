@@ -204,7 +204,7 @@ Feature: Overtime Track Tik tests
       | id | hour | minute | second | totHours | timestampDifference | payrollType |
       | 0  | 42   | 0      | 0      | 42       | 151200              | REG         |
       | 0  | 7    | 0      | 0      | 7        | 25200               | HOL         |
-      | 0  | 2    | 0      | 0      | 2        | 7200                   | OT          |
+      | 0  | 2    | 0      | 0      | 2        | 7200                | OT          |
       | 1  | 44   | 0      | 0      | 44       | 158400              | REG         |
       | 1  | 5    | 0      | 0      | 5        | 18000               | HOL         |
       | 1  | 4    | 0      | 0      | 4        | 14400               | OT          |
