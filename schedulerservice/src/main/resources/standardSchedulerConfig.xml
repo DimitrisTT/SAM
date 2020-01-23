@@ -6,14 +6,14 @@
     </scanAnnotatedClasses>
     <!-- Score configuration -->
     <scoreDirectorFactory>
-        <!--<scoreDrl>functions.drl</scoreDrl>-->
-        <!--<scoreDrl>schedulerScoreRules.drl</scoreDrl>-->
-        <!--<scoreDrl>constraintMultiplierRules.drl</scoreDrl>-->
-        <!--<scoreDrl>experienceConstraintRules.drl</scoreDrl>-->
-        <!--<scoreDrl>availabilityConstraintRules.drl</scoreDrl>-->
-        <!--<scoreDrl>proximityConstraintRules.drl</scoreDrl>-->
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
         <scoreDrl>overtimeConstraintRules.drl</scoreDrl>
-        <!--<scoreDrl>scaleRules.drl</scoreDrl>-->
     </scoreDirectorFactory>
 
     <constructionHeuristic>

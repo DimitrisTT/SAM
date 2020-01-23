@@ -85,7 +85,7 @@ public class OvertimeSteps implements En {
                 .setEnd(LocalDateTime.parse(testTimePeriod.end, dateTimeFormatter.withZone(zoneId)));
       }).collect(Collectors.toSet());
       periods.forEach(HolidayPeriod::setTimeStamps);
-      System.out.println("holiday periods of: " + periods);
+      //System.out.println("holiday periods of: " + periods);
       periods.forEach(droolsTestApi.ksession::insert);
     });
     And("^employee shifts of$", (DataTable table) -> {
@@ -157,16 +157,16 @@ public class OvertimeSteps implements En {
     });
     Then("^softscore is (-?\\d+)$", (Integer softScore) -> {
       assertEquals(softScore.longValue(), droolsTestApi.getScoreHolder().getSoftScore());
-      for (Object object : droolsTestApi.ksession.getObjects()) {
-        if (object.getClass().equals(Employee.class)) {
-          Employee employee = (Employee) object;
-          for (Payroll payroll : employee.getClockwise().getPayrollSet()) {
-            if (payroll.getTimestampDifference() > 0) {
-              System.out.println(payroll);
-            }
-          }
-        }
-      }
+      //for (Object object : droolsTestApi.ksession.getObjects()) {
+      //  if (object.getClass().equals(Employee.class)) {
+      //    Employee employee = (Employee) object;
+      //    for (Payroll payroll : employee.getClockwise().getPayrollSet()) {
+      //      if (payroll.getTimestampDifference() > 0) {
+      //        System.out.println(payroll);
+      //      }
+      //    }
+      //  }
+      //}
     });
 
     Then("^Payroll results are as expected$", (DataTable table) -> {
@@ -185,15 +185,15 @@ public class OvertimeSteps implements En {
         if (object.getClass().equals(Employee.class)) {
           Employee employee = (Employee) object;
           for(Payroll ksessionPayroll: employee.getClockwise().getPayrollSet()){
-            if(ksessionPayroll.getId() == 0 && ksessionPayroll.getPayrollType() == PayrollType.REG || ksessionPayroll.getId() == 1 && ksessionPayroll.getPayrollType() == PayrollType.REG) {
-              System.out.println("from ksession: " + ksessionPayroll);
-            }
-            if(ksessionPayroll.getId() == 0 && ksessionPayroll.getPayrollType() == PayrollType.HOL || ksessionPayroll.getId() == 1 && ksessionPayroll.getPayrollType() == PayrollType.HOL) {
-              System.out.println("from ksession: " + ksessionPayroll);
-            }
-            if(ksessionPayroll.getId() == 0 && ksessionPayroll.getPayrollType() == PayrollType.OT || ksessionPayroll.getId() == 1 && ksessionPayroll.getPayrollType() == PayrollType.OT) {
-              System.out.println("from ksession: " + ksessionPayroll);
-            }
+            //if(ksessionPayroll.getId() == 0 && ksessionPayroll.getPayrollType() == PayrollType.REG || ksessionPayroll.getId() == 1 && ksessionPayroll.getPayrollType() == PayrollType.REG) {
+            //  System.out.println("from ksession: " + ksessionPayroll);
+            //}
+            //if(ksessionPayroll.getId() == 0 && ksessionPayroll.getPayrollType() == PayrollType.HOL || ksessionPayroll.getId() == 1 && ksessionPayroll.getPayrollType() == PayrollType.HOL) {
+            //  System.out.println("from ksession: " + ksessionPayroll);
+            //}
+            //if(ksessionPayroll.getId() == 0 && ksessionPayroll.getPayrollType() == PayrollType.OT || ksessionPayroll.getId() == 1 && ksessionPayroll.getPayrollType() == PayrollType.OT) {
+            //  System.out.println("from ksession: " + ksessionPayroll);
+            //}
               for (Payroll expectedPayroll : expectedPayrolls) {
                 //if(ksessionPayroll.getId() == 0 || ksessionPayroll.getId() == 1 && ksessionPayroll.getPayrollType() == PayrollType.REG) {
                 //  System.out.println("expected: " + expectedPayrolls);

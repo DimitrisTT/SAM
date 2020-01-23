@@ -6,9 +6,7 @@ import lombok.experimental.Accessors;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.ArrayList;
+import java.util.*;
 
 @Accessors(chain = true)
 @EqualsAndHashCode(of = "id")
@@ -28,6 +26,7 @@ public class Clockwise {
     @param freq is a payrollSchedule's Frequency
      */
     public Clockwise(LocalTime pst, LocalDate psd, boolean count, boolean align, String freq, OverlappingMethodType omt){
+//        System.out.println("creating colckwise with time and date: " + pst + " | " + psd);
         workPeriodSet = new HashSet<WorkPeriod>();
         payrollSet =  new HashSet<Payroll>();
         countHolidays = count;
@@ -102,5 +101,20 @@ public class Clockwise {
 
     }
 
+    public String stringOvertimeSummary(){
+
+        int[] overtimes = new int[workPeriodSet.size()];
+        Arrays.fill(overtimes, 0);
+        for(Payroll payroll: payrollSet){
+            if(payroll.getPayrollType()==PayrollType.OT)
+            overtimes[payroll.getId()] += payroll.getTotHours();
+        }
+        String summary = "";
+        summary += "    Overtime per period:\n";
+        for(int i=0; i<overtimes.length; i++){
+            summary += "                                                 period " + i + ": " + overtimes[i] + "\n";
+        }
+        return summary;
+    }
 
 }

@@ -15,17 +15,33 @@ global HardSoftLongScoreHolder scoreHolder;
 
 //rule for workPeriod slicing
 
-rule "Clockwise workPeriod construction"
+rule "Clockwise workPeriod construction print out overtime"
 salience 10
     when
         PayrollSchedule( $pst: periodStartTime, $psd: periodStartDate, $countHolidays: countHolidayHoursTowardsPeriodOvertime, $alignHolidays: alignHolidaysWithPeriodStartTime, $freq: frequency, $omt: overlappingMethod )
         $employee: Employee(clockwise == null)
+        //$pod: PeriodOvertimeDefinition(minimumHours != null, maximumHours != null, overtimeType != null)
     then
         Clockwise clockwise = new Clockwise($pst, $psd, $countHolidays, $alignHolidays, $freq, $omt);
+        //System.out.println(clockwise.getWorkPeriodSet());
         $employee.setClockwise(clockwise);
         update($employee);
         //clockwise.printSets();
-end
+ end
+
+//rule "Clockwise workPeriod construction"
+//salience 10
+//    when
+//        PayrollSchedule( $pst: periodStartTime, $psd: periodStartDate, $countHolidays: countHolidayHoursTowardsPeriodOvertime, $alignHolidays: alignHolidaysWithPeriodStartTime, $freq: frequency, $omt: overlappingMethod )
+//        $employee: Employee(clockwise == null)
+//        not PeriodOvertimeDefinition(minimumHours != null, maximumHours != null, overtimeType != null)
+//    then
+//        Clockwise clockwise = new Clockwise($pst, $psd, $countHolidays, $alignHolidays, $freq, $omt);
+//        System.out.println(clockwise.getWorkPeriodSet());
+//        $employee.setClockwise(clockwise);
+//        update($employee);
+//        //clockwise.printSets();
+//end
 
 
 /*
@@ -50,7 +66,7 @@ rule "a shift lies entirely within a workPeriod"
         $payroll.setTimestampDifference( newTime );
         $payroll.setTimes();
         //scoreHolder.addSoftConstraintMatch(kcontext, lValue);
-  //      System.out.println("endTimeStamp: " + $endTimeStamp + " $startTimeStamp: " + $startTimeStamp);
+  //      //System.out.println("endTimeStamp: " + $endTimeStamp + " $startTimeStamp: " + $startTimeStamp);
         //System.out.println("a shift lies entirely within a workPeriod " + $payroll);
         //$clockwise.getPayrolls().add($payroll);
         update($employee);
@@ -132,9 +148,9 @@ rule "holiday hours begin in a shift"
         $shift.setPeriodId($periodId);
         $shift.setHolidayId($workPeriod.getDayOfShift($holidayStart));
         update($shift);
-        System.out.println("holiday hours begin in a shift");
-        System.out.println("regPayroll: "+ $regPayroll);
-        System.out.println("payroll: "+ $payroll);
+        //System.out.println("holiday hours begin in a shift");
+        //System.out.println("regPayroll: "+ $regPayroll);
+        //System.out.println("payroll: "+ $payroll);
 end
 
 rule "holiday hours end in a shift"
@@ -162,9 +178,9 @@ rule "holiday hours end in a shift"
         $shift.setPeriodId($periodId);
         $shift.setHolidayId($workPeriod.getDayOfShift($holidayStart));
         update($shift);
-        System.out.println("holiday hours end in a shift");
-        System.out.println("regPayroll: "+ $regPayroll);
-        System.out.println("payroll: "+ $payroll);
+        //System.out.println("holiday hours end in a shift");
+        //System.out.println("regPayroll: "+ $regPayroll);
+        //System.out.println("payroll: "+ $payroll);
 end
 
 rule "holiday hours end in a shift without cut and it continues to a second day of holidays"
@@ -193,9 +209,9 @@ rule "holiday hours end in a shift without cut and it continues to a second day 
         $shift.setPeriodId($periodId);
         $shift.setHolidayId($workPeriod.getDayOfShift($holidayStart));
         update($shift);
-        System.out.println("holiday hours end in a shift without cut and it continues to a second day of holidays");
-        System.out.println("regPayroll: "+ $regPayroll);
-        System.out.println("payroll: "+ $payroll);
+        //System.out.println("holiday hours end in a shift without cut and it continues to a second day of holidays");
+        //System.out.println("regPayroll: "+ $regPayroll);
+        //System.out.println("payroll: "+ $payroll);
 
 end
 
@@ -209,9 +225,9 @@ rule "holiday hours end in a shift without cut"
         $shift: Shift( holCounted == false, employee != null, employee.id == $employeeId, startTimeStamp >= $holidayStart, endTimeStamp >= $holidayEnd, startTimeStamp <= $holidayEnd, $startTimeStamp: startTimeStamp, $endTimeStamp: endTimeStamp)
         not HolidayPeriod(startTimeStamp != null, startTimeStamp == $holidayEnd)
     then
-        System.out.println("holiday hours end in a shift without cut");
-        System.out.println("regPayroll: "+ $regPayroll);
-        System.out.println("payroll: "+ $payroll);
+        //System.out.println("holiday hours end in a shift without cut");
+        //System.out.println("regPayroll: "+ $regPayroll);
+        //System.out.println("payroll: "+ $payroll);
         Long newTime = $payroll.getTimestampDifference() + $holidayEnd - $startTimeStamp;
         $payroll.setTimestampDifference( newTime );
         $payroll.setTimes();
@@ -256,9 +272,9 @@ rule "holiday hours encompass a shift"
         $shift.setPeriodId($periodId);
         $shift.setHolidayId($workPeriod.getDayOfShift($holidayStart));
         update($shift);
-        System.out.println("holiday hours encompass a shift");
-        System.out.println("regPayroll: "+ $regPayroll);
-        System.out.println("payroll: "+ $payroll);
+        //System.out.println("holiday hours encompass a shift");
+        //System.out.println("regPayroll: "+ $regPayroll);
+        //System.out.println("payroll: "+ $payroll);
 end
 
 rule "overtime added to a period due to overtime definition counting holidays and overtime work"
@@ -287,7 +303,7 @@ salience -10
         $employee: Employee( $employeeId: id, clockwise != null, clockwise.workPeriodSet != null, clockwise.countHolidays == true, clockwise.payrollSet != null, $clockwise: clockwise)
         $workPeriod: WorkPeriod( otCounted == false, $periodId: periodId) from $clockwise.workPeriodSet
         $payroll: Payroll( id == $periodId, payrollType == PayrollType.OT) from $clockwise.payrollSet
-        PeriodOvertimeDefinition( $minimumHours: minimumHours, $maximumHours: maximumHours, overtimeType == $payroll.payrollType.toString())
+        PeriodOvertimeDefinition( minimumHours != null, maximumHours != null, overtimeType != null, $minimumHours: minimumHours, $maximumHours: maximumHours, overtimeType == $payroll.payrollType.toString())
         $holPayroll: Payroll( id == $periodId, payrollType == PayrollType.HOL, $holidayHours: totHours.longValue()) from $clockwise.payrollSet
         $regPayroll: Payroll( id == $periodId, payrollType == PayrollType.REG, totHours.longValue() <= $minimumHours, totHours.longValue() <= $maximumHours, $totHours: totHours ) from $clockwise.payrollSet
     then
@@ -314,6 +330,6 @@ salience -10
         $payroll.setTimes();
         $workPeriod.setOtCounted(true);
         update($employee);
-        //System.out.println("overtime not counting holidays time converted: ");
-        //System.out.println("tothours: " + $totHours + " minimumHours: " + $minimumHours);
+        System.out.println("overtime not counting holidays time converted: ");
+        System.out.println("tothours: " + $totHours + " minimumHours: " + $minimumHours);
 end

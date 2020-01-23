@@ -21,7 +21,7 @@
                 <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
                 <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
                 <scoreDrl>experienceConstraintRules.drl</scoreDrl>
-                <!--<scoreDrl>overtimeConstraintRules.drl</scoreDrl>-->
+                <scoreDrl>overtimeConstraintRules.drl</scoreDrl>
                 <scoreDrl>proximityConstraintRules.drl</scoreDrl>
                 <scoreDrl>schedulerScoreRules.drl</scoreDrl>
                 <scoreDrl>scaleRules.drl</scoreDrl>

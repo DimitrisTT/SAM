@@ -196,6 +196,7 @@ public class Receiver {
         shifts.add(shift);
       }
     }
+
     for(Employee employee: employees){
       logger.info("Employee: {}", employee.getId());
       logger.info("    Shifts: [ {");
@@ -205,6 +206,10 @@ public class Receiver {
         logger.info("        Duration: {}", shift.getDuration());
         logger.info("    },{");
       }
+//      System.out.println(employee.getClockwise());
+        if(employee.getClockwise()!=null) {
+          logger.info(employee.getClockwise().stringOvertimeSummary());
+        }
       logger.info("    } ]");
     }
 
