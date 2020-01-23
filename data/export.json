@@ -32,6 +32,13 @@
             "definition": 100
         },
         {
+            "type": "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS",
+            "active": true,
+            "impact": -70,
+            "isHardImpact": false,
+            "definition": 100
+        },
+        {
             "type": "FAIRLY_FAR_FROM_SITE",
             "active": true,
             "impact": -50,
@@ -388,7 +395,7 @@
         {
             "start_date": "2017-09-07",
             "shift_id": "910172",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3320",
             "site_id": "9880",
             "start_date_time": "2017-09-07 12:00:00",
@@ -427,7 +434,7 @@
         {
             "start_date": "2017-09-18",
             "shift_id": "926702",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3320",
             "site_id": "9880",
             "start_date_time": "2017-09-18 05:30:00",
@@ -492,7 +499,7 @@
         {
             "start_date": "2017-09-21",
             "shift_id": "926753",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3320",
             "site_id": "9880",
             "start_date_time": "2017-09-21 12:00:00",
@@ -531,7 +538,7 @@
         {
             "start_date": "2017-09-22",
             "shift_id": "926785",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3320",
             "site_id": "9880",
             "start_date_time": "2017-09-22 12:00:00",
@@ -570,7 +577,7 @@
         {
             "start_date": "2017-09-12",
             "shift_id": "934421",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3320",
             "site_id": "9880",
             "start_date_time": "2017-09-12 05:30:00",
@@ -622,7 +629,7 @@
         {
             "start_date": "2017-09-14",
             "shift_id": "934425",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3320",
             "site_id": "9880",
             "start_date_time": "2017-09-14 12:00:00",
@@ -635,7 +642,7 @@
         {
             "start_date": "2017-09-15",
             "shift_id": "934426",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3320",
             "site_id": "9880",
             "start_date_time": "2017-09-15 05:30:00",
@@ -648,7 +655,7 @@
         {
             "start_date": "2017-09-15",
             "shift_id": "934427",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3320",
             "site_id": "9880",
             "start_date_time": "2017-09-15 12:00:00",
@@ -687,7 +694,7 @@
         {
             "start_date": "2017-09-25",
             "shift_id": "945342",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3320",
             "site_id": "9880",
             "start_date_time": "2017-09-25 05:30:00",
@@ -713,7 +720,7 @@
         {
             "start_date": "2017-09-27",
             "shift_id": "945344",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3320",
             "site_id": "9880",
             "start_date_time": "2017-09-27 12:00:00",
@@ -726,7 +733,7 @@
         {
             "start_date": "2017-09-28",
             "shift_id": "945345",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3320",
             "site_id": "9880",
             "start_date_time": "2017-09-28 12:00:00",
@@ -739,7 +746,7 @@
         {
             "start_date": "2017-09-29",
             "shift_id": "945346",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3320",
             "site_id": "9880",
             "start_date_time": "2017-09-29 12:00:00",
@@ -804,7 +811,7 @@
         {
             "start_date": "2017-09-01",
             "shift_id": "896645",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3322",
             "site_id": "9880",
             "start_date_time": "2017-09-01 06:00:00",
@@ -921,7 +928,7 @@
         {
             "start_date": "2017-09-13",
             "shift_id": "915504",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3322",
             "site_id": "9880",
             "start_date_time": "2017-09-13 06:00:00",
@@ -1311,7 +1318,7 @@
         {
             "start_date": "2017-09-19",
             "shift_id": "926719",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3323",
             "site_id": "9880",
             "start_date_time": "2017-09-19 06:00:00",
@@ -1324,7 +1331,7 @@
         {
             "start_date": "2017-09-20",
             "shift_id": "926746",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3323",
             "site_id": "9880",
             "start_date_time": "2017-09-20 06:00:00",
@@ -1519,7 +1526,7 @@
         {
             "start_date": "2017-09-06",
             "shift_id": "910289",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3324",
             "site_id": "9880",
             "start_date_time": "2017-09-06 06:00:00",
@@ -1597,7 +1604,7 @@
         {
             "start_date": "2017-09-05",
             "shift_id": "915657",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3324",
             "site_id": "9880",
             "start_date_time": "2017-09-05 06:00:00",
@@ -4977,7 +4984,7 @@
         {
             "start_date": "2017-09-26",
             "shift_id": "945323",
-            "employee_id": "153895",
+            "employee_id": "",
             "post_id": "3331",
             "site_id": "9880",
             "start_date_time": "2017-09-26 05:30:00",
@@ -9678,7 +9685,7 @@
             "pay_schedule_id": "2",
             "previous_period_last_end_date_time": "",
             "pay_rate": "12.00",
-            "seniority": "969"
+            "seniority": "96"
         },
         {
             "id": "153899",
@@ -24313,10 +24320,6 @@
         {
             "user_id": "158275",
             "site_id": "9721"
-        },
-        {
-            "user_id": "153895",
-            "site_id": "9880"
         },
         {
             "user_id": "153935",

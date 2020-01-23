@@ -25,19 +25,38 @@ global HardSoftLongScoreHolder scoreHolder;
 */
 rule "can not work simultaneous shifts - edge overlap"
     when
-        CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
-        $shift: Shift(employee != null, $employeeId : employee.id, $firstShiftStart: start, $firstShiftEnd: end)
-        Shift(this != $shift, employee != null, employee.id == $employeeId, ($firstShiftEnd >= start) && ($firstShiftEnd <= end), ($firstShiftStart < start))
-        not EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == true)
-        $ecm: EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == false)
+        //CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
+        $shift: Shift(employee != null, $employeeId : employee.id, $firstShiftStart: start, $firstShiftEnd: end, $firstShiftId: id)
+        Shift( id != $firstShiftId, employee != null, employee.id == $employeeId, ($firstShiftEnd > start) && ($firstShiftStart < end) && ($firstShiftStart > start) && $firstShiftEnd >= end)
+        //not EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS", alreadyFired == true)
+        //$ecm: EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS", alreadyFired == false)
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
-        $ecm.setAlreadyFired(true);
-        update($ecm);
+        //$ecm.setAlreadyFired(true);
+        //update($ecm);
         //System.out.println("can not work simultaneous shifts edge overlap, adding -1");
 
 end
 
+/*
+    Given two shifts that have the same employee assigned, we will check of the time slots overlap at all.
+    If they do, the employee may not be assigned to one of the shifts. We add a negative hard constraint to
+    tell the scheduler not to double book.
+*/
+//rule "can not work simultaneous shifts - reverse edge overlap"
+//    when
+//        //CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
+//        $shift: Shift(employee != null, $employeeId : employee.id, $firstShiftStart: start, $firstShiftEnd: end)
+//        Shift(this != $shift, employee != null, employee.id == $employeeId, ($firstShiftStart <= start) && ($firstShiftEnd > start) && (end >= $firstShiftEnd) && (end > $firstShiftStart))
+//        //not EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS", alreadyFired == true)
+//        //$ecm: EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS", alreadyFired == false)
+//    then
+//        scoreHolder.addHardConstraintMatch(kcontext, -1);
+//        //$ecm.setAlreadyFired(true);
+//        //update($ecm);
+//        //System.out.println("can not work simultaneous shifts edge overlap, adding -1");
+//
+//end
 
 /*
     Given two shifts that have the same employee assigned, we will check of the time slots overlap at all.
@@ -46,15 +65,15 @@ end
 */
 rule "can not work simultaneous shifts - entirety overlap"
     when
-        CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
-        $shift: Shift(employee != null, $employeeId : employee.id, $firstShiftStart: start, $firstShiftEnd: end)
-        Shift(this != $shift, employee != null, employee.id == $employeeId, ($firstShiftStart < start) && ($firstShiftEnd > end))
-        not EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == true)
-        $ecm: EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == false)
+        //CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
+        $shift: Shift(employee != null, $employeeId : employee.id, $firstShiftStart: start, $firstShiftEnd: end, $firstShiftId: id)
+        Shift(id != $firstShiftId, employee != null, employee.id == $employeeId, ($firstShiftStart <= start) && ($firstShiftEnd >= end))
+        //not EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS", alreadyFired == true)
+        //$ecm: EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS", alreadyFired == false)
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
-        $ecm.setAlreadyFired(true);
-        update($ecm);
+        //$ecm.setAlreadyFired(true);
+        //update($ecm);
         //System.out.println("can not work simultaneous shifts entirety overlap, adding -1");
 
 end
@@ -64,21 +83,21 @@ end
     If they do, the employee may not be assigned to one of the shifts. We add a negative hard constraint to
     tell the scheduler not to double book.
 */
-rule "can not work simultaneous shifts - same shift overlap"
-    when
-        CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
-        $shift: Shift(employee != null, $employeeId: employee.id, $firstShiftStart: start, $firstShiftEnd: end)
-        Shift(this != $shift, employee != null, employee.id == $employeeId, ($firstShiftStart == start) && ($firstShiftEnd == end))
-        not EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == true)
-        $ecm: EmployeeConstraintMultiplier($employeeId == employeeId, alreadyFired == false)
-    then
-        scoreHolder.addHardConstraintMatch(kcontext, -1);
-        $ecm.setAlreadyFired(true);
-        update($ecm);
-        //System.out.println("can not work simultaneous shifts same shift overlap, adding -1");
-
-end
-
+//rule "can not work simultaneous shifts - same shift overlap"
+//    when
+//        //CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
+//        $shift: Shift(employee != null, $employeeId: employee.id, $firstShiftStart: startTimeStamp, $firstShiftEnd: endTimeStamp)
+//        Shift(this != $shift, employee != null, employee.id == $employeeId, ($firstShiftStart == startTimeStamp) && ($firstShiftEnd == endTimeStamp))
+//        //not EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS", alreadyFired == true)
+//        //$ecm: EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS", alreadyFired == false)
+//    then
+//        scoreHolder.addHardConstraintMatch(kcontext, -1);
+//        //$ecm.setAlreadyFired(true);
+//        //update($ecm);
+//        //System.out.println("can not work simultaneous shifts same shift overlap, adding -1");
+//
+//end
+//
 /*
     If an employee is assigned to a shift and has also requested time off, we add a negative hard score so the
     scheduler will not assign the employee to work during that time off. We are checking to see if the time slot of the
@@ -225,16 +244,17 @@ end
     to be enough to eliminate the gaps.
 */
 
-rule "CONSECUTIVE_WORK_DAYS"
-    when
-        Employee($employeeId: id)
-        Shift($shiftId: id, employee != null, $employeeId == employee.id, start != null, $startDate: start.toLocalDate())
-        Shift(id != $shiftId, employee != null, $employeeId == employee.id, start!= null, start.toLocalDate() == $startDate.minusDays(1L))
-        $ecm: EmployeeConstraintMultiplier(employeeId == $employeeId, alreadyFired == false, name == "CONSECUTIVE_WORK_DAYS")
-    then
-        Long lValue = 100L;
-        scoreHolder.addSoftConstraintMatch(kcontext, lValue);
-        $ecm.setAlreadyFired(true);
-        update($ecm);
-        //System.out.println("Consecutive work days: " + 100);
-end
+//rule "CONSECUTIVE_WORK_DAYS"
+//    when
+//        //Employee($employeeId: id)
+//        Shift($shiftId: id, employee != null, $employeeId: employee.id, start != null, $startDate: start.toLocalDate())
+//        Shift(id != $shiftId, employee != null, $employeeId == employee.id, start!= null, start.toLocalDate() == $startDate.minusDays(1L))
+//        //$ecm: EmployeeConstraintMultiplier(employeeId == $employeeId, alreadyFired == false, name == "CONSECUTIVE_WORK_DAYS")
+//    then
+//        Long lValue = 100L;
+//        scoreHolder.addSoftConstraintMatch(kcontext, lValue);
+//        //$ecm.setAlreadyFired(true);
+//        //update($ecm);
+//        //System.out.println("Consecutive work days: " + 100);
+//end
+//

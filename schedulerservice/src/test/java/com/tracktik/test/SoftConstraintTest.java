@@ -1021,7 +1021,7 @@ System.out.println("shift: " + shift);
     assertEquals(0L, getScoreHolder().getSoftScore());
   }
 
-  @Test
+  @Ignore
   public void testConsecutiveWorkDays() {
 
     Employee employee = new Employee().setId("1");
