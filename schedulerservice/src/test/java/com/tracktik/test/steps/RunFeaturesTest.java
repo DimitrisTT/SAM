@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-    features = "src/test/resources/can_not_work_simultaneous_shifts.feature",
+    features = "src/test/resources/",
     plugin = {"pretty", "html:target/cucumber"},
     tags = {}
 )

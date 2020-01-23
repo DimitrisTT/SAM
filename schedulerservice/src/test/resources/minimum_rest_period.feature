@@ -120,7 +120,7 @@ Feature: Minimum Rest Period
     And we apply each employee into the shift for the calculation
     And we apply each employee into the second shift for the calculation
     When Minimum Rest Period rules are calculated
-    Then softscore is 1000
+    Then softscore is 0
 
   Scenario: testing rule firing for those with exactly their minimum rest period in hours
     Given the following site with id '12' name 'bank' longitude '14.14' and latitude '15.15'
@@ -178,4 +178,4 @@ Feature: Minimum Rest Period
     And we apply each employee into the shift for the calculation
     And we apply each employee into the second shift for the calculation
     When Minimum Rest Period rules are calculated
-    Then softscore is 1000
+    Then softscore is 0

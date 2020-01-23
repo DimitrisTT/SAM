@@ -26,8 +26,8 @@ global HardSoftLongScoreHolder scoreHolder;
 rule "can not work simultaneous shifts - edge overlap"
     when
         //CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
-        $shift: Shift(employee != null, $employeeId : employee.id, $firstShiftStart: start, $firstShiftEnd: end)
-        Shift(this != $shift, employee != null, employee.id == $employeeId, ($firstShiftEnd > start) && ($firstShiftStart < end) && ($firstShiftStart > start) && $firstShiftEnd >= end)
+        $shift: Shift(employee != null, $employeeId : employee.id, $firstShiftStart: start, $firstShiftEnd: end, $firstShiftId: id)
+        Shift( id != $firstShiftId, employee != null, employee.id == $employeeId, ($firstShiftEnd > start) && ($firstShiftStart < end) && ($firstShiftStart > start) && $firstShiftEnd >= end)
         //not EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS", alreadyFired == true)
         //$ecm: EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS", alreadyFired == false)
     then
@@ -43,20 +43,20 @@ end
     If they do, the employee may not be assigned to one of the shifts. We add a negative hard constraint to
     tell the scheduler not to double book.
 */
-rule "can not work simultaneous shifts - reverse edge overlap"
-    when
-        //CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
-        $shift: Shift(employee != null, $employeeId : employee.id, $firstShiftStart: start, $firstShiftEnd: end)
-        Shift(this != $shift, employee != null, employee.id == $employeeId, ($firstShiftStart <= start) && ($firstShiftEnd > start) && (end >= $firstShiftEnd) && (end > $firstShiftStart))
-        //not EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS", alreadyFired == true)
-        //$ecm: EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS", alreadyFired == false)
-    then
-        scoreHolder.addHardConstraintMatch(kcontext, -1);
-        //$ecm.setAlreadyFired(true);
-        //update($ecm);
-        //System.out.println("can not work simultaneous shifts edge overlap, adding -1");
-
-end
+//rule "can not work simultaneous shifts - reverse edge overlap"
+//    when
+//        //CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
+//        $shift: Shift(employee != null, $employeeId : employee.id, $firstShiftStart: start, $firstShiftEnd: end)
+//        Shift(this != $shift, employee != null, employee.id == $employeeId, ($firstShiftStart <= start) && ($firstShiftEnd > start) && (end >= $firstShiftEnd) && (end > $firstShiftStart))
+//        //not EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS", alreadyFired == true)
+//        //$ecm: EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS", alreadyFired == false)
+//    then
+//        scoreHolder.addHardConstraintMatch(kcontext, -1);
+//        //$ecm.setAlreadyFired(true);
+//        //update($ecm);
+//        //System.out.println("can not work simultaneous shifts edge overlap, adding -1");
+//
+//end
 
 /*
     Given two shifts that have the same employee assigned, we will check of the time slots overlap at all.
@@ -66,8 +66,8 @@ end
 rule "can not work simultaneous shifts - entirety overlap"
     when
         //CanNotWorkSimultaneousShifts(active == true, hardImpact == false, hardFailure == true)
-        $shift: Shift(employee != null, $employeeId : employee.id, $firstShiftStart: start, $firstShiftEnd: end)
-        Shift(this != $shift, employee != null, employee.id == $employeeId, ($firstShiftStart <= start) && ($firstShiftEnd >= end))
+        $shift: Shift(employee != null, $employeeId : employee.id, $firstShiftStart: start, $firstShiftEnd: end, $firstShiftId: id)
+        Shift(id != $firstShiftId, employee != null, employee.id == $employeeId, ($firstShiftStart <= start) && ($firstShiftEnd >= end))
         //not EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS", alreadyFired == true)
         //$ecm: EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS", alreadyFired == false)
     then

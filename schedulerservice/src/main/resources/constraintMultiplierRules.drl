@@ -21,15 +21,15 @@ salience -100
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("AVAILABILITY_MAYBE"));
 end
 
-rule "default CAN_NOT_WORK_SIMULTANEOUS_SHIFTS"
-salience -100
-    when
-        Employee($employeeId: id)
-        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS")
-    then
-    System.out.println("added can not work simultaneous shifts");
-        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("CAN_NOT_WORK_SIMULTANEOUS_SHIFTS"));
-end
+//rule "default CAN_NOT_WORK_SIMULTANEOUS_SHIFTS"
+//salience -100
+//    when
+//        Employee($employeeId: id)
+//        not EmployeeConstraintMultiplier($employeeId == employeeId, name == "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS")
+//    then
+//    System.out.println("added can not work simultaneous shifts");
+//        insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("CAN_NOT_WORK_SIMULTANEOUS_SHIFTS"));
+//end
 
 rule "default AVAILABILITY_NO"
 salience -100
@@ -47,7 +47,7 @@ salience -100
         Employee($employeeId: id)
         not EmployeeConstraintMultiplier($employeeId == employeeId, name == "EMPLOYEE_HAS_SENIORITY")
     then
-    System.out.println("added employeehasseniority");
+//    System.out.println("added employeehasseniority");
         insert(new EmployeeConstraintMultiplier().setEmployeeId($employeeId).setName("EMPLOYEE_HAS_SENIORITY"));
 end
 
