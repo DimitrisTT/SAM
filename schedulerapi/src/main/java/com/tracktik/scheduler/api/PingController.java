@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/*
+ * This class used to have a pingable endpoint for debugging purposes, or integrative checkups that endpoints are active
+ */
 @RestController
 @RequestMapping("/ping")
 public class PingController {

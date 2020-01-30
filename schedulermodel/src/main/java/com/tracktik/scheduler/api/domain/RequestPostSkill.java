@@ -2,6 +2,14 @@ package com.tracktik.scheduler.api.domain;
 
 import lombok.ToString;
 
+/**
+ * This is a class to marshall the fields related to skills that posts require
+ * For configurative purposes certain skills may need to be connected to FactTypes at this stage
+ * see RequestFactType.java
+ *
+ * Methods imported by lombok:
+ * toString
+ */
 @ToString
 public class RequestPostSkill {
 

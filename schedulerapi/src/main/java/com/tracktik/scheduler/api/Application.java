@@ -17,6 +17,11 @@ import org.springframework.jms.support.converter.MessageType;
 
 import javax.jms.ConnectionFactory;
 
+/**
+ * This class serves as the main runner of the application, ran when the jar is compiled.
+ *
+ */ 
+
 @EnableJms
 @ComponentScan(basePackages = "com.tracktik")
 @SpringBootApplication
@@ -33,6 +38,11 @@ public class Application {
 
   }
 
+/*
+ * Factory method to create and run the scheduler dynamically at runtime
+ * @param connectionFactory This is the loader connecting our endpoint to application
+ * @param configurer this used for java messaging to marshal properly and point to the right packages
+ * */
   @Bean
   public JmsListenerContainerFactory<?> schedulerFactory(ConnectionFactory connectionFactory,
                                                          DefaultJmsListenerContainerFactoryConfigurer configurer) {

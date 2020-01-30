@@ -4,11 +4,19 @@ import com.tracktik.scheduler.domain.ConfigFact;
 
 import java.util.Objects;
 
+/**
+ * This is a class to house the fields of a Maybe Available requestFact
+ *
+ */
 public class MaybeAvailable extends ConfigFact {
 
     private int scoreImpact = -100;
     private boolean active = true;
 
+    /* This is the basic constructor
+     * @param scoreImpact is the integer value of the multiplier to be set
+     * @param active is to toggle the requestfact being set to active
+     */
     public MaybeAvailable(int scoreImpact, boolean active) {
         this.scoreImpact = scoreImpact;
         this.active = active;

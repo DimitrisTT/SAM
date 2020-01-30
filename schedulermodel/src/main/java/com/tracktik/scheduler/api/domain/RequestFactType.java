@@ -2,6 +2,11 @@ package com.tracktik.scheduler.api.domain;
 
 import com.tracktik.scheduler.domain.FactType;
 
+/**
+ * This is an enum representing the various types of RequestFacts available
+ * Each can be seen in the instantiative list below.
+ *
+ */
 public enum RequestFactType {
     FAR_FROM_SITE(FactType.FAR_FROM_SITE),
     FAIRLY_FAR_FROM_SITE(FactType.FAIRLY_FAR_FROM_SITE),

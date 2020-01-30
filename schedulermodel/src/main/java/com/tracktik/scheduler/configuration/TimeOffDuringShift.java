@@ -4,6 +4,10 @@ import com.tracktik.scheduler.domain.ConfigFact;
 
 import java.util.Objects;
 
+/**
+ * This is a class to house the fields of a Time Off During Shift requestFact
+ *
+ */
 public class TimeOffDuringShift extends ConfigFact {
 
     private int impactMultiplier = -100;
@@ -11,6 +15,12 @@ public class TimeOffDuringShift extends ConfigFact {
     private boolean hardImpact = false;
     private boolean hardFailure = true;
 
+     /* This is the basic constructor
+     * @param impactMultiplier is the integer value of the multiplier to be set
+     * @param active is to toggle the requestfact being set to active
+     * @param hardImpact is to set whether the fact has a hard or soft impact
+     * @param hardFailure is to toggle whether the facts hard setting cannot be ignored
+     */
     public TimeOffDuringShift(int impactMultiplier, boolean active, boolean hardImpact, boolean hardFailure) {
         this.impactMultiplier = impactMultiplier;
         this.active = active;

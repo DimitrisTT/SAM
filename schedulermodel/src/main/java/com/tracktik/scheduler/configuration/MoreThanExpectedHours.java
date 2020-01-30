@@ -4,12 +4,22 @@ import com.tracktik.scheduler.domain.ConfigFact;
 
 import java.util.Objects;
 
+/**
+ * This is a class to house the fields of a More than expected hours requestFact
+ *
+ */
 public class MoreThanExpectedHours extends ConfigFact {
 
     private int impact = -10;
     private boolean active = true;
     private boolean hardImpact = false;
 
+    /* This is the basic constructor
+     * @param scoreImpact is the integer value of the multiplier to be set
+     * @param active is to toggle the requestfact being set to active
+     * @param hardImpact is to set whether the fact has a hard or soft impact
+     * @param hardFailure is to toggle whether the facts hard setting cannot be ignored
+     */
     public MoreThanExpectedHours(int impact, boolean active, boolean hardImpact) {
         this.impact = impact;
         this.active = active;

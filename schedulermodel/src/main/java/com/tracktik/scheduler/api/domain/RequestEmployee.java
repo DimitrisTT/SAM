@@ -5,6 +5,12 @@ import lombok.ToString;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This is a class to marshall the fields related to Employees
+ *
+ * Methods imported by lombok:
+ * toString
+ */
 @ToString
 public class RequestEmployee {
 

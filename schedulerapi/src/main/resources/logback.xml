@@ -12,9 +12,8 @@
     </encoder>
   </appender>
 
-  <!-- To override the debug log level from the command line, use the VM option "-Dlogback.level.org.optaplanner=trace"
-  ${logback.level.com.tracktik:-info}-->
-  <logger name="com.tracktik" level="debug" additivity="false">
+  <!-- To override the debug log level from the command line, use the VM option "-Dlogback.level.org.optaplanner=trace" -->
+  <logger name="com.tracktik" level="${logback.level.com.tracktik:-info}" additivity="false">
     <appender-ref ref="schedulerApiAppender"/>
   </logger>
 

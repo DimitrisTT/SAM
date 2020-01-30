@@ -18,6 +18,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.UUID;
 
+/**
+ * This class controls scheduling object; holding it in queue and setting it off.
+ * Receiving the request, this calls the mapper to marshal the json to an object
+ * as well as set off the service to start solving for its solution.
+ *
+ */ 
 @RestController
 @RequestMapping("/schedule")
 public class SchedulingController {
@@ -27,6 +33,12 @@ public class SchedulingController {
   @Autowired
   private JmsTemplate jmsTemplate;
 
+/**
+ * This is the method to set off the solver and schedule the employees.
+ * It is set off by a post call to the endpoint, and takes in the request.
+ * @param request This is the request object, marshalled in from the POSTed Json
+ *
+ */
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<?> schedule(@RequestBody RequestForScheduling request) {
 
@@ -52,6 +64,11 @@ public class SchedulingController {
     return ResponseEntity.created(location).build();
   }
 
+/**
+ * This method gets the schedule from a call, viewing solutions as they become available on the session.
+ * It is set off by a GET REST call, with the id of the schedule being looked for.
+ * @param id this is the string of the id representing the schedule being looked for.
+ */
   @RequestMapping(method = RequestMethod.GET, value = "/{id}")
   public SchedulingResponse getSchedule(@PathVariable String id) {
 
@@ -66,6 +83,12 @@ public class SchedulingController {
     return response;
   }
 
+
+/**
+ * This method deletes the schedule from a call, removing a select response entity from the session.
+ * It is set off by a DELETE REST call, with the id of the schedule being looked for.
+ * @param id this is the string of the id representing the schedule being looked for.
+ */
   @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
   public ResponseEntity<Schedule> cancelScheduling(@PathVariable String id) {
 

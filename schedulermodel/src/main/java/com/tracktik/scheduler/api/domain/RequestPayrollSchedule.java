@@ -2,6 +2,12 @@ package com.tracktik.scheduler.api.domain;
 
 import lombok.ToString;
 
+/**
+ * This is a class to marshall the fields related to Payroll scheduling, and their configuration
+ *
+ * Methods imported by lombok:
+ * toString
+ */
 @ToString
 public class RequestPayrollSchedule {
   public String id;

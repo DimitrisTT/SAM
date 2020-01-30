@@ -4,12 +4,21 @@ import com.tracktik.scheduler.domain.ConfigFact;
 
 import java.util.Objects;
 
+/**
+ * This is a class to house the fields of a Not Available requestFact
+ *
+ */
 public class NotAvailable extends ConfigFact {
 
     private int scoreImpact = -100;
     private boolean hardImpact = true;
     private boolean active = true;
 
+    /* This is the basic constructor
+     * @param scoreImpact is the integer value of the multiplier to be set
+     * @param active is to toggle the requestfact being set to active
+     * @param hardImpact is to set whether the fact has a hard or soft impact
+     */
     public NotAvailable(int scoreImpact, boolean hardImpact, boolean active) {
         this.scoreImpact = scoreImpact;
         this.hardImpact = hardImpact;

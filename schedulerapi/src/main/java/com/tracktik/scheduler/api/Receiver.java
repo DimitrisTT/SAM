@@ -7,6 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
+/*
+ * This class serves to hold the response from the service after the endpoint has relayed the 
+ * Json to the marshaller and set off the optaplanner configurative solver.
+ *
+ */
 @Component
 public class Receiver {
 

@@ -4,6 +4,10 @@ import com.tracktik.scheduler.domain.ConfigFact;
 
 import java.util.Objects;
 
+/**
+ * This is a class to house the fields of a Far From Site requestFact
+ *
+ */
 public class FarFromSite extends ConfigFact {
 
     private boolean active = true;
@@ -11,7 +15,13 @@ public class FarFromSite extends ConfigFact {
     private boolean isHardImpact = false;
     private Integer definition = 100;
 
-    public FarFromSite(boolean active, int scoreImpact, boolean isHardImpact, int definition) {
+    /* This is the basic constructor
+     * @param impactMultiplier is the integer value of the multiplier to be set
+     * @param active is to toggle the requestfact being set to active
+     * @param hardImpact is to set whether the fact has a hard or soft impact
+     * @param hardFailure is to toggle whether the facts hard setting cannot be ignored
+     */
+     public FarFromSite(boolean active, int scoreImpact, boolean isHardImpact, int definition) {
         this.active = active;
         this.scoreImpact = scoreImpact;
         this.isHardImpact = isHardImpact;

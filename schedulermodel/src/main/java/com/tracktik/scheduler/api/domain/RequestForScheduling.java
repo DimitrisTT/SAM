@@ -9,6 +9,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * This is a class to marshall all the fields beeded for the Scheduler, our main request/response object
+ *
+ * Methods imported by lombok:
+ * toString
+ */
 @ToString
 public class RequestForScheduling {
 

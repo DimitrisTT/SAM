@@ -4,13 +4,23 @@ import com.tracktik.scheduler.domain.ConfigFact;
 
 import java.util.Objects;
 
+/**
+ * This is a class to house the fields of a Less Than Expected Hours requestFact
+ *
+ */
 public class LessThanExpectedHours extends ConfigFact {
 
     private int impact = -10;
     private boolean active = true;
     private boolean hardImpact = false;
 
-    public LessThanExpectedHours(int impact, boolean active, boolean hardImpact) {
+    /* This is the basic constructor
+     * @param impact is the integer value of the multiplier to be set
+     * @param active is to toggle the requestfact being set to active
+     * @param hardImpact is to set whether the fact has a hard or soft impact
+     * @param hardFailure is to toggle whether the facts hard setting cannot be ignored
+     */
+     public LessThanExpectedHours(int impact, boolean active, boolean hardImpact) {
         this.impact = impact;
         this.active = active;
         this.hardImpact = hardImpact;

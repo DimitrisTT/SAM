@@ -5,6 +5,12 @@ import lombok.ToString;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * This is a class to marshall the fields related to Shifts.
+ *
+ * Methods imported by lombok:
+ * toString
+ */
 @ToString
 public class RequestShift {
 

@@ -4,12 +4,21 @@ import com.tracktik.scheduler.domain.ConfigFact;
 
 import java.util.Objects;
 
+/**
+ * This is a class to house the fields of a Soft Skill Missing requestFact
+ *
+ */
 public class SoftSkillMissing extends ConfigFact {
 
     private int impactMultiplier = 1;
     private boolean active = true;
     private boolean hardImpact = false;
 
+     /* This is the basic constructor
+     * @param impactMultiplier is the integer value of the multiplier to be set
+     * @param active is to toggle the requestfact being set to active
+     * @param hardImpact is to set whether the fact has a hard or soft impact
+     */
     public SoftSkillMissing(int impactMultiplier, boolean active, boolean hardImpact) {
         this.impactMultiplier = impactMultiplier;
         this.active = active;

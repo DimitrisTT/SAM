@@ -8,6 +8,10 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * This class serves to generate swagger documents as needed.
+ * Here we have the configuration, seen as the setting of the base package
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
