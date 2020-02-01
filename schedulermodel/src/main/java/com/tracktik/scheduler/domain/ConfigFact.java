@@ -3,6 +3,14 @@ package com.tracktik.scheduler.domain;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+/**
+ * This is a class to hold the Configuration Facts as mapped in from RequestFact
+ * All configurationFacts import this class
+ *
+ * Methods imported by lombok:
+ * Data
+ * Accessors
+ */
 @Accessors(chain = true)
 @Data
 public class ConfigFact {

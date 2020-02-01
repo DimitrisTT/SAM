@@ -11,6 +11,14 @@ import org.threeten.extra.Interval;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+/**
+ * This is a class to hold the Holiday Period objects
+ * relating back to a post, a start, and an end
+ *
+ * Methods imported by lombok:
+ * Data
+ * Accessors
+ */
 @Accessors(chain = true)
 @Data
 public class HolidayPeriod {
@@ -22,6 +30,7 @@ public class HolidayPeriod {
   @JsonDeserialize(using = LocalDateTimeDeserializer.class)
   private LocalDateTime end;
 
+  // Getter for the interval between start and end
   public Interval getInterval() {
     return Interval.of(start.atZone(ZoneId.systemDefault()).toInstant(), end.atZone(ZoneId.systemDefault()).toInstant());
   }

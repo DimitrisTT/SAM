@@ -10,6 +10,13 @@ import lombok.experimental.Accessors;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
+/**
+ * This is a class to hold the Employee Availability and all of its various times
+ *
+ * Methods imported by lombok:
+ * Data
+ * Accessors
+ */
 @Accessors(chain = true)
 @Data
 public class EmployeeAvailability {

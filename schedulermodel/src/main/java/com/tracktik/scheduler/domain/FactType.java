@@ -1,5 +1,10 @@
 package com.tracktik.scheduler.domain;
 
+/**
+ * This is an enum representing the various types of Configuration Facts available
+ * Each can be seen in the instantiative list below.
+ *
+ */
 public enum FactType {
     FAR_FROM_SITE,
     FAIRLY_FAR_FROM_SITE,

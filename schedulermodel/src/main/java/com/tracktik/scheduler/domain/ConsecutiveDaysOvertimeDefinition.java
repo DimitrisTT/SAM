@@ -9,6 +9,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * This is a class to hold the Consecutive Days Overtime Definition
+ *
+ * Methods imported by lombok:
+ * Data
+ * Accessors
+ */
 @Accessors(chain = true)
 @Data
 public class ConsecutiveDaysOvertimeDefinition {
@@ -20,6 +27,10 @@ public class ConsecutiveDaysOvertimeDefinition {
   private Long maximumHours;
   private String overtimeType;
 
+  /*
+  * This method calculates the overtime hours total given a list of shifts
+  * @param the list of shifts to be calculated
+   */
   public Long overtimeHours(List<Shift> shifts) {
     shifts.sort(Comparator.comparing(Shift::getStart));
     Long hours =  shifts.stream().skip(minimumDay).limit(maximumDay - minimumDay)
