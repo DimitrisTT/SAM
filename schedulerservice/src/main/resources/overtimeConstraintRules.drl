@@ -10,7 +10,6 @@ import com.tracktik.scheduler.domain.Clockwise;
 import com.tracktik.scheduler.domain.Payroll;
 import com.tracktik.scheduler.domain.PayrollType;
 
-
 global HardSoftLongScoreHolder scoreHolder;
 
 //rule for workPeriod slicing
@@ -328,4 +327,21 @@ salience -10
         update($employee);
         System.out.println("overtime not counting holidays time converted: ");
         System.out.println("tothours: " + $totHours + " minimumHours: " + $minimumHours);
+end
+
+rule "total cost of overtime"
+salience -20
+    when
+        $employee: Employee( $employeeId: id, cost != null, $cost: cost, clockwise != null, $clockwise: clockwise )
+        accumulate(
+            Payroll(
+                payrollType == PayrollType.OT,
+                $hours : totHours) from $clockwise.payrollSet;
+            $totalOtHours : sum($hours)
+        )
+    then
+        Long otPayRate = Double.valueOf($cost * 1.5).longValue();
+        Long totalOtPay = otPayRate * $totalOtHours.longValue();
+        //System.out.println("OT for employee " + $employeeId + " cost " + $cost + " OT rate " + otPayRate + " total OT pay " + totalOtPay);
+        scoreHolder.addSoftConstraintMatch(kcontext, - totalOtPay);
 end

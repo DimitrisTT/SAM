@@ -3,6 +3,7 @@ package com.tracktik.scheduler.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.apache.commons.lang3.time.DateUtils;
 
 @Accessors(chain = true)
 @EqualsAndHashCode
@@ -14,9 +15,11 @@ public class WorkPeriod {
     private boolean otCounted = false;
     private boolean dblCounted = false;
 
+    private static final int SECONDS_IN_DAY = 86400;
+
     public int getDayOfShift(Long shiftTimeStamp){
         int timeIntoPeriod = shiftTimeStamp.intValue() - startTimeStamp;
-        int dayOfPeriod = timeIntoPeriod / 86400;
+        int dayOfPeriod = timeIntoPeriod / SECONDS_IN_DAY;
         //if(shift.getHolidayId() < 0){
         //    return dayOfPeriod * -1;
         //}
@@ -25,7 +28,7 @@ public class WorkPeriod {
 
     public int getDayOfShift(int shiftTimeStamp){
         int timeIntoPeriod = shiftTimeStamp - startTimeStamp;
-        int dayOfPeriod = timeIntoPeriod / 86400;
+        int dayOfPeriod = timeIntoPeriod / SECONDS_IN_DAY;
         //if(shift.getHolidayId() < 0){
         //    return dayOfPeriod * -1;
         //}

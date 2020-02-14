@@ -13,6 +13,7 @@
         <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
         <scoreDrl>proximityConstraintRules.drl</scoreDrl>
         <scoreDrl>overtimeConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
         <scoreDrl>scaleRules.drl</scoreDrl>
     </scoreDirectorFactory>
 

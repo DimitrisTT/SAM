@@ -16,7 +16,6 @@ import org.kie.api.io.ResourceType;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
-import org.optaplanner.test.impl.score.buildin.hardsoftlong.HardSoftLongScoreVerifier;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -143,7 +144,8 @@ public class RequestResponseMapper {
               .setId(old.shift_id)
               .setPlan(old.plan == null || old.plan.equals("1"))
               .setStart(LocalDateTime.parse(old.start_date_time, dateTimeFormatter))
-              .setEnd(LocalDateTime.parse(old.end_date_time, dateTimeFormatter).minus(1L, SECONDS))
+              .setEnd(LocalDateTime.parse(old.end_date_time, dateTimeFormatter))
+//            .setEnd(LocalDateTime.parse(old.end_date_time, dateTimeFormatter).minus(1L, SECONDS))
               .setStartTimeStamp(old.start_timestamp)
               .setEndTimeStamp(old.start_timestamp)
               .setDuration(new Float(old.duration))
@@ -211,50 +213,44 @@ public class RequestResponseMapper {
         }).collect(Collectors.toSet())
     );
 
-    Set<RequestOvertimeRule> perPeriodOvertimeRules = request.overtime_rules.stream().filter(requestOvertimeRule -> requestOvertimeRule.rule.containsKey("RULE_HOURS_PER_PERIOD")).collect(Collectors.toSet());
-    perPeriodOvertimeRules.forEach(requestOvertimeRule -> {
-      requestOvertimeRule.rule.values().forEach(ruleList -> {
-          ruleList.forEach(list -> {
-            schedule.getPeriodOvertimeDefinitions().add(new PeriodOvertimeDefinition()
+    request.overtime_rules.stream().forEach(requestOvertimeRule -> {
+      requestOvertimeRule.rule.keySet().stream().forEach(ruleType -> {
+        List listOfValues = requestOvertimeRule.rule.get(ruleType);
+        listOfValues.forEach(parameters -> {
+          List values = (List) parameters;
+          switch (ruleType) {
+            case "RULE_HOURS_PER_PERIOD":
+              schedule.getPeriodOvertimeDefinitions().add(new PeriodOvertimeDefinition()
                 .setName(requestOvertimeRule.name)
                 .setId(requestOvertimeRule.id)
-                .setMinimumHours((long) (((Integer) list.get(0))))
-                .setMaximumHours(list.get(1).equals("INF") ? Long.MAX_VALUE : (long) (((Integer) list.get(1))))
-                .setOvertimeType((String)list.get(2)));
-          });
-      });
-    });
-
-    Set<RequestOvertimeRule> perDayOvertimeRules = request.overtime_rules.stream().filter(requestOvertimeRule -> requestOvertimeRule.rule.containsKey("RULE_HOURS_PER_DAY")).collect(Collectors.toSet());
-    perDayOvertimeRules.forEach(requestOvertimeRule -> {
-      requestOvertimeRule.rule.values().forEach(ruleList -> {
-        ruleList.forEach(list -> {
-          schedule.getDayOvertimeDefinitions().add(new DayOvertimeDefinition()
-              .setName(requestOvertimeRule.name)
-              .setId(requestOvertimeRule.id)
-              .setMinimumHours(new Long(((Integer) list.get(0))))
-              .setMaximumHours(list.get(1).equals("INF") ? Long.MAX_VALUE : new Long(((Integer) list.get(1))))
-              .setOvertimeType((String)list.get(2)));
+                .setMinimumHours((long) (((Integer) values.get(0))))
+                .setMaximumHours(values.get(1).equals("INF") ? Long.MAX_VALUE : (long) (((Integer) values.get(1))))
+                .setOvertimeType((String)values.get(2)));
+              break;
+            case "RULE_HOURS_PER_DAY":
+              schedule.getDayOvertimeDefinitions().add(new DayOvertimeDefinition()
+                .setName(requestOvertimeRule.name)
+                .setId(requestOvertimeRule.id)
+                .setMinimumHours(new Long(((Integer) values.get(0))))
+                .setMaximumHours(values.get(1).equals("INF") ? Long.MAX_VALUE : new Long(((Integer) values.get(1))))
+                .setOvertimeType((String)values.get(2)));
+              break;
+            case "RULE_CONSECUTIVE_DAYS":
+              schedule.getConsecutiveDaysOvertimeDefinitions().add(new ConsecutiveDaysOvertimeDefinition()
+                .setName(requestOvertimeRule.name)
+                .setId(requestOvertimeRule.id)
+                .setMinimumDay(new Long(((Integer) values.get(0))))
+                .setMaximumDay(values.get(1).equals("INF") ? Long.MAX_VALUE : new Long(((Integer) values.get(1))))
+                .setOvertimeType((String)values.get(2))
+                .setMinimumHours(new Long(((Integer) values.get(3))))
+                .setMaximumHours(values.get(4).equals("INF") ? Long.MAX_VALUE : new Long(((Integer) values.get(4)))));
+              break;
+            default:
+              throw new RuntimeException("Unknown overtime rule type of " + ruleType);
+          }
         });
       });
     });
-
-    Set<RequestOvertimeRule> consecutiveDaysOvertimeRules = request.overtime_rules.stream().filter(requestOvertimeRule -> requestOvertimeRule.rule.containsKey("RULE_CONSECUTIVE_DAYS")).collect(Collectors.toSet());
-    consecutiveDaysOvertimeRules.forEach(requestOvertimeRule -> {
-      requestOvertimeRule.rule.values().forEach(ruleList -> {
-        ruleList.forEach(list -> {
-          schedule.getConsecutiveDaysOvertimeDefinitions().add(new ConsecutiveDaysOvertimeDefinition()
-              .setName(requestOvertimeRule.name)
-              .setId(requestOvertimeRule.id)
-              .setMinimumDay(new Long(((Integer) list.get(0))))
-              .setMaximumDay(list.get(1).equals("INF") ? Long.MAX_VALUE : new Long(((Integer) list.get(1))))
-              .setOvertimeType((String)list.get(2))
-              .setMinimumHours(new Long(((Integer) list.get(0))))
-              .setMaximumHours(list.get(1).equals("INF") ? Long.MAX_VALUE : new Long(((Integer) list.get(1)))));
-        });
-      });
-    });
-
     schedule.setPayrollSchedules(request.payroll_schedules.stream().map(requestPayrollSchedule -> {
 
       return new PayrollSchedule()
@@ -333,7 +329,6 @@ public class RequestResponseMapper {
                   .setPostId(Integer.parseInt(requestScaleFact.post_id))
                   .setImpact(new Impact(Boolean.parseBoolean(requestScaleFact.scale_impact_square), Integer.parseInt(requestScaleFact.scale_impact)));
       }).collect(Collectors.toSet()));
-
 
     return schedule;
   }

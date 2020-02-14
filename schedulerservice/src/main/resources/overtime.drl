@@ -1,0 +1,341 @@
+
+import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
+import com.tracktik.scheduler.domain.*;
+import java.time.*;
+import java.time.temporal.*;
+
+global HardSoftLongScoreHolder scoreHolder;
+
+/* The following facts are declared here rather than in Java as they are only relevant
+in the context of this ruleset
+*/
+
+// Holds the payroll period start and end. It could be one or two weeks long depending on the configuration
+declare PayrollPeriod
+  startTime : LocalDateTime
+  endTime : LocalDateTime
+end
+
+// Holds the work day start and end which is calculated from the payroll schedule. It may start at any time of day
+declare WorkDay
+  indexInPeriod : int
+  startTime : LocalDateTime
+  endTime : LocalDateTime
+end
+
+/*
+    Holds a portion of work that came from a shift. If a shift spans work days, it may be
+    split into WorkSlices. By default the payrollType will be REG for regular pay. As a portion
+    of a WorkSlice is determined to be overtime, it may be sliced further so that the overtime part
+    can be flagged as OT. This will help when other rules are determining additional overtime as on the
+    REG WorkSlices will be considered.
+*/
+declare WorkSlice
+  employeeId : String
+  workDay : WorkDay
+  shift : Shift
+  startTime : LocalDateTime
+  endTime : LocalDateTime
+  payrollType : PayrollType
+end
+
+/*
+    The ShiftMinimum and ShiftMaximum are used to hold the first start time and the last end time of any shift.
+    This is needed when determining the PayrollPeriod. The PayrollDefinition usually specifies a payroll start time and
+    day that is fairly far back in time. We need to move that period forward and see when it encompasses the
+    ShiftMinimum and ShiftMaximum.
+*/
+declare ShiftMinimum
+  startTime : LocalDateTime
+end
+
+declare ShiftMaximum
+  endTime : LocalDateTime
+end
+
+/*
+    Holds the date of the first consecutive WorkSlice. This is used in determining the WorkSliceSequence
+*/
+declare ConsecutiveWorkSliceStart
+  employeeId : String
+  date : LocalDate
+end
+
+/*
+    Holds the date of the last consecutive WorkSlice. This is used in determining the WorkSliceSequence
+*/
+declare ConsecutiveWorkSliceEnd
+  employeeId : String
+  date : LocalDate
+end
+
+/*
+    Holds the start and end dates of a sequence of workslices. The days between start and end will
+    be the number of consecutive days of work.
+*/
+declare WorkSliceSequence
+  employeeId : String
+  startDate : LocalDate
+  endDate : LocalDate
+end
+
+/*
+    Finds the first start and last end time of any Shift. This is used to help determine the PayrollPeriod.
+*/
+rule "find shift time limits"
+    when
+        not ShiftMinimum()
+        not ShiftMaximum()
+        accumulate( Shift( $start : start.atZone(ZoneId.systemDefault()).toInstant().getEpochSecond(), $end : end.atZone(ZoneId.systemDefault()).toInstant().getEpochSecond() ),
+            $min : min($start),
+            $max : max($end))
+    then
+        Instant instant = Instant.ofEpochSecond($min);
+        LocalDateTime startDate = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+        instant = Instant.ofEpochSecond($max);
+        LocalDateTime endDate = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+//        System.out.println("minimum start " + startDate + " max " + endDate);
+        ShiftMinimum minimum = new ShiftMinimum();
+        minimum.setStartTime(startDate);
+        insert(minimum);
+        ShiftMaximum maximum = new ShiftMaximum();
+        maximum.setEndTime(endDate);
+        insert(maximum);
+end
+
+/*
+    The payroll period specified in the PayrollSchedule is usually far back in time. We need to
+    move that time period forward by either 7 or 14 days if weekly or bi-weekly to determine when we
+    have a PayrollPeriod that encompasses all of the shifts.
+*/
+rule "determine payroll periods"
+    when
+        ShiftMinimum($firstShiftStart : startTime)
+        ShiftMaximum($lastShiftEnd : endTime)
+        PayrollSchedule($frequency : frequency, $pst: periodStartTime, $psd: periodStartDate )
+    then
+        int daysInPeriod = 0;
+        if ($frequency.equals("weekly")) daysInPeriod = 7;
+        else if ($frequency.equals("bi_weekly")) daysInPeriod = 14;
+
+        LocalDateTime periodStart = LocalDateTime.of($psd, $pst);
+        LocalDateTime periodEnd = periodStart.plusDays(daysInPeriod);
+        while (periodEnd.isBefore($lastShiftEnd)) {
+          if (periodStart.isBefore($lastShiftEnd) && periodEnd.isAfter($firstShiftStart)) {
+            PayrollPeriod payrollPeriod = new PayrollPeriod();
+            payrollPeriod.setStartTime(periodStart);
+            payrollPeriod.setEndTime(periodEnd);
+            insert(payrollPeriod);
+//            System.out.println(payrollPeriod);
+          }
+          periodStart = periodStart.plusDays(daysInPeriod);
+          periodEnd = periodStart.plusDays(daysInPeriod);
+        }
+end
+
+/*
+    The work days of the PayrollPeriod are used in other rules for comparisons.
+*/
+rule "initialize WorkDays"
+    when
+        PayrollSchedule($frequency : frequency)
+        PayrollPeriod($startTime : startTime)
+    then
+        int periods = 0;
+        if ($frequency.equals("weekly")) periods = 7;
+        else if ($frequency.equals("bi_weekly")) periods = 14;
+
+        for (int i = 0; i < periods; i++) {
+          WorkDay workday = new WorkDay();
+          workday.setIndexInPeriod(i);
+          workday.setStartTime($startTime.plusDays(i));
+          workday.setEndTime(workday.getStartTime().plusDays(1));
+          insert(workday);
+        }
+ end
+
+/*
+    If the duration of a shift spans work days and the payroll schedule specifies 'cut' then the
+    shifts will be split into WorkSlices. The WorkSlices are inserted with insertLogical so that if
+    anything changes with a shift, the WorkSlices will be recalculated.
+*/
+rule "set work slice with cut"
+when
+    PayrollSchedule(overlappingMethod == OverlappingMethodType.CUT)
+    $workDay : WorkDay($dayStart: startTime, $dayEnd: endTime)
+    $shift : Shift(employee != null, $employeeId : employee.id, $dayStart.isBefore(end) , $dayEnd.isAfter(start), $shiftStart : start, $shiftEnd : end)
+then
+    LocalDateTime maxStartTime = $dayStart.isAfter($shiftStart) ? $dayStart : $shiftStart;
+    LocalDateTime minEndTime = $dayEnd.isBefore($shiftEnd) ? $dayEnd : $shiftEnd;
+    WorkSlice workSlice = new WorkSlice();
+    workSlice.setEmployeeId($employeeId);
+    workSlice.setShift($shift);
+    workSlice.setWorkDay($workDay);
+    workSlice.setStartTime(maxStartTime);
+    workSlice.setEndTime(minEndTime);
+    workSlice.setPayrollType(PayrollType.REG);
+    insertLogical(workSlice);
+//    System.out.println("\nDay from " + $dayStart + " end " + $dayEnd);
+//    System.out.println("Shift from " + $shiftStart + " end " + $shiftEnd);
+//    System.out.println("WorkSlice from " + workSlice.getStartTime() + " to " + workSlice.getEndTime());
+end
+
+/*
+    Even if the Payroll Schedule specifies 'span' for OT calculation, they will be represented as
+    WorkSlices. This is so that when OT rules determine that a portion of a WorkSlice is to be counted as OT,
+    it can be spit again and only the portion that is OT will be marked as such. This will prevent OT from being
+    double counted.
+*/
+rule "set work slice with span"
+when
+    PayrollSchedule(overlappingMethod == OverlappingMethodType.SPAN)
+    $workDay : WorkDay($dayStart: startTime, $dayEnd: endTime)
+    $shift : Shift(employee != null, $employeeId : employee.id, start.compareTo($dayStart) >= 0 , start.compareTo($dayEnd) <= 0, $shiftStart : start, $shiftEnd : end)
+    //not WorkSlice($employeeId == employeeId, $shift == shift, $workDay == workDay)
+then
+    WorkSlice workSlice = new WorkSlice();
+    workSlice.setEmployeeId($employeeId);
+    workSlice.setShift($shift);
+    workSlice.setWorkDay($workDay);
+    workSlice.setStartTime($shiftStart);
+    workSlice.setEndTime($shiftEnd);
+    workSlice.setPayrollType(PayrollType.REG);
+    insertLogical(workSlice);
+//    System.out.println("\nDay from " + $dayStart + " end " + $dayEnd);
+//    System.out.println("Shift from " + $shiftStart + " end " + $shiftEnd);
+//    System.out.println("WorkSlice from " + workSlice.getStartTime() + " to " + workSlice.getEndTime());
+end
+
+/*
+    Day overtime is calculated based on the DayOvertimeDefinition. If will compute standard overtime pay as well
+    as double overtime pay based on the min/max hours and the overtime type. A negative of the overtime
+    pay is added to the soft constraint. This will cause the solver to minimize overtime.
+*/
+rule "day overtime"
+    when
+        $dayOvertimeDefinition : DayOvertimeDefinition($minHours : minimumHours, $maxHours : maximumHours, $overtimeType : overtimeType)
+        Employee($employeeId: id, cost != null, $cost : cost)
+        $workDay : WorkDay($dayStart: startTime, $dayEnd: endTime)
+        $total : Duration( toHours() >= $minHours, toHours() <= $maxHours)
+         from accumulate ( WorkSlice(workDay == $workDay, employeeId == $employeeId, $startTime: startTime, $endTime: endTime, payrollType == PayrollType.REG ),
+             init( Duration total = Duration.ZERO; ),
+             action( total = total.plus(Duration.between($startTime, $endTime)); ),
+             reverse( total = total.minus(Duration.between($startTime, $endTime)); ),
+             result( total ) )
+    then
+        Double multiplier = 0d;
+        if ($overtimeType.equals("OT")) multiplier = 1.5d;
+        else if ($overtimeType.equals("DBL")) multiplier = 2.0d;
+        Long hours = $total.toHours();
+        if (hours > $maxHours) hours = $maxHours;
+        hours -= $minHours;
+
+        Double payRate = $cost / 100d;
+        Double otPay = payRate * hours * multiplier;
+//        System.out.println("Daily overtime for " + $dayStart + " " + otPay);
+        scoreHolder.addSoftConstraintMatch(kcontext, - otPay.longValue());
+end
+
+/*
+    Calculates the amount of overtime for the payroll period based on the PeriodOvertimeDefinition. It calculates
+    both standard OT and double OT based on the overtimeType. It does something a bit tricky with the accmulate function.
+    Durations of WorkSlices are accumulated and then the total hours is derived from that in the 'then' part.
+    A negative of the overtime pay is added to the soft constraint. This will cause the solver to minimize period overtime.
+*/
+rule "period overtime"
+    when
+        $periodOvertimeDefinition : PeriodOvertimeDefinition($minHours : minimumHours, $maxHours : maximumHours, $overtimeType : overtimeType)
+        Employee($employeeId: id, cost != null, $cost : cost)
+        $total : Duration( toHours() >= $minHours, toHours() <= $maxHours)
+            from accumulate ( WorkSlice(employeeId == $employeeId, $startTime: startTime, $endTime: endTime, payrollType == PayrollType.REG ),
+                init( Duration total = Duration.ZERO; ),
+                action( total = total.plus(Duration.between($startTime, $endTime)); ),
+                reverse( total = total.minus(Duration.between($startTime, $endTime)); ),
+                result( total ) )
+    then
+        Double multiplier = 0d;
+        if ($overtimeType.equals("OT")) multiplier = 1.5d;
+        else if ($overtimeType.equals("DBL")) multiplier = 2.0d;
+        System.out.println("\nTotal period duration: " + $total + " for " + $employeeId + " cost " + $cost);
+        Long hours = $total.toHours();
+//        System.out.println("Raw hours: " + hours);
+        if (hours > $maxHours) hours = $maxHours;
+//        System.out.println("Adjusted for max: " + $maxHours + " hours: " + hours);
+        hours -= $minHours;
+//        System.out.println("Adjusted for min: " + $minHours + " hours: " + hours);
+
+        Double payRate = $cost / 100d;
+        Double otPay = payRate * hours * multiplier;
+//        System.out.println("Overtime pay: " + otPay + " at rate: " + payRate);
+        scoreHolder.addSoftConstraintMatch(kcontext, - otPay.longValue());
+        //System.out.println($consecutiveDaysOvertimeDefinition);
+        //System.out.println($dayOvertimeDefinition);
+end
+
+/*
+    Finds the first of the consecutive WorkSlices by checking that none come before it. This
+    will be used in creating the WorkSliceSequence. We insert it with insertLogical so that if
+    anything happens to change WorkSlices, this will be re-computed.
+*/
+rule "insert ConsecutiveWorkSliceStart"
+    when
+        WorkSlice( $employeeId : employeeId, $date : workDay.startTime.toLocalDate() )
+        not WorkSlice($employeeId == employeeId, workDay.startTime.toLocalDate().isBefore($date))
+    then
+        ConsecutiveWorkSliceStart start = new ConsecutiveWorkSliceStart();
+        start.setEmployeeId($employeeId);
+        start.setDate($date);
+        insertLogical(start);
+end
+
+/*
+    Finds the last of the consecutive WorkSlices by checking that none come after it. This
+    will be used in creating the WorkSliceSequence. We insert it with insertLogical so that if
+    anything happens to change WorkSlices, this will be re-computed.
+*/
+rule "insert ConsecutiveWorkSliceEnd"
+    when
+        WorkSlice( $employeeId : employeeId, $date : workDay.startTime.toLocalDate() )
+        not WorkSlice($employeeId == employeeId, workDay.startTime.toLocalDate().isAfter($date))
+    then
+        ConsecutiveWorkSliceEnd sliceEnd = new ConsecutiveWorkSliceEnd();
+        sliceEnd.setEmployeeId($employeeId);
+        sliceEnd.setDate($date);
+        insertLogical(sliceEnd);
+end
+
+/*
+    Finds any sequencial WorkSlices if they exists. This will be used to find the number
+    of consecutive work days.
+*/
+rule "insert WorkSliceSequence"
+    when
+        ConsecutiveWorkSliceStart($employeeId : employeeId, $startDate : date)
+        ConsecutiveWorkSliceEnd($employeeId == employeeId,$endDate : date)
+        not ConsecutiveWorkSliceEnd($employeeId == employeeId, date.compareTo($startDate) >= 0 && date.isBefore($endDate))
+    then
+        WorkSliceSequence workSliceSequence = new WorkSliceSequence();
+        workSliceSequence.setEmployeeId($employeeId);
+        workSliceSequence.setStartDate($startDate);
+        workSliceSequence.setEndDate($endDate);
+        insertLogical(workSliceSequence);
+end
+
+/*
+    Determines if OT should be paid for consecutive workdays base on the ConsecutiveDaysOvertimeDefinition.
+    An issue was found in this rule with the hours accmulation. This needs to be fixed.
+    As of now, it will add the payrate as a negative soft constraint.
+*/
+rule "consecutive workdays"
+    when
+        $definition : ConsecutiveDaysOvertimeDefinition($minHours : minimumHours, $maxHours : maximumHours, $minDays : minimumDay, $maxDays : maximumDay, $overtimeType : overtimeType)
+        Employee($employeeId: id, cost != null, $cost : cost)
+        WorkSliceSequence( $employeeId == employeeId, $days : Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays(), $days >= $minDays, $days <= $maxDays)
+    then
+        Double multiplier = 0d;
+        if ($overtimeType.equals("OT")) multiplier = 1.5d;
+        else if ($overtimeType.equals("DBL")) multiplier = 2.0d;
+        Double payRate = $cost / 100d;
+        //Double otPay = payRate * hours * multiplier;
+        scoreHolder.addSoftConstraintMatch(kcontext, - payRate.longValue());
+end

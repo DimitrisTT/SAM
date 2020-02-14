@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-  <property name="USER_HOME" value="/home/nellis/TrackTikLogs/Schedulerapi/logs" />
+  <property name="USER_HOME" value="/Users/davidbush/TrackTikLogs/Schedulerapi/logs" />
 
   <timestamp key="bySecond" datePattern="yyyyMMdd.HHmmss"/>
 
@@ -25,7 +25,7 @@
     </encoder>
   </appender>
 
-  <root level="error">
+  <root level="info">
     <appender-ref ref="consoleAppender" />
   </root>
 

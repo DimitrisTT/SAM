@@ -1,3 +1,4 @@
+
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
 //import com.tracktik.scheduler.domain.Employee;
 //import com.tracktik.scheduler.domain.ScaleFact;

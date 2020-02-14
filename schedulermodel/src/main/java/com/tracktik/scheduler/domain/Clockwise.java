@@ -20,6 +20,9 @@ public class Clockwise {
     private boolean countHolidays = false;
     private boolean alignHolidays = false;
 
+    public Clockwise() {
+        super();
+    }
     /*
     @param pst is a payrollSchedule's WorkPeriodStartTime
     @param psd is a payrollSchedule's WorkPeriodStartDate
