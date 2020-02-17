@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-  <property name="USER_HOME" value="/Users/davidbush/TrackTikLogs/Schedulerapi/logs" />
+  <property name="USER_HOME" value="/home/nellis/Develop/TrackTik/TrackTikOptaPlanner/Logs/Schedulerapi/logs" />
 
   <timestamp key="bySecond" datePattern="yyyyMMdd.HHmmss"/>
 
