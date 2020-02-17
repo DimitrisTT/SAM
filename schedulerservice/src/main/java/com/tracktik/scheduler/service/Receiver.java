@@ -75,10 +75,10 @@ public class Receiver {
       Long shiftsUnfilled = event.getNewBestSolution().getShifts().stream().filter(Shift::getPlan).filter(shift -> shift.getEmployee() == null).count();
 
       scoreDirector.setWorkingSolution(event.getNewBestSolution());
-      Set<ConstrainScore> scores = scoreDirector.getConstraintMatchTotals().stream().map(constraintMatchTotal -> {
+      Set<ConstraintScore> scores = scoreDirector.getConstraintMatchTotals().stream().map(constraintMatchTotal -> {
         String constrainName = constraintMatchTotal.getConstraintName();
         HardSoftLongScore constrainScore = (HardSoftLongScore) constraintMatchTotal.getScoreTotal();
-        return new ConstrainScore(constrainName, constrainScore.getSoftScore(), constrainScore.getHardScore());
+        return new ConstraintScore(constrainName, constrainScore.getSoftScore(), constrainScore.getHardScore());
       }).collect(Collectors.toSet());
 
       HardSoftLongScore score = (HardSoftLongScore) event.getNewBestScore();
@@ -105,10 +105,10 @@ public class Receiver {
     Long shiftsUnfilled = solvedSchedule.getShifts().stream().filter(Shift::getPlan).filter(shift -> shift.getEmployee() == null).count();
 
     scoreDirector.setWorkingSolution(solvedSchedule);
-    Set<ConstrainScore> scores = scoreDirector.getConstraintMatchTotals().stream().map(constraintMatchTotal -> {
+    Set<ConstraintScore> scores = scoreDirector.getConstraintMatchTotals().stream().map(constraintMatchTotal -> {
       String constrainName = constraintMatchTotal.getConstraintName();
       HardSoftLongScore constrainScore = (HardSoftLongScore) constraintMatchTotal.getScoreTotal();
-      return new ConstrainScore(constrainName, constrainScore.getSoftScore(), constrainScore.getHardScore());
+      return new ConstraintScore(constrainName, constrainScore.getSoftScore(), constrainScore.getHardScore());
     }).collect(Collectors.toSet());
 
     HardSoftLongScore score = (HardSoftLongScore) solver.getBestScore();
@@ -132,11 +132,11 @@ public class Receiver {
               .setScores(
                   objectIndictmentEntry.getValue().getConstraintMatchSet().stream().map(constraintMatch -> {
                     HardSoftLongScore constraintMatchScore = (HardSoftLongScore) constraintMatch.getScore();
-                    ConstrainScore constrainScore = new ConstrainScore();
-                    constrainScore.setConstraint_name(constraintMatch.getConstraintName());
-                    constrainScore.setHard_score(constraintMatchScore.getHardScore());
-                    constrainScore.setSoft_score(constraintMatchScore.getSoftScore());
-                    return constrainScore;
+                    ConstraintScore constraintScore = new ConstraintScore();
+                    constraintScore.setConstraint_name(constraintMatch.getConstraintName());
+                    constraintScore.setHard_score(constraintMatchScore.getHardScore());
+                    constraintScore.setSoft_score(constraintMatchScore.getSoftScore());
+                    return constraintScore;
                   }).collect(Collectors.toSet())
               );
         }).collect(Collectors.toSet());

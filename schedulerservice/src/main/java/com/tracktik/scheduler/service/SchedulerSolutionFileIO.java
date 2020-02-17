@@ -208,10 +208,10 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
         .setShifts(solution.getShifts())
         .setStatus(SolverStatus.COMPLETED);
 
-    Set<ConstrainScore> scores = scoreDirector.getConstraintMatchTotals().stream().map(constraintMatchTotal -> {
+    Set<ConstraintScore> scores = scoreDirector.getConstraintMatchTotals().stream().map(constraintMatchTotal -> {
       String constrainName = constraintMatchTotal.getConstraintName();
       HardSoftLongScore constrainScore = (HardSoftLongScore) constraintMatchTotal.getScoreTotal();
-      return new ConstrainScore(constrainName, constrainScore.getSoftScore(), constrainScore.getHardScore());
+      return new ConstraintScore(constrainName, constrainScore.getSoftScore(), constrainScore.getHardScore());
     }).collect(Collectors.toSet());
 
     HardSoftLongScore score = (HardSoftLongScore) scoreDirector.calculateScore();

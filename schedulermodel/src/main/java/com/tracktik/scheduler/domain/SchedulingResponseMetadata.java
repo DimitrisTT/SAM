@@ -15,7 +15,7 @@ public class SchedulingResponseMetadata {
   private Long hard_constraint_score;
   private Long soft_constraint_score;
   private Long time_to_solve;
-  private Set<ConstrainScore> constraint_scores = new HashSet<>();
+  private Set<ConstraintScore> constraint_scores = new HashSet<>();
   private Set<ShiftAssignmentConstraintScores> shift_assignment_scores = new HashSet<>();
 
 }

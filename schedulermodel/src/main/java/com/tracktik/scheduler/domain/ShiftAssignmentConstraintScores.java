@@ -13,6 +13,6 @@ import java.util.Set;
 public class ShiftAssignmentConstraintScores {
   private String shift_id;
   private String employee_id;
-  private Set<ConstrainScore> scores = new HashSet<>();
+  private Set<ConstraintScore> scores = new HashSet<>();
 
 }
