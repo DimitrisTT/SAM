@@ -57,9 +57,23 @@ public class OvertimeSteps implements En {
     String payrollType;
   }
 
+  class TestPayrollSchedule {
+    String frequency;
+    String periodStartTime;
+    String periodStartDate;
+  }
+  class TestPayrollPeriod {
+    String start;
+    String end;
+  }
+
   Employee employee = new Employee().setId("1").setOvertimeRuleId("1").setPayScheduleId("1");
   PayrollSchedule payrollSchedule = new PayrollSchedule().setId("1");
   ZoneId zoneId;
+  LocalDateTime shiftMin;
+  LocalDateTime shiftMax;
+  Set<LocalDateTime> payrollPeriodStarts;
+  Set<LocalDateTime> payrollPeriodEnds;
 
   public OvertimeSteps(DroolsTestApi droolsTestApi) {
 
@@ -101,6 +115,17 @@ public class OvertimeSteps implements En {
       shifts.forEach(Shift::setTimeStamps);
       shifts.forEach(droolsTestApi.ksession::insert);
     });
+    And("^a PayrollSchedule of$", (DataTable table) -> {
+      AtomicInteger shiftId = new AtomicInteger(1);
+      Set<PayrollSchedule> payrollSchedules = table.asList(TestPayrollSchedule.class).stream().map(testPayrollSchedule -> {
+        return new PayrollSchedule()
+                .setId(Integer.toString(shiftId.getAndIncrement()))
+                .setFrequency(testPayrollSchedule.frequency)
+                .setPeriodStartTime(LocalTime.parse(testPayrollSchedule.periodStartTime))
+                .setPeriodStartDate(LocalDate.parse(testPayrollSchedule.periodStartDate));
+      }).collect(Collectors.toSet());
+      payrollSchedules.forEach(droolsTestApi.ksession::insert);
+    });
     And("^period overtime definitions with id '(.*?)' of$", (String id, DataTable table) -> {
       Set<PeriodOvertimeDefinition> periodOvertimeDefinitions = table.asList(TestPeriodOvertime.class).stream().map(testDefinition -> {
         return new PeriodOvertimeDefinition()
@@ -140,13 +165,22 @@ public class OvertimeSteps implements En {
       payrollSchedule.setAlignHolidaysWithPeriodStartTime(true);
     });
     When("^overtime is calculated$", () -> {
-      //System.out.println("payrollSchedule " + payrollSchedule);
-      //Clockwise clockwise = new Clockwise();
-      //employee.setClockwise(clockwise);
-      //System.out.println("employee: " + employee.getId());
       droolsTestApi.ksession.insert(employee);
       droolsTestApi.ksession.insert(payrollSchedule);
       droolsTestApi.ksession.fireAllRules();
+      for(Object object: droolsTestApi.ksession.getObjects()) {
+        //System.out.println("Shifts: " + object);
+        if(object.getClass().getName().equals(droolsTestApi.ksession.getKieBase().getFactType("com.tracktik.scheduler.service", "ShiftMinimum").getName())){
+          shiftMin = (LocalDateTime) object.getClass().getDeclaredMethod("getStartTime").invoke(object);
+        }
+        if(object.getClass().getName().equals(droolsTestApi.ksession.getKieBase().getFactType("com.tracktik.scheduler.service", "ShiftMaximum").getName())){
+          shiftMax = (LocalDateTime) object.getClass().getDeclaredMethod("getEndTime").invoke(object);
+        }
+        if(object.getClass().getName().equals(droolsTestApi.ksession.getKieBase().getFactType("com.tracktik.scheduler.service", "PayrollPeriod").getName())){
+          payrollPeriodStarts.add((LocalDateTime) object.getClass().getDeclaredMethod("getStartTime").invoke(object));
+          payrollPeriodEnds.add((LocalDateTime) object.getClass().getDeclaredMethod("getEndTime").invoke(object));
+        }
+      }
     });
     Then("^softscore is (-?\\d+)$", (Integer softScore) -> {
       assertEquals(softScore.longValue(), droolsTestApi.getScoreHolder().getSoftScore());
@@ -200,6 +234,60 @@ public class OvertimeSteps implements En {
         }
       }
     });
+//
+//    Then("^the following PayrollPeriods are expected$", (DataTable table) -> {
+//      Set<LocalDateTime> ldtStarts = new HashSet<>();
+//      Set<LocalDateTime> ldtEnds = new HashSet<>();
+//      table.
+//      table.asList(TestPayrollPeriod.class).stream().map(testPayrollPeriod -> {
+//        ldtStarts.add(LocalDateTime.parse(testPayrollPeriod.start));
+//        ldtEnds.add(LocalDateTime.parse(testPayrollPeriod.end));
+//        return;
+//      });
+//      int trues = 0;
+//      for (Object object : droolsTestApi.ksession.getObjects()) {
+//        if (object.getClass().equals(Employee.class)) {
+//          Employee employee = (Employee) object;
+//          for(Payroll ksessionPayroll: employee.getClockwise().getPayrollSet()){
+//            //if(ksessionPayroll.getId() == 0 && ksessionPayroll.getPayrollType() == PayrollType.REG || ksessionPayroll.getId() == 1 && ksessionPayroll.getPayrollType() == PayrollType.REG) {
+//            //  System.out.println("from ksession: " + ksessionPayroll);
+//            //}
+//            //if(ksessionPayroll.getId() == 0 && ksessionPayroll.getPayrollType() == PayrollType.HOL || ksessionPayroll.getId() == 1 && ksessionPayroll.getPayrollType() == PayrollType.HOL) {
+//            //  System.out.println("from ksession: " + ksessionPayroll);
+//            //}
+//            //if(ksessionPayroll.getId() == 0 && ksessionPayroll.getPayrollType() == PayrollType.OT || ksessionPayroll.getId() == 1 && ksessionPayroll.getPayrollType() == PayrollType.OT) {
+//            //  System.out.println("from ksession: " + ksessionPayroll);
+//            //}
+//            for (Payroll expectedPayroll : expectedPayrolls) {
+//              //if(ksessionPayroll.getId() == 0 || ksessionPayroll.getId() == 1 && ksessionPayroll.getPayrollType() == PayrollType.REG) {
+//              //  System.out.println("expected: " + expectedPayrolls);
+//              //}
+//              if (ksessionPayroll.equals(expectedPayroll)) {
+//                trues++;
+//              }
+//            }
+//          }
+//          assertTrue(trues==expectedPayrolls.size());
+//        }
+//      }
+//    });
+
+  Then("^a ShiftMinimum of (.*?) is expected$", (String shiftMinny) -> {
+    LocalDateTime ldt = LocalDateTime.parse(shiftMinny, dateTimeFormatter);
+    assertEquals(ldt, shiftMin);
+  });
+
+    Then("^a ShiftMaximum of (.*?) is expected$", (String shiftMaxxy) -> {
+      LocalDateTime ldt = LocalDateTime.parse(shiftMaxxy, dateTimeFormatter);
+      assertEquals(ldt, shiftMax);
+    });
+
+//    Then("^a PayrollPeriod with start (.*?) and end (.*?) is expected$", (String ppStart, String ppEnd) -> {
+//      LocalDateTime pps = LocalDateTime.parse(ppStart, dateTimeFormatter);
+//      LocalDateTime ppe = LocalDateTime.parse(ppEnd, dateTimeFormatter);
+//      assertEquals(pps, payrollPeriodStart);
+//      assertEquals(ppe, payrollPeriodEnd);
+//    });
 
   }
 }

@@ -1,3 +1,4 @@
+package com.tracktik.scheduler.service;
 
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
 import com.tracktik.scheduler.domain.*;
@@ -94,7 +95,7 @@ rule "find shift time limits"
         LocalDateTime startDate = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
         instant = Instant.ofEpochSecond($max);
         LocalDateTime endDate = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
-//        System.out.println("minimum start " + startDate + " max " + endDate);
+        //System.out.println("minimum start " + startDate + " max " + endDate);
         ShiftMinimum minimum = new ShiftMinimum();
         minimum.setStartTime(startDate);
         insert(minimum);
@@ -112,7 +113,7 @@ rule "determine payroll periods"
     when
         ShiftMinimum($firstShiftStart : startTime)
         ShiftMaximum($lastShiftEnd : endTime)
-        PayrollSchedule($frequency : frequency, $pst: periodStartTime, $psd: periodStartDate )
+        PayrollSchedule(frequency!=null, periodStartTime!=null, periodStartDate!=null, $frequency : frequency, $pst: periodStartTime, $psd: periodStartDate )
     then
         int daysInPeriod = 0;
         if ($frequency.equals("weekly")) daysInPeriod = 7;

@@ -41,6 +41,7 @@ public class DroolsTestApi {
         "src/main/resources/overtimeConstraintRules.drl",
         "src/main/resources/proximityConstraintRules.drl",
         "src/main/resources/scaleRules.drl",
+        "src/main/resources/overtime.drl",
         "src/main/resources/schedulerScoreRules.drl").forEach(name -> {
       File file = new File(name);
       Resource resource = kieServices.getResources().newFileSystemResource(file).setResourceType(ResourceType.DRL);

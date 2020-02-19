@@ -14,19 +14,19 @@ global HardSoftLongScoreHolder scoreHolder;
 
 //rule for workPeriod slicing
 
-rule "Clockwise workPeriod construction print out overtime"
-salience 10
-    when
-        PayrollSchedule( $pst: periodStartTime, $psd: periodStartDate, $countHolidays: countHolidayHoursTowardsPeriodOvertime, $alignHolidays: alignHolidaysWithPeriodStartTime, $freq: frequency, $omt: overlappingMethod )
-        $employee: Employee(clockwise == null)
-        //$pod: PeriodOvertimeDefinition(minimumHours != null, maximumHours != null, overtimeType != null)
-    then
-        Clockwise clockwise = new Clockwise($pst, $psd, $countHolidays, $alignHolidays, $freq, $omt);
-        //System.out.println(clockwise.getWorkPeriodSet());
-        $employee.setClockwise(clockwise);
-        update($employee);
-        //clockwise.printSets();
- end
+//rule "Clockwise workPeriod construction print out overtime"
+//salience 10
+//    when
+//        PayrollSchedule( $pst: periodStartTime, $psd: periodStartDate, $countHolidays: countHolidayHoursTowardsPeriodOvertime, $alignHolidays: alignHolidaysWithPeriodStartTime, $freq: frequency, $omt: overlappingMethod )
+//        $employee: Employee(clockwise == null)
+//        //$pod: PeriodOvertimeDefinition(minimumHours != null, maximumHours != null, overtimeType != null)
+//    then
+//        Clockwise clockwise = new Clockwise($pst, $psd, $countHolidays, $alignHolidays, $freq, $omt);
+//        //System.out.println(clockwise.getWorkPeriodSet());
+//        $employee.setClockwise(clockwise);
+//        update($employee);
+//        //clockwise.printSets();
+// end
 
 //rule "Clockwise workPeriod construction"
 //salience 10
