@@ -121,16 +121,18 @@ rule "determine payroll periods"
 
         LocalDateTime periodStart = LocalDateTime.of($psd, $pst);
         LocalDateTime periodEnd = periodStart.plusDays(daysInPeriod);
-        while (periodEnd.isBefore($lastShiftEnd)) {
+         while (periodStart.isBefore($lastShiftEnd) && daysInPeriod != 0) {
+          //System.out.println("(premade)dpp-start: " + periodStart + " dpp-end: " + periodEnd);
           if (periodStart.isBefore($lastShiftEnd) && periodEnd.isAfter($firstShiftStart)) {
             PayrollPeriod payrollPeriod = new PayrollPeriod();
             payrollPeriod.setStartTime(periodStart);
             payrollPeriod.setEndTime(periodEnd);
             insert(payrollPeriod);
-//            System.out.println(payrollPeriod);
+            //System.out.println(payrollPeriod);
           }
           periodStart = periodStart.plusDays(daysInPeriod);
           periodEnd = periodStart.plusDays(daysInPeriod);
+          //System.out.println("(postmade)dpp-start: " + periodStart + " dpp-end: " + periodEnd);
         }
 end
 
@@ -139,19 +141,20 @@ end
 */
 rule "initialize WorkDays"
     when
-        PayrollSchedule($frequency : frequency)
-        PayrollPeriod($startTime : startTime)
+        PayrollSchedule(frequency != null, $frequency : frequency)
+        PayrollPeriod(startTime != null, $startTime : startTime)
     then
-        int periods = 0;
-        if ($frequency.equals("weekly")) periods = 7;
-        else if ($frequency.equals("bi_weekly")) periods = 14;
+        int daysInPeriod = 0;
+        if ($frequency.equals("weekly")) daysInPeriod = 7;
+        else if ($frequency.equals("bi_weekly")) daysInPeriod = 14;
 
-        for (int i = 0; i < periods; i++) {
+        for (int i = 0; i < daysInPeriod; i++) {
           WorkDay workday = new WorkDay();
           workday.setIndexInPeriod(i);
           workday.setStartTime($startTime.plusDays(i));
           workday.setEndTime(workday.getStartTime().plusDays(1));
           insert(workday);
+          //System.out.println("(workDay) id: " + i + " startTime: " + $startTime.plusDays(i) + " endTime: " + $startTime.plusDays(i+1));
         }
  end
 

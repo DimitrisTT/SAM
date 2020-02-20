@@ -15,7 +15,7 @@ Feature: Overtime Track Tik tests
 #      | 0  | 7    | 0      | 0      | 7        | 25200               | REG         |
 #      | 1  | 2    | 0      | 0      | 2        | 7200                | REG         |
 
-Scenario:
+Scenario: testing shift max and min with one of each
   Given employee shifts of
     |start              |end                |
     |2020-01-02 04:00:00|2020-01-02 09:00:00|
@@ -24,7 +24,7 @@ Scenario:
   Then a ShiftMinimum of 2020-01-02 04:00:00 is expected
   Then a ShiftMaximum of 2020-01-08 02:00:00 is expected
 
-  Scenario:
+  Scenario: testing shift max and min with multiple of each
     Given employee shifts of
       |start              |end                |
       |2020-01-02 04:00:00|2020-01-02 09:00:00|
@@ -36,16 +36,85 @@ Scenario:
     Then a ShiftMinimum of 2020-01-02 04:00:00 is expected
     Then a ShiftMaximum of 2020-01-08 02:00:00 is expected
 
-#  Scenario:
-#    Given employee shifts of
-#      |start              |end                |
-#      |2020-01-02 04:00:00|2020-01-02 09:00:00|
-#      |2020-01-07 22:00:00|2020-01-08 02:00:00|
-#    And a PayrollSchedule of
-#      |frequency|periodStartTime|periodStartDate|
-#      | weekly  | 00:00         | 2020-01-01    |
-#    When overtime is calculated
-#    Then the following PayrollPeriods are expected
-#      |start              |end                |
-#      |2020-01-01 00:00:00|2020-01-08 00:00:00|
-#      |2020-01-08 00:00:00|2020-01-15 02:00:00|
+  Scenario: testing weekly creation of PayPeriods by shifts
+    Given employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 09:00:00|
+      |2020-01-07 22:00:00|2020-01-08 02:00:00|
+      |2020-01-09 10:00:00|2020-01-09 22:00:00|
+    And a PayrollSchedule of
+      |frequency|periodStartTime|periodStartDate|
+      | weekly  | 00:00         | 2020-01-01    |
+    When overtime is calculated
+    Then the following PayrollPeriodStarts are expected
+      |start              |
+      |2020-01-01 00:00:00|
+      |2020-01-08 00:00:00|
+    Then the following PayrollPeriodEnds are expected
+      |end                |
+      |2020-01-08 00:00:00|
+      |2020-01-15 00:00:00|
+
+  Scenario: testing bi_weekly creation of PayPeriods by shifts
+    Given employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 09:00:00|
+      |2020-01-07 22:00:00|2020-01-08 02:00:00|
+      |2020-01-09 10:00:00|2020-01-09 22:00:00|
+    And a PayrollSchedule of
+      |frequency  |periodStartTime|periodStartDate|
+      | bi_weekly | 00:00         | 2020-01-01    |
+    When overtime is calculated
+    Then the following PayrollPeriodStarts are expected
+      |start              |
+      |2020-01-01 00:00:00|
+    Then the following PayrollPeriodEnds are expected
+      |end                |
+      |2020-01-15 00:00:00|
+
+  Scenario: initializing workdays weekly
+    Given employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 09:00:00|
+      |2020-01-07 22:00:00|2020-01-07 23:00:00|
+    And a PayrollSchedule of
+      |frequency|periodStartTime|periodStartDate|
+      | weekly  | 00:00         | 2020-01-01    |
+    When overtime is calculated
+    Then the following WorkDays are expected
+      | id | start          | end            |
+      | 0  |2020-01-01T00:00|2020-01-02T00:00|
+      | 1  |2020-01-02T00:00|2020-01-03T00:00|
+      | 2  |2020-01-03T00:00|2020-01-04T00:00|
+      | 3  |2020-01-04T00:00|2020-01-05T00:00|
+      | 4  |2020-01-05T00:00|2020-01-06T00:00|
+      | 5  |2020-01-06T00:00|2020-01-07T00:00|
+      | 6  |2020-01-07T00:00|2020-01-08T00:00|
+
+  Scenario: initializing workdays bi_weekly
+    Given employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 09:00:00|
+      |2020-01-07 22:00:00|2020-01-07 23:00:00|
+    And a PayrollSchedule of
+      |frequency   |periodStartTime|periodStartDate|
+      | bi_weekly  | 00:00         | 2020-01-01    |
+    When overtime is calculated
+    Then the following WorkDays are expected
+      | id | start          | end            |
+      | 0  |2020-01-01T00:00|2020-01-02T00:00|
+      | 1  |2020-01-02T00:00|2020-01-03T00:00|
+      | 2  |2020-01-03T00:00|2020-01-04T00:00|
+      | 3  |2020-01-04T00:00|2020-01-05T00:00|
+      | 4  |2020-01-05T00:00|2020-01-06T00:00|
+      | 5  |2020-01-06T00:00|2020-01-07T00:00|
+      | 6  |2020-01-07T00:00|2020-01-08T00:00|
+      | 7  |2020-01-08T00:00|2020-01-09T00:00|
+      | 8  |2020-01-09T00:00|2020-01-10T00:00|
+      | 9  |2020-01-10T00:00|2020-01-11T00:00|
+      | 10 |2020-01-11T00:00|2020-01-12T00:00|
+      | 11 |2020-01-12T00:00|2020-01-13T00:00|
+      | 12 |2020-01-13T00:00|2020-01-14T00:00|
+      | 13 |2020-01-14T00:00|2020-01-15T00:00|
+
+
