@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -72,11 +73,11 @@ public class OvertimeSteps implements En {
     String start;
     String end;
 
-    TestWorkDay(){
+    TestWorkDay() {
 
     }
 
-    TestWorkDay(String id, String start, String end){
+    TestWorkDay(String id, String start, String end) {
       this.id = id;
       this.start = start;
       this.end = end;
@@ -91,6 +92,52 @@ public class OvertimeSteps implements En {
               '}';
     }
   }
+  class TableWorkSlice {
+    String employeeId;
+    String workDayId;
+    String workDayStart;
+    String workDayEnd;
+    String start;
+    String end;
+    String payrollType;
+  }
+    class TestWorkSlice {
+      String employeeId;
+      TestWorkDay workDay;
+      Shift shift;
+      LocalDateTime start;
+      LocalDateTime end;
+      PayrollType payrollType;
+
+      public TestWorkSlice(String employeeId, TestWorkDay workDay, LocalDateTime start, LocalDateTime end, PayrollType payrollType) {
+        this.employeeId = employeeId;
+        this.workDay = workDay;
+        this.start = start;
+        this.end = end;
+        this.payrollType = payrollType;
+      }
+
+      public TestWorkSlice(String employeeId, TestWorkDay workDay, Shift shift, LocalDateTime start, LocalDateTime end, PayrollType payrollType) {
+        this.employeeId = employeeId;
+        this.workDay = workDay;
+        this.shift = shift;
+        this.start = start;
+        this.end = end;
+        this.payrollType = payrollType;
+      }
+
+      @Override
+      public String toString() {
+        return "TestWorkSlice{" +
+                "employeeId='" + employeeId + '\'' +
+                ", workDay=" + workDay +
+                ", shift=" + shift +
+                ", start=" + start +
+                ", end=" + end +
+                ", payrollType=" + payrollType +
+                '}';
+      }
+    }
 
   Employee employee = new Employee().setId("1").setOvertimeRuleId("1").setPayScheduleId("1");
   PayrollSchedule payrollSchedule = new PayrollSchedule().setId("1");
@@ -100,6 +147,8 @@ public class OvertimeSteps implements En {
   Set<LocalDateTime> payrollPeriodStarts;
   Set<LocalDateTime> payrollPeriodEnds;
   Set<TestWorkDay> testWorkDays;
+  Set<TestWorkSlice> testWorkSlices;
+  Set<Shift> testShifts;
 
   public OvertimeSteps(DroolsTestApi droolsTestApi) {
 
@@ -140,6 +189,8 @@ public class OvertimeSteps implements En {
       }).collect(Collectors.toSet());
       shifts.forEach(Shift::setTimeStamps);
       shifts.forEach(droolsTestApi.ksession::insert);
+      testShifts = new HashSet<>();
+      testShifts.addAll(shifts);
     });
     And("^a PayrollSchedule of$", (DataTable table) -> {
       AtomicInteger shiftId = new AtomicInteger(1);
@@ -197,6 +248,9 @@ public class OvertimeSteps implements En {
       payrollPeriodStarts = new HashSet<>();
       payrollPeriodEnds = new HashSet<>();
       testWorkDays = new HashSet<>();
+      testWorkSlices = new HashSet<>();
+      TestWorkDay testWorkDay = null;
+      TestWorkSlice testWorkSlice = null;
       for(Object object: droolsTestApi.ksession.getObjects()) {
         //System.out.println("Shifts: " + object);
         if(object.getClass().getName().equals(droolsTestApi.ksession.getKieBase().getFactType("com.tracktik.scheduler.service", "ShiftMinimum").getName())){
@@ -210,13 +264,24 @@ public class OvertimeSteps implements En {
           payrollPeriodStarts.add((LocalDateTime) object.getClass().getDeclaredMethod("getStartTime").invoke(object));
           payrollPeriodEnds.add((LocalDateTime) object.getClass().getDeclaredMethod("getEndTime").invoke(object));
         }
-        TestWorkDay testWorkDay;
         if(object.getClass().getName().equals(droolsTestApi.ksession.getKieBase().getFactType("com.tracktik.scheduler.service", "WorkDay").getName())){
           testWorkDay = new TestWorkDay();
           testWorkDay.id = (String) object.getClass().getDeclaredMethod("getIndexInPeriod").invoke(object).toString();
           testWorkDay.start = (String) object.getClass().getDeclaredMethod("getStartTime").invoke(object).toString();
           testWorkDay.end = (String) object.getClass().getDeclaredMethod("getEndTime").invoke(object).toString();
           testWorkDays.add(testWorkDay);
+        }
+        if(object.getClass().getName().equals(droolsTestApi.ksession.getKieBase().getFactType("com.tracktik.scheduler.service", "WorkSlice").getName())){
+          Object workDay = object.getClass().getDeclaredMethod("getWorkDay").invoke(object);
+          testWorkSlice = new TestWorkSlice((String) object.getClass().getDeclaredMethod("getEmployeeId").invoke(object),
+                  new TestWorkDay((String) workDay.getClass().getDeclaredMethod("getIndexInPeriod").invoke(workDay).toString(),
+                          (String) workDay.getClass().getDeclaredMethod("getStartTime").invoke(workDay).toString(),
+                          (String) workDay.getClass().getDeclaredMethod("getEndTime").invoke(workDay).toString()),
+                  (Shift) object.getClass().getDeclaredMethod("getShift").invoke(object),
+                  (LocalDateTime) object.getClass().getDeclaredMethod("getStartTime").invoke(object),
+                  (LocalDateTime) object.getClass().getDeclaredMethod("getEndTime").invoke(object),
+                  (PayrollType) object.getClass().getDeclaredMethod("getPayrollType").invoke(object));
+          testWorkSlices.add(testWorkSlice);
         }
       }
     });
@@ -361,6 +426,39 @@ public class OvertimeSteps implements En {
         }
       }
       assertEquals(workDayTrues, tableWorkDays.size());
+    });
+
+    Then("^we expect the following workslices$", (DataTable table) -> {
+      Set<TestWorkSlice> tableWorkSlices = table.asList(TableWorkSlice.class).stream().map(tableWorkSlice -> {
+        return new TestWorkSlice(tableWorkSlice.employeeId,
+                new TestWorkDay(tableWorkSlice.workDayId,
+                        tableWorkSlice.workDayStart,
+                        tableWorkSlice.workDayEnd),
+                LocalDateTime.parse(tableWorkSlice.start, dateTimeFormatter),
+                LocalDateTime.parse(tableWorkSlice.end, dateTimeFormatter),
+                PayrollType.valueOf(tableWorkSlice.payrollType));
+      }).collect(Collectors.toSet());
+      int workSliceTrues = 0;
+      for(Shift shift: testShifts) {
+        for (TestWorkSlice tableWorkSlice : tableWorkSlices) {
+          for (TestWorkSlice testWorkSlice : testWorkSlices) {
+            //System.out.println("table: " + tableWorkSlice);
+            //System.out.println("shift: " + shift);
+            //System.out.println("test: " + testWorkSlice);
+            if (tableWorkSlice.employeeId.equals(testWorkSlice.employeeId) &&
+                    tableWorkSlice.workDay.id.equals(testWorkSlice.workDay.id) &&
+                    tableWorkSlice.workDay.start.equals(testWorkSlice.workDay.start) &&
+                    tableWorkSlice.workDay.end.equals(testWorkSlice.workDay.end) &&
+                    tableWorkSlice.start.equals(testWorkSlice.start) &&
+                    tableWorkSlice.end.equals(testWorkSlice.end) &&
+                    tableWorkSlice.payrollType == testWorkSlice.payrollType &&
+                    shift.equals(testWorkSlice.shift)) {
+              workSliceTrues++;
+            }
+          }
+        }
+      }
+      assertEquals(workSliceTrues, tableWorkSlices.size());
     });
 
 //    Then("^a PayrollPeriod with start (.*?) and end (.*?) is expected$", (String ppStart, String ppEnd) -> {

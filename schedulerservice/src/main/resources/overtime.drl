@@ -179,9 +179,9 @@ then
     workSlice.setEndTime(minEndTime);
     workSlice.setPayrollType(PayrollType.REG);
     insertLogical(workSlice);
-//    System.out.println("\nDay from " + $dayStart + " end " + $dayEnd);
-//    System.out.println("Shift from " + $shiftStart + " end " + $shiftEnd);
-//    System.out.println("WorkSlice from " + workSlice.getStartTime() + " to " + workSlice.getEndTime());
+    //System.out.println("\nDay from " + $dayStart + " end " + $dayEnd);
+    //System.out.println("Shift from " + $shiftStart + " end " + $shiftEnd);
+    //System.out.println("WorkSlice from " + workSlice.getStartTime() + " to " + workSlice.getEndTime());
 end
 
 /*

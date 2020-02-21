@@ -117,4 +117,17 @@ Scenario: testing shift max and min with one of each
       | 12 |2020-01-13T00:00|2020-01-14T00:00|
       | 13 |2020-01-14T00:00|2020-01-15T00:00|
 
-
+  Scenario: Testing Workslices with cut
+    Given employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 09:00:00|
+      |2020-01-07 22:00:00|2020-01-07 23:00:00|
+    And a PayrollSchedule of
+      |frequency|periodStartTime|periodStartDate|
+      | weekly  | 00:00         | 2020-01-01    |
+    And hours spanning daily periods will be cut between periods
+    When overtime is calculated
+    Then we expect the following workslices
+      | employeeId | workDayId | workDayStart    | workDayEnd     | start               | end                 | payrollType |
+      | 1          | 1         | 2020-01-02T00:00|2020-01-03T00:00| 2020-01-02 04:00:00 | 2020-01-02 09:00:00 | REG         |
+      | 1          | 6         | 2020-01-07T00:00|2020-01-08T00:00| 2020-01-07 22:00:00 | 2020-01-07 23:00:00 | REG         |
