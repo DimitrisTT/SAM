@@ -139,7 +139,8 @@ public class OvertimeSteps implements En {
       }
     }
 
-  Employee employee = new Employee().setId("1").setOvertimeRuleId("1").setPayScheduleId("1");
+
+  Employee employee = new Employee().setId("1").setOvertimeRuleId("1").setPayScheduleId("1").setCost(100L);
   PayrollSchedule payrollSchedule = new PayrollSchedule().setId("1");
   ZoneId zoneId;
   LocalDateTime shiftMin;
@@ -149,6 +150,10 @@ public class OvertimeSteps implements En {
   Set<TestWorkDay> testWorkDays;
   Set<TestWorkSlice> testWorkSlices;
   Set<Shift> testShifts;
+  LocalDate consecutiveWorkSliceStart;
+  LocalDate consecutiveWorkSliceEnd;
+  LocalDate consecutiveWorkSliceSequenceStart;
+  LocalDate consecutiveWorkSliceSequenceEnd;
 
   public OvertimeSteps(DroolsTestApi droolsTestApi) {
 
@@ -283,12 +288,22 @@ public class OvertimeSteps implements En {
                   (PayrollType) object.getClass().getDeclaredMethod("getPayrollType").invoke(object));
           testWorkSlices.add(testWorkSlice);
         }
+        if(object.getClass().getName().equals(droolsTestApi.ksession.getKieBase().getFactType("com.tracktik.scheduler.service", "ConsecutiveWorkSliceStart").getName())){
+          consecutiveWorkSliceStart = (LocalDate) object.getClass().getDeclaredMethod("getDate").invoke(object);
+        }
+        if(object.getClass().getName().equals(droolsTestApi.ksession.getKieBase().getFactType("com.tracktik.scheduler.service", "ConsecutiveWorkSliceEnd").getName())){
+          consecutiveWorkSliceEnd = (LocalDate) object.getClass().getDeclaredMethod("getDate").invoke(object);
+        }
+        if(object.getClass().getName().equals(droolsTestApi.ksession.getKieBase().getFactType("com.tracktik.scheduler.service", "WorkSliceSequence").getName())){
+          consecutiveWorkSliceSequenceStart = (LocalDate) object.getClass().getDeclaredMethod("getStartDate").invoke(object);
+          consecutiveWorkSliceSequenceEnd = (LocalDate) object.getClass().getDeclaredMethod("getEndDate").invoke(object);
+        }
       }
     });
     Then("^softscore is (-?\\d+)$", (Integer softScore) -> {
       assertEquals(softScore.longValue(), droolsTestApi.getScoreHolder().getSoftScore());
       //for (Object object : droolsTestApi.ksession.getObjects()) {
-      //  if (object.getClass().equals(Employee.class)) {
+      //  if (object.getClass().equal      |2020-01-02 04:00:00|2020-01-02 09:00:00|s(Employee.class)) {
       //    Employee employee = (Employee) object;
       //    for (Payroll payroll : employee.getClockwise().getPayrollSet()) {
       //      if (payroll.getTimestampDifference() > 0) {
@@ -460,6 +475,15 @@ public class OvertimeSteps implements En {
       }
       assertEquals(workSliceTrues, tableWorkSlices.size());
     });
+
+    Then("^for employee with id '(.*?)' we expect start '(.*?)' and end '(.*?)'$", (String id, String start, String end) ->{
+      assertEquals(id, employee.getId());
+      assertEquals(LocalDate.parse(start), consecutiveWorkSliceStart);
+      assertEquals(LocalDate.parse(end), consecutiveWorkSliceEnd);
+      assertEquals(LocalDate.parse(start), consecutiveWorkSliceSequenceStart);
+      assertEquals(LocalDate.parse(end), consecutiveWorkSliceSequenceEnd);
+    });
+
 
 //    Then("^a PayrollPeriod with start (.*?) and end (.*?) is expected$", (String ppStart, String ppEnd) -> {
 //      LocalDateTime pps = LocalDateTime.parse(ppStart, dateTimeFormatter);

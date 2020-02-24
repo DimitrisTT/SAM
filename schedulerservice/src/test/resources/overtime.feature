@@ -131,3 +131,64 @@ Scenario: testing shift max and min with one of each
       | employeeId | workDayId | workDayStart    | workDayEnd     | start               | end                 | payrollType |
       | 1          | 1         | 2020-01-02T00:00|2020-01-03T00:00| 2020-01-02 04:00:00 | 2020-01-02 09:00:00 | REG         |
       | 1          | 6         | 2020-01-07T00:00|2020-01-08T00:00| 2020-01-07 22:00:00 | 2020-01-07 23:00:00 | REG         |
+
+  Scenario: Testing Workslices with span
+    Given employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 09:00:00|
+      |2020-01-07 22:00:00|2020-01-07 23:00:00|
+    And a PayrollSchedule of
+      |frequency|periodStartTime|periodStartDate|
+      | weekly  | 00:00         | 2020-01-01    |
+    And hours spanning daily periods
+    When overtime is calculated
+    Then we expect the following workslices
+      | employeeId | workDayId | workDayStart    | workDayEnd     | start               | end                 | payrollType |
+      | 1          | 1         | 2020-01-02T00:00|2020-01-03T00:00| 2020-01-02 04:00:00 | 2020-01-02 09:00:00 | REG         |
+      | 1          | 6         | 2020-01-07T00:00|2020-01-08T00:00| 2020-01-07 22:00:00 | 2020-01-07 23:00:00 | REG         |
+
+  Scenario: Day Overtime
+    Given employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 09:00:00|
+      |2020-01-07 18:00:00|2020-01-07 23:00:00|
+    And daily overtime definitions with id '1' of
+      | type | min | max |
+      | OT   | 4   | 10  |
+    And a PayrollSchedule of
+      |frequency|periodStartTime|periodStartDate|
+      | weekly  | 00:00         | 2020-01-01    |
+    And hours spanning daily periods will be cut between periods
+    When overtime is calculated
+    Then softscore is -30
+
+  Scenario: Period Overtime
+    Given employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 09:00:00|
+      |2020-01-07 22:00:00|2020-01-07 23:00:00|
+    And period overtime definitions with id '1' of
+      | type | min | max |
+      | OT   | 4   | 10  |
+    And a PayrollSchedule of
+      |frequency|periodStartTime|periodStartDate|
+      | weekly  | 00:00         | 2020-01-01    |
+    And hours spanning daily periods will be cut between periods
+    When overtime is calculated
+    Then softscore is -30
+
+  Scenario: Testing Workslices with cut
+    Given employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 14:00:00|
+      |2020-01-03 04:00:00|2020-01-03 14:00:00|
+      |2020-01-04 04:00:00|2020-01-04 14:00:00|
+      |2020-01-05 04:00:00|2020-01-05 14:00:00|
+      |2020-01-06 04:00:00|2020-01-06 14:00:00|
+      |2020-01-07 04:00:00|2020-01-07 14:00:00|
+    And a PayrollSchedule of
+      |frequency|periodStartTime|periodStartDate|
+      | weekly  | 00:00         | 2020-01-01    |
+    And hours spanning daily periods will be cut between periods
+    When overtime is calculated
+    Then for employee with id '1' we expect start '2020-01-02' and end '2020-01-07'

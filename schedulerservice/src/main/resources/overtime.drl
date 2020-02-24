@@ -234,9 +234,9 @@ rule "day overtime"
         if (hours > $maxHours) hours = $maxHours;
         hours -= $minHours;
 
-        Double payRate = $cost / 100d;
+        Double payRate = $cost / 10d;
         Double otPay = payRate * hours * multiplier;
-//        System.out.println("Daily overtime for " + $dayStart + " " + otPay);
+        //System.out.println("Daily overtime for " + $dayStart + " " + otPay);
         scoreHolder.addSoftConstraintMatch(kcontext, - otPay.longValue());
 end
 
@@ -268,7 +268,7 @@ rule "period overtime"
         hours -= $minHours;
 //        System.out.println("Adjusted for min: " + $minHours + " hours: " + hours);
 
-        Double payRate = $cost / 100d;
+        Double payRate = $cost / 10d;
         Double otPay = payRate * hours * multiplier;
 //        System.out.println("Overtime pay: " + otPay + " at rate: " + payRate);
         scoreHolder.addSoftConstraintMatch(kcontext, - otPay.longValue());
