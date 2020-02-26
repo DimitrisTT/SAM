@@ -154,7 +154,7 @@ rule "initialize WorkDays"
           workday.setStartTime($startTime.plusDays(i));
           workday.setEndTime(workday.getStartTime().plusDays(1));
           insert(workday);
-          //System.out.println("(workDay) id: " + i + " startTime: " + $startTime.plusDays(i) + " endTime: " + $startTime.plusDays(i+1));
+          System.out.println("(workDay) id: " + i + " startTime: " + $startTime.plusDays(i) + " endTime: " + $startTime.plusDays(i+1));
         }
  end
 
@@ -330,16 +330,26 @@ end
     An issue was found in this rule with the hours accmulation. This needs to be fixed.
     As of now, it will add the payrate as a negative soft constraint.
 */
-rule "consecutive workdays"
-    when
-        $definition : ConsecutiveDaysOvertimeDefinition($minHours : minimumHours, $maxHours : maximumHours, $minDays : minimumDay, $maxDays : maximumDay, $overtimeType : overtimeType)
-        Employee($employeeId: id, cost != null, $cost : cost)
-        WorkSliceSequence( $employeeId == employeeId, $days : Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays(), $days >= $minDays, $days <= $maxDays)
-    then
-        Double multiplier = 0d;
-        if ($overtimeType.equals("OT")) multiplier = 1.5d;
-        else if ($overtimeType.equals("DBL")) multiplier = 2.0d;
-        Double payRate = $cost / 100d;
-        //Double otPay = payRate * hours * multiplier;
-        scoreHolder.addSoftConstraintMatch(kcontext, - payRate.longValue());
-end
+//rule "consecutive workdays"
+//    when
+//        $definition : ConsecutiveDaysOvertimeDefinition($minHours : minimumHours, $maxHours : maximumHours, $minDays : minimumDay, $maxDays : maximumDay, $overtimeType : overtimeType)
+//        Employee($employeeId: id, cost != null, $cost : cost)
+//        WorkSliceSequence( $employeeId == employeeId, $days : Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays(), $days >= $minDays, $days <= $maxDays)
+//        $total : Duration( toHours() >= $minHours, toHours() <= $maxHours)
+//                 from accumulate ( WorkSlice(workDay.indexInPeriod >= $minDays, employeeId == $employeeId, $startTime: startTime, $endTime: endTime, payrollType == PayrollType.REG ),
+//                     init( Duration total = Duration.ZERO; ),
+//                     action( total = total.plus(Duration.between($startTime, $endTime)); ),
+//                     reverse( total = total.minus(Duration.between($startTime, $endTime)); ),
+//                     result( total ) )
+//    then
+//        Double multiplier = 0d;
+//        if ($overtimeType.equals("OT")) multiplier = 1.5d;
+//        else if ($overtimeType.equals("DBL")) multiplier = 2.0d;
+//        Long hours = $total.toHours();
+//                if (hours > $maxHours) hours = $maxHours;
+//                hours -= $minHours;
+//        Double payRate = $cost / 100d;
+//        Double otPay = payRate * hours * multiplier;
+//        System.out.println("Overtime Pay is: " + otPay);
+//        //scoreHolder.addSoftConstraintMatch(kcontext, - payRate.longValue());
+//end

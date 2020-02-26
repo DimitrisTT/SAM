@@ -192,3 +192,22 @@ Scenario: testing shift max and min with one of each
     And hours spanning daily periods will be cut between periods
     When overtime is calculated
     Then for employee with id '1' we expect start '2020-01-02' and end '2020-01-07'
+
+#  Scenario: Testing Workslices with cut
+#    Given employee shifts of
+#      |start              |end                |
+#      |2020-01-02 04:00:00|2020-01-02 14:00:00|
+#      |2020-01-03 04:00:00|2020-01-03 14:00:00|
+#      |2020-01-04 04:00:00|2020-01-04 14:00:00|
+#      |2020-01-05 04:00:00|2020-01-05 14:00:00|
+#      |2020-01-06 04:00:00|2020-01-06 14:00:00|
+#      |2020-01-07 04:00:00|2020-01-07 14:00:00|
+#    And consecutive day overtime definitions with id '1' of
+#      |minDays|maxDays|minHours|maxHours|type|
+#      |5      |INF    |0       |8       |OT  |
+#    And a PayrollSchedule of
+#      |frequency|periodStartTime|periodStartDate|
+#      | weekly  | 00:00         | 2020-01-01    |
+#    And hours spanning daily periods will be cut between periods
+#    When overtime is calculated
+#    Then softscore is -10
