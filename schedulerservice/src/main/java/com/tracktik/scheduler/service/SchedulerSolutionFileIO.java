@@ -36,13 +36,13 @@ public class SchedulerSolutionFileIO implements SolutionFileIO<Schedule> {
 
     Schedule schedule = RequestResponseMapper.requestToSchedule(UUID.randomUUID().toString(), request);
     int totalShifts = schedule.getShifts().size();
-    long totalSiftsToSchedule = schedule.getShifts().stream().filter(Shift::getPlan).count();
-    long totalLockedUnasigned = schedule.getShifts().stream().filter(shift -> !shift.getPlan()).filter(shift -> shift.getEmployee() == null).count();
+    long totalShiftsToSchedule = schedule.getShifts().stream().filter(Shift::getPlan).count();
+    long totalLockedUnassigned = schedule.getShifts().stream().filter(shift -> !shift.getPlan()).filter(shift -> shift.getEmployee() == null).count();
 
     int totalEmployees = schedule.getEmployees().size();
 
-    System.out.println("Got request to schedule " + totalSiftsToSchedule + " shifts out of " + totalShifts + " for " + totalEmployees + " employees. id: " + schedule.getId());
-    System.out.println("Number of locked that are still unassigned " + totalLockedUnasigned);
+    System.out.println("Got request to schedule " + totalShiftsToSchedule + " shifts out of " + totalShifts + " for " + totalEmployees + " employees. id: " + schedule.getId());
+    System.out.println("Number of locked that are still unassigned " + totalLockedUnassigned);
     return schedule;
 
   }
