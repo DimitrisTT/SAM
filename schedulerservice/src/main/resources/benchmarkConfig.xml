@@ -12,40 +12,113 @@
             <problemStatisticType>MEMORY_USE</problemStatisticType>
             <problemStatisticType>BEST_SCORE</problemStatisticType>
         </problemBenchmarks>
+    </inheritedSolverBenchmark>
+
+    <solverBenchmark>
+        <solver>
+        <scanAnnotatedClasses/>
+        <!-- Score configuration -->
+        <scoreDirectorFactory>
+            <scoreDrl>functions.drl</scoreDrl>
+            <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+            <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+            <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+            <scoreDrl>overtime.drl</scoreDrl>
+            <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+            <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+            <scoreDrl>scaleRules.drl</scoreDrl>
+            <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+        </scoreDirectorFactory>
+        <constructionHeuristic>
+            <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
+        </constructionHeuristic>
+        <localSearch>HILL_CLIMBING</localSearch>
+        <termination>
+            <terminationCompositionStyle>OR</terminationCompositionStyle>
+            <secondsSpentLimit>300</secondsSpentLimit>
+            <unimprovedSecondsSpentLimit>30</unimprovedSecondsSpentLimit>
+        </termination>
+            <!--localSearch>LATE_ACCEPTANCE</localSearch-->
+        </solver>
+    </solverBenchmark>
+    <solverBenchmark>
         <solver>
             <scanAnnotatedClasses/>
-
             <!-- Score configuration -->
             <scoreDirectorFactory>
                 <scoreDrl>functions.drl</scoreDrl>
                 <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
                 <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
                 <scoreDrl>experienceConstraintRules.drl</scoreDrl>
-                <scoreDrl>overtimeConstraintRules.drl</scoreDrl>
+                <scoreDrl>overtime.drl</scoreDrl>
                 <scoreDrl>proximityConstraintRules.drl</scoreDrl>
                 <scoreDrl>schedulerScoreRules.drl</scoreDrl>
                 <scoreDrl>scaleRules.drl</scoreDrl>
+                <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
             </scoreDirectorFactory>
-            <localSearch>HILL_CLIMBING</localSearch>
+            <constructionHeuristic>
+                <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
+            </constructionHeuristic>
+            <localSearch>TABU_SEARCH</localSearch>
             <termination>
                 <terminationCompositionStyle>OR</terminationCompositionStyle>
-                <secondsSpentLimit>9000</secondsSpentLimit>
-                <unimprovedSecondsSpentLimit>200</unimprovedSecondsSpentLimit>
+                <secondsSpentLimit>300</secondsSpentLimit>
+                <unimprovedSecondsSpentLimit>30</unimprovedSecondsSpentLimit>
             </termination>
-
+            <!--localSearch>LATE_ACCEPTANCE</localSearch-->
         </solver>
-
-    </inheritedSolverBenchmark>
-
+    </solverBenchmark>
     <solverBenchmark>
-
-        <name>Basic</name>
         <solver>
-
-
-            <constructionHeuristic />
+            <scanAnnotatedClasses/>
+            <!-- Score configuration -->
+            <scoreDirectorFactory>
+                <scoreDrl>functions.drl</scoreDrl>
+                <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+                <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+                <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+                <scoreDrl>overtime.drl</scoreDrl>
+                <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+                <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+                <scoreDrl>scaleRules.drl</scoreDrl>
+                <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+            </scoreDirectorFactory>
+            <constructionHeuristic>
+                <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
+            </constructionHeuristic>
+            <localSearch>SIMULATED_ANNEALING</localSearch>
+            <termination>
+                <terminationCompositionStyle>OR</terminationCompositionStyle>
+                <secondsSpentLimit>300</secondsSpentLimit>
+                <unimprovedSecondsSpentLimit>30</unimprovedSecondsSpentLimit>
+            </termination>
+            <!--localSearch>LATE_ACCEPTANCE</localSearch-->
+        </solver>
+    </solverBenchmark>
+    <solverBenchmark>
+        <solver>
+            <scanAnnotatedClasses/>
+            <!-- Score configuration -->
+            <scoreDirectorFactory>
+                <scoreDrl>functions.drl</scoreDrl>
+                <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+                <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+                <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+                <scoreDrl>overtime.drl</scoreDrl>
+                <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+                <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+                <scoreDrl>scaleRules.drl</scoreDrl>
+                <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+            </scoreDirectorFactory>
+            <constructionHeuristic>
+                <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
+            </constructionHeuristic>
             <localSearch>LATE_ACCEPTANCE</localSearch>
-
+            <termination>
+                <terminationCompositionStyle>OR</terminationCompositionStyle>
+                <secondsSpentLimit>600</secondsSpentLimit>
+                <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+            </termination>
         </solver>
     </solverBenchmark>
 

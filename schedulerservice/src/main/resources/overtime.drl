@@ -87,14 +87,15 @@ rule "find shift time limits"
     when
         not ShiftMinimum()
         not ShiftMaximum()
-        accumulate( Shift( $start : start.atZone(ZoneId.systemDefault()).toInstant().getEpochSecond(), $end : end.atZone(ZoneId.systemDefault()).toInstant().getEpochSecond() ),
-            $min : min($start),
-            $max : max($end))
+        accumulate( Shift( startTimeStamp != null, start != null, $startTimeStamp : startTimeStamp),
+            $min : min($startTimeStamp))
+        Shift( $min == startTimeStamp, $start : start)
+        accumulate( Shift( endTimeStamp != null, end != null, $endTimeStamp : endTimeStamp),
+            $max : max($endTimeStamp))
+        Shift( $max == endTimeStamp, $end : end )
     then
-        Instant instant = Instant.ofEpochSecond($min);
-        LocalDateTime startDate = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
-        instant = Instant.ofEpochSecond($max);
-        LocalDateTime endDate = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime startDate = $start;
+        LocalDateTime endDate = $end;
         //System.out.println("minimum start " + startDate + " max " + endDate);
         ShiftMinimum minimum = new ShiftMinimum();
         minimum.setStartTime(startDate);
@@ -154,7 +155,7 @@ rule "initialize WorkDays"
           workday.setStartTime($startTime.plusDays(i));
           workday.setEndTime(workday.getStartTime().plusDays(1));
           insert(workday);
-          System.out.println("(workDay) id: " + i + " startTime: " + $startTime.plusDays(i) + " endTime: " + $startTime.plusDays(i+1));
+          //System.out.println("(workDay) id: " + i + " startTime: " + $startTime.plusDays(i) + " endTime: " + $startTime.plusDays(i+1));
         }
  end
 
@@ -260,7 +261,7 @@ rule "period overtime"
         Double multiplier = 0d;
         if ($overtimeType.equals("OT")) multiplier = 1.5d;
         else if ($overtimeType.equals("DBL")) multiplier = 2.0d;
-        System.out.println("\nTotal period duration: " + $total + " for " + $employeeId + " cost " + $cost);
+        //System.out.println("\nTotal period duration: " + $total + " for " + $employeeId + " cost " + $cost);
         Long hours = $total.toHours();
 //        System.out.println("Raw hours: " + hours);
         if (hours > $maxHours) hours = $maxHours;

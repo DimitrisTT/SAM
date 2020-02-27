@@ -34,6 +34,7 @@ public class DroolsTestApi {
     KieSessionModel ksessionModel = kieBaseModel.newKieSessionModel("KSession").setDefault(true);
     KieFileSystem kFileSystem = kieServices.newKieFileSystem();
 
+    System.out.println("building kieresources:");
     Arrays.asList("src/main/resources/availabilityConstraintRules.drl",
         "src/main/resources/constraintMultiplierRules.drl",
         "src/main/resources/functions.drl",
@@ -46,7 +47,9 @@ public class DroolsTestApi {
       File file = new File(name);
       Resource resource = kieServices.getResources().newFileSystemResource(file).setResourceType(ResourceType.DRL);
       kFileSystem.write(resource);
+      System.out.println("resource: " + resource);
     });
+
 
     KieBuilder kbuilder = kieServices.newKieBuilder(kFileSystem);
     kbuilder.buildAll();

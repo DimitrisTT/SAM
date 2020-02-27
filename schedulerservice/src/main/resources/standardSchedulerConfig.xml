@@ -15,6 +15,7 @@
         <scoreDrl>scaleRules.drl</scoreDrl>
         <scoreDrl>overtimeConstraintRules.drl</scoreDrl>
         <scoreDrl>overtime.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
     </scoreDirectorFactory>
 
     <constructionHeuristic>
@@ -22,7 +23,7 @@
     </constructionHeuristic>
 
     <localSearch>
-        <localSearchType>HILL_CLIMBING</localSearchType>
+        <localSearchType>LATE_ACCEPTANCE</localSearchType>
         <termination>
             <minutesSpentLimit>1</minutesSpentLimit>
             <unimprovedSecondsSpentLimit>10</unimprovedSecondsSpentLimit>
