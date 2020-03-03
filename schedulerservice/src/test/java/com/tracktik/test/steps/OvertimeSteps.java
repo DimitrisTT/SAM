@@ -72,9 +72,17 @@ public class OvertimeSteps implements En {
     String id;
     String start;
     String end;
+    boolean holidayFlag;
 
     TestWorkDay() {
 
+    }
+
+    TestWorkDay(String id, String start, String end, boolean holidayFlag) {
+      this.id = id;
+      this.start = start;
+      this.end = end;
+      this.holidayFlag = holidayFlag;
     }
 
     TestWorkDay(String id, String start, String end) {
@@ -274,6 +282,7 @@ public class OvertimeSteps implements En {
           testWorkDay.id = (String) object.getClass().getDeclaredMethod("getIndexInPeriod").invoke(object).toString();
           testWorkDay.start = (String) object.getClass().getDeclaredMethod("getStartTime").invoke(object).toString();
           testWorkDay.end = (String) object.getClass().getDeclaredMethod("getEndTime").invoke(object).toString();
+          testWorkDay.holidayFlag = Boolean.parseBoolean(object.getClass().getDeclaredMethod("isHolidayFlag").invoke(object).toString());
           testWorkDays.add(testWorkDay);
         }
         if(object.getClass().getName().equals(droolsTestApi.ksession.getKieBase().getFactType("com.tracktik.scheduler.service", "WorkSlice").getName())){
@@ -281,7 +290,8 @@ public class OvertimeSteps implements En {
           testWorkSlice = new TestWorkSlice((String) object.getClass().getDeclaredMethod("getEmployeeId").invoke(object),
                   new TestWorkDay((String) workDay.getClass().getDeclaredMethod("getIndexInPeriod").invoke(workDay).toString(),
                           (String) workDay.getClass().getDeclaredMethod("getStartTime").invoke(workDay).toString(),
-                          (String) workDay.getClass().getDeclaredMethod("getEndTime").invoke(workDay).toString()),
+                          (String) workDay.getClass().getDeclaredMethod("getEndTime").invoke(workDay).toString(),
+                          Boolean.parseBoolean(workDay.getClass().getDeclaredMethod("isHolidayFlag").invoke(workDay).toString())),
                   (Shift) object.getClass().getDeclaredMethod("getShift").invoke(object),
                   (LocalDateTime) object.getClass().getDeclaredMethod("getStartTime").invoke(object),
                   (LocalDateTime) object.getClass().getDeclaredMethod("getEndTime").invoke(object),
@@ -436,6 +446,24 @@ public class OvertimeSteps implements En {
           if(tableWorkDay.id.equals(testWorkDay.id)
                   && tableWorkDay.start.equals(testWorkDay.start)
                   && tableWorkDay.end.equals(testWorkDay.end)){
+            workDayTrues++;
+          }
+        }
+      }
+      assertEquals(workDayTrues, tableWorkDays.size());
+    });
+
+    Then("^the following WorkDays with holidays are expected$", (DataTable table) -> {
+      Set<TestWorkDay> tableWorkDays = table.asList(TestWorkDay.class).stream().map(testWorkDay -> {
+        return new TestWorkDay(testWorkDay.id, testWorkDay.start, testWorkDay.end);
+      }).collect(Collectors.toSet());
+      int workDayTrues = 0;
+      for(TestWorkDay tableWorkDay : tableWorkDays){
+        for(TestWorkDay testWorkDay : testWorkDays){
+          if(tableWorkDay.id.equals(testWorkDay.id)
+                  && tableWorkDay.start.equals(testWorkDay.start)
+                  && tableWorkDay.end.equals(testWorkDay.end)
+                  && tableWorkDay.holidayFlag == testWorkDay.holidayFlag){
             workDayTrues++;
           }
         }

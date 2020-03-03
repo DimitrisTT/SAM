@@ -34,7 +34,7 @@ public class DroolsTestApi {
     KieSessionModel ksessionModel = kieBaseModel.newKieSessionModel("KSession").setDefault(true);
     KieFileSystem kFileSystem = kieServices.newKieFileSystem();
 
-    System.out.println("building kieresources:");
+    //System.out.println("building kieresources:");
     Arrays.asList("src/main/resources/availabilityConstraintRules.drl",
         "src/main/resources/constraintMultiplierRules.drl",
         "src/main/resources/functions.drl",
@@ -47,16 +47,16 @@ public class DroolsTestApi {
       File file = new File(name);
       Resource resource = kieServices.getResources().newFileSystemResource(file).setResourceType(ResourceType.DRL);
       kFileSystem.write(resource);
-      System.out.println("resource: " + resource);
+      //System.out.println("resource: " + resource);
     });
 
 
     KieBuilder kbuilder = kieServices.newKieBuilder(kFileSystem);
     kbuilder.buildAll();
 
-    System.out.println("Knowledge base built");
+    //System.out.println("Knowledge base built");
     kbuilder.getResults().getMessages().forEach(message -> {
-      System.out.println("Builder result message: " + message);
+      //System.out.println("Builder result message: " + message);
     });
 
     if (kbuilder.getResults().hasMessages(org.kie.api.builder.Message.Level.ERROR)) {
