@@ -169,7 +169,8 @@ rule "initialize WorkDays with Holidays"
         $workDay : WorkDay(startTime != null, endTime != null, $holidayStart == startTime, $holidayEnd == endTime, holidayFlag == false)
     then
         $workDay.setHolidayFlag(true);
-        update($workDay)
+        update($workDay);
+        //System.out.println("Holiday Workday: " + $workDay);
  end
 
 
@@ -180,7 +181,7 @@ rule "initialize WorkDays with Holidays"
 */
 rule "set work slice with cut"
 when
-    PayrollSchedule(overlappingMethod == OverlappingMethodType.CUT, countHolidayHoursTowardsPeriodOvertime == false)
+    PayrollSchedule(overlappingMethod == OverlappingMethodType.CUT)
     $workDay : WorkDay($dayStart: startTime, $dayEnd: endTime, holidayFlag == false)
     $shift : Shift(employee != null, $employeeId : employee.id, $dayStart.isBefore(end) , $dayEnd.isAfter(start), $shiftStart : start, $shiftEnd : end)
 then
@@ -233,7 +234,7 @@ end
 */
 rule "set work slice with cut on a holiday"
 when
-    PayrollSchedule(overlappingMethod == OverlappingMethodType.CUT, countHolidayHoursTowardsPeriodOvertime == true)
+    PayrollSchedule(overlappingMethod == OverlappingMethodType.CUT)
     $workDay : WorkDay($dayStart: startTime, $dayEnd: endTime, holidayFlag == true)
     $shift : Shift(employee != null, $employeeId : employee.id, $dayStart.isBefore(end) , $dayEnd.isAfter(start), $shiftStart : start, $shiftEnd : end)
 then
@@ -333,18 +334,16 @@ rule "period overtime"
         else if ($overtimeType.equals("DBL")) multiplier = 2.0d;
         //System.out.println("\nTotal period duration: " + $total + " for " + $employeeId + " cost " + $cost);
         Long hours = $total.toHours();
-//        System.out.println("Raw hours: " + hours);
+        //System.out.println("Raw hours: " + hours);
         if (hours > $maxHours) hours = $maxHours;
-//        System.out.println("Adjusted for max: " + $maxHours + " hours: " + hours);
+        //System.out.println("Adjusted for max: " + $maxHours + " hours: " + hours);
         hours -= $minHours;
-//        System.out.println("Adjusted for min: " + $minHours + " hours: " + hours);
+        //System.out.println("Adjusted for min: " + $minHours + " hours: " + hours);
 
         Double payRate = $cost / 10d;
         Double otPay = payRate * hours * multiplier;
-//        System.out.println("Overtime pay: " + otPay + " at rate: " + payRate);
+        //System.out.println("Overtime pay: " + otPay + " at rate: " + payRate);
         scoreHolder.addSoftConstraintMatch(kcontext, - otPay.longValue());
-        //System.out.println($consecutiveDaysOvertimeDefinition);
-        //System.out.println($dayOvertimeDefinition);
 end
 
 // HOLIDAYS
@@ -387,6 +386,7 @@ end
 */
 rule "period overtime with holidays"
     when
+        PayrollSchedule(countHolidayHoursTowardsPeriodOvertime == true)
         $periodOvertimeDefinition : PeriodOvertimeDefinition($minHours : minimumHours, $maxHours : maximumHours, $overtimeType : overtimeType)
         Employee($employeeId: id, cost != null, $cost : cost)
         $total : Duration( toHours() >= $minHours, toHours() <= $maxHours)
@@ -401,18 +401,14 @@ rule "period overtime with holidays"
         else if ($overtimeType.equals("DBL")) multiplier = 2.0d;
         //System.out.println("\nTotal period duration: " + $total + " for " + $employeeId + " cost " + $cost);
         Long hours = $total.toHours();
-//        System.out.println("Raw hours: " + hours);
+        //System.out.println("Raw hours: " + hours);
         if (hours > $maxHours) hours = $maxHours;
-//        System.out.println("Adjusted for max: " + $maxHours + " hours: " + hours);
-        hours -= $minHours;
-//        System.out.println("Adjusted for min: " + $minHours + " hours: " + hours);
-
+        //System.out.println("Adjusted for max: " + $maxHours + " hours: " + hours);
         Double payRate = $cost / 10d;
         Double otPay = payRate * hours * multiplier;
-//        System.out.println("Overtime pay: " + otPay + " at rate: " + payRate);
+        //System.out.println("Overtime pay: " + otPay + " at rate: " + payRate);
         scoreHolder.addSoftConstraintMatch(kcontext, - otPay.longValue());
-        //System.out.println($consecutiveDaysOvertimeDefinition);
-        //System.out.println($dayOvertimeDefinition);
+        //System.out.println($periodOvertimeDefinition);
 end
 
 

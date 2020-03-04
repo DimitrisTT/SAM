@@ -1,13 +1,13 @@
 Feature: Overtime Track Tik tests
 
-Scenario: testing shift max and min with one of each
-  Given employee shifts of
-    |start              |end                |
-    |2020-01-02 04:00:00|2020-01-02 09:00:00|
-    |2020-01-07 22:00:00|2020-01-08 02:00:00|
-  When overtime is calculated
-  Then a ShiftMinimum of 2020-01-02 04:00:00 is expected
-  Then a ShiftMaximum of 2020-01-08 02:00:00 is expected
+  Scenario: testing shift max and min with one of each
+    Given employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 09:00:00|
+      |2020-01-07 22:00:00|2020-01-08 02:00:00|
+    When overtime is calculated
+    Then a ShiftMinimum of 2020-01-02 04:00:00 is expected
+    Then a ShiftMaximum of 2020-01-08 02:00:00 is expected
 
   Scenario: testing shift max and min with multiple of each
     Given employee shifts of
@@ -68,16 +68,16 @@ Scenario: testing shift max and min with one of each
     And count holiday hours towards period overtime
     And holiday periods of
       |start              |end                |
-      |2020-02-02 00:00:00|2020-02-02 00:00:00|
-      |2020-02-05 00:00:00|2020-02-05 00:00:00|
+      |2020-02-02 00:00:00|2020-02-03 00:00:00|
+      |2020-02-05 00:00:00|2020-02-06 00:00:00|
     When overtime is calculated
     Then the following WorkDays with holidays are expected
       | id | start          | end            | holidayFlag |
       | 0  |2020-02-01T00:00|2020-02-02T00:00| false       |
       | 1  |2020-02-02T00:00|2020-02-03T00:00| true        |
       | 2  |2020-02-03T00:00|2020-02-04T00:00| false       |
-      | 3  |2020-02-04T00:00|2020-02-05T00:00| true        |
-      | 4  |2020-02-05T00:00|2020-02-06T00:00| false       |
+      | 3  |2020-02-04T00:00|2020-02-05T00:00| false       |
+      | 4  |2020-02-05T00:00|2020-02-06T00:00| true        |
       | 5  |2020-02-06T00:00|2020-02-07T00:00| false       |
       | 6  |2020-02-07T00:00|2020-02-08T00:00| false       |
 
@@ -92,16 +92,16 @@ Scenario: testing shift max and min with one of each
     And count holiday hours towards period overtime
     And holiday periods of
       |start              |end                |
-      |2020-02-02 00:00:00|2020-02-02 00:00:00|
-      |2020-02-05 00:00:00|2020-02-05 00:00:00|
+      |2020-02-02 00:00:00|2020-02-03 00:00:00|
+      |2020-02-05 00:00:00|2020-02-06 00:00:00|
     When overtime is calculated
     Then the following WorkDays with holidays are expected
       | id | start          | end            | holidayFlag |
       | 0  |2020-02-01T00:00|2020-02-02T00:00| false       |
       | 1  |2020-02-02T00:00|2020-02-03T00:00| true        |
       | 2  |2020-02-03T00:00|2020-02-04T00:00| false       |
-      | 3  |2020-02-04T00:00|2020-02-05T00:00| true        |
-      | 4  |2020-02-05T00:00|2020-02-06T00:00| false       |
+      | 3  |2020-02-04T00:00|2020-02-05T00:00| false       |
+      | 4  |2020-02-05T00:00|2020-02-06T00:00| true        |
       | 5  |2020-02-06T00:00|2020-02-07T00:00| false       |
       | 6  |2020-02-07T00:00|2020-02-08T00:00| false       |
       | 7  |2020-02-08T00:00|2020-02-09T00:00| false       |
@@ -201,6 +201,26 @@ Scenario: testing shift max and min with one of each
     And hours spanning daily periods will be cut between periods
     When overtime is calculated
     Then softscore is -30
+
+  Scenario: Period Overtime With Holidays
+    Given employee shifts of
+      |start              |end                |
+      |2020-01-02 04:00:00|2020-01-02 09:00:00|
+      |2020-01-07 18:00:00|2020-01-07 23:00:00|
+    And period overtime definitions with id '1' of
+      | type | min | max |
+      | OT   | 4   | 10  |
+    And a PayrollSchedule of
+      |frequency|periodStartTime|periodStartDate|
+      | weekly  | 00:00         | 2020-01-01    |
+    And hours spanning daily periods will be cut between periods
+    And count holiday hours towards period overtime
+    And holiday periods of
+      |start              |end                |
+      |2020-01-02 00:00:00|2020-01-03 00:00:00|
+      |2020-01-05 00:00:00|2020-01-06 00:00:00|
+    When overtime is calculated
+    Then softscore is -90
 
   Scenario: Period Overtime
     Given employee shifts of

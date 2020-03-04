@@ -88,7 +88,7 @@
       "employee_id": "155716",
       "post_id": "2439",
       "site_id": "9721",
-      "start_date_time": "2020-01-15 09:00:00",
+      "start_date_time": "2020-01-15 01:00:00",
       "end_date_time": "2020-01-15 18:00:00",
       "duration": "9.00",
       "start_timestamp": "1505142000",
@@ -101,8 +101,34 @@
       "employee_id": "155716",
       "post_id": "2439",
       "site_id": "9721",
-      "start_date_time": "2020-01-15 09:00:00",
-      "end_date_time": "2020-01-15 18:00:00",
+      "start_date_time": "2020-01-16 01:00:00",
+      "end_date_time": "2020-01-16 18:00:00",
+      "duration": "9.00",
+      "start_timestamp": "1505228400",
+      "end_timestamp": "1505260800",
+      "plan": "1"
+    },
+    {
+      "start_date": "2020-01-15",
+      "shift_id": "915468",
+      "employee_id": "155716",
+      "post_id": "2439",
+      "site_id": "9721",
+      "start_date_time": "2020-01-17 01:00:00",
+      "end_date_time": "2020-01-17 18:00:00",
+      "duration": "9.00",
+      "start_timestamp": "1505228400",
+      "end_timestamp": "1505260800",
+      "plan": "1"
+    },
+    {
+      "start_date": "2020-01-15",
+      "shift_id": "915469",
+      "employee_id": "155716",
+      "post_id": "2439",
+      "site_id": "9721",
+      "start_date_time": "2020-01-18 01:00:00",
+      "end_date_time": "2020-01-18 18:00:00",
       "duration": "9.00",
       "start_timestamp": "1505228400",
       "end_timestamp": "1505260800",
@@ -124,7 +150,7 @@
       "id": "1",
       "name": "Standard. Over 40/week",
       "rule": {
-        "RULE_HOURS+PER_PERIOD": [
+        "RULE_HOURS_PER_PERIOD": [
           [
             40,
             "INF",

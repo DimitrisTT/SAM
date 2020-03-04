@@ -408,7 +408,7 @@ public class OvertimeSteps implements En {
                   }
               }
           }
-          assertEquals(endTrues, ldtEnds.size());
+          assertEquals( ldtEnds.size(), endTrues);
       });
 
       Then("^the following PayrollPeriodStarts are expected$", (DataTable table) -> {
@@ -423,7 +423,7 @@ public class OvertimeSteps implements En {
                   }
               }
           }
-          assertEquals(startTrues, ldtStarts.size());
+          assertEquals(ldtStarts.size(), startTrues);
       });
 
   Then("^a ShiftMinimum of (.*?) is expected$", (String shiftMinny) -> {
@@ -450,12 +450,12 @@ public class OvertimeSteps implements En {
           }
         }
       }
-      assertEquals(workDayTrues, tableWorkDays.size());
+      assertEquals(tableWorkDays.size(), workDayTrues);
     });
 
     Then("^the following WorkDays with holidays are expected$", (DataTable table) -> {
       Set<TestWorkDay> tableWorkDays = table.asList(TestWorkDay.class).stream().map(testWorkDay -> {
-        return new TestWorkDay(testWorkDay.id, testWorkDay.start, testWorkDay.end);
+        return new TestWorkDay(testWorkDay.id, testWorkDay.start, testWorkDay.end, testWorkDay.holidayFlag);
       }).collect(Collectors.toSet());
       int workDayTrues = 0;
       for(TestWorkDay tableWorkDay : tableWorkDays){
@@ -468,7 +468,7 @@ public class OvertimeSteps implements En {
           }
         }
       }
-      assertEquals(workDayTrues, tableWorkDays.size());
+      assertEquals(tableWorkDays.size(), workDayTrues);
     });
 
     Then("^we expect the following workslices$", (DataTable table) -> {
@@ -501,7 +501,7 @@ public class OvertimeSteps implements En {
           }
         }
       }
-      assertEquals(workSliceTrues, tableWorkSlices.size());
+      assertEquals(tableWorkSlices.size(), workSliceTrues);
     });
 
     Then("^for employee with id '(.*?)' we expect start '(.*?)' and end '(.*?)'$", (String id, String start, String end) ->{
