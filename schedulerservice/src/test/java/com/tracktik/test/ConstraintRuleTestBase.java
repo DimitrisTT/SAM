@@ -16,7 +16,6 @@ import org.kie.api.io.ResourceType;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
-import org.optaplanner.test.impl.score.buildin.hardsoftlong.HardSoftLongScoreVerifier;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
@@ -47,7 +46,7 @@ public class ConstraintRuleTestBase {
         "src/main/resources/constraintMultiplierRules.drl",
         "src/main/resources/functions.drl",
         "src/main/resources/experienceConstraintRules.drl",
-        //"src/main/resources/overtimeConstraintRules.drl",
+        "src/main/resources/overtimeConstraintRules.drl",
         "src/main/resources/proximityConstraintRules.drl",
         "src/main/resources/scaleRules.drl",
         "src/main/resources/schedulerScoreRules.drl").forEach(name -> {

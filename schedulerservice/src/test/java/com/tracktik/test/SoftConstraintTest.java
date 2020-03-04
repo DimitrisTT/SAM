@@ -210,10 +210,6 @@ public class SoftConstraintTest extends ConstraintRuleTestBase {
     ksession.insert(keyValueFactHardSkill);
     ksession.insert(keyValueFactMultiplier);
     ksession.insert(keyValueFactHardSkillAsSoft);
-System.out.println("shift: " + shift);
-    System.out.println("keyValueHardSkill: " + keyValueFactHardSkill);
-    System.out.println("keyValueFactMultiplier: " + keyValueFactMultiplier);
-    System.out.println("keyValueFactHardSkillAsSoft: " + keyValueFactHardSkillAsSoft);
     ksession.fireAllRules(new RuleNameEqualsAgendaFilter("EMPLOYEE_MUST_HAVE_HARD_SKILLS_AS_SOFT"));
 
     assertEquals(200L, getScoreHolder().getSoftScore());

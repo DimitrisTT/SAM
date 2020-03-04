@@ -1,0 +1,1044 @@
+{
+  "id": "23072d81-e83b-49ad-af85-f5bc07633ff9",
+  "status": "COMPLETED",
+  "shifts": [
+    {
+      "id": "376680",
+      "plan": true,
+      "start": [
+        2020,
+        1,
+        26,
+        20,
+        0
+      ],
+      "end": [
+        2020,
+        1,
+        27,
+        0,
+        0
+      ],
+      "duration": 4.0,
+      "post": {
+        "name": "Security Guard",
+        "id": "1105",
+        "site": {
+          "id": "1732",
+          "name": "Tei Fu Chen Trust - A1N",
+          "latitude": 33.789451,
+          "longitude": -118.3989346
+        },
+        "billRate": 2250,
+        "payRate": 1400,
+        "payType": "EMPLOYEE_RATE",
+        "softSkills": [],
+        "hardSkills": [],
+        "scaleFacts": []
+      },
+      "startTimeStamp": 1580097600,
+      "endTimeStamp": 1580097600,
+      "tags": [],
+      "periodId": 0,
+      "dayId": 0,
+      "holidayId": 0,
+      "regCounted": false,
+      "regCutFirstCounted": false,
+      "regCutSecondCounted": false,
+      "holCounted": false,
+      "holCutFirstCounted": false,
+      "holCutSecondCounted": false,
+      "otCounted": false,
+      "dblCounted": false,
+      "ptoCounted": false,
+      "employee": {
+        "id": "2130",
+        "name": "Cody, Reymundo",
+        "availabilityPreference": null,
+        "siteExperience": [
+          {
+            "id": "1516",
+            "name": "Kimco Realty - Corona Hills Plaza - A2N",
+            "latitude": 33.8872505,
+            "longitude": -117.5210764
+          },
+          {
+            "id": "1568",
+            "name": "Calwon - Tyler Street Plaza - D2S",
+            "latitude": 33.9131293,
+            "longitude": -117.464547
+          }
+        ],
+        "postExperience": [],
+        "skills": [
+          {
+            "id": "28",
+            "description": "BSIS Guard Card"
+          }
+        ],
+        "scales": [],
+        "cost": 1400,
+        "preferredHours": 40,
+        "latitude": null,
+        "longitude": null,
+        "seniority": 434,
+        "minimumRestPeriod": 8,
+        "tagValues": {},
+        "overtimeRuleId": "4",
+        "payScheduleId": "3",
+        "previousPayPeriodEnd": null
+      },
+      "interval": {
+        "start": 1580086800.000000000,
+        "end": 1580101200.000000000,
+        "empty": false,
+        "unboundedStart": false,
+        "unboundedEnd": false
+      }
+    },
+    {
+      "id": "376291",
+      "plan": true,
+      "start": [
+        2020,
+        1,
+        26,
+        20,
+        0
+      ],
+      "end": [
+        2020,
+        1,
+        27,
+        5,
+        0
+      ],
+      "duration": 9.0,
+      "post": {
+        "name": "Firewatch",
+        "id": "1375",
+        "site": {
+          "id": "1517",
+          "name": "Kimco Realty - Palm Plaza SC - A2N",
+          "latitude": 33.5197847,
+          "longitude": -117.1587358
+        },
+        "billRate": 3105,
+        "payRate": null,
+        "payType": "EMPLOYEE_RATE",
+        "softSkills": [],
+        "hardSkills": [],
+        "scaleFacts": []
+      },
+      "startTimeStamp": 1580097600,
+      "endTimeStamp": 1580097600,
+      "tags": [],
+      "periodId": 0,
+      "dayId": 0,
+      "holidayId": 0,
+      "regCounted": false,
+      "regCutFirstCounted": false,
+      "regCutSecondCounted": false,
+      "holCounted": false,
+      "holCutFirstCounted": false,
+      "holCutSecondCounted": false,
+      "otCounted": false,
+      "dblCounted": false,
+      "ptoCounted": false,
+      "employee": {
+        "id": "2370",
+        "name": "Minor, Darius",
+        "availabilityPreference": null,
+        "siteExperience": [
+          {
+            "id": "1258",
+            "name": "Kimco Realty - Torrance Promenade - A2N",
+            "latitude": 33.8534432,
+            "longitude": -118.3525699
+          }
+        ],
+        "postExperience": [],
+        "skills": [
+          {
+            "id": "28",
+            "description": "BSIS Guard Card"
+          }
+        ],
+        "scales": [],
+        "cost": 1300,
+        "preferredHours": 40,
+        "latitude": 33.9054327,
+        "longitude": -118.2021983,
+        "seniority": 267,
+        "minimumRestPeriod": 8,
+        "tagValues": {},
+        "overtimeRuleId": "3",
+        "payScheduleId": "3",
+        "previousPayPeriodEnd": null
+      },
+      "interval": {
+        "start": 1580086800.000000000,
+        "end": 1580119200.000000000,
+        "empty": false,
+        "unboundedStart": false,
+        "unboundedEnd": false
+      }
+    },
+    {
+      "id": "372693",
+      "plan": true,
+      "start": [
+        2020,
+        1,
+        26,
+        16,
+        0
+      ],
+      "end": [
+        2020,
+        1,
+        27,
+        0,
+        0
+      ],
+      "duration": 8.0,
+      "post": {
+        "name": "Security Guard",
+        "id": "1105",
+        "site": {
+          "id": "1732",
+          "name": "Tei Fu Chen Trust - A1N",
+          "latitude": 33.789451,
+          "longitude": -118.3989346
+        },
+        "billRate": 2250,
+        "payRate": 1400,
+        "payType": "EMPLOYEE_RATE",
+        "softSkills": [],
+        "hardSkills": [],
+        "scaleFacts": []
+      },
+      "startTimeStamp": 1580083200,
+      "endTimeStamp": 1580083200,
+      "tags": [],
+      "periodId": 0,
+      "dayId": 0,
+      "holidayId": 0,
+      "regCounted": false,
+      "regCutFirstCounted": false,
+      "regCutSecondCounted": false,
+      "holCounted": false,
+      "holCutFirstCounted": false,
+      "holCutSecondCounted": false,
+      "otCounted": false,
+      "dblCounted": false,
+      "ptoCounted": false,
+      "employee": {
+        "id": "2490",
+        "name": "Calhoun, Sterling",
+        "availabilityPreference": null,
+        "siteExperience": [
+          {
+            "id": "1719",
+            "name": "FPI Security Services - Auto Nation Site - A2N",
+            "latitude": 34.1713459,
+            "longitude": -118.4657295
+          },
+          {
+            "id": "1200",
+            "name": "Kimco Realty - Kenneth Hahn Plaza - A1N",
+            "latitude": 33.9266627,
+            "longitude": -118.2376659
+          },
+          {
+            "id": "1177",
+            "name": "Kimco Realty - Sycamore Plaza - A2N",
+            "latitude": 33.8481989,
+            "longitude": -117.8903796
+          },
+          {
+            "id": "1193",
+            "name": "Kimco Realty - Lakewood Plaza -A2N",
+            "latitude": 33.8761257,
+            "longitude": -118.1402461
+          }
+        ],
+        "postExperience": [],
+        "skills": [
+          {
+            "id": "28",
+            "description": "BSIS Guard Card"
+          }
+        ],
+        "scales": [],
+        "cost": 1425,
+        "preferredHours": 40,
+        "latitude": 33.9494602,
+        "longitude": -118.3547241,
+        "seniority": 176,
+        "minimumRestPeriod": 8,
+        "tagValues": {},
+        "overtimeRuleId": "3",
+        "payScheduleId": "3",
+        "previousPayPeriodEnd": null
+      },
+      "interval": {
+        "start": 1580072400.000000000,
+        "end": 1580101200.000000000,
+        "empty": false,
+        "unboundedStart": false,
+        "unboundedEnd": false
+      }
+    },
+    {
+      "id": "376302",
+      "plan": true,
+      "start": [
+        2020,
+        1,
+        26,
+        20,
+        0
+      ],
+      "end": [
+        2020,
+        1,
+        27,
+        9,
+        0
+      ],
+      "duration": 13.0,
+      "post": {
+        "name": "Firewatch",
+        "id": "1382",
+        "site": {
+          "id": "1263",
+          "name": "Kimco Realty - La Verne Towne Center - A2N",
+          "latitude": 34.1117274,
+          "longitude": -117.7612971
+        },
+        "billRate": 3465,
+        "payRate": null,
+        "payType": "EMPLOYEE_RATE",
+        "softSkills": [],
+        "hardSkills": [],
+        "scaleFacts": []
+      },
+      "startTimeStamp": 1580097600,
+      "endTimeStamp": 1580097600,
+      "tags": [],
+      "periodId": 0,
+      "dayId": 0,
+      "holidayId": 0,
+      "regCounted": false,
+      "regCutFirstCounted": false,
+      "regCutSecondCounted": false,
+      "holCounted": false,
+      "holCutFirstCounted": false,
+      "holCutSecondCounted": false,
+      "otCounted": false,
+      "dblCounted": false,
+      "ptoCounted": false,
+      "employee": {
+        "id": "2095",
+        "name": "Moore, Carolyn",
+        "availabilityPreference": null,
+        "siteExperience": [
+          {
+            "id": "1200",
+            "name": "Kimco Realty - Kenneth Hahn Plaza - A1N",
+            "latitude": 33.9266627,
+            "longitude": -118.2376659
+          },
+          {
+            "id": "1665",
+            "name": "Metropolitan Pacific - BKNM - 3402 Pico Blvd. - A1N",
+            "latitude": 34.0271593,
+            "longitude": -118.4535702
+          }
+        ],
+        "postExperience": [],
+        "skills": [
+          {
+            "id": "28",
+            "description": "BSIS Guard Card"
+          }
+        ],
+        "scales": [],
+        "cost": 1425,
+        "preferredHours": 40,
+        "latitude": null,
+        "longitude": null,
+        "seniority": 454,
+        "minimumRestPeriod": 8,
+        "tagValues": {},
+        "overtimeRuleId": "3",
+        "payScheduleId": "3",
+        "previousPayPeriodEnd": null
+      },
+      "interval": {
+        "start": 1580086800.000000000,
+        "end": 1580133600.000000000,
+        "empty": false,
+        "unboundedStart": false,
+        "unboundedEnd": false
+      }
+    },
+    {
+      "id": "376323",
+      "plan": true,
+      "start": [
+        2020,
+        1,
+        26,
+        20,
+        0
+      ],
+      "end": [
+        2020,
+        1,
+        27,
+        4,
+        0
+      ],
+      "duration": 8.0,
+      "post": {
+        "name": "Firewatch",
+        "id": "1376",
+        "site": {
+          "id": "1644",
+          "name": "Kimco Realty - Vail Ranch Plaza - A2N",
+          "latitude": 33.481748,
+          "longitude": -117.0923302
+        },
+        "billRate": 3105,
+        "payRate": null,
+        "payType": "EMPLOYEE_RATE",
+        "softSkills": [],
+        "hardSkills": [],
+        "scaleFacts": []
+      },
+      "startTimeStamp": 1580097600,
+      "endTimeStamp": 1580097600,
+      "tags": [],
+      "periodId": 0,
+      "dayId": 0,
+      "holidayId": 0,
+      "regCounted": false,
+      "regCutFirstCounted": false,
+      "regCutSecondCounted": false,
+      "holCounted": false,
+      "holCutFirstCounted": false,
+      "holCutSecondCounted": false,
+      "otCounted": false,
+      "dblCounted": false,
+      "ptoCounted": false,
+      "employee": {
+        "id": "2094",
+        "name": "Cervantes, Ricardo",
+        "availabilityPreference": null,
+        "siteExperience": [
+          {
+            "id": "1200",
+            "name": "Kimco Realty - Kenneth Hahn Plaza - A1N",
+            "latitude": 33.9266627,
+            "longitude": -118.2376659
+          }
+        ],
+        "postExperience": [],
+        "skills": [
+          {
+            "id": "28",
+            "description": "BSIS Guard Card"
+          }
+        ],
+        "scales": [],
+        "cost": 1425,
+        "preferredHours": 40,
+        "latitude": null,
+        "longitude": null,
+        "seniority": 454,
+        "minimumRestPeriod": 8,
+        "tagValues": {},
+        "overtimeRuleId": "3",
+        "payScheduleId": "3",
+        "previousPayPeriodEnd": null
+      },
+      "interval": {
+        "start": 1580086800.000000000,
+        "end": 1580115600.000000000,
+        "empty": false,
+        "unboundedStart": false,
+        "unboundedEnd": false
+      }
+    },
+    {
+      "id": "376444",
+      "plan": true,
+      "start": [
+        2020,
+        1,
+        25,
+        20,
+        0
+      ],
+      "end": [
+        2020,
+        1,
+        26,
+        9,
+        0
+      ],
+      "duration": 13.0,
+      "post": {
+        "name": "Firewatch",
+        "id": "1378",
+        "site": {
+          "id": "1176",
+          "name": "Kimco Realty - Anaheim Plaza - A1N",
+          "latitude": 33.8395403,
+          "longitude": -117.9399724
+        },
+        "billRate": 3268,
+        "payRate": null,
+        "payType": "EMPLOYEE_RATE",
+        "softSkills": [],
+        "hardSkills": [],
+        "scaleFacts": []
+      },
+      "startTimeStamp": 1580011200,
+      "endTimeStamp": 1580011200,
+      "tags": [],
+      "periodId": 0,
+      "dayId": 0,
+      "holidayId": 0,
+      "regCounted": false,
+      "regCutFirstCounted": false,
+      "regCutSecondCounted": false,
+      "holCounted": false,
+      "holCutFirstCounted": false,
+      "holCutSecondCounted": false,
+      "otCounted": false,
+      "dblCounted": false,
+      "ptoCounted": false,
+      "employee": {
+        "id": "2370",
+        "name": "Minor, Darius",
+        "availabilityPreference": null,
+        "siteExperience": [
+          {
+            "id": "1258",
+            "name": "Kimco Realty - Torrance Promenade - A2N",
+            "latitude": 33.8534432,
+            "longitude": -118.3525699
+          }
+        ],
+        "postExperience": [],
+        "skills": [
+          {
+            "id": "28",
+            "description": "BSIS Guard Card"
+          }
+        ],
+        "scales": [],
+        "cost": 1300,
+        "preferredHours": 40,
+        "latitude": 33.9054327,
+        "longitude": -118.2021983,
+        "seniority": 267,
+        "minimumRestPeriod": 8,
+        "tagValues": {},
+        "overtimeRuleId": "3",
+        "payScheduleId": "3",
+        "previousPayPeriodEnd": null
+      },
+      "interval": {
+        "start": 1580000400.000000000,
+        "end": 1580047200.000000000,
+        "empty": false,
+        "unboundedStart": false,
+        "unboundedEnd": false
+      }
+    },
+    {
+      "id": "372981",
+      "plan": true,
+      "start": [
+        2020,
+        1,
+        26,
+        7,
+        0
+      ],
+      "end": [
+        2020,
+        1,
+        26,
+        15,
+        0
+      ],
+      "duration": 8.0,
+      "post": {
+        "name": "Post 3",
+        "id": "151",
+        "site": {
+          "id": "1097",
+          "name": "Shultz Steel - A1N",
+          "latitude": 33.9514384,
+          "longitude": -118.1742529
+        },
+        "billRate": 2125,
+        "payRate": 1400,
+        "payType": "EMPLOYEE_RATE",
+        "softSkills": [],
+        "hardSkills": [],
+        "scaleFacts": []
+      },
+      "startTimeStamp": 1580050800,
+      "endTimeStamp": 1580050800,
+      "tags": [],
+      "periodId": 0,
+      "dayId": 0,
+      "holidayId": 0,
+      "regCounted": false,
+      "regCutFirstCounted": false,
+      "regCutSecondCounted": false,
+      "holCounted": false,
+      "holCutFirstCounted": false,
+      "holCutSecondCounted": false,
+      "otCounted": false,
+      "dblCounted": false,
+      "ptoCounted": false,
+      "employee": {
+        "id": "2130",
+        "name": "Cody, Reymundo",
+        "availabilityPreference": null,
+        "siteExperience": [
+          {
+            "id": "1516",
+            "name": "Kimco Realty - Corona Hills Plaza - A2N",
+            "latitude": 33.8872505,
+            "longitude": -117.5210764
+          },
+          {
+            "id": "1568",
+            "name": "Calwon - Tyler Street Plaza - D2S",
+            "latitude": 33.9131293,
+            "longitude": -117.464547
+          }
+        ],
+        "postExperience": [],
+        "skills": [
+          {
+            "id": "28",
+            "description": "BSIS Guard Card"
+          }
+        ],
+        "scales": [],
+        "cost": 1400,
+        "preferredHours": 40,
+        "latitude": null,
+        "longitude": null,
+        "seniority": 434,
+        "minimumRestPeriod": 8,
+        "tagValues": {},
+        "overtimeRuleId": "4",
+        "payScheduleId": "3",
+        "previousPayPeriodEnd": null
+      },
+      "interval": {
+        "start": 1580040000.000000000,
+        "end": 1580068800.000000000,
+        "empty": false,
+        "unboundedStart": false,
+        "unboundedEnd": false
+      }
+    },
+    {
+      "id": "376300",
+      "plan": true,
+      "start": [
+        2020,
+        1,
+        25,
+        20,
+        0
+      ],
+      "end": [
+        2020,
+        1,
+        26,
+        9,
+        0
+      ],
+      "duration": 13.0,
+      "post": {
+        "name": "Firewatch",
+        "id": "1382",
+        "site": {
+          "id": "1263",
+          "name": "Kimco Realty - La Verne Towne Center - A2N",
+          "latitude": 34.1117274,
+          "longitude": -117.7612971
+        },
+        "billRate": 3465,
+        "payRate": null,
+        "payType": "EMPLOYEE_RATE",
+        "softSkills": [],
+        "hardSkills": [],
+        "scaleFacts": []
+      },
+      "startTimeStamp": 1580011200,
+      "endTimeStamp": 1580011200,
+      "tags": [],
+      "periodId": 0,
+      "dayId": 0,
+      "holidayId": 0,
+      "regCounted": false,
+      "regCutFirstCounted": false,
+      "regCutSecondCounted": false,
+      "holCounted": false,
+      "holCutFirstCounted": false,
+      "holCutSecondCounted": false,
+      "otCounted": false,
+      "dblCounted": false,
+      "ptoCounted": false,
+      "employee": {
+        "id": "2095",
+        "name": "Moore, Carolyn",
+        "availabilityPreference": null,
+        "siteExperience": [
+          {
+            "id": "1200",
+            "name": "Kimco Realty - Kenneth Hahn Plaza - A1N",
+            "latitude": 33.9266627,
+            "longitude": -118.2376659
+          },
+          {
+            "id": "1665",
+            "name": "Metropolitan Pacific - BKNM - 3402 Pico Blvd. - A1N",
+            "latitude": 34.0271593,
+            "longitude": -118.4535702
+          }
+        ],
+        "postExperience": [],
+        "skills": [
+          {
+            "id": "28",
+            "description": "BSIS Guard Card"
+          }
+        ],
+        "scales": [],
+        "cost": 1425,
+        "preferredHours": 40,
+        "latitude": null,
+        "longitude": null,
+        "seniority": 454,
+        "minimumRestPeriod": 8,
+        "tagValues": {},
+        "overtimeRuleId": "3",
+        "payScheduleId": "3",
+        "previousPayPeriodEnd": null
+      },
+      "interval": {
+        "start": 1580000400.000000000,
+        "end": 1580047200.000000000,
+        "empty": false,
+        "unboundedStart": false,
+        "unboundedEnd": false
+      }
+    },
+    {
+      "id": "372968",
+      "plan": true,
+      "start": [
+        2020,
+        1,
+        25,
+        7,
+        0
+      ],
+      "end": [
+        2020,
+        1,
+        25,
+        15,
+        0
+      ],
+      "duration": 8.0,
+      "post": {
+        "name": "Post 3",
+        "id": "151",
+        "site": {
+          "id": "1097",
+          "name": "Shultz Steel - A1N",
+          "latitude": 33.9514384,
+          "longitude": -118.1742529
+        },
+        "billRate": 2125,
+        "payRate": 1400,
+        "payType": "EMPLOYEE_RATE",
+        "softSkills": [],
+        "hardSkills": [],
+        "scaleFacts": []
+      },
+      "startTimeStamp": 1579964400,
+      "endTimeStamp": 1579964400,
+      "tags": [],
+      "periodId": 0,
+      "dayId": 0,
+      "holidayId": 0,
+      "regCounted": false,
+      "regCutFirstCounted": false,
+      "regCutSecondCounted": false,
+      "holCounted": false,
+      "holCutFirstCounted": false,
+      "holCutSecondCounted": false,
+      "otCounted": false,
+      "dblCounted": false,
+      "ptoCounted": false,
+      "employee": {
+        "id": "2370",
+        "name": "Minor, Darius",
+        "availabilityPreference": null,
+        "siteExperience": [
+          {
+            "id": "1258",
+            "name": "Kimco Realty - Torrance Promenade - A2N",
+            "latitude": 33.8534432,
+            "longitude": -118.3525699
+          }
+        ],
+        "postExperience": [],
+        "skills": [
+          {
+            "id": "28",
+            "description": "BSIS Guard Card"
+          }
+        ],
+        "scales": [],
+        "cost": 1300,
+        "preferredHours": 40,
+        "latitude": 33.9054327,
+        "longitude": -118.2021983,
+        "seniority": 267,
+        "minimumRestPeriod": 8,
+        "tagValues": {},
+        "overtimeRuleId": "3",
+        "payScheduleId": "3",
+        "previousPayPeriodEnd": null
+      },
+      "interval": {
+        "start": 1579953600.000000000,
+        "end": 1579982400.000000000,
+        "empty": false,
+        "unboundedStart": false,
+        "unboundedEnd": false
+      }
+    },
+    {
+      "id": "376561",
+      "plan": true,
+      "start": [
+        2020,
+        1,
+        25,
+        8,
+        0
+      ],
+      "end": [
+        2020,
+        1,
+        25,
+        10,
+        0
+      ],
+      "duration": 2.0,
+      "post": {
+        "name": "Vermont/Slauson Guard",
+        "id": "484",
+        "site": {
+          "id": "1265",
+          "name": "Kimco Realty - Vermont/Slauson SC - A1N",
+          "latitude": 33.9881733,
+          "longitude": -118.2896939
+        },
+        "billRate": 2214,
+        "payRate": 1425,
+        "payType": "EMPLOYEE_RATE",
+        "softSkills": [],
+        "hardSkills": [],
+        "scaleFacts": []
+      },
+      "startTimeStamp": 1579968000,
+      "endTimeStamp": 1579968000,
+      "tags": [],
+      "periodId": 0,
+      "dayId": 0,
+      "holidayId": 0,
+      "regCounted": false,
+      "regCutFirstCounted": false,
+      "regCutSecondCounted": false,
+      "holCounted": false,
+      "holCutFirstCounted": false,
+      "holCutSecondCounted": false,
+      "otCounted": false,
+      "dblCounted": false,
+      "ptoCounted": false,
+      "employee": {
+        "id": "2130",
+        "name": "Cody, Reymundo",
+        "availabilityPreference": null,
+        "siteExperience": [
+          {
+            "id": "1516",
+            "name": "Kimco Realty - Corona Hills Plaza - A2N",
+            "latitude": 33.8872505,
+            "longitude": -117.5210764
+          },
+          {
+            "id": "1568",
+            "name": "Calwon - Tyler Street Plaza - D2S",
+            "latitude": 33.9131293,
+            "longitude": -117.464547
+          }
+        ],
+        "postExperience": [],
+        "skills": [
+          {
+            "id": "28",
+            "description": "BSIS Guard Card"
+          }
+        ],
+        "scales": [],
+        "cost": 1400,
+        "preferredHours": 40,
+        "latitude": null,
+        "longitude": null,
+        "seniority": 434,
+        "minimumRestPeriod": 8,
+        "tagValues": {},
+        "overtimeRuleId": "4",
+        "payScheduleId": "3",
+        "previousPayPeriodEnd": null
+      },
+      "interval": {
+        "start": 1579957200.000000000,
+        "end": 1579964400.000000000,
+        "empty": false,
+        "unboundedStart": false,
+        "unboundedEnd": false
+      }
+    },
+    {
+      "id": "377055",
+      "plan": true,
+      "start": [
+        2020,
+        1,
+        23,
+        3,
+        0
+      ],
+      "end": [
+        2020,
+        1,
+        23,
+        7,
+        0
+      ],
+      "duration": 4.0,
+      "post": {
+        "name": "Post 3",
+        "id": "151",
+        "site": {
+          "id": "1097",
+          "name": "Shultz Steel - A1N",
+          "latitude": 33.9514384,
+          "longitude": -118.1742529
+        },
+        "billRate": 2125,
+        "payRate": 1400,
+        "payType": "EMPLOYEE_RATE",
+        "softSkills": [],
+        "hardSkills": [],
+        "scaleFacts": []
+      },
+      "startTimeStamp": 1579777200,
+      "endTimeStamp": 1579777200,
+      "tags": [],
+      "periodId": 0,
+      "dayId": 0,
+      "holidayId": 0,
+      "regCounted": false,
+      "regCutFirstCounted": false,
+      "regCutSecondCounted": false,
+      "holCounted": false,
+      "holCutFirstCounted": false,
+      "holCutSecondCounted": false,
+      "otCounted": false,
+      "dblCounted": false,
+      "ptoCounted": false,
+      "employee": {
+        "id": "2130",
+        "name": "Cody, Reymundo",
+        "availabilityPreference": null,
+        "siteExperience": [
+          {
+            "id": "1516",
+            "name": "Kimco Realty - Corona Hills Plaza - A2N",
+            "latitude": 33.8872505,
+            "longitude": -117.5210764
+          },
+          {
+            "id": "1568",
+            "name": "Calwon - Tyler Street Plaza - D2S",
+            "latitude": 33.9131293,
+            "longitude": -117.464547
+          }
+        ],
+        "postExperience": [],
+        "skills": [
+          {
+            "id": "28",
+            "description": "BSIS Guard Card"
+          }
+        ],
+        "scales": [],
+        "cost": 1400,
+        "preferredHours": 40,
+        "latitude": null,
+        "longitude": null,
+        "seniority": 434,
+        "minimumRestPeriod": 8,
+        "tagValues": {},
+        "overtimeRuleId": "4",
+        "payScheduleId": "3",
+        "previousPayPeriodEnd": null
+      },
+      "interval": {
+        "start": 1579766400.000000000,
+        "end": 1579780800.000000000,
+        "empty": false,
+        "unboundedStart": false,
+        "unboundedEnd": false
+      }
+    }
+  ],
+  "meta": {
+    "solution_is_feasible": true,
+    "number_of_shifts_unfilled": 0,
+    "hard_constraint_score": 0,
+    "soft_constraint_score": 0,
+    "time_to_solve": 18091,
+    "constraint_scores": [
+      {
+        "constraint_name": "total cost of overtime",
+        "soft_score": 0,
+        "hard_score": 0
+      }
+    ],
+    "shift_assignment_scores": []
+  },
+  "next_best_solutions": []
+}

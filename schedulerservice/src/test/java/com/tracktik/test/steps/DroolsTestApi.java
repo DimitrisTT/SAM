@@ -34,25 +34,29 @@ public class DroolsTestApi {
     KieSessionModel ksessionModel = kieBaseModel.newKieSessionModel("KSession").setDefault(true);
     KieFileSystem kFileSystem = kieServices.newKieFileSystem();
 
+    //System.out.println("building kieresources:");
     Arrays.asList("src/main/resources/availabilityConstraintRules.drl",
         "src/main/resources/constraintMultiplierRules.drl",
         "src/main/resources/functions.drl",
         "src/main/resources/experienceConstraintRules.drl",
-        //"src/main/resources/overtimeConstraintRules.drl",
+        "src/main/resources/overtimeConstraintRules.drl",
         "src/main/resources/proximityConstraintRules.drl",
         "src/main/resources/scaleRules.drl",
+        "src/main/resources/overtime.drl",
         "src/main/resources/schedulerScoreRules.drl").forEach(name -> {
       File file = new File(name);
       Resource resource = kieServices.getResources().newFileSystemResource(file).setResourceType(ResourceType.DRL);
       kFileSystem.write(resource);
+      //System.out.println("resource: " + resource);
     });
+
 
     KieBuilder kbuilder = kieServices.newKieBuilder(kFileSystem);
     kbuilder.buildAll();
 
-    System.out.println("Knowledge base built");
+    //System.out.println("Knowledge base built");
     kbuilder.getResults().getMessages().forEach(message -> {
-      System.out.println("Builder result message: " + message);
+      //System.out.println("Builder result message: " + message);
     });
 
     if (kbuilder.getResults().hasMessages(org.kie.api.builder.Message.Level.ERROR)) {

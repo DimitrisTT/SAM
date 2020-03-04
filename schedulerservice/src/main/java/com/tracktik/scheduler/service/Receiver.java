@@ -3,7 +3,9 @@ package com.tracktik.scheduler.service;
 import com.google.common.collect.EvictingQueue;
 import com.tracktik.scheduler.api.domain.QueueNames;
 import com.tracktik.scheduler.domain.*;
+
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
+import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScoreHolder;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.core.config.solver.SolverConfig;
@@ -180,6 +182,14 @@ public class Receiver {
         logger.info("        seniority: no");
       }
     }
+    logger.info("Employee Totals: ");
+    response.getShifts().stream().map(shift -> shift.getEmployee()).collect(Collectors.toSet())
+      .stream().forEach(employee -> {
+        Set<Shift> shifts = response.getShifts().stream().filter(shift -> shift.getEmployee() == employee).collect(Collectors.toSet());
+        Duration totalDuration = shifts.stream().map(shift -> Duration.between(shift.getStart(), shift.getEnd())).reduce(Duration.ZERO, Duration::plus);
+        logger.info("\tEmployee id: {}", employee.getId());
+        logger.info("\tTotal duration assigned: {}", totalDuration);
+    });
 
     // Employee Based Report:
     List<Employee> employees = new ArrayList<Employee>();
@@ -196,6 +206,7 @@ public class Receiver {
         shifts.add(shift);
       }
     }
+
     for(Employee employee: employees){
       logger.info("Employee: {}", employee.getId());
       logger.info("    Shifts: [ {");
@@ -205,6 +216,10 @@ public class Receiver {
         logger.info("        Duration: {}", shift.getDuration());
         logger.info("    },{");
       }
+//      System.out.println(employee.getClockwise());
+        if(employee.getClockwise()!=null) {
+          logger.info(employee.getClockwise().stringOvertimeSummary());
+        }
       logger.info("    } ]");
     }
 

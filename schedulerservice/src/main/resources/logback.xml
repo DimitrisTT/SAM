@@ -2,7 +2,7 @@
 <configuration>
 
 
-  <property name="USER_HOME" value="/home/nellis/TrackTikLogs/Scheduler/logs" />
+  <property name="USER_HOME" value="/home/nellis/Develop/TrackTik/TrackTikOptaPlanner/Logs/Scheduler/logs" />
 
   <timestamp key="bySecond" datePattern="yyyyMMdd.HHmmss"/>
 

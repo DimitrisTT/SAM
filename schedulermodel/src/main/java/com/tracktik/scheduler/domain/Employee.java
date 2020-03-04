@@ -1,5 +1,8 @@
 package com.tracktik.scheduler.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -19,6 +22,7 @@ import java.util.*;
 @Accessors(chain = true)
 @EqualsAndHashCode(of = "id")
 @Data
+@JsonIgnoreProperties(value = { "clockwise" })
 public class Employee {
 
   private String id;
@@ -38,6 +42,7 @@ public class Employee {
   private String overtimeRuleId;
   private String payScheduleId;
   private LocalDateTime previousPayPeriodEnd;
+  private Clockwise clockwise;
 
   /*
    * This method sets the cost field to be 100 times the pay_rate

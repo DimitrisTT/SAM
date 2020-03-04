@@ -13,4 +13,5 @@ public class PeriodOvertimeDefinition {
   private Long minimumHours;  //should be multiplied by 100 to avoid floating point math
   private Long maximumHours;  //should be multiplied by 100 to avoid floating point math
   private String overtimeType;
+
 }

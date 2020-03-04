@@ -42,9 +42,24 @@ public class Shift {
   private LocalDateTime end;
   private Float duration;
   private Post post;
-  private Long startTimeStamp;
-  private Long endTimeStamp;
+  private Long startTimeStamp = 0L;
+  private Long endTimeStamp = 0L;
   private Set<String> tags = new HashSet<>();
+
+  // for overtime rule calculation
+  private int periodId = 0;
+  //private int weekId = 0;
+  private int dayId = 0;
+  private int holidayId = 0;
+  private boolean regCounted = false;
+  private boolean regCutFirstCounted = false;
+  private boolean regCutSecondCounted = false;
+  private boolean holCounted = false;
+  private boolean holCutFirstCounted = false;
+  private boolean holCutSecondCounted = false;
+  private boolean otCounted = false;
+  private boolean dblCounted = false;
+  private boolean ptoCounted = false;
 /*
   public Shift(String id, Boolean plan, LocalDateTime start, LocalDateTime end, Float duration, Post post, Long startTimeStamp, Long endTimeStamp, Set<String> tags, Employee employee) {
     this.id = id;
@@ -89,6 +104,10 @@ public class Shift {
     //Long milliseconds = Duration.between(start, end).toMillis() * 100;
     //logger.info("Duration hours for: " + this.start + " " + this.end  + " " + milliseconds / (1000 * 60 * 60));
     return milliseconds / 36_000;
+  }
+
+  public long durationAsLong(){
+    return (long) duration.longValue();
   }
 
   public Long durationHoursDuring(LocalDate startDate, LocalTime time, LocalDate endDate) {
@@ -195,19 +214,56 @@ public class Shift {
     return false;
   }
 
-  public void setTimes(){
-    startTimeStamp = 0L;
-    //startTimeStamp += start.getDayOfYear()*86400;
-    //startTimeStamp += start.getHour()*3600;
-    //startTimeStamp += start.getMinute()*60;
-    //startTimeStamp += start.getSecond();
+  public void setTimeStamps() {
+    if(start != null) {
+      startTimeStamp += start.getSecond();
+      startTimeStamp += (start.getMinute() * 60);
+      startTimeStamp += (start.getHour() * 3600);
+      startTimeStamp += (start.getDayOfYear() * 86400);
+    }
+    if(end != null) {
+      endTimeStamp += end.getSecond();
+      endTimeStamp += (end.getMinute() * 60);
+      endTimeStamp += (end.getHour() * 3600);
+      endTimeStamp += (end.getDayOfYear() * 86400);
+    }
+  }
 
-    endTimeStamp = 0L;
-    //endTimeStamp += end.getDayOfYear()*86400;
-    //endTimeStamp += end.getHour()*3600;
-    //endTimeStamp += end.getMinute()*60;
-    //endTimeStamp += end.getSecond();
+  public void fillIn(Shift shift){
+    this.id = shift.getId();
+    this.plan = shift.getPlan();;
+    this.start = shift.getStart();
+    this.end = shift.getEnd();
+    this.duration = shift.getDuration();
+    this.post = shift.getPost();
+    this.endTimeStamp = shift.getEndTimeStamp();
+    this.tags = shift.getTags();
+    this.employee = shift.getEmployee();
+    this.periodId = shift.getPeriodId()+1;
+    this.dayId = shift.getDayId();
+    this.holidayId = shift.getHolidayId();
 
+  }
+
+
+  public boolean isRegCounted() {
+    return regCounted;
+  }
+
+  public boolean isHolCounted() {
+    return holCounted;
+  }
+
+  public boolean isOtCounted() {
+    return otCounted;
+  }
+
+  public boolean isDblCounted() {
+    return dblCounted;
+  }
+
+  public boolean isPtoCounted() {
+    return ptoCounted;
   }
 
   public String getId() {

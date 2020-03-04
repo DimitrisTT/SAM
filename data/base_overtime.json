@@ -1,0 +1,215 @@
+{
+  "requestFacts": [
+    {
+      "type": "FAR_FROM_SITE",
+      "active": true,
+      "impact": -70,
+      "isHardImpact": false,
+      "definition": 100
+    },
+    {
+      "type": "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS",
+      "active": true,
+      "impact": -70,
+      "isHardImpact": false,
+      "definition": 100
+    },
+    {
+      "type": "FAIRLY_FAR_FROM_SITE",
+      "active": true,
+      "impact": -50,
+      "isHardImpact": false,
+      "definition": 50
+    },
+    {
+      "type": "CLOSE_BY_SITE",
+      "active": true,
+      "impact": -50,
+      "isHardImpact": false,
+      "definition": 10
+    },
+    {
+      "type": "SOFT_SKILL_MISSING",
+      "active": true,
+      "impact": -10,
+      "isHardImpact": false
+    },
+    {
+      "type": "HARD_SKILL_MISSING",
+      "active": true,
+      "impact": -100,
+      "isHardImpact": false,
+      "isHardFailure": true
+    },
+    {
+      "type": "MAYBE_AVAILABLE",
+      "impact": -20
+    },
+    {
+      "type": "NOT_AVAILABLE",
+      "active": true,
+      "impact": -100,
+      "isHardImpact": true
+    },
+    {
+      "type": "MINIMUM_REST_PERIOD",
+      "active": true,
+      "impact": -50,
+      "isHardImpact": false
+    },
+    {
+      "type": "LESS_THAN_EXPECTED_HOURS",
+      "active": true,
+      "impact": -10,
+      "isHardImpact": false
+    },
+    {
+      "type": "MORE_THAN_EXPECTED_HOURS",
+      "active": true,
+      "impact": -10,
+      "isHardImpact": false
+    },
+    {
+      "type": "NO_EXPERIENCE_AT_SITE",
+      "active": true,
+      "impact": -50,
+      "isHardImpact": false
+    },
+    {
+      "type": "NOT_ASSIGNED_TO_SITE",
+      "active": true,
+      "impact": -100
+    }
+  ],
+  "shifts": [
+    {
+      "start_date": "2020-01-15",
+      "shift_id": "915442",
+      "employee_id": "155716",
+      "post_id": "2439",
+      "site_id": "9721",
+      "start_date_time": "2020-01-15 01:00:00",
+      "end_date_time": "2020-01-15 18:00:00",
+      "duration": "9.00",
+      "start_timestamp": "1505142000",
+      "end_timestamp": "1505174400",
+      "plan": "1"
+    },
+    {
+      "start_date": "2020-01-15",
+      "shift_id": "915467",
+      "employee_id": "155716",
+      "post_id": "2439",
+      "site_id": "9721",
+      "start_date_time": "2020-01-16 01:00:00",
+      "end_date_time": "2020-01-16 18:00:00",
+      "duration": "9.00",
+      "start_timestamp": "1505228400",
+      "end_timestamp": "1505260800",
+      "plan": "1"
+    },
+    {
+      "start_date": "2020-01-15",
+      "shift_id": "915468",
+      "employee_id": "155716",
+      "post_id": "2439",
+      "site_id": "9721",
+      "start_date_time": "2020-01-17 01:00:00",
+      "end_date_time": "2020-01-17 18:00:00",
+      "duration": "9.00",
+      "start_timestamp": "1505228400",
+      "end_timestamp": "1505260800",
+      "plan": "1"
+    },
+    {
+      "start_date": "2020-01-15",
+      "shift_id": "915469",
+      "employee_id": "155716",
+      "post_id": "2439",
+      "site_id": "9721",
+      "start_date_time": "2020-01-18 01:00:00",
+      "end_date_time": "2020-01-18 18:00:00",
+      "duration": "9.00",
+      "start_timestamp": "1505228400",
+      "end_timestamp": "1505260800",
+      "plan": "1"
+    }
+  ],
+  "posts": [
+    {
+      "id": "2439",
+      "name": "S88 Office Au",
+      "pay_type": "EMPLOYEE_RATE",
+      "pay_rate": "",
+      "site_id": "9721",
+      "bill_rate": "0.0000"
+    }
+  ],
+  "overtime_rules": [
+    {
+      "id": "1",
+      "name": "Standard. Over 40/week",
+      "rule": {
+        "RULE_HOURS_PER_PERIOD": [
+          [
+            40,
+            "INF",
+            "OT"
+          ]
+        ]
+      }
+    }
+  ],
+  "employee_multipliers": {
+    "155716": {
+      "MINIMUM_REST_PERIOD": 1,
+      "HAS_SOME_SOFT_SKILLS": 1,
+      "OVERTIME_PAY": 1,
+      "HAS_SITE_EXPERIENCE": 1,
+      "EMPLOYEE_HAS_SENIORITY": 1,
+      "CAN_NOT_WORK_SIMULTANEOUS_SHIFTS": 1,
+      "WORKPLACE_FAR": 1,
+      "WORKPLACE_FAIRLY_CLOSE": 1,
+      "WORKPLACE_CLOSE": 1,
+      "LESS_THAN_EXPECTED_HOURS": 1,
+      "MORE_THAN_EXPECTED_HOURS": 1,
+      "AVAILABILITY_NO": 1,
+      "AVAILABILITY_MAYBE": 1
+    }
+  },
+  "payroll_schedules": [
+    {
+      "id": "1",
+      "name": "Regular Pay ",
+      "frequency": "bi_weekly",
+      "period_start_time": "00:00:00",
+      "period_start_date": "2017-10-06",
+      "overlapping_method": "cutHoursRule",
+      "count_holiday_hours_towards_period_ot": "1",
+      "align_holidays_with_period_start_time": "0"
+    }
+  ],
+  "sites": [
+    {
+      "id": "9721",
+      "geo_lat": "",
+      "geo_lon": "",
+      "name": "S88 Office Aurora"
+    }
+  ],
+  "employees": [
+    {
+      "id": "155716",
+      "name": "Employee #153895",
+      "geo_lat": "0.0000000",
+      "preferred_hours": "40",
+      "geo_lon": "0.0000000",
+      "minimum_rest_period": "8",
+      "overtime_rule_id": "1",
+      "pay_schedule_id": "2",
+      "previous_period_last_end_date_time": "",
+      "pay_rate": "12.00",
+      "seniority": "96"
+    }
+  ]
+}

@@ -52,7 +52,6 @@ public class PayrollSchedule {
     Set<PayPeriod> periods = new HashSet<>();
     Duration duration = Duration.ofDays(frequency.equals("weekly") ? 7 : 14);
 
-    System.out.println("startTime " + startTime + " endTime " + endTime);
     Interval totalInterval = Interval.of(startTime.atZone(ZoneId.systemDefault()).toInstant(), endTime.atZone(ZoneId.systemDefault()).toInstant());
 
     LocalDateTime periodStart = LocalDateTime.of(periodStartDate, periodStartTime);

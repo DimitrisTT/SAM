@@ -1,0 +1,52 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v1.5.9.RELEASE)
+
+2020-01-23 12:54:41,252 [main] INFO  Starting Application on nandohost.nandomain with PID 4278 (/home/nellis/Develop/TrackTik/TrackTikOptaPlanner/schedulerservice/target/scheduler-service-0.16.2.jar started by nellis in /home/nellis/Develop/TrackTik/TrackTikOptaPlanner/schedulerservice)
+2020-01-23 12:54:41,254 [main] INFO  No active profile set, falling back to default profiles: default
+2020-01-23 12:54:43,072 [main] INFO  Started Application in 2.234 seconds (JVM running for 3.038)
+2020-01-23 13:11:36,894 [DefaultMessageListenerContainer-338] ERROR Could not refresh JMS Connection for destination 'scheduler.request' - retrying using FixedBackOff{interval=5000, currentAttempts=0, maxAttempts=unlimited}. Cause: The JMS connection has failed: java.io.EOFException
+2020-01-23 13:11:41,896 [DefaultMessageListenerContainer-338] ERROR Could not refresh JMS Connection for destination 'scheduler.request' - retrying using FixedBackOff{interval=5000, currentAttempts=1, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://127.0.0.1:61616. Reason: java.net.ConnectException: Connection refused (Connection refused)
+2020-01-23 13:11:46,900 [DefaultMessageListenerContainer-338] ERROR Could not refresh JMS Connection for destination 'scheduler.request' - retrying using FixedBackOff{interval=5000, currentAttempts=2, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://127.0.0.1:61616. Reason: java.net.ConnectException: Connection refused (Connection refused)
+2020-01-23 13:11:51,902 [DefaultMessageListenerContainer-338] ERROR Could not refresh JMS Connection for destination 'scheduler.request' - retrying using FixedBackOff{interval=5000, currentAttempts=3, maxAttempts=unlimited}. Cause: Cannot send, channel has already failed: tcp://127.0.0.1:61616
+2020-01-23 13:12:36,510 [Thread-7] INFO  Got request to schedule 2 shifts out of 2 for 1 employees. Schedule ID: bb62d79b-e44f-4675-8152-518d4ec6dd3e
+2020-01-23 13:12:40,438 [Thread-7] INFO  Optimizing schedule bb62d79b-e44f-4675-8152-518d4ec6dd3e
+2020-01-23 13:12:40,604 [Thread-7] INFO  Solving started: time spent (166), best score (-2init/0hard/0soft), environment mode (REPRODUCIBLE), random (JDK with seed 0).
+2020-01-23 13:12:40,687 [Thread-7] INFO  Updating new solution bb62d79b-e44f-4675-8152-518d4ec6dd3e with score -2hard
+2020-01-23 13:12:40,707 [Thread-7] INFO  Sending interim solution for bb62d79b-e44f-4675-8152-518d4ec6dd3e
+2020-01-23 13:12:40,827 [Thread-7] INFO  Construction Heuristic phase (0) ended: time spent (389), best score (-2hard/0soft), score calculation speed (13/sec), step total (2).
+2020-01-23 13:12:50,831 [Thread-7] INFO  Local Search phase (1) ended: time spent (10393), best score (-2hard/0soft), score calculation speed (0/sec), step total (0).
+2020-01-23 13:12:50,831 [Thread-7] INFO  Solving ended: time spent (10393), best score (-2hard/0soft), score calculation speed (0/sec), phase total (2), environment mode (REPRODUCIBLE).
+2020-01-23 13:12:50,839 [Thread-7] INFO  Duration to complete PT14.346S
+2020-01-23 13:12:50,860 [Thread-7] INFO  Schedule solved for bb62d79b-e44f-4675-8152-518d4ec6dd3e
+2020-01-23 13:12:50,860 [Thread-7] INFO  Shift 915467
+2020-01-23 13:12:50,860 [Thread-7] INFO      Start: 2020-01-15T09:00
+2020-01-23 13:12:50,860 [Thread-7] INFO      Duration: 9.0
+2020-01-23 13:12:50,860 [Thread-7] INFO      Site Name: S88 Office Aurora
+2020-01-23 13:12:50,860 [Thread-7] INFO      Employee: 155716
+2020-01-23 13:12:50,860 [Thread-7] INFO          site experience: yes
+2020-01-23 13:12:50,860 [Thread-7] INFO          post experience: yes
+2020-01-23 13:12:50,860 [Thread-7] INFO          seniority: yes
+2020-01-23 13:12:50,860 [Thread-7] INFO  Shift 915442
+2020-01-23 13:12:50,860 [Thread-7] INFO      Start: 2020-01-15T09:00
+2020-01-23 13:12:50,860 [Thread-7] INFO      Duration: 9.0
+2020-01-23 13:12:50,860 [Thread-7] INFO      Site Name: S88 Office Aurora
+2020-01-23 13:12:50,860 [Thread-7] INFO      Employee: 155716
+2020-01-23 13:12:50,860 [Thread-7] INFO          site experience: yes
+2020-01-23 13:12:50,860 [Thread-7] INFO          post experience: yes
+2020-01-23 13:12:50,860 [Thread-7] INFO          seniority: yes
+2020-01-23 13:12:50,860 [Thread-7] INFO  Employee: 155716
+2020-01-23 13:12:50,860 [Thread-7] INFO      Shifts: [ {
+2020-01-23 13:12:50,860 [Thread-7] INFO          Site name: S88 Office Aurora
+2020-01-23 13:12:50,860 [Thread-7] INFO          Start: 2020-01-15T09:00
+2020-01-23 13:12:50,860 [Thread-7] INFO          Duration: 9.0
+2020-01-23 13:12:50,860 [Thread-7] INFO      },{
+2020-01-23 13:12:50,860 [Thread-7] INFO          Site name: S88 Office Aurora
+2020-01-23 13:12:50,860 [Thread-7] INFO          Start: 2020-01-15T09:00
+2020-01-23 13:12:50,860 [Thread-7] INFO          Duration: 9.0
+2020-01-23 13:12:50,860 [Thread-7] INFO      },{
