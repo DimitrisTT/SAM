@@ -2,7 +2,7 @@ package com.tracktik.scheduler.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tracktik.scheduler.api.domain.RequestForScheduling;
-import com.tracktik.scheduler.domain.ConstrainScore;
+import com.tracktik.scheduler.domain.ConstraintScore;
 import com.tracktik.scheduler.domain.Schedule;
 import com.tracktik.scheduler.domain.SchedulingResponse;
 import com.tracktik.scheduler.domain.Shift;
