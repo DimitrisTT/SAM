@@ -1,0 +1,1486 @@
+<plannerBenchmarkResult xStreamId="1">
+  <name>2020-03-04_214056</name>
+  <aggregation>false</aggregation>
+  <availableProcessors>4</availableProcessors>
+  <loggingLevelOptaPlannerCore>info</loggingLevelOptaPlannerCore>
+  <loggingLevelDroolsCore>error</loggingLevelDroolsCore>
+  <maxMemory>4173332480</maxMemory>
+  <optaPlannerVersion>7.6.0.Final</optaPlannerVersion>
+  <javaVersion>Java 11.0.3 (JetBrains s.r.o)</javaVersion>
+  <javaVM>Java OpenJDK 64-Bit Server VM 11.0.3+12-b304.56 (JetBrains s.r.o)</javaVM>
+  <operatingSystem>Linux amd64 4.18.19-100.fc27.x86_64</operatingSystem>
+  <parallelBenchmarkCount>1</parallelBenchmarkCount>
+  <warmUpTimeMillisSpentLimit>30</warmUpTimeMillisSpentLimit>
+  <solverBenchmarkResult xStreamId="2">
+    <name>FIRST_FIT-HILL_CLIMBING</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="3">
+      <scanAnnotatedClasses xStreamId="4"/>
+      <scoreDirectorFactory xStreamId="5">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="6">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="7">
+        <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="8">
+        <localSearchType>HILL_CLIMBING</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="9">
+      <subSingleBenchmarkResult xStreamId="10">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27136168</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="11">-278hard/0soft</score>
+        <timeMillisSpent>60126</timeMillisSpent>
+        <scoreCalculationCount>642010</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="12">
+    <name>FIRST_FIT-TABU_SEARCH</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="13">
+      <scanAnnotatedClasses xStreamId="14"/>
+      <scoreDirectorFactory xStreamId="15">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="16">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="17">
+        <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="18">
+        <localSearchType>TABU_SEARCH</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="19">
+      <subSingleBenchmarkResult xStreamId="20">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>28242496</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="21">-278hard/0soft</score>
+        <timeMillisSpent>60112</timeMillisSpent>
+        <scoreCalculationCount>701233</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="22">
+    <name>FIRST_FIT-SIMULATED_ANNEALING</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="23">
+      <scanAnnotatedClasses xStreamId="24"/>
+      <scoreDirectorFactory xStreamId="25">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="26">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="27">
+        <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="28">
+        <localSearchType>SIMULATED_ANNEALING</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="29">
+      <subSingleBenchmarkResult xStreamId="30">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>28314368</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="31">
+    <name>FIRST_FIT-LATE_ACCEPTANCE</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="32">
+      <scanAnnotatedClasses xStreamId="33"/>
+      <scoreDirectorFactory xStreamId="34">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="35">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="36">
+        <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="37">
+        <localSearchType>LATE_ACCEPTANCE</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="38">
+      <subSingleBenchmarkResult xStreamId="39">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27345856</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="40">-278hard/0soft</score>
+        <timeMillisSpent>60131</timeMillisSpent>
+        <scoreCalculationCount>630340</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="41">
+    <name>FIRST_FIT-VARIABLE_NEIGHBORHOOD_DESCENT</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="42">
+      <scanAnnotatedClasses xStreamId="43"/>
+      <scoreDirectorFactory xStreamId="44">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="45">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="46">
+        <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="47">
+        <localSearchType>VARIABLE_NEIGHBORHOOD_DESCENT</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="48">
+      <subSingleBenchmarkResult xStreamId="49">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>28324960</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="50">-1init/-278hard/0soft</score>
+        <timeMillisSpent>244</timeMillisSpent>
+        <scoreCalculationCount>1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="51">
+    <name>FIRST_FIT_DECREASING-HILL_CLIMBING</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="52">
+      <scanAnnotatedClasses xStreamId="53"/>
+      <scoreDirectorFactory xStreamId="54">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="55">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="56">
+        <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="57">
+        <localSearchType>HILL_CLIMBING</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="58">
+      <subSingleBenchmarkResult xStreamId="59">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27466584</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="60">-278hard/0soft</score>
+        <timeMillisSpent>60171</timeMillisSpent>
+        <scoreCalculationCount>601669</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="61">
+    <name>FIRST_FIT_DECREASING-TABU_SEARCH</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="62">
+      <scanAnnotatedClasses xStreamId="63"/>
+      <scoreDirectorFactory xStreamId="64">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="65">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="66">
+        <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="67">
+        <localSearchType>TABU_SEARCH</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="68">
+      <subSingleBenchmarkResult xStreamId="69">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>28345000</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="70">-278hard/0soft</score>
+        <timeMillisSpent>60084</timeMillisSpent>
+        <scoreCalculationCount>669317</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="71">
+    <name>FIRST_FIT_DECREASING-SIMULATED_ANNEALING</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="72">
+      <scanAnnotatedClasses xStreamId="73"/>
+      <scoreDirectorFactory xStreamId="74">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="75">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="76">
+        <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="77">
+        <localSearchType>SIMULATED_ANNEALING</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="78">
+      <subSingleBenchmarkResult xStreamId="79">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>28352056</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="80">
+    <name>FIRST_FIT_DECREASING-LATE_ACCEPTANCE</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="81">
+      <scanAnnotatedClasses xStreamId="82"/>
+      <scoreDirectorFactory xStreamId="83">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="84">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="85">
+        <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="86">
+        <localSearchType>LATE_ACCEPTANCE</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="87">
+      <subSingleBenchmarkResult xStreamId="88">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27385080</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="89">-278hard/0soft</score>
+        <timeMillisSpent>60117</timeMillisSpent>
+        <scoreCalculationCount>547827</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="90">
+    <name>FIRST_FIT_DECREASING-VARIABLE_NEIGHBORHOOD_DESCENT</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="91">
+      <scanAnnotatedClasses xStreamId="92"/>
+      <scoreDirectorFactory xStreamId="93">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="94">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="95">
+        <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="96">
+        <localSearchType>VARIABLE_NEIGHBORHOOD_DESCENT</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="97">
+      <subSingleBenchmarkResult xStreamId="98">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>28361352</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="99">-1init/-278hard/0soft</score>
+        <timeMillisSpent>169</timeMillisSpent>
+        <scoreCalculationCount>1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="100">
+    <name>WEAKEST_FIT-HILL_CLIMBING</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="101">
+      <scanAnnotatedClasses xStreamId="102"/>
+      <scoreDirectorFactory xStreamId="103">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="104">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="105">
+        <constructionHeuristicType>WEAKEST_FIT</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="106">
+        <localSearchType>HILL_CLIMBING</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="107">
+      <subSingleBenchmarkResult xStreamId="108">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27507216</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="109">
+    <name>WEAKEST_FIT-TABU_SEARCH</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="110">
+      <scanAnnotatedClasses xStreamId="111"/>
+      <scoreDirectorFactory xStreamId="112">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="113">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="114">
+        <constructionHeuristicType>WEAKEST_FIT</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="115">
+        <localSearchType>TABU_SEARCH</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="116">
+      <subSingleBenchmarkResult xStreamId="117">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27397464</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="118">
+    <name>WEAKEST_FIT-SIMULATED_ANNEALING</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="119">
+      <scanAnnotatedClasses xStreamId="120"/>
+      <scoreDirectorFactory xStreamId="121">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="122">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="123">
+        <constructionHeuristicType>WEAKEST_FIT</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="124">
+        <localSearchType>SIMULATED_ANNEALING</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="125">
+      <subSingleBenchmarkResult xStreamId="126">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27399336</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="127">
+    <name>WEAKEST_FIT-LATE_ACCEPTANCE</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="128">
+      <scanAnnotatedClasses xStreamId="129"/>
+      <scoreDirectorFactory xStreamId="130">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="131">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="132">
+        <constructionHeuristicType>WEAKEST_FIT</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="133">
+        <localSearchType>LATE_ACCEPTANCE</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="134">
+      <subSingleBenchmarkResult xStreamId="135">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27399536</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="136">
+    <name>WEAKEST_FIT-VARIABLE_NEIGHBORHOOD_DESCENT</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="137">
+      <scanAnnotatedClasses xStreamId="138"/>
+      <scoreDirectorFactory xStreamId="139">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="140">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="141">
+        <constructionHeuristicType>WEAKEST_FIT</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="142">
+        <localSearchType>VARIABLE_NEIGHBORHOOD_DESCENT</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="143">
+      <subSingleBenchmarkResult xStreamId="144">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27401104</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="145">
+    <name>WEAKEST_FIT_DECREASING-HILL_CLIMBING</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="146">
+      <scanAnnotatedClasses xStreamId="147"/>
+      <scoreDirectorFactory xStreamId="148">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="149">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="150">
+        <constructionHeuristicType>WEAKEST_FIT_DECREASING</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="151">
+        <localSearchType>HILL_CLIMBING</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="152">
+      <subSingleBenchmarkResult xStreamId="153">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27402760</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="154">
+    <name>WEAKEST_FIT_DECREASING-TABU_SEARCH</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="155">
+      <scanAnnotatedClasses xStreamId="156"/>
+      <scoreDirectorFactory xStreamId="157">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="158">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="159">
+        <constructionHeuristicType>WEAKEST_FIT_DECREASING</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="160">
+        <localSearchType>TABU_SEARCH</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="161">
+      <subSingleBenchmarkResult xStreamId="162">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27403904</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="163">
+    <name>WEAKEST_FIT_DECREASING-SIMULATED_ANNEALING</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="164">
+      <scanAnnotatedClasses xStreamId="165"/>
+      <scoreDirectorFactory xStreamId="166">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="167">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="168">
+        <constructionHeuristicType>WEAKEST_FIT_DECREASING</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="169">
+        <localSearchType>SIMULATED_ANNEALING</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="170">
+      <subSingleBenchmarkResult xStreamId="171">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27404744</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="172">
+    <name>WEAKEST_FIT_DECREASING-LATE_ACCEPTANCE</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="173">
+      <scanAnnotatedClasses xStreamId="174"/>
+      <scoreDirectorFactory xStreamId="175">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="176">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="177">
+        <constructionHeuristicType>WEAKEST_FIT_DECREASING</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="178">
+        <localSearchType>LATE_ACCEPTANCE</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="179">
+      <subSingleBenchmarkResult xStreamId="180">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27406032</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="181">
+    <name>WEAKEST_FIT_DECREASING-VARIABLE_NEIGHBORHOOD_DESCENT</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="182">
+      <scanAnnotatedClasses xStreamId="183"/>
+      <scoreDirectorFactory xStreamId="184">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="185">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="186">
+        <constructionHeuristicType>WEAKEST_FIT_DECREASING</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="187">
+        <localSearchType>VARIABLE_NEIGHBORHOOD_DESCENT</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="188">
+      <subSingleBenchmarkResult xStreamId="189">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27407056</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="190">
+    <name>STRONGEST_FIT-HILL_CLIMBING</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="191">
+      <scanAnnotatedClasses xStreamId="192"/>
+      <scoreDirectorFactory xStreamId="193">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="194">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="195">
+        <constructionHeuristicType>STRONGEST_FIT</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="196">
+        <localSearchType>HILL_CLIMBING</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="197">
+      <subSingleBenchmarkResult xStreamId="198">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27408008</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="199">
+    <name>STRONGEST_FIT-TABU_SEARCH</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="200">
+      <scanAnnotatedClasses xStreamId="201"/>
+      <scoreDirectorFactory xStreamId="202">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="203">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="204">
+        <constructionHeuristicType>STRONGEST_FIT</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="205">
+        <localSearchType>TABU_SEARCH</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="206">
+      <subSingleBenchmarkResult xStreamId="207">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27412640</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="208">
+    <name>STRONGEST_FIT-SIMULATED_ANNEALING</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="209">
+      <scanAnnotatedClasses xStreamId="210"/>
+      <scoreDirectorFactory xStreamId="211">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="212">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="213">
+        <constructionHeuristicType>STRONGEST_FIT</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="214">
+        <localSearchType>SIMULATED_ANNEALING</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="215">
+      <subSingleBenchmarkResult xStreamId="216">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27424784</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="217">
+    <name>STRONGEST_FIT-LATE_ACCEPTANCE</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="218">
+      <scanAnnotatedClasses xStreamId="219"/>
+      <scoreDirectorFactory xStreamId="220">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="221">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="222">
+        <constructionHeuristicType>STRONGEST_FIT</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="223">
+        <localSearchType>LATE_ACCEPTANCE</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="224">
+      <subSingleBenchmarkResult xStreamId="225">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27428280</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="226">
+    <name>STRONGEST_FIT-VARIABLE_NEIGHBORHOOD_DESCENT</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="227">
+      <scanAnnotatedClasses xStreamId="228"/>
+      <scoreDirectorFactory xStreamId="229">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="230">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="231">
+        <constructionHeuristicType>STRONGEST_FIT</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="232">
+        <localSearchType>VARIABLE_NEIGHBORHOOD_DESCENT</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="233">
+      <subSingleBenchmarkResult xStreamId="234">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27429840</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="235">
+    <name>STRONGEST_FIT_DECREASING-HILL_CLIMBING</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="236">
+      <scanAnnotatedClasses xStreamId="237"/>
+      <scoreDirectorFactory xStreamId="238">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="239">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="240">
+        <constructionHeuristicType>STRONGEST_FIT_DECREASING</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="241">
+        <localSearchType>HILL_CLIMBING</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="242">
+      <subSingleBenchmarkResult xStreamId="243">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27431640</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="244">
+    <name>STRONGEST_FIT_DECREASING-TABU_SEARCH</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="245">
+      <scanAnnotatedClasses xStreamId="246"/>
+      <scoreDirectorFactory xStreamId="247">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="248">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="249">
+        <constructionHeuristicType>STRONGEST_FIT_DECREASING</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="250">
+        <localSearchType>TABU_SEARCH</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="251">
+      <subSingleBenchmarkResult xStreamId="252">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27432400</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="253">
+    <name>STRONGEST_FIT_DECREASING-SIMULATED_ANNEALING</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="254">
+      <scanAnnotatedClasses xStreamId="255"/>
+      <scoreDirectorFactory xStreamId="256">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="257">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="258">
+        <constructionHeuristicType>STRONGEST_FIT_DECREASING</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="259">
+        <localSearchType>SIMULATED_ANNEALING</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="260">
+      <subSingleBenchmarkResult xStreamId="261">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27433400</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="262">
+    <name>STRONGEST_FIT_DECREASING-LATE_ACCEPTANCE</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="263">
+      <scanAnnotatedClasses xStreamId="264"/>
+      <scoreDirectorFactory xStreamId="265">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="266">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="267">
+        <constructionHeuristicType>STRONGEST_FIT_DECREASING</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="268">
+        <localSearchType>LATE_ACCEPTANCE</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="269">
+      <subSingleBenchmarkResult xStreamId="270">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27435856</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="271">
+    <name>STRONGEST_FIT_DECREASING-VARIABLE_NEIGHBORHOOD_DESCENT</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="272">
+      <scanAnnotatedClasses xStreamId="273"/>
+      <scoreDirectorFactory xStreamId="274">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="275">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="276">
+        <constructionHeuristicType>STRONGEST_FIT_DECREASING</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="277">
+        <localSearchType>VARIABLE_NEIGHBORHOOD_DESCENT</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="278">
+      <subSingleBenchmarkResult xStreamId="279">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27436520</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="280">
+    <name>CHEAPEST_INSERTION-HILL_CLIMBING</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="281">
+      <scanAnnotatedClasses xStreamId="282"/>
+      <scoreDirectorFactory xStreamId="283">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="284">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="285">
+        <constructionHeuristicType>CHEAPEST_INSERTION</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="286">
+        <localSearchType>HILL_CLIMBING</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="287">
+      <subSingleBenchmarkResult xStreamId="288">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27438160</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="289">-278hard/0soft</score>
+        <timeMillisSpent>60251</timeMillisSpent>
+        <scoreCalculationCount>457583</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="290">
+    <name>CHEAPEST_INSERTION-TABU_SEARCH</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="291">
+      <scanAnnotatedClasses xStreamId="292"/>
+      <scoreDirectorFactory xStreamId="293">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="294">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="295">
+        <constructionHeuristicType>CHEAPEST_INSERTION</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="296">
+        <localSearchType>TABU_SEARCH</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="297">
+      <subSingleBenchmarkResult xStreamId="298">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>28414800</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="299">-278hard/0soft</score>
+        <timeMillisSpent>60081</timeMillisSpent>
+        <scoreCalculationCount>591577</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="300">
+    <name>CHEAPEST_INSERTION-SIMULATED_ANNEALING</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="301">
+      <scanAnnotatedClasses xStreamId="302"/>
+      <scoreDirectorFactory xStreamId="303">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="304">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="305">
+        <constructionHeuristicType>CHEAPEST_INSERTION</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="306">
+        <localSearchType>SIMULATED_ANNEALING</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="307">
+      <subSingleBenchmarkResult xStreamId="308">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>28432744</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="309">
+    <name>CHEAPEST_INSERTION-LATE_ACCEPTANCE</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="310">
+      <scanAnnotatedClasses xStreamId="311"/>
+      <scoreDirectorFactory xStreamId="312">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="313">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="314">
+        <constructionHeuristicType>CHEAPEST_INSERTION</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="315">
+        <localSearchType>LATE_ACCEPTANCE</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="316">
+      <subSingleBenchmarkResult xStreamId="317">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>27462840</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="318">-278hard/0soft</score>
+        <timeMillisSpent>60077</timeMillisSpent>
+        <scoreCalculationCount>569362</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="319">
+    <name>CHEAPEST_INSERTION-VARIABLE_NEIGHBORHOOD_DESCENT</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="320">
+      <scanAnnotatedClasses xStreamId="321"/>
+      <scoreDirectorFactory xStreamId="322">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="323">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="324">
+        <constructionHeuristicType>CHEAPEST_INSERTION</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="325">
+        <localSearchType>VARIABLE_NEIGHBORHOOD_DESCENT</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="326">
+      <subSingleBenchmarkResult xStreamId="327">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>28438136</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="328">-1init/-278hard/0soft</score>
+        <timeMillisSpent>191</timeMillisSpent>
+        <scoreCalculationCount>1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <unifiedProblemBenchmarkResult xStreamId="329">
+    <name>one_shift</name>
+    <problemProvider class="fileProblemProvider" xStreamId="330">
+      <problemFile>data/one_shift.json</problemFile>
+    </problemProvider>
+    <writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
+    <problemStatistic class="scoreCalculationSpeedProblemStatistic" xStreamId="331">
+      <problemStatisticType>SCORE_CALCULATION_SPEED</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="moveCountPerStepProblemStatistic" xStreamId="332">
+      <problemStatisticType>MOVE_COUNT_PER_STEP</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="memoryUseProblemStatistic" xStreamId="333">
+      <problemStatisticType>MEMORY_USE</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="bestScoreProblemStatistic" xStreamId="334">
+      <problemStatisticType>BEST_SCORE</problemStatisticType>
+    </problemStatistic>
+    <singleBenchmarkResult xStreamRef="9"/>
+    <singleBenchmarkResult xStreamRef="19"/>
+    <singleBenchmarkResult xStreamRef="29"/>
+    <singleBenchmarkResult xStreamRef="38"/>
+    <singleBenchmarkResult xStreamRef="48"/>
+    <singleBenchmarkResult xStreamRef="58"/>
+    <singleBenchmarkResult xStreamRef="68"/>
+    <singleBenchmarkResult xStreamRef="78"/>
+    <singleBenchmarkResult xStreamRef="87"/>
+    <singleBenchmarkResult xStreamRef="97"/>
+    <singleBenchmarkResult xStreamRef="107"/>
+    <singleBenchmarkResult xStreamRef="116"/>
+    <singleBenchmarkResult xStreamRef="125"/>
+    <singleBenchmarkResult xStreamRef="134"/>
+    <singleBenchmarkResult xStreamRef="143"/>
+    <singleBenchmarkResult xStreamRef="152"/>
+    <singleBenchmarkResult xStreamRef="161"/>
+    <singleBenchmarkResult xStreamRef="170"/>
+    <singleBenchmarkResult xStreamRef="179"/>
+    <singleBenchmarkResult xStreamRef="188"/>
+    <singleBenchmarkResult xStreamRef="197"/>
+    <singleBenchmarkResult xStreamRef="206"/>
+    <singleBenchmarkResult xStreamRef="215"/>
+    <singleBenchmarkResult xStreamRef="224"/>
+    <singleBenchmarkResult xStreamRef="233"/>
+    <singleBenchmarkResult xStreamRef="242"/>
+    <singleBenchmarkResult xStreamRef="251"/>
+    <singleBenchmarkResult xStreamRef="260"/>
+    <singleBenchmarkResult xStreamRef="269"/>
+    <singleBenchmarkResult xStreamRef="278"/>
+    <singleBenchmarkResult xStreamRef="287"/>
+    <singleBenchmarkResult xStreamRef="297"/>
+    <singleBenchmarkResult xStreamRef="307"/>
+    <singleBenchmarkResult xStreamRef="316"/>
+    <singleBenchmarkResult xStreamRef="326"/>
+    <entityCount>56</entityCount>
+    <variableCount>56</variableCount>
+    <maximumValueCount>6</maximumValueCount>
+    <problemScale>336</problemScale>
+  </unifiedProblemBenchmarkResult>
+  <startingTimestamp>2020-03-04T21:40:56.836143Z</startingTimestamp>
+  <benchmarkTimeMillisSpent>723938</benchmarkTimeMillisSpent>
+</plannerBenchmarkResult>

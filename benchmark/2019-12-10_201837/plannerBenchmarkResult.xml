@@ -1,0 +1,228 @@
+<plannerBenchmarkResult xStreamId="1">
+  <name>2019-12-10_201837</name>
+  <aggregation>false</aggregation>
+  <availableProcessors>4</availableProcessors>
+  <loggingLevelOptaPlannerCore>info</loggingLevelOptaPlannerCore>
+  <loggingLevelDroolsCore>error</loggingLevelDroolsCore>
+  <maxMemory>4173332480</maxMemory>
+  <optaPlannerVersion>7.6.0.Final</optaPlannerVersion>
+  <javaVersion>Java 11.0.3 (JetBrains s.r.o)</javaVersion>
+  <javaVM>Java OpenJDK 64-Bit Server VM 11.0.3+12-b304.56 (JetBrains s.r.o)</javaVM>
+  <operatingSystem>Linux amd64 4.18.19-100.fc27.x86_64</operatingSystem>
+  <parallelBenchmarkCount>1</parallelBenchmarkCount>
+  <warmUpTimeMillisSpentLimit>30</warmUpTimeMillisSpentLimit>
+  <solverBenchmarkResult xStreamId="2">
+    <name>HILL_CLIMBING</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="3">
+      <scanAnnotatedClasses xStreamId="4"/>
+      <scoreDirectorFactory xStreamId="5">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+      </scoreDirectorFactory>
+      <termination xStreamId="6">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>5</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="7"/>
+      <localSearch xStreamId="8">
+        <localSearchType>HILL_CLIMBING</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="9">
+      <subSingleBenchmarkResult xStreamId="10">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>24303824</usedMemoryAfterInputSolution>
+        <succeeded>true</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="11">0hard/129224soft</score>
+        <timeMillisSpent>33856</timeMillisSpent>
+        <scoreCalculationCount>84563</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="12">
+    <name>TABU_SEARCH</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="13">
+      <scanAnnotatedClasses xStreamId="14"/>
+      <scoreDirectorFactory xStreamId="15">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+      </scoreDirectorFactory>
+      <termination xStreamId="16">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>5</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="17"/>
+      <localSearch xStreamId="18">
+        <localSearchType>TABU_SEARCH</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="19">
+      <subSingleBenchmarkResult xStreamId="20">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>25213560</usedMemoryAfterInputSolution>
+        <succeeded>true</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="21">0hard/128274soft</score>
+        <timeMillisSpent>25848</timeMillisSpent>
+        <scoreCalculationCount>67807</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="22">
+    <name>SIMULATED_ANNEALING</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="23">
+      <scanAnnotatedClasses xStreamId="24"/>
+      <scoreDirectorFactory xStreamId="25">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+      </scoreDirectorFactory>
+      <termination xStreamId="26">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>5</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="27"/>
+      <localSearch xStreamId="28">
+        <localSearchType>SIMULATED_ANNEALING</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="29">
+      <subSingleBenchmarkResult xStreamId="30">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>25814248</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="31">
+    <name>LATE_ACCEPTANCE</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="32">
+      <scanAnnotatedClasses xStreamId="33"/>
+      <scoreDirectorFactory xStreamId="34">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+      </scoreDirectorFactory>
+      <termination xStreamId="35">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>5</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="36"/>
+      <localSearch xStreamId="37">
+        <localSearchType>LATE_ACCEPTANCE</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="38">
+      <subSingleBenchmarkResult xStreamId="39">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>25664096</usedMemoryAfterInputSolution>
+        <succeeded>true</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="40">0hard/124073soft</score>
+        <timeMillisSpent>6848</timeMillisSpent>
+        <scoreCalculationCount>23242</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="41">
+    <name>VARIABLE_NEIGHBORHOOD_DESCENT</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="42">
+      <scanAnnotatedClasses xStreamId="43"/>
+      <scoreDirectorFactory xStreamId="44">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+      </scoreDirectorFactory>
+      <termination xStreamId="45">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>600</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>5</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="46"/>
+      <localSearch xStreamId="47">
+        <localSearchType>VARIABLE_NEIGHBORHOOD_DESCENT</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="48">
+      <subSingleBenchmarkResult xStreamId="49">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>25823504</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="50">-479init/0hard/22000soft</score>
+        <timeMillisSpent>81</timeMillisSpent>
+        <scoreCalculationCount>1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <unifiedProblemBenchmarkResult xStreamId="51">
+    <name>export</name>
+    <problemProvider class="fileProblemProvider" xStreamId="52">
+      <problemFile>data/export.json</problemFile>
+    </problemProvider>
+    <writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
+    <problemStatistic class="scoreCalculationSpeedProblemStatistic" xStreamId="53">
+      <problemStatisticType>SCORE_CALCULATION_SPEED</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="moveCountPerStepProblemStatistic" xStreamId="54">
+      <problemStatisticType>MOVE_COUNT_PER_STEP</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="memoryUseProblemStatistic" xStreamId="55">
+      <problemStatisticType>MEMORY_USE</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="bestScoreProblemStatistic" xStreamId="56">
+      <problemStatisticType>BEST_SCORE</problemStatisticType>
+    </problemStatistic>
+    <singleBenchmarkResult xStreamRef="9"/>
+    <singleBenchmarkResult xStreamRef="19"/>
+    <singleBenchmarkResult xStreamRef="29"/>
+    <singleBenchmarkResult xStreamRef="38"/>
+    <singleBenchmarkResult xStreamRef="48"/>
+    <entityCount>479</entityCount>
+    <variableCount>479</variableCount>
+    <maximumValueCount>22</maximumValueCount>
+    <problemScale>10538</problemScale>
+  </unifiedProblemBenchmarkResult>
+  <startingTimestamp>2019-12-10T20:18:37.233671Z</startingTimestamp>
+  <benchmarkTimeMillisSpent>86460</benchmarkTimeMillisSpent>
+</plannerBenchmarkResult>

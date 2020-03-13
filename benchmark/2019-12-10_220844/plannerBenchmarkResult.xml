@@ -1,0 +1,76 @@
+<plannerBenchmarkResult xStreamId="1">
+  <name>2019-12-10_220844</name>
+  <aggregation>false</aggregation>
+  <availableProcessors>4</availableProcessors>
+  <loggingLevelOptaPlannerCore>info</loggingLevelOptaPlannerCore>
+  <loggingLevelDroolsCore>error</loggingLevelDroolsCore>
+  <maxMemory>4173332480</maxMemory>
+  <optaPlannerVersion>7.6.0.Final</optaPlannerVersion>
+  <javaVersion>Java 11.0.3 (JetBrains s.r.o)</javaVersion>
+  <javaVM>Java OpenJDK 64-Bit Server VM 11.0.3+12-b304.56 (JetBrains s.r.o)</javaVM>
+  <operatingSystem>Linux amd64 4.18.19-100.fc27.x86_64</operatingSystem>
+  <parallelBenchmarkCount>1</parallelBenchmarkCount>
+  <warmUpTimeMillisSpentLimit>30</warmUpTimeMillisSpentLimit>
+  <solverBenchmarkResult xStreamId="2">
+    <name>Basic</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="3">
+      <scanAnnotatedClasses xStreamId="4"/>
+      <scoreDirectorFactory xStreamId="5">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+      </scoreDirectorFactory>
+      <termination xStreamId="6">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>9000</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>200</unimprovedSecondsSpentLimit>
+      </termination>
+      <localSearch xStreamId="7"/>
+      <constructionHeuristic xStreamId="8"/>
+      <localSearch xStreamId="9"/>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="10">
+      <subSingleBenchmarkResult xStreamId="11">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>22305904</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore" xStreamId="12">-479init/0hard/22000soft</score>
+        <timeMillisSpent>338</timeMillisSpent>
+        <scoreCalculationCount>1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <unifiedProblemBenchmarkResult xStreamId="13">
+    <name>export</name>
+    <problemProvider class="fileProblemProvider" xStreamId="14">
+      <problemFile>data/export.json</problemFile>
+    </problemProvider>
+    <writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
+    <problemStatistic class="scoreCalculationSpeedProblemStatistic" xStreamId="15">
+      <problemStatisticType>SCORE_CALCULATION_SPEED</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="moveCountPerStepProblemStatistic" xStreamId="16">
+      <problemStatisticType>MOVE_COUNT_PER_STEP</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="memoryUseProblemStatistic" xStreamId="17">
+      <problemStatisticType>MEMORY_USE</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="bestScoreProblemStatistic" xStreamId="18">
+      <problemStatisticType>BEST_SCORE</problemStatisticType>
+    </problemStatistic>
+    <singleBenchmarkResult xStreamRef="10"/>
+    <entityCount>479</entityCount>
+    <variableCount>479</variableCount>
+    <maximumValueCount>22</maximumValueCount>
+    <problemScale>10538</problemScale>
+  </unifiedProblemBenchmarkResult>
+  <startingTimestamp>2019-12-10T22:08:44.556012Z</startingTimestamp>
+  <benchmarkTimeMillisSpent>5285</benchmarkTimeMillisSpent>
+</plannerBenchmarkResult>

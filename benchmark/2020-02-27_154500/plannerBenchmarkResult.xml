@@ -1,0 +1,136 @@
+<plannerBenchmarkResult xStreamId="1">
+  <name>2020-02-27_154500</name>
+  <aggregation>false</aggregation>
+  <availableProcessors>4</availableProcessors>
+  <loggingLevelOptaPlannerCore>info</loggingLevelOptaPlannerCore>
+  <loggingLevelDroolsCore>error</loggingLevelDroolsCore>
+  <maxMemory>4173332480</maxMemory>
+  <optaPlannerVersion>7.6.0.Final</optaPlannerVersion>
+  <javaVersion>Java 11.0.3 (JetBrains s.r.o)</javaVersion>
+  <javaVM>Java OpenJDK 64-Bit Server VM 11.0.3+12-b304.56 (JetBrains s.r.o)</javaVM>
+  <operatingSystem>Linux amd64 4.18.19-100.fc27.x86_64</operatingSystem>
+  <parallelBenchmarkCount>1</parallelBenchmarkCount>
+  <warmUpTimeMillisSpentLimit>30</warmUpTimeMillisSpentLimit>
+  <solverBenchmarkResult xStreamId="2">
+    <name>Config_0</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="3">
+      <scanAnnotatedClasses xStreamId="4"/>
+      <scoreDirectorFactory xStreamId="5">
+        <scoreDrl>functions.drl</scoreDrl>
+        <scoreDrl>availabilityConstraintRules.drl</scoreDrl>
+        <scoreDrl>constraintMultiplierRules.drl</scoreDrl>
+        <scoreDrl>experienceConstraintRules.drl</scoreDrl>
+        <scoreDrl>overtime.drl</scoreDrl>
+        <scoreDrl>proximityConstraintRules.drl</scoreDrl>
+        <scoreDrl>schedulerScoreRules.drl</scoreDrl>
+        <scoreDrl>scaleRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <termination xStreamId="6">
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <secondsSpentLimit>9000</secondsSpentLimit>
+        <unimprovedSecondsSpentLimit>200</unimprovedSecondsSpentLimit>
+      </termination>
+      <constructionHeuristic xStreamId="7">
+        <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch xStreamId="8"/>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="9">
+      <subSingleBenchmarkResult xStreamId="10">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>20393936</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+    <singleBenchmarkResult xStreamId="11">
+      <subSingleBenchmarkResult xStreamId="12">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>20013600</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+    <singleBenchmarkResult xStreamId="13">
+      <subSingleBenchmarkResult xStreamId="14">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>20624136</usedMemoryAfterInputSolution>
+        <succeeded>false</succeeded>
+        <timeMillisSpent>-1</timeMillisSpent>
+        <scoreCalculationCount>-1</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <unifiedProblemBenchmarkResult xStreamId="15">
+    <name>export</name>
+    <problemProvider class="fileProblemProvider" xStreamId="16">
+      <problemFile>data/export.json</problemFile>
+    </problemProvider>
+    <writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
+    <problemStatistic class="scoreCalculationSpeedProblemStatistic" xStreamId="17">
+      <problemStatisticType>SCORE_CALCULATION_SPEED</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="moveCountPerStepProblemStatistic" xStreamId="18">
+      <problemStatisticType>MOVE_COUNT_PER_STEP</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="memoryUseProblemStatistic" xStreamId="19">
+      <problemStatisticType>MEMORY_USE</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="bestScoreProblemStatistic" xStreamId="20">
+      <problemStatisticType>BEST_SCORE</problemStatisticType>
+    </problemStatistic>
+    <singleBenchmarkResult xStreamRef="9"/>
+  </unifiedProblemBenchmarkResult>
+  <unifiedProblemBenchmarkResult xStreamId="21">
+    <name>base_overtime</name>
+    <problemProvider class="fileProblemProvider" xStreamId="22">
+      <problemFile>data/base_overtime.json</problemFile>
+    </problemProvider>
+    <writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
+    <problemStatistic class="scoreCalculationSpeedProblemStatistic" xStreamId="23">
+      <problemStatisticType>SCORE_CALCULATION_SPEED</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="moveCountPerStepProblemStatistic" xStreamId="24">
+      <problemStatisticType>MOVE_COUNT_PER_STEP</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="memoryUseProblemStatistic" xStreamId="25">
+      <problemStatisticType>MEMORY_USE</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="bestScoreProblemStatistic" xStreamId="26">
+      <problemStatisticType>BEST_SCORE</problemStatisticType>
+    </problemStatistic>
+    <singleBenchmarkResult xStreamRef="11"/>
+  </unifiedProblemBenchmarkResult>
+  <unifiedProblemBenchmarkResult xStreamId="27">
+    <name>Small-Overton-LA</name>
+    <problemProvider class="fileProblemProvider" xStreamId="28">
+      <problemFile>data/Small-Overton-LA.json</problemFile>
+    </problemProvider>
+    <writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
+    <problemStatistic class="scoreCalculationSpeedProblemStatistic" xStreamId="29">
+      <problemStatisticType>SCORE_CALCULATION_SPEED</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="moveCountPerStepProblemStatistic" xStreamId="30">
+      <problemStatisticType>MOVE_COUNT_PER_STEP</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="memoryUseProblemStatistic" xStreamId="31">
+      <problemStatisticType>MEMORY_USE</problemStatisticType>
+    </problemStatistic>
+    <problemStatistic class="bestScoreProblemStatistic" xStreamId="32">
+      <problemStatisticType>BEST_SCORE</problemStatisticType>
+    </problemStatistic>
+    <singleBenchmarkResult xStreamRef="13"/>
+  </unifiedProblemBenchmarkResult>
+  <startingTimestamp>2020-02-27T15:45:00.680067Z</startingTimestamp>
+  <benchmarkTimeMillisSpent>12208</benchmarkTimeMillisSpent>
+</plannerBenchmarkResult>

@@ -121,6 +121,6 @@ rule "EMPLOYEE_HAS_SENIORITY"
         Double dValue = $seniority * $multiplier;
         scoreHolder.addSoftConstraintMatch(kcontext, dValue.longValue());
         //System.out.println("Seniority adds: " + dValue);
-        $ecm.setAlreadyFired(true);
-        update($ecm);
+        //$ecm.setAlreadyFired(true);
+        //update($ecm);
 end
